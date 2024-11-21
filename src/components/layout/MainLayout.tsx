@@ -51,15 +51,19 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </Sidebar>
 
           {/* Main content */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 p-8">
             {/* Header */}
-            <div className="flex justify-end gap-2 p-4">
+            <div className="flex justify-end gap-2 mb-8">
               <UserAvatar />
               <ThemeToggle />
             </div>
 
-            {/* Content */}
-            {children}
+            {/* Content with frosted glass effect */}
+            <div className="mx-auto max-w-4xl">
+              <div className="rounded-lg border bg-background/60 backdrop-blur-xl p-8 shadow-lg">
+                {children}
+              </div>
+            </div>
           </div>
         </div>
       </div>
