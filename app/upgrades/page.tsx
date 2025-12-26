@@ -6,12 +6,13 @@ import { useUpgrades } from '@/hooks/useCardData';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
-import { getSourceBadgeClasses } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
 
 export default function UpgradesPage() {
   const { upgrades, loading } = useUpgrades();
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
+  const [factionFilter, setFactionFilter] = useState<string>('all');
 
   const upgradeList = useMemo(() => {
     return Object.entries(upgrades).map(([id, upgrade]) => ({
@@ -29,14 +30,26 @@ export default function UpgradesPage() {
       const matchesType =
         typeFilter === 'all' || upgrade.type === typeFilter;
 
-      return matchesSearch && matchesType;
+      const matchesFaction =
+        factionFilter === 'all' ||
+        upgrade.faction.includes(factionFilter);
+
+      return matchesSearch && matchesType && matchesFaction;
     });
-  }, [upgradeList, searchQuery, typeFilter]);
+  }, [upgradeList, searchQuery, typeFilter, factionFilter]);
 
   const upgradeTypes = useMemo(() => {
     const types = new Set<string>();
     Object.values(upgrades).forEach(upgrade => types.add(upgrade.type));
     return Array.from(types).sort();
+  }, [upgrades]);
+
+  const factions = useMemo(() => {
+    const factionSet = new Set<string>();
+    Object.values(upgrades).forEach(upgrade => {
+      upgrade.faction.forEach(f => factionSet.add(f));
+    });
+    return Array.from(factionSet).sort();
   }, [upgrades]);
 
   if (loading) {
@@ -69,25 +82,53 @@ export default function UpgradesPage() {
             className="max-w-md"
           />
 
-          <div className="flex gap-2 flex-wrap">
-            <Button
-              variant={typeFilter === 'all' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setTypeFilter('all')}
-            >
-              All Types
-            </Button>
-            {upgradeTypes.map((type) => (
+          {/* Faction Filter */}
+          <div>
+            <h3 className="text-sm font-semibold mb-2">Filter by Faction</h3>
+            <div className="flex gap-2 flex-wrap">
               <Button
-                key={type}
-                variant={typeFilter === type ? 'default' : 'outline'}
+                variant={factionFilter === 'all' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setTypeFilter(type)}
-                className="capitalize"
+                onClick={() => setFactionFilter('all')}
               >
-                {type.replace('-', ' ')}
+                All Factions
               </Button>
-            ))}
+              {factions.map((faction) => (
+                <Button
+                  key={faction}
+                  variant={factionFilter === faction ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setFactionFilter(faction)}
+                >
+                  {formatFactionName(faction)}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Type Filter */}
+          <div>
+            <h3 className="text-sm font-semibold mb-2">Filter by Type</h3>
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                variant={typeFilter === 'all' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setTypeFilter('all')}
+              >
+                All Types
+              </Button>
+              {upgradeTypes.map((type) => (
+                <Button
+                  key={type}
+                  variant={typeFilter === type ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setTypeFilter(type)}
+                  className="capitalize"
+                >
+                  {type.replace('-', ' ')}
+                </Button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -116,6 +157,14 @@ export default function UpgradesPage() {
                 <span className="px-2 py-1 bg-secondary rounded capitalize">
                   {upgrade.type.replace('-', ' ')}
                 </span>
+                {upgrade.faction.map((faction, i) => (
+                  <span
+                    key={i}
+                    className="px-2 py-1 bg-primary/10 text-primary rounded"
+                  >
+                    {formatFactionName(faction)}
+                  </span>
+                ))}
                 {upgrade.unique && (
                   <span className="px-2 py-1 bg-accent text-accent-foreground rounded">
                     Unique

@@ -45,3 +45,27 @@ export function getSourceBadgeClasses(source: string): string {
 
   return sourceColors[source] || 'bg-primary text-primary-foreground';
 }
+
+// Standard faction list for the application
+export const STANDARD_FACTIONS = [
+  'rebel',
+  'empire',
+  'republic',
+  'separatist',
+  'scum',
+  'new-republic',
+] as const;
+
+// Format faction name for display
+export function formatFactionName(faction: string): string {
+  const factionMap: Record<string, string> = {
+    'rebel': 'Rebel',
+    'empire': 'Empire',
+    'republic': 'Republic',
+    'separatist': 'Separatist',
+    'scum': 'Scum',
+    'new-republic': 'New Republic',
+  };
+
+  return factionMap[faction.toLowerCase()] || faction.charAt(0).toUpperCase() + faction.slice(1);
+}

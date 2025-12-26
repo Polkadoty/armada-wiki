@@ -5,7 +5,7 @@ import { useSquadrons } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { formatDice, getSquadronDisplayName, getSourceBadgeClasses } from '@/utils/diceDisplay';
+import { formatDice, getSquadronDisplayName, getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
 
 export default function SquadronDetailPage({
   params,
@@ -82,8 +82,8 @@ export default function SquadronDetailPage({
                     {squadron.source}
                   </span>
                 )}
-                <span className="px-3 py-1 bg-secondary rounded capitalize">
-                  {squadron.faction}
+                <span className="px-3 py-1 bg-secondary rounded">
+                  {formatFactionName(squadron.faction)}
                 </span>
                 {squadron.unique && (
                   <span className="px-3 py-1 bg-accent text-accent-foreground rounded">
@@ -104,8 +104,8 @@ export default function SquadronDetailPage({
                 </div>
               </div>
 
-              {/* Defense tokens */}
-              {squadron.tokens && Object.keys(squadron.tokens).length > 0 && (
+              {/* Defense tokens - only show for unique squadrons */}
+              {squadron.unique && squadron.tokens && Object.keys(squadron.tokens).length > 0 && (
                 <div className="p-4 border rounded">
                   <h3 className="font-semibold mb-2">Defense Tokens</h3>
                   <div className="flex gap-2 flex-wrap">
@@ -146,20 +146,27 @@ export default function SquadronDetailPage({
                 </div>
               )}
 
-              {/* Abilities/Keywords */}
+              {/* Abilities/Keywords - only show non-false and non-zero values */}
               {squadron.abilities && Object.keys(squadron.abilities).length > 0 && (
                 <div className="p-4 border rounded">
                   <h3 className="font-semibold mb-2">Keywords</h3>
                   <div className="flex gap-2 flex-wrap">
-                    {Object.entries(squadron.abilities).map(([ability, value]) => (
-                      <span
-                        key={ability}
-                        className="px-2 py-1 bg-secondary rounded text-sm capitalize"
-                      >
-                        {ability.replace('-', ' ')}
-                        {typeof value === 'number' ? ` ${value}` : ''}
-                      </span>
-                    ))}
+                    {Object.entries(squadron.abilities)
+                      .filter(([_, value]) => {
+                        // Hide false boolean values and 0 numeric values
+                        if (typeof value === 'boolean') return value === true;
+                        if (typeof value === 'number') return value > 0;
+                        return true;
+                      })
+                      .map(([ability, value]) => (
+                        <span
+                          key={ability}
+                          className="px-2 py-1 bg-secondary rounded text-sm capitalize"
+                        >
+                          {ability.replace('-', ' ')}
+                          {typeof value === 'number' ? ` ${value}` : ''}
+                        </span>
+                      ))}
                   </div>
                 </div>
               )}

@@ -5,7 +5,7 @@ import { useUpgrades } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { getSourceBadgeClasses } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
 
 export default function UpgradeDetailPage({
   params,
@@ -103,9 +103,9 @@ export default function UpgradeDetailPage({
                     {upgrade.faction.map((faction, i) => (
                       <span
                         key={i}
-                        className="px-2 py-1 bg-secondary rounded text-sm capitalize"
+                        className="px-2 py-1 bg-secondary rounded text-sm"
                       >
-                        {faction}
+                        {formatFactionName(faction)}
                       </span>
                     ))}
                   </div>
@@ -204,8 +204,40 @@ export default function UpgradeDetailPage({
                 </div>
               )}
 
-              {/* Rulings */}
-              {upgrade.rulings && (
+              {/* Rulings - Structured rules with source and date */}
+              {upgrade.rules && upgrade.rules.length > 0 && (
+                <div className="p-4 border rounded bg-muted/50">
+                  <h3 className="font-semibold mb-3">Rulings</h3>
+                  <div className="space-y-3">
+                    {upgrade.rules.map((rule, index) => (
+                      <div key={index} className="text-sm">
+                        <div className="flex gap-2 flex-wrap mb-1">
+                          <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs font-medium">
+                            {rule.source}
+                          </span>
+                          <span className="px-2 py-0.5 bg-secondary rounded text-xs">
+                            {rule.date}
+                          </span>
+                          {rule.version && (
+                            <span className="px-2 py-0.5 bg-secondary rounded text-xs">
+                              {rule.version}
+                            </span>
+                          )}
+                          <span className="px-2 py-0.5 bg-accent/50 rounded text-xs capitalize">
+                            {rule.type.replace(/_/g, ' ')}
+                          </span>
+                        </div>
+                        <p className="text-sm whitespace-pre-wrap leading-relaxed">
+                          {rule.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Legacy Rulings - Plain text fallback */}
+              {!upgrade.rules && upgrade.rulings && (
                 <div className="p-4 border rounded bg-muted/50">
                   <h3 className="font-semibold mb-2">Rulings</h3>
                   <p className="text-sm whitespace-pre-wrap">{upgrade.rulings}</p>

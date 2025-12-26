@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { formatDice, getSourceBadgeClasses } from '@/utils/diceDisplay';
+import { formatDice, getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
 
 export default function ShipDetailPage({
   params,
@@ -85,8 +85,8 @@ export default function ShipDetailPage({
                 <span className="px-3 py-1 bg-primary text-primary-foreground rounded font-semibold">
                   {model.points} Points
                 </span>
-                <span className="px-3 py-1 bg-secondary rounded capitalize">
-                  {model.faction}
+                <span className="px-3 py-1 bg-secondary rounded">
+                  {formatFactionName(model.faction)}
                 </span>
                 <span className="px-3 py-1 bg-secondary rounded capitalize">
                   {chassis.size}

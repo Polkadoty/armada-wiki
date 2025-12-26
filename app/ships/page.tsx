@@ -6,7 +6,7 @@ import { useShips } from '@/hooks/useCardData';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
-import { getSourceBadgeClasses } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, STANDARD_FACTIONS, formatFactionName } from '@/utils/diceDisplay';
 import type { Ship, ShipModel } from '@/types/cards';
 
 export default function ShipsPage() {
@@ -88,34 +88,16 @@ export default function ShipsPage() {
             >
               All
             </Button>
-            <Button
-              variant={factionFilter === 'rebel' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFactionFilter('rebel')}
-            >
-              Rebel
-            </Button>
-            <Button
-              variant={factionFilter === 'empire' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFactionFilter('empire')}
-            >
-              Empire
-            </Button>
-            <Button
-              variant={factionFilter === 'republic' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFactionFilter('republic')}
-            >
-              Republic
-            </Button>
-            <Button
-              variant={factionFilter === 'separatist' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFactionFilter('separatist')}
-            >
-              Separatist
-            </Button>
+            {STANDARD_FACTIONS.map((faction) => (
+              <Button
+                key={faction}
+                variant={factionFilter === faction ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setFactionFilter(faction)}
+              >
+                {formatFactionName(faction)}
+              </Button>
+            ))}
           </div>
         </div>
 
@@ -145,8 +127,8 @@ export default function ShipsPage() {
                     {chassis.source}
                   </span>
                 )}
-                <span className="px-2 py-1 bg-secondary rounded capitalize">
-                  {model.faction}
+                <span className="px-2 py-1 bg-secondary rounded">
+                  {formatFactionName(model.faction)}
                 </span>
                 <span className="px-2 py-1 bg-secondary rounded">
                   {chassis.size}

@@ -148,6 +148,13 @@ export interface Upgrade {
   cardimage?: string;
   source?: string;
   rulings?: string;
+  rules?: Array<{
+    type: string;
+    source: string;
+    date: string;
+    version: string;
+    text: string;
+  }>;
 }
 
 // Objective Types
