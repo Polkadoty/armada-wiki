@@ -78,7 +78,7 @@ export function BugReportDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         <Button variant="ghost" size="sm">
           <Bug className="h-4 w-4 mr-2" />
           Report Bug

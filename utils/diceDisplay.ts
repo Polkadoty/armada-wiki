@@ -35,3 +35,18 @@ export function getSquadronDisplayName(name: string, aceName?: string): string {
   }
   return name;
 }
+
+// Get source badge color classes
+export function getSourceBadgeClasses(source: string): string {
+  const sourceColors: Record<string, string> = {
+    'Core': 'bg-slate-500 text-white',
+    'Legacy': 'bg-yellow-500 text-black',
+    'LegacyBeta': 'bg-yellow-500 text-black',
+    'Nexus': 'bg-blue-500 text-white',
+    'Naboo': 'bg-blue-500 text-white',
+    'ARC': 'bg-red-500 text-white',
+    'Legends': 'bg-purple-500 text-white',
+  };
+
+  return sourceColors[source] || 'bg-primary text-primary-foreground';
+}

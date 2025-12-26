@@ -5,7 +5,7 @@ import { useSquadrons } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { formatDice, getSquadronDisplayName } from '@/utils/diceDisplay';
+import { formatDice, getSquadronDisplayName, getSourceBadgeClasses } from '@/utils/diceDisplay';
 
 export default function SquadronDetailPage({
   params,
@@ -78,7 +78,7 @@ export default function SquadronDetailPage({
                   {squadron.points} Points
                 </span>
                 {squadron.source && (
-                  <span className="px-3 py-1 bg-primary text-primary-foreground rounded font-bold">
+                  <span className={`px-3 py-1 rounded font-bold ${getSourceBadgeClasses(squadron.source)}`}>
                     {squadron.source}
                   </span>
                 )}

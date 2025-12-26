@@ -6,6 +6,7 @@ import { useObjectives } from '@/hooks/useCardData';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
+import { getSourceBadgeClasses } from '@/utils/diceDisplay';
 
 export default function ObjectivesPage() {
   const { objectives, loading } = useObjectives();
@@ -116,7 +117,7 @@ export default function ObjectivesPage() {
               <h3 className="font-semibold text-lg mb-2">{objective.name}</h3>
               <div className="flex gap-2 text-xs flex-wrap mb-2">
                 {objective.source && (
-                  <span className="px-2 py-1 bg-primary text-primary-foreground rounded font-bold">
+                  <span className={`px-2 py-1 rounded font-bold ${getSourceBadgeClasses(objective.source)}`}>
                     {objective.source}
                   </span>
                 )}

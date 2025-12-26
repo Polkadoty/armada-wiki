@@ -29,6 +29,7 @@ export interface Ship {
   models: {
     [key: string]: ShipModel;
   };
+  source?: string;
 }
 
 export interface ShipModel {

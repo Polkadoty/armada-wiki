@@ -6,7 +6,7 @@ import { useSquadrons } from '@/hooks/useCardData';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
-import { getSquadronDisplayName } from '@/utils/diceDisplay';
+import { getSquadronDisplayName, getSourceBadgeClasses } from '@/utils/diceDisplay';
 
 export default function SquadronsPage() {
   const { squadrons, loading } = useSquadrons();
@@ -122,7 +122,7 @@ export default function SquadronsPage() {
               </div>
               <div className="flex gap-2 text-xs flex-wrap">
                 {squadron.source && (
-                  <span className="px-2 py-1 bg-primary text-primary-foreground rounded font-bold">
+                  <span className={`px-2 py-1 rounded font-bold ${getSourceBadgeClasses(squadron.source)}`}>
                     {squadron.source}
                   </span>
                 )}

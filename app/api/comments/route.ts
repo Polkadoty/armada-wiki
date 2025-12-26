@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { getSupabase, isSupabaseConfigured } from '@/lib/supabase';
 import type { NewComment } from '@/types/database';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   if (!isSupabaseConfigured()) {
@@ -22,6 +24,7 @@ export async function POST(request: NextRequest) {
       parent_id: body.parent_id,
     };
 
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from('comments')
       .insert([comment])
@@ -66,6 +69,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from('comments')
       .select('*')

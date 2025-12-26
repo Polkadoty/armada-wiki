@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { formatDice } from '@/utils/diceDisplay';
+import { formatDice, getSourceBadgeClasses } from '@/utils/diceDisplay';
 
 export default function ShipDetailPage({
   params,

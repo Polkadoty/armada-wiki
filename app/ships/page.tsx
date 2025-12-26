@@ -6,6 +6,7 @@ import { useShips } from '@/hooks/useCardData';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
+import { getSourceBadgeClasses } from '@/utils/diceDisplay';
 import type { Ship, ShipModel } from '@/types/cards';
 
 export default function ShipsPage() {
@@ -140,7 +141,7 @@ export default function ShipsPage() {
               </p>
               <div className="flex gap-2 text-xs flex-wrap">
                 {chassis.source && (
-                  <span className="px-2 py-1 bg-primary text-primary-foreground rounded font-bold">
+                  <span className={`px-2 py-1 rounded font-bold ${getSourceBadgeClasses(chassis.source)}`}>
                     {chassis.source}
                   </span>
                 )}

@@ -5,6 +5,7 @@ import { useUpgrades } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
+import { getSourceBadgeClasses } from '@/utils/diceDisplay';
 
 export default function UpgradeDetailPage({
   params,
@@ -75,7 +76,7 @@ export default function UpgradeDetailPage({
                   {upgrade.points} Points
                 </span>
                 {upgrade.source && (
-                  <span className="px-3 py-1 bg-primary text-primary-foreground rounded font-bold">
+                  <span className={`px-3 py-1 rounded font-bold ${getSourceBadgeClasses(upgrade.source)}`}>
                     {upgrade.source}
                   </span>
                 )}

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { getSupabase, isSupabaseConfigured } from '@/lib/supabase';
 import type { NewBugReport } from '@/types/database';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   if (!isSupabaseConfigured()) {
@@ -23,6 +25,7 @@ export async function POST(request: NextRequest) {
       contact_email: body.contact_email,
     };
 
+    const supabase = getSupabase();
     const { data, error } = await supabase
       .from('bug_reports')
       .insert([bugReport])
@@ -59,6 +62,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
 
+    const supabase = getSupabase();
     let query = supabase
       .from('bug_reports')
       .select('*')
