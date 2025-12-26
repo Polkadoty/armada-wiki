@@ -103,9 +103,10 @@ const saveTimestamp = (fileType: string, timestamp: number): void => {
 export const fetchCardData = async (): Promise<void> => {
   try {
     console.log('Starting fetchCardData...');
+    const apiUrl = await getApiUrl();
+    console.log('Using API URL:', apiUrl);
 
-    // Use proxy API route to avoid CORS issues
-    const response = await fetch('/api/proxy?path=/lastModified');
+    const response = await fetch(`${apiUrl}/lastModified`);
     if (!response.ok) {
       throw new Error(`Failed to fetch manifest: ${response.status} ${response.statusText}`);
     }
@@ -130,8 +131,8 @@ export const fetchCardData = async (): Promise<void> => {
 
       if (!hasLocalData || !cachedTimestamp || fileInfo.timestamp > cachedTimestamp) {
         console.log(`Fetching ${fileType} from ${mapping.url}...`);
-        // Use proxy to avoid CORS
-        const dataResponse = await fetch(`/api/proxy?path=${encodeURIComponent(mapping.url)}`);
+        const fetchUrl = `${apiUrl}${mapping.url}`;
+        const dataResponse = await fetch(fetchUrl);
 
         if (!dataResponse.ok) {
           console.error(`Failed to fetch ${fileType}:`, dataResponse.status);
