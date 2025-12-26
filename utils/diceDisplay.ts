@@ -1,14 +1,9 @@
-// Convert dice array [black, red, blue] to visual display
+// Convert dice array [red, blue, black] to visual display
 export function formatDice(dice: number[]): string {
   if (!dice || dice.length === 0) return '';
 
-  const [black, red, blue] = dice;
+  const [red, blue, black] = dice;
   const symbols: string[] = [];
-
-  // Add black dice
-  for (let i = 0; i < (black || 0); i++) {
-    symbols.push('⚫');
-  }
 
   // Add red dice
   for (let i = 0; i < (red || 0); i++) {
@@ -18,6 +13,11 @@ export function formatDice(dice: number[]): string {
   // Add blue dice
   for (let i = 0; i < (blue || 0); i++) {
     symbols.push('🔵');
+  }
+
+  // Add black dice
+  for (let i = 0; i < (black || 0); i++) {
+    symbols.push('⚫');
   }
 
   return symbols.join(' ');
