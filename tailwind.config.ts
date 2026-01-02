@@ -49,6 +49,14 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			faction: {
+  				rebel: 'hsl(var(--faction-rebel))',
+  				empire: 'hsl(var(--faction-empire))',
+  				republic: 'hsl(var(--faction-republic))',
+  				separatist: 'hsl(var(--faction-separatist))',
+  				scum: 'hsl(var(--faction-scum))',
+  				'new-republic': 'hsl(var(--faction-new-republic))'
   			}
   		},
   		borderRadius: {

@@ -24,6 +24,14 @@
     --input: 240 5.9% 90%;
     --ring: 189 94% 43%;
     --radius: 0.5rem;
+
+    /* Faction colors */
+    --faction-rebel: 4 68% 47%;
+    --faction-empire: 210 28% 29%;
+    --faction-republic: 45 90% 51%;
+    --faction-separatist: 204 64% 44%;
+    --faction-scum: 282 44% 47%;
+    --faction-new-republic: 168 76% 36%;
   }
 
   .dark {
@@ -46,6 +54,14 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 189 94% 53%;
+
+    /* Faction colors - slightly brighter for dark mode */
+    --faction-rebel: 4 72% 55%;
+    --faction-empire: 210 35% 45%;
+    --faction-republic: 45 92% 58%;
+    --faction-separatist: 204 70% 52%;
+    --faction-scum: 282 50% 55%;
+    --faction-new-republic: 168 80% 45%;
   }
 
   * {
@@ -66,4 +82,103 @@
 .content-grid {
   @apply grid gap-4;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  @apply bg-gradient-to-r from-muted via-muted/50 to-muted bg-[length:200%_100%] animate-[shimmer_1.5s_ease-in-out_infinite];
+}
+
+/* Faction border utilities */
+.border-faction-rebel {
+  border-color: hsl(var(--faction-rebel));
+}
+.border-faction-empire {
+  border-color: hsl(var(--faction-empire));
+}
+.border-faction-republic {
+  border-color: hsl(var(--faction-republic));
+}
+.border-faction-separatist {
+  border-color: hsl(var(--faction-separatist));
+}
+.border-faction-scum {
+  border-color: hsl(var(--faction-scum));
+}
+.border-faction-new-republic {
+  border-color: hsl(var(--faction-new-republic));
+}
+
+/* Faction background utilities */
+.bg-faction-rebel {
+  background-color: hsl(var(--faction-rebel));
+}
+.bg-faction-empire {
+  background-color: hsl(var(--faction-empire));
+}
+.bg-faction-republic {
+  background-color: hsl(var(--faction-republic));
+}
+.bg-faction-separatist {
+  background-color: hsl(var(--faction-separatist));
+}
+.bg-faction-scum {
+  background-color: hsl(var(--faction-scum));
+}
+.bg-faction-new-republic {
+  background-color: hsl(var(--faction-new-republic));
+}
+
+/* Faction text utilities */
+.text-faction-rebel {
+  color: hsl(var(--faction-rebel));
+}
+.text-faction-empire {
+  color: hsl(var(--faction-empire));
+}
+.text-faction-republic {
+  color: hsl(var(--faction-republic));
+}
+.text-faction-separatist {
+  color: hsl(var(--faction-separatist));
+}
+.text-faction-scum {
+  color: hsl(var(--faction-scum));
+}
+.text-faction-new-republic {
+  color: hsl(var(--faction-new-republic));
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transition-all duration-200 hover:shadow-lg hover:scale-[1.02] hover:-translate-y-0.5;
+}
+
+/* Faction glow effects */
+.glow-faction-rebel {
+  box-shadow: 0 0 20px hsl(var(--faction-rebel) / 0.3);
+}
+.glow-faction-empire {
+  box-shadow: 0 0 20px hsl(var(--faction-empire) / 0.3);
+}
+.glow-faction-republic {
+  box-shadow: 0 0 20px hsl(var(--faction-republic) / 0.3);
+}
+.glow-faction-separatist {
+  box-shadow: 0 0 20px hsl(var(--faction-separatist) / 0.3);
+}
+.glow-faction-scum {
+  box-shadow: 0 0 20px hsl(var(--faction-scum) / 0.3);
+}
+.glow-faction-new-republic {
+  box-shadow: 0 0 20px hsl(var(--faction-new-republic) / 0.3);
 }
