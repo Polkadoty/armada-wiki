@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import { getFactionColorClasses, getSourceBadgeClasses, formatFactionName } from "@/utils/diceDisplay";
 import { sanitizeImageUrl } from "@/utils/dataFetcher";
-
-type CardType = "ship" | "squadron" | "upgrade" | "objective";
 
 interface BaseCardPreviewProps {
   className?: string;
@@ -132,9 +131,11 @@ export function CardPreview(props: CardPreviewProps) {
       {/* Image thumbnail */}
       {cardImage && (
         <div className="relative h-32 w-full overflow-hidden bg-muted">
-          <img
+          <OptimizedImage
             src={sanitizeImageUrl(cardImage)}
             alt={props.name}
+            width={500}
+            height={700}
             className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />

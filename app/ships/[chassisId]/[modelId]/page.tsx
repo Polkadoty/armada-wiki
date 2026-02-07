@@ -1,13 +1,12 @@
 "use client";
 
 import { use, useMemo } from 'react';
-import Link from 'next/link';
 import { useShips } from '@/hooks/useCardData';
-import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { formatDice, getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
+import { formatDice, formatFactionName } from '@/utils/diceDisplay';
 
 export default function ShipDetailPage({
   params,
@@ -64,9 +63,11 @@ export default function ShipDetailPage({
           {/* Left column - Card image */}
           <div>
             {model.cardimage && (
-              <img
+              <OptimizedImage
                 src={sanitizeImageUrl(model.cardimage)}
                 alt={model.name}
+                width={500}
+                height={700}
                 className="w-full rounded-lg shadow-lg"
               />
             )}

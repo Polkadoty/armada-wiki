@@ -49,7 +49,7 @@ export default function ObjectivesPage() {
   }, [objectives]);
 
   const filteredObjectives = useMemo(() => {
-    let result = objectiveList.filter((objective) => {
+    const result = objectiveList.filter((objective) => {
       const matchesSearch = objective.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase()) ||

@@ -4,6 +4,7 @@ import { use, useMemo } from 'react';
 import { useUpgrades } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
 import { getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
 
@@ -55,9 +56,11 @@ export default function UpgradeDetailPage({
           {/* Left column - Card image */}
           <div>
             {upgrade.cardimage && (
-              <img
+              <OptimizedImage
                 src={sanitizeImageUrl(upgrade.cardimage)}
                 alt={upgrade.name}
+                width={500}
+                height={700}
                 className="w-full rounded-lg shadow-lg"
               />
             )}

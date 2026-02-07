@@ -4,6 +4,7 @@ import { use, useMemo } from 'react';
 import { useObjectives } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
 import { getSourceBadgeClasses } from '@/utils/diceDisplay';
 
@@ -55,9 +56,11 @@ export default function ObjectiveDetailPage({
           {/* Left column - Card image */}
           <div>
             {objective.cardimage && (
-              <img
+              <OptimizedImage
                 src={sanitizeImageUrl(objective.cardimage)}
                 alt={objective.name}
+                width={500}
+                height={700}
                 className="w-full rounded-lg shadow-lg"
               />
             )}

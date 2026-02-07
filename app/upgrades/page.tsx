@@ -39,7 +39,7 @@ export default function UpgradesPage() {
   }, [upgrades]);
 
   const filteredUpgrades = useMemo(() => {
-    let result = upgradeList.filter((upgrade) => {
+    const result = upgradeList.filter((upgrade) => {
       const matchesSearch = upgrade.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase()) ||

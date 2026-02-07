@@ -1,191 +1,85 @@
 # Armada Wiki
 
-A Next.js-based wiki for Star Wars Armada game cards and content.
+Reference and discovery site for Star Wars: Armada cards/content (ships, squadrons, upgrades, objectives) across multiple formats.
 
-## ✅ Completed Features (MVP)
+## Stack
 
-### Core Infrastructure
-- ✅ **Next.js 14** with App Router, TypeScript, and Tailwind CSS
-- ✅ **shadcn/ui** with Mira preset and fuchsia theme
-- ✅ **Data Fetching System** - Adapted from armada-list-builder
-  - API health checks with automatic fallback
-  - LocalStorage caching with timestamp tracking
-  - Support for all formats (standard, legends, legacy, nexus, arc, naboo)
-- ✅ **Supabase Integration** - Client configured and ready
-- ✅ **TypeScript Types** - Complete type definitions for all card types
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS + shadcn/ui
+- Supabase (comments / bug reports)
 
-### Browse Pages (with Search & Filters)
-- ✅ **Ships Browse Page** (`/ships`)
-  - Search by name or chassis
-  - Filter by faction (Rebel, Empire, Republic, Separatist)
-  - Shows points, size, hull stats
-  - Links to detail pages
+## Ecosystem Role
 
-- ✅ **Squadrons Browse Page** (`/squadrons`)
-  - Search by name
-  - Filter by faction
-  - Shows hull, speed, points
-  - Displays ace status and unique markers
+`armada-wiki` is the read-focused companion app in the Armada suite:
 
-- ✅ **Upgrades Browse Page** (`/upgrades`)
-  - Search by name
-  - Filter by type (commander, officer, weapons-team, etc.)
-  - Shows points, modification status
-  - Displays ability preview
+- Browses and visualizes card metadata from `the-isb-api`
+- Supports multiple content packs/formats used by Star Forge
+- Provides resource links and supporting player documentation
 
-- ✅ **Objectives Browse Page** (`/objectives`)
-  - Search by name
-  - Filter by type (assault, defense, navigation, special)
-  - Shows special rule preview
+## Integration Points
 
-### Detail Pages
-- ✅ **Ship Detail Page** (`/ships/[chassisId]/[modelId]`)
-  - Card image display
-  - Complete stats (command, squadron, engineering)
-  - Hull and shield values
-  - Defense tokens
-  - Upgrade slots
-  - Armament display with dice icons
-  - All game data visualized
+- Primary data source: `https://api.swarmada.wiki`
+- Backup data source: `https://api-backup.swarmada.wiki`
+- Deep-links to Star Forge (`https://star-forge.tools`) from resources/about pages
+- Uses browser cache/localStorage data strategy compatible with Star Forge content keys
 
-## 🚧 Remaining Features
+## Features
 
-### Detail Pages (In Progress)
-- ⏳ Squadron detail page
-- ⏳ Upgrade detail page (with rulings display)
-- ⏳ Objective detail page
+- Browse pages for ships, squadrons, upgrades, objectives
+- Detail pages for individual cards
+- Content toggles (legacy, legends, nexus, arc, naboo)
+- Favorites and compare pages
+- Bug report and comments APIs
 
-### Interactive Features
-- ⏳ Bug Report/Suggest Changes dialog
-- ⏳ Comments system with Supabase
-- ⏳ User authentication
-- ⏳ Global search across all card types
-
-### Future Enhancements
-- 📋 AI-powered card questions (OpenRouter integration)
-- 📋 How-to guides and tutorials
-- 📋 Blog articles linked to cards
-- 📋 Resources page for purchasing/printing
-- 📋 Card comparison tool
-- 📋 User favorites and bookmarks
-
-## Getting Started
+## Development
 
 ### Prerequisites
+
 - Node.js 18+
-- Supabase account (for comments and auth features)
+- npm
 
-### Installation
+### Environment
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+Use `.env.local` (see `.env.local.example`):
 
-2. **Configure environment:**
-   ```bash
-   # Edit .env.local with your Supabase credentials
-   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-key
-   ```
-
-3. **Start development server:**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open in browser:**
-   ```
-   http://localhost:3000
-   ```
-
-## Project Structure
-
-```
-armada-wiki/
-├── app/                       # Next.js app directory
-│   ├── page.tsx              # Homepage ✅
-│   ├── ships/
-│   │   ├── page.tsx          # Ships browse ✅
-│   │   └── [chassisId]/[modelId]/page.tsx  # Ship detail ✅
-│   ├── squadrons/
-│   │   └── page.tsx          # Squadrons browse ✅
-│   ├── upgrades/
-│   │   └── page.tsx          # Upgrades browse ✅
-│   └── objectives/
-│       └── page.tsx          # Objectives browse ✅
-├── components/
-│   └── ui/                   # shadcn/ui components
-├── hooks/
-│   └── useCardData.ts        # Custom hooks for data fetching ✅
-├── lib/
-│   ├── utils.ts             # Utility functions ✅
-│   └── supabase.ts          # Supabase client ✅
-├── types/
-│   └── cards.ts             # TypeScript type definitions ✅
-└── utils/
-    └── dataFetcher.ts       # API data fetching ✅
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
-## Features in Detail
+### Commands
 
-### Browse Pages
-All browse pages include:
-- **Real-time search** - Filter cards as you type
-- **Faction/type filters** - Quick filtering buttons
-- **Responsive grid layout** - Adapts to screen size
-- **Card previews** - Key stats visible at a glance
-- **Direct links** - Click to view full details
+```bash
+npm install
+npm run dev
+npm run lint
+npm run build
+npm run start
+```
 
-### Ship Detail Page
-- **Card image** with optimized loading
-- **Complete statistics**:
-  - Command, Squadron, Engineering values
-  - Hull and shield distribution
-  - Defense tokens with counts
-  - Upgrade slot breakdown
-  - Armament by arc with dice visualization
-- **Clean, scannable layout** for quick reference
+Build note:
+- In restricted environments, Turbopack may fail due sandbox process/port limits. Use:
 
-### Data Fetching
-- Fetches from `api.swarmada.wiki` with automatic backup
-- Caches data in localStorage for offline access
-- Only refetches when data is stale
-- Per-file timestamp tracking for efficient updates
+```bash
+npm run build -- --webpack
+```
 
-## Tech Stack
+## Project Layout
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS + shadcn/ui (Mira preset)
-- **Database**: Supabase (PostgreSQL)
-- **Auth**: Supabase Auth
-- **Data Source**: api.swarmada.wiki
-- **Deployment**: Vercel (recommended)
+- `app/` routes and server handlers
+- `components/` UI and feature components
+- `hooks/` client data hooks
+- `utils/dataFetcher.ts` API fetching + caching
+- `lib/` Supabase and shared helpers
 
-## Development Notes
+## Related Repos
 
-- The project uses the `use client` directive for pages that need browser APIs (localStorage)
-- Data fetching happens client-side to leverage localStorage caching
-- All pages are responsive and mobile-friendly
-- Dark mode support is built into the shadcn/ui theme
-
-## Contributing
-
-Contributions are welcome! The remaining features are tracked in the todo list above.
-
-Priority areas:
-1. Complete detail pages for squadrons, upgrades, and objectives
-2. Add bug report/feedback dialog
-3. Implement comments system
-4. Add global search functionality
+- `the-isb-api` (card/content backend)
+- `armada-list-builder` (Star Forge listbuilder)
+- `armadacommunity` (community portal)
+- `t5-tools` (tournament platform)
 
 ## License
 
-TBD
-
-## Acknowledgments
-
-- Data provided by [api.swarmada.wiki](https://api.swarmada.wiki)
-- UI components from [shadcn/ui](https://ui.shadcn.com)
-- Built with [Next.js](https://nextjs.org)
+Fan/community project.

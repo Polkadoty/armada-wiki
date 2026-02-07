@@ -98,7 +98,7 @@ export function BugReportDialog() {
               Thank you for your report!
             </p>
             <p className="text-sm text-muted-foreground mt-2">
-              We'll look into this issue as soon as possible.
+              We&apos;ll look into this issue as soon as possible.
             </p>
           </div>
         ) : (

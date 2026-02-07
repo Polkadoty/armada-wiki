@@ -52,7 +52,7 @@ export default function ShipsPage() {
 
   // Filter and search
   const filteredShips = useMemo(() => {
-    let result = allShipModels.filter((item) => {
+    const result = allShipModels.filter((item) => {
       const matchesSearch = item.model.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase()) ||

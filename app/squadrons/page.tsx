@@ -41,7 +41,7 @@ export default function SquadronsPage() {
   }, [squadrons]);
 
   const filteredSquadrons = useMemo(() => {
-    let result = squadronList.filter((squadron) => {
+    const result = squadronList.filter((squadron) => {
       const displayName = getSquadronDisplayName(squadron.name, squadron['ace-name']);
       const matchesSearch = displayName
         .toLowerCase()

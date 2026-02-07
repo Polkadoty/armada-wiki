@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Eye } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 import { OptimizedImage } from './OptimizedImage';
 import { ImageModal, CardType } from './ImageModal';
 
@@ -65,7 +64,6 @@ const ContentAdditionWindow: React.FC<ContentAdditionWindowProps> = ({ contentTy
   const [loading, setLoading] = useState(true);
   const [modalImage, setModalImage] = useState<{src: string, alt: string, cardType: CardType} | null>(null);
   const [isTouchMoving, setIsTouchMoving] = useState(false);
-  const pathname = usePathname();
 
   useEffect(() => {
     setLoading(true);
@@ -76,11 +74,13 @@ const ContentAdditionWindow: React.FC<ContentAdditionWindowProps> = ({ contentTy
       if (raw && raw.trim().length > 0) {
         try {
           const data = JSON.parse(raw);
-          /* eslint-disable @typescript-eslint/no-explicit-any */
-          let items: any[] = [];
+          let items: unknown[] = [];
           if (type === 'Ships' && data.ships) {
-            items = Object.values(data.ships).flatMap((chassis: any) =>
-              chassis.models ? Object.values(chassis.models).map((model: any) => ({ ...model, size: chassis.size })) : []
+            const shipsByChassis = data.ships as Record<string, { models?: Record<string, unknown>; size?: string }>;
+            items = Object.values(shipsByChassis).flatMap((chassis) =>
+              chassis.models
+                ? Object.values(chassis.models).map((model) => ({ ...(model as Record<string, unknown>), size: chassis.size }))
+                : []
             );
           } else if (type === 'Squadrons' && data.squadrons) {
             items = Object.values(data.squadrons);
@@ -89,22 +89,22 @@ const ContentAdditionWindow: React.FC<ContentAdditionWindowProps> = ({ contentTy
           } else if (type === 'Objectives' && data.objectives) {
             items = Object.values(data.objectives);
           }
-          items.forEach(item => {
+          items.forEach((rawItem) => {
+            const item = rawItem as Record<string, unknown>;
             if (item.cardimage && item.faction && item.name) {
               allCards.push({
-                id: item.id || item.name,
-                name: item.name,
-                faction: item.faction,
-                cardimage: item.cardimage,
-                unique: item.unique,
-                'ace-name': item['ace-name'] || '',
-                size: item.size,
+                id: String(item.id || item.name),
+                name: String(item.name),
+                faction: String(item.faction),
+                cardimage: String(item.cardimage),
+                unique: Boolean(item.unique),
+                'ace-name': String(item['ace-name'] || ''),
+                size: typeof item.size === 'string' ? item.size : undefined,
                 type,
               });
             }
           });
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (e) {
+        } catch {
           // Ignore parse errors
         }
       }
@@ -139,8 +139,6 @@ const ContentAdditionWindow: React.FC<ContentAdditionWindowProps> = ({ contentTy
     acc[card.faction].push(card);
     return acc;
   }, {});
-
-  const isHome = pathname === '/';
 
   return (
     <div className="fixed inset-0 z-[500] backdrop-blur-md bg-black/50 flex items-center justify-center" style={{ pointerEvents: 'auto', width: '100vw', height: '100vh' }}>

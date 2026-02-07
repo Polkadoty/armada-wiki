@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -30,29 +30,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
 
   const [replyContent, setReplyContent] = useState('');
 
-  useEffect(() => {
-    loadComments();
-  }, [cardType, cardId]);
-
-  const loadComments = async () => {
-    try {
-      const response = await fetch(
-        `/api/comments?card_type=${cardType}&card_id=${cardId}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        // Organize comments with replies
-        const organized = organizeComments(data.data || []);
-        setComments(organized);
-      }
-    } catch (error) {
-      console.error('Error loading comments:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const organizeComments = (flatComments: Comment[]): CommentWithReplies[] => {
+  const organizeComments = useCallback((flatComments: Comment[]): CommentWithReplies[] => {
     const commentMap = new Map<string, CommentWithReplies>();
     const rootComments: CommentWithReplies[] = [];
 
@@ -80,7 +58,29 @@ export function Comments({ cardType, cardId }: CommentsProps) {
       if (!a.is_pinned && b.is_pinned) return 1;
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });
-  };
+  }, []);
+
+  const loadComments = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `/api/comments?card_type=${cardType}&card_id=${cardId}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        // Organize comments with replies
+        const organized = organizeComments(data.data || []);
+        setComments(organized);
+      }
+    } catch (error) {
+      console.error('Error loading comments:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [cardId, cardType, organizeComments]);
+
+  useEffect(() => {
+    loadComments();
+  }, [loadComments]);
 
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();

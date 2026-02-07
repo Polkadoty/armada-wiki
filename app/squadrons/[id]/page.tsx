@@ -4,6 +4,7 @@ import { use, useMemo } from 'react';
 import { useSquadrons } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
+import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
 import { formatDice, getSquadronDisplayName, getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
 
@@ -55,9 +56,11 @@ export default function SquadronDetailPage({
           {/* Left column - Card image */}
           <div>
             {squadron.cardimage && (
-              <img
+              <OptimizedImage
                 src={sanitizeImageUrl(squadron.cardimage)}
                 alt={squadron.name}
+                width={500}
+                height={700}
                 className="w-full rounded-lg shadow-lg"
               />
             )}
@@ -152,7 +155,7 @@ export default function SquadronDetailPage({
                   <h3 className="font-semibold mb-2">Keywords</h3>
                   <div className="flex gap-2 flex-wrap">
                     {Object.entries(squadron.abilities)
-                      .filter(([_, value]) => {
+                      .filter(([, value]) => {
                         // Hide false boolean values and 0 numeric values
                         if (typeof value === 'boolean') return value === true;
                         if (typeof value === 'number') return value > 0;

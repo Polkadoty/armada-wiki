@@ -47,7 +47,7 @@ const mobileNavItems = [
   { href: '/about', label: 'About', icon: Info },
 ];
 
-export function Header({ showBackButton = false, onSearchClick }: HeaderProps) {
+export function Header({ onSearchClick }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
