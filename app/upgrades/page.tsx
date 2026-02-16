@@ -243,7 +243,7 @@ export default function UpgradesPage() {
                     <h3 className="font-semibold text-lg">{upgrade.name}</h3>
                     <span className={cn(
                       "text-sm font-bold px-2 py-0.5 rounded",
-                      upgrade.faction.length > 0 ? `${factionColors.bg} text-white` : 'bg-secondary'
+                      upgrade.faction.length > 0 ? `${factionColors.bg} ${factionColors.onBg}` : 'bg-secondary'
                     )}>
                       {upgrade.points}
                     </span>

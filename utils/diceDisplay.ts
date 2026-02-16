@@ -75,16 +75,18 @@ export function getFactionColorClasses(faction: string): {
   border: string;
   bg: string;
   text: string;
+  onBg: string;
   glow: string;
   bgLight: string;
 } {
   const normalizedFaction = faction.toLowerCase().replace(/\s+/g, '-');
 
-  const factionStyles: Record<string, { border: string; bg: string; text: string; glow: string; bgLight: string }> = {
+  const factionStyles: Record<string, { border: string; bg: string; text: string; onBg: string; glow: string; bgLight: string }> = {
     'rebel': {
       border: 'border-faction-rebel',
       bg: 'bg-faction-rebel',
       text: 'text-faction-rebel',
+      onBg: 'text-white',
       glow: 'glow-faction-rebel',
       bgLight: 'bg-faction-rebel/10',
     },
@@ -92,6 +94,7 @@ export function getFactionColorClasses(faction: string): {
       border: 'border-faction-empire',
       bg: 'bg-faction-empire',
       text: 'text-faction-empire',
+      onBg: 'text-white',
       glow: 'glow-faction-empire',
       bgLight: 'bg-faction-empire/10',
     },
@@ -99,6 +102,7 @@ export function getFactionColorClasses(faction: string): {
       border: 'border-faction-republic',
       bg: 'bg-faction-republic',
       text: 'text-faction-republic',
+      onBg: 'text-zinc-900',
       glow: 'glow-faction-republic',
       bgLight: 'bg-faction-republic/10',
     },
@@ -106,6 +110,7 @@ export function getFactionColorClasses(faction: string): {
       border: 'border-faction-separatist',
       bg: 'bg-faction-separatist',
       text: 'text-faction-separatist',
+      onBg: 'text-white',
       glow: 'glow-faction-separatist',
       bgLight: 'bg-faction-separatist/10',
     },
@@ -113,6 +118,7 @@ export function getFactionColorClasses(faction: string): {
       border: 'border-faction-scum',
       bg: 'bg-faction-scum',
       text: 'text-faction-scum',
+      onBg: 'text-white',
       glow: 'glow-faction-scum',
       bgLight: 'bg-faction-scum/10',
     },
@@ -120,6 +126,7 @@ export function getFactionColorClasses(faction: string): {
       border: 'border-faction-new-republic',
       bg: 'bg-faction-new-republic',
       text: 'text-faction-new-republic',
+      onBg: 'text-zinc-900',
       glow: 'glow-faction-new-republic',
       bgLight: 'bg-faction-new-republic/10',
     },
@@ -129,6 +136,7 @@ export function getFactionColorClasses(faction: string): {
     border: 'border-primary',
     bg: 'bg-primary',
     text: 'text-primary',
+    onBg: 'text-primary-foreground',
     glow: '',
     bgLight: 'bg-primary/10',
   };

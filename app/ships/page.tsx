@@ -212,8 +212,9 @@ export default function ShipsPage() {
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold text-lg">{model.name}</h3>
                     <span className={cn(
-                      "text-sm font-bold px-2 py-0.5 rounded text-white",
-                      factionColors.bg
+                      "text-sm font-bold px-2 py-0.5 rounded",
+                      factionColors.bg,
+                      factionColors.onBg
                     )}>
                       {model.points}
                     </span>

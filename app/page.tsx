@@ -22,6 +22,7 @@ const navCards = [
     description: "Capital ships from Star Destroyers to Mon Calamari Cruisers",
     icon: Anchor,
     gradient: "from-faction-empire to-faction-empire/70",
+    iconText: "text-white",
     hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-empire)/0.3)]",
   },
   {
@@ -30,6 +31,7 @@ const navCards = [
     description: "Fighters, bombers, and ace pilots across all factions",
     icon: Plane,
     gradient: "from-faction-rebel to-faction-rebel/70",
+    iconText: "text-white",
     hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-rebel)/0.3)]",
   },
   {
@@ -38,6 +40,7 @@ const navCards = [
     description: "Commanders, officers, weapons, and modifications",
     icon: Wrench,
     gradient: "from-faction-republic to-faction-republic/70",
+    iconText: "text-zinc-900",
     hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-republic)/0.3)]",
   },
   {
@@ -46,6 +49,7 @@ const navCards = [
     description: "Assault, defense, navigation, and special objectives",
     icon: Target,
     gradient: "from-faction-separatist to-faction-separatist/70",
+    iconText: "text-white",
     hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-separatist)/0.3)]",
   },
 ];
@@ -118,10 +122,10 @@ export default function Home() {
 
         {/* Stars effect */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-1/4 w-1 h-1 bg-white rounded-full animate-pulse" />
-          <div className="absolute top-32 right-1/3 w-0.5 h-0.5 bg-white rounded-full animate-pulse delay-100" />
-          <div className="absolute top-16 right-1/4 w-1 h-1 bg-white rounded-full animate-pulse delay-200" />
-          <div className="absolute top-40 left-1/3 w-0.5 h-0.5 bg-white rounded-full animate-pulse delay-300" />
+          <div className="absolute top-20 left-1/4 w-1 h-1 bg-foreground/70 rounded-full animate-pulse" />
+          <div className="absolute top-32 right-1/3 w-0.5 h-0.5 bg-foreground/60 rounded-full animate-pulse delay-100" />
+          <div className="absolute top-16 right-1/4 w-1 h-1 bg-foreground/70 rounded-full animate-pulse delay-200" />
+          <div className="absolute top-40 left-1/3 w-0.5 h-0.5 bg-foreground/60 rounded-full animate-pulse delay-300" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-28">
@@ -188,7 +192,7 @@ export default function Home() {
                 <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
 
                 <div className="relative flex items-start gap-4">
-                  <div className={`p-3 rounded-lg bg-gradient-to-br ${card.gradient} text-white`}>
+                  <div className={`p-3 rounded-lg bg-gradient-to-br ${card.gradient} ${card.iconText}`}>
                     <Icon className="w-6 h-6" />
                   </div>
 
