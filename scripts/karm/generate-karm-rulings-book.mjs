@@ -122,41 +122,6 @@ async function loadConfig() {
 }
 
 async function fetchAllData(config) {
-  const endpointGroups = {
-    upgrades: [
-      '/upgrades/',
-      '/legacy/upgrades/',
-      '/legacy-beta/upgrades/',
-      '/nexus/upgrades/',
-      '/arc/upgrades/',
-      '/naboo/upgrades/',
-      '/legends/upgrades/',
-    ],
-    objectives: [
-      '/objectives/',
-      '/legacy/objectives/',
-      '/legacy-beta/objectives/',
-      '/nexus/objectives/',
-      '/arc/objectives/',
-      '/naboo/objectives/',
-    ],
-    squadrons: [
-      '/squadrons/',
-      '/legacy/squadrons/',
-      '/legacy-beta/squadrons/',
-      '/nexus/squadrons/',
-      '/arc/squadrons/',
-      '/naboo/squadrons/',
-      '/legends/squadrons/',
-    ],
-    damageCards: [
-      '/damage-cards/',
-      '/damagecards/',
-      '/damage-cards',
-      '/damage-cards/core/',
-    ],
-  };
-
   const result = {
     upgrades: [],
     objectives: [],
@@ -165,6 +130,12 @@ async function fetchAllData(config) {
   };
 
   const bases = [config.apiBaseUrl, config.backupApiUrl].filter(Boolean);
+  const endpointGroups = await discoverEndpointGroups(bases);
+  if (verbose) {
+    for (const [group, endpoints] of Object.entries(endpointGroups)) {
+      log(`Discovered ${endpoints.length} endpoints for ${group}`);
+    }
+  }
 
   for (const [key, endpoints] of Object.entries(endpointGroups)) {
     for (const endpoint of endpoints) {
@@ -182,12 +153,85 @@ async function fetchAllData(config) {
         }
 
         result[key].push({ source, endpoint, items });
+        if (verbose) {
+          log(`Loaded ${items.length} records from ${url}`);
+        }
         break;
       }
     }
   }
 
   return result;
+}
+
+async function discoverEndpointGroups(bases) {
+  const discoveredFileKeys = new Set();
+
+  for (const base of bases) {
+    const manifest = await tryFetchJson(`${base}/lastModified`);
+    if (!manifest || typeof manifest !== 'object' || !manifest.files || typeof manifest.files !== 'object') {
+      continue;
+    }
+    for (const key of Object.keys(manifest.files)) {
+      discoveredFileKeys.add(key);
+    }
+  }
+
+  const groups = {
+    upgrades: new Set(),
+    objectives: new Set(),
+    squadrons: new Set(),
+    damageCards: new Set([
+      '/damage-cards/',
+      '/damagecards/',
+      '/damage-cards',
+      '/damage-cards/core/',
+      '/critical-damage-cards/',
+      '/crit-damage-cards/',
+    ]),
+  };
+
+  for (const key of discoveredFileKeys) {
+    const inferred = inferEndpointFromFileKey(key);
+    if (!inferred) continue;
+    if (inferred.group === 'upgrades') groups.upgrades.add(inferred.endpoint);
+    if (inferred.group === 'objectives') groups.objectives.add(inferred.endpoint);
+    if (inferred.group === 'squadrons') groups.squadrons.add(inferred.endpoint);
+    if (inferred.group === 'damageCards') groups.damageCards.add(inferred.endpoint);
+  }
+
+  // Ensure at least core endpoints exist even if manifest is unavailable.
+  if (groups.upgrades.size === 0) groups.upgrades.add('/upgrades/');
+  if (groups.objectives.size === 0) groups.objectives.add('/objectives/');
+  if (groups.squadrons.size === 0) groups.squadrons.add('/squadrons/');
+
+  return {
+    upgrades: [...groups.upgrades],
+    objectives: [...groups.objectives],
+    squadrons: [...groups.squadrons],
+    damageCards: [...groups.damageCards],
+  };
+}
+
+function inferEndpointFromFileKey(fileKey) {
+  const direct = {
+    upgrades: { group: 'upgrades', endpoint: '/upgrades/' },
+    objectives: { group: 'objectives', endpoint: '/objectives/' },
+    squadrons: { group: 'squadrons', endpoint: '/squadrons/' },
+    ships: { group: 'ships', endpoint: '/ships/' },
+  };
+
+  if (direct[fileKey]) return direct[fileKey];
+
+  const match = fileKey.match(/^([a-z-]+)-(upgrades|objectives|squadrons|ships)$/);
+  if (!match) return null;
+
+  const prefix = match[1];
+  const category = match[2];
+  return {
+    group: category === 'upgrades' ? 'upgrades' : category === 'objectives' ? 'objectives' : category === 'squadrons' ? 'squadrons' : 'ships',
+    endpoint: `/${prefix}/${category}/`,
+  };
 }
 
 function inferSourceFromEndpoint(endpoint) {
@@ -456,7 +500,22 @@ function collectRuleEntries(input, headingHint = 'Clarifications') {
     }
 
     for (const [key, value] of Object.entries(obj)) {
-      if (['text', 'body', 'value', 'clarification', 'ruling', 'type', 'section', 'heading', 'source', 'date'].includes(key)) {
+      if ([
+        'text',
+        'body',
+        'value',
+        'clarification',
+        'ruling',
+        'type',
+        'section',
+        'heading',
+        'source',
+        'date',
+        'version',
+        'uid',
+        'id',
+        '_id',
+      ].includes(key)) {
         continue;
       }
       const nestedHeading = ruleHeadingFromType(key || headingHint);
@@ -483,7 +542,7 @@ function mergeRulesByHeading(rules) {
 
   return [...grouped.entries()].map(([heading, lines]) => ({
     heading,
-    text: lines.map((line) => `- ${line}`).join('\n'),
+    text: [...new Set(lines)].map((line) => `- ${line}`).join('\n'),
   }));
 }
 
@@ -832,9 +891,16 @@ function toFileUrl(filePath) {
 async function tryFetchJson(url) {
   try {
     const response = await fetch(url, { signal: AbortSignal.timeout(7000) });
-    if (!response.ok) return null;
+    if (!response.ok) {
+      if (verbose) log(`Fetch failed ${response.status} ${response.statusText}: ${url}`);
+      return null;
+    }
     return await response.json();
-  } catch {
+  } catch (error) {
+    if (verbose) {
+      const message = error instanceof Error ? error.message : String(error);
+      log(`Fetch error: ${url} -> ${message}`);
+    }
     return null;
   }
 }
