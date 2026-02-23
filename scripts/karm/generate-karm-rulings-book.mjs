@@ -1,0 +1,877 @@
+#!/usr/bin/env node
+
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
+import process from 'node:process';
+
+const execFileAsync = promisify(execFile);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..', '..');
+
+const args = new Set(process.argv.slice(2));
+const dryRun = args.has('--dry-run');
+const verbose = args.has('--verbose');
+const engineArg = [...args].find((arg) => arg.startsWith('--engine=')) || '';
+const requestedEngine = engineArg ? engineArg.split('=')[1] : '';
+
+const emojiMap = {
+  accuracy: '🎯',
+  attack: '⚔️',
+  bomber: '💣',
+  brace: '🛡️',
+  contain: '⛨',
+  crit: '💥',
+  damage: '🟥',
+  evade: '💨',
+  redirect: '↪️',
+  salvo: '📡',
+  scatter: '✶',
+  ship: '🚢',
+  squadron: '✈️',
+  speed: '➤',
+  shield: '🛡',
+};
+
+const defaultConfig = {
+  apiBaseUrl: 'https://api.swarmada.wiki',
+  backupApiUrl: 'https://api-backup.swarmada.wiki',
+  includeCategories: ['objectives', 'damage-cards', 'upgrades', 'ace-squadrons'],
+  outputHtml: 'scripts/karm/out/rulings-book.html',
+  outputPdf: 'scripts/karm/out/rulings-book.pdf',
+  templateCss: 'scripts/karm/template.css',
+  pageBackgroundImage: '',
+  chromeExecutable: '',
+  staticPages: {
+    before: [],
+    after: [],
+  },
+  factionIcons: {
+    rebel: '',
+    empire: '',
+    republic: '',
+    separatist: '',
+    neutral: '',
+  },
+  sourceOrder: ['core', 'legacy', 'legacy-beta', 'nexus', 'arc', 'naboo', 'legends'],
+  pdfEngine: 'chrome',
+  weasyprintExecutable: '',
+};
+
+async function main() {
+  const config = await loadConfig();
+  const data = await fetchAllData(config);
+  let cards = buildCards(data, config);
+  if (cards.length === 0) {
+    log('No qualifying cards were found from live APIs. Emitting a placeholder page.');
+    cards = [buildPlaceholderCard()];
+  }
+
+  const pages = paginateCards(cards);
+  const html = await renderHtml({ pages, cards, config });
+  const outputHtmlPath = path.resolve(repoRoot, config.outputHtml);
+  const outputPdfPath = path.resolve(repoRoot, config.outputPdf);
+
+  await mkdir(path.dirname(outputHtmlPath), { recursive: true });
+  await mkdir(path.dirname(outputPdfPath), { recursive: true });
+  await writeFile(outputHtmlPath, html, 'utf8');
+
+  if (dryRun) {
+    log(`Dry run complete. HTML written to ${outputHtmlPath}`);
+    return;
+  }
+
+  const engine = requestedEngine || config.pdfEngine || 'chrome';
+  if (engine === 'weasyprint') {
+    const weasyExecutable = await resolveWeasyExecutable(config.weasyprintExecutable);
+    await renderPdfWithWeasyprint(weasyExecutable, outputHtmlPath, outputPdfPath);
+  } else {
+    const chromeExecutable = await resolveChromeExecutable(config.chromeExecutable);
+    await renderPdfWithChrome(chromeExecutable, outputHtmlPath, outputPdfPath);
+  }
+
+  log(`Generated ${cards.length} entries across ${pages.length} pages.`);
+  log(`PDF written to ${outputPdfPath}`);
+}
+
+async function loadConfig() {
+  const configPath = path.resolve(repoRoot, 'scripts/karm/config.json');
+  try {
+    await access(configPath);
+    const raw = await readFile(configPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    return {
+      ...defaultConfig,
+      ...parsed,
+      staticPages: {
+        ...defaultConfig.staticPages,
+        ...(parsed.staticPages || {}),
+      },
+      factionIcons: {
+        ...defaultConfig.factionIcons,
+        ...(parsed.factionIcons || {}),
+      },
+    };
+  } catch {
+    log('scripts/karm/config.json not found, using defaults.');
+    return defaultConfig;
+  }
+}
+
+async function fetchAllData(config) {
+  const endpointGroups = {
+    upgrades: [
+      '/upgrades/',
+      '/legacy/upgrades/',
+      '/legacy-beta/upgrades/',
+      '/nexus/upgrades/',
+      '/arc/upgrades/',
+      '/naboo/upgrades/',
+      '/legends/upgrades/',
+    ],
+    objectives: [
+      '/objectives/',
+      '/legacy/objectives/',
+      '/legacy-beta/objectives/',
+      '/nexus/objectives/',
+      '/arc/objectives/',
+      '/naboo/objectives/',
+    ],
+    squadrons: [
+      '/squadrons/',
+      '/legacy/squadrons/',
+      '/legacy-beta/squadrons/',
+      '/nexus/squadrons/',
+      '/arc/squadrons/',
+      '/naboo/squadrons/',
+      '/legends/squadrons/',
+    ],
+    damageCards: [
+      '/damage-cards/',
+      '/damagecards/',
+      '/damage-cards',
+      '/damage-cards/core/',
+    ],
+  };
+
+  const result = {
+    upgrades: [],
+    objectives: [],
+    squadrons: [],
+    damageCards: [],
+  };
+
+  const bases = [config.apiBaseUrl, config.backupApiUrl].filter(Boolean);
+
+  for (const [key, endpoints] of Object.entries(endpointGroups)) {
+    for (const endpoint of endpoints) {
+      for (const base of bases) {
+        const url = `${base}${endpoint}`;
+        const payload = await tryFetchJson(url);
+        if (!payload) {
+          continue;
+        }
+
+        const source = inferSourceFromEndpoint(endpoint);
+        const items = extractItemsByKey(key, payload);
+        if (items.length === 0) {
+          continue;
+        }
+
+        result[key].push({ source, endpoint, items });
+        break;
+      }
+    }
+  }
+
+  return result;
+}
+
+function inferSourceFromEndpoint(endpoint) {
+  if (endpoint.includes('/legacy-beta/')) return 'legacy-beta';
+  if (endpoint.includes('/legacy/')) return 'legacy';
+  if (endpoint.includes('/nexus/')) return 'nexus';
+  if (endpoint.includes('/arc/')) return 'arc';
+  if (endpoint.includes('/naboo/')) return 'naboo';
+  if (endpoint.includes('/legends/')) return 'legends';
+  return 'core';
+}
+
+function extractItemsByKey(groupKey, payload) {
+  if (groupKey === 'damageCards') {
+    const candidates = [payload['damage-cards'], payload.damageCards, payload.damage_cards, payload.cards, payload];
+    for (const candidate of candidates) {
+      const list = normalizeCandidateCollection(candidate);
+      if (list.length > 0) return list;
+    }
+    return [];
+  }
+
+  const propMap = {
+    upgrades: 'upgrades',
+    objectives: 'objectives',
+    squadrons: 'squadrons',
+  };
+
+  const mapped = payload[propMap[groupKey]] ?? payload;
+  return normalizeCandidateCollection(mapped);
+}
+
+function normalizeCandidateCollection(value) {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.filter((v) => v && typeof v === 'object');
+  if (typeof value === 'object') {
+    return Object.values(value).filter((v) => v && typeof v === 'object');
+  }
+  return [];
+}
+
+function buildCards(data, config) {
+  const cards = [];
+
+  if (config.includeCategories.includes('upgrades')) {
+    for (const group of data.upgrades) {
+      for (const item of group.items) {
+        const card = buildUpgradeCard(item, group.source);
+        if (card) cards.push(card);
+      }
+    }
+  }
+
+  if (config.includeCategories.includes('objectives')) {
+    for (const group of data.objectives) {
+      for (const item of group.items) {
+        const card = buildObjectiveCard(item, group.source);
+        if (card) cards.push(card);
+      }
+    }
+  }
+
+  if (config.includeCategories.includes('ace-squadrons')) {
+    for (const group of data.squadrons) {
+      for (const item of group.items) {
+        const card = buildAceSquadronCard(item, group.source);
+        if (card) cards.push(card);
+      }
+    }
+  }
+
+  if (config.includeCategories.includes('damage-cards')) {
+    for (const group of data.damageCards) {
+      for (const item of group.items) {
+        const card = buildDamageCard(item, group.source);
+        if (card) cards.push(card);
+      }
+    }
+  }
+
+  const deduped = dedupeCards(cards);
+  deduped.sort((a, b) => sortCard(a, b, config));
+
+  return deduped.flatMap(splitLargeCard);
+}
+
+function buildPlaceholderCard() {
+  return {
+    category: 'objectives',
+    source: 'core',
+    name: 'No Rulings Data Found',
+    image: '',
+    factions: ['neutral'],
+    cardText:
+      'The generator could not fetch qualifying rulings data from the configured API endpoints.\\n\\n' +
+      '- Check API URLs in scripts/karm/config.json\\n' +
+      '- Verify network connectivity\\n' +
+      '- Ensure Chrome path is configured for PDF output',
+    details: 'generator notice',
+    keywords: ['diagnostic'],
+    rules: [
+      {
+        heading: 'Next Steps',
+        text: '- Confirm apiBaseUrl and backupApiUrl\\n- Re-run `npm run rulings:pdf -- --verbose`\\n- Add fixed cover/back matter pages under scripts/karm/static/',
+      },
+    ],
+  };
+}
+
+function dedupeCards(cards) {
+  const seen = new Set();
+  const deduped = [];
+  for (const card of cards) {
+    const key = `${card.category}:${card.source}:${card.name}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(card);
+  }
+  return deduped;
+}
+
+function sortCard(a, b, config) {
+  const categoryRank = {
+    objectives: 0,
+    'damage-cards': 1,
+    upgrades: 2,
+    'ace-squadrons': 3,
+  };
+  const sourceRank = new Map(config.sourceOrder.map((s, i) => [s, i]));
+
+  const cat = (categoryRank[a.category] ?? 99) - (categoryRank[b.category] ?? 99);
+  if (cat !== 0) return cat;
+
+  const src = (sourceRank.get(a.source) ?? 99) - (sourceRank.get(b.source) ?? 99);
+  if (src !== 0) return src;
+
+  return a.name.localeCompare(b.name);
+}
+
+function buildUpgradeCard(item, source) {
+  const rules = normalizeRules(item.rules, item.rulings);
+  if (rules.length === 0) return null;
+
+  const factions = Array.isArray(item.faction) ? item.faction.filter((f) => typeof f === 'string') : [];
+  const keywords = [];
+
+  if (item.type) keywords.push(`Type: ${String(item.type).replace(/-/g, ' ')}`);
+  if (item.unique) keywords.push('Unique');
+  if (item.modification) keywords.push('Modification');
+  if (item.bound_shiptype) keywords.push(`Bound: ${String(item.bound_shiptype)}`);
+
+  return {
+    category: 'upgrades',
+    source,
+    name: stringValue(item.name, 'Unknown Upgrade'),
+    image: stringValue(item.cardimage, ''),
+    factions,
+    cardText: stringValue(item.ability, ''),
+    details: `${numberValue(item.points, 0)} points`,
+    keywords,
+    rules,
+  };
+}
+
+function buildObjectiveCard(item, source) {
+  const rules = normalizeRules(item.rules, item.rulings);
+  const summaryParts = [];
+
+  if (item.setup) summaryParts.push(`**Setup:** ${stringValue(item.setup, '')}`);
+  if (item.special_rule) summaryParts.push(`**Special Rule:** ${stringValue(item.special_rule, '')}`);
+  if (item.end_of_round) summaryParts.push(`**End of Round:** ${stringValue(item.end_of_round, '')}`);
+  if (item.end_of_game) summaryParts.push(`**End of Game:** ${stringValue(item.end_of_game, '')}`);
+  if (item.errata) summaryParts.push(`**Errata:** ${stringValue(item.errata, '')}`);
+
+  if (rules.length === 0 && summaryParts.length === 0) return null;
+
+  return {
+    category: 'objectives',
+    source,
+    name: stringValue(item.name, 'Unknown Objective'),
+    image: stringValue(item.cardimage, ''),
+    factions: ['neutral'],
+    cardText: summaryParts.join('\n\n'),
+    details: stringValue(item.type, 'objective'),
+    keywords: [stringValue(item.type, 'objective').replace(/-/g, ' ')],
+    rules,
+  };
+}
+
+function buildAceSquadronCard(item, source) {
+  if (!item.unique) return null;
+  const rules = normalizeRules(item.rules, item.rulings);
+  if (rules.length === 0) return null;
+
+  const abilities = item.abilities && typeof item.abilities === 'object' ? item.abilities : {};
+  const abilityKeywords = Object.entries(abilities)
+    .filter(([, value]) => value === true || (typeof value === 'number' && value > 0))
+    .map(([name, value]) => {
+      if (typeof value === 'number') return `${name.replace(/-/g, ' ')} ${value}`;
+      return name.replace(/-/g, ' ');
+    });
+
+  return {
+    category: 'ace-squadrons',
+    source,
+    name: stringValue(item['ace-name'] || item.name, 'Unknown Ace'),
+    image: stringValue(item.cardimage, ''),
+    factions: [stringValue(item.faction, 'neutral')],
+    cardText: stringValue(item.ability, ''),
+    details: `${numberValue(item.points, 0)} points`,
+    keywords: ['Unique', ...abilityKeywords],
+    rules,
+  };
+}
+
+function buildDamageCard(item, source) {
+  const rules = normalizeRules(item.rules, item.rulings || item.clarification || item.clarifications);
+  if (rules.length === 0) return null;
+
+  return {
+    category: 'damage-cards',
+    source,
+    name: stringValue(item.name || item.title, 'Unknown Damage Card'),
+    image: stringValue(item.cardimage || item.image, ''),
+    factions: ['neutral'],
+    cardText: stringValue(item.card_text || item.text || item.ability, ''),
+    details: 'damage card',
+    keywords: [stringValue(item.type || item.trait, 'damage').replace(/-/g, ' ')],
+    rules,
+  };
+}
+
+function normalizeRules(structured, fallback) {
+  const result = collectRuleEntries(structured);
+
+  if (result.length > 0) return mergeRulesByHeading(result);
+
+  const fallbackText = stringValue(fallback, '');
+  if (!fallbackText) return [];
+
+  return [{ heading: 'Clarifications', text: fallbackText }];
+}
+
+function collectRuleEntries(input, headingHint = 'Clarifications') {
+  if (!input) return [];
+
+  if (typeof input === 'string') {
+    const text = stringValue(input, '');
+    return text ? [{ heading: headingHint, text, source: '', date: '' }] : [];
+  }
+
+  if (Array.isArray(input)) {
+    return input.flatMap((entry) => collectRuleEntries(entry, headingHint));
+  }
+
+  if (typeof input === 'object') {
+    const obj = input;
+    const directText = stringValue(obj.text || obj.body || obj.value || obj.clarification || obj.ruling, '');
+    const directHeading = ruleHeadingFromType(obj.type || obj.section || obj.heading || headingHint);
+    const source = stringValue(obj.source, '');
+    const date = stringValue(obj.date, '');
+    const collected = [];
+
+    if (directText) {
+      collected.push({ heading: directHeading, text: directText, source, date });
+    }
+
+    for (const [key, value] of Object.entries(obj)) {
+      if (['text', 'body', 'value', 'clarification', 'ruling', 'type', 'section', 'heading', 'source', 'date'].includes(key)) {
+        continue;
+      }
+      const nestedHeading = ruleHeadingFromType(key || headingHint);
+      collected.push(...collectRuleEntries(value, nestedHeading));
+    }
+
+    return collected;
+  }
+
+  return [];
+}
+
+function mergeRulesByHeading(rules) {
+  const grouped = new Map();
+
+  for (const rule of rules) {
+    const key = rule.heading;
+    if (!grouped.has(key)) grouped.set(key, []);
+    const line = [rule.text, rule.source ? `(${rule.source}${rule.date ? `, ${rule.date}` : ''})` : '']
+      .filter(Boolean)
+      .join(' ');
+    grouped.get(key).push(line);
+  }
+
+  return [...grouped.entries()].map(([heading, lines]) => ({
+    heading,
+    text: lines.map((line) => `- ${line}`).join('\n'),
+  }));
+}
+
+function ruleHeadingFromType(type) {
+  const normalized = String(type).toLowerCase().replace(/[_-]+/g, ' ').trim();
+  if (!normalized) return 'Clarifications';
+  return normalized
+    .split(' ')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function splitLargeCard(card) {
+  const maxSectionChars = 2200;
+  const chunks = [];
+  let current = [];
+  let currentChars = 0;
+
+  for (const section of card.rules) {
+    const sectionChars = section.text.length + section.heading.length;
+    if (current.length > 0 && currentChars + sectionChars > maxSectionChars) {
+      chunks.push(current);
+      current = [];
+      currentChars = 0;
+    }
+    current.push(section);
+    currentChars += sectionChars;
+  }
+
+  if (current.length > 0) chunks.push(current);
+  if (chunks.length <= 1) return [card];
+
+  return chunks.map((rules, index) => ({
+    ...card,
+    name: index === 0 ? card.name : `${card.name} (cont. ${index + 1})`,
+    cardText: index === 0 ? card.cardText : '',
+    keywords: index === 0 ? card.keywords : [],
+    image: index === 0 ? card.image : '',
+    rules,
+  }));
+}
+
+function paginateCards(cards) {
+  const pageUsableHeight = 2580;
+  const pages = [];
+  let currentPage = [];
+  let currentHeight = 0;
+
+  for (const card of cards) {
+    const height = estimateCardHeight(card);
+    if (currentPage.length > 0 && currentHeight + height > pageUsableHeight) {
+      pages.push(currentPage);
+      currentPage = [];
+      currentHeight = 0;
+    }
+    currentPage.push(card);
+    currentHeight += height;
+  }
+
+  if (currentPage.length > 0) pages.push(currentPage);
+  return pages;
+}
+
+function estimateCardHeight(card) {
+  const textLength = (card.cardText || '').length + card.rules.reduce((sum, r) => sum + r.text.length, 0);
+  const sectionBonus = card.rules.length * 120;
+  return 520 + Math.ceil(textLength * 0.24) + sectionBonus;
+}
+
+async function renderHtml({ pages, cards, config }) {
+  const cssPath = path.resolve(repoRoot, config.templateCss);
+  const css = await readFile(cssPath, 'utf8');
+
+  const beforePages = await readStaticPages(config.staticPages.before || []);
+  const afterPages = await readStaticPages(config.staticPages.after || []);
+
+  const cardsHtml = pages
+    .map((pageCards, idx) => {
+      const body = pageCards.map((card) => renderCard(card, config)).join('\n');
+      const pageNumber = idx + 1;
+      return `
+<section class="karm-page">
+  <div class="page-body">${body}</div>
+  <div class="page-number">${pageNumber}</div>
+</section>`;
+    })
+    .join('\n');
+
+  const pageBackground = config.pageBackgroundImage
+    ? `url('${toFileUrl(path.resolve(repoRoot, config.pageBackgroundImage))}')`
+    : 'none';
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <style>
+      :root { --page-background: ${pageBackground}; }
+      ${css}
+    </style>
+  </head>
+  <body>
+    <div class="karm-book">
+      ${beforePages}
+      ${cardsHtml}
+      ${afterPages}
+    </div>
+    <!-- Generated cards: ${cards.length} -->
+  </body>
+</html>`;
+}
+
+async function readStaticPages(files) {
+  const rendered = [];
+  for (const entry of files) {
+    const resolved = path.resolve(repoRoot, entry);
+    try {
+      const html = await readFile(resolved, 'utf8');
+      rendered.push(`<section class="karm-page"><div class="karm-static-page">${html}</div></section>`);
+    } catch (error) {
+      log(`Skipping static page ${entry}: ${error.message}`);
+    }
+  }
+  return rendered.join('\n');
+}
+
+function renderCard(card, config) {
+  const titleIcons = card.factions
+    .map((faction) => renderFactionIcon(faction, config))
+    .filter(Boolean)
+    .join(' ');
+
+  const metadata = [card.category.replace(/-/g, ' '), card.source, card.details].filter(Boolean).join(' • ');
+  const keywordHtml = card.keywords.length
+    ? `<div class="card-keywords"><span class="card-keyword-label">Keywords:</span>${escapeHtml(card.keywords.join(', '))}</div>`
+    : '';
+
+  const rulesHtml = card.rules
+    .map(
+      (rule) => `
+<div class="ruling-section">
+  <h3 class="ruling-heading">${escapeHtml(rule.heading)}</h3>
+  <div class="ruling-content">${markdownishToHtml(rule.text)}</div>
+</div>`
+    )
+    .join('\n');
+
+  const imageHtml = card.image
+    ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
+    : `<div class="card-image fallback">No image</div>`;
+
+  const cardTextHtml = card.cardText
+    ? `<div class="card-body">${markdownishToHtml(card.cardText)}</div>`
+    : '';
+
+  return `
+<article class="karm-card">
+  <div class="card-top">
+    <div class="card-image-wrap">${imageHtml}</div>
+    <div class="card-main">
+      <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}</h2>
+      <div class="card-meta">${escapeHtml(metadata)}</div>
+      ${cardTextHtml}
+      ${keywordHtml}
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">${rulesHtml}</div>
+</article>`;
+}
+
+function renderFactionIcon(faction, config) {
+  const normalized = String(faction || 'neutral').toLowerCase();
+  const configured = config.factionIcons[normalized] || '';
+  if (configured) {
+    const src = configured.startsWith('http') ? configured : toFileUrl(path.resolve(repoRoot, configured));
+    return `<img class="card-faction-icon" src="${escapeAttribute(src)}" alt="${escapeAttribute(normalized)}" />`;
+  }
+
+  const fallbackMap = {
+    rebel: '⚑',
+    empire: '⬢',
+    republic: '◍',
+    separatist: '◈',
+    neutral: '◎',
+  };
+
+  return `<span>${fallbackMap[normalized] || '◎'}</span>`;
+}
+
+function markdownishToHtml(input) {
+  const text = applyEmojiShortcodes(decodeEscapedSequences(String(input || '')));
+  const lines = text.split(/\r?\n/);
+  const out = [];
+  let inList = false;
+  let inQuote = false;
+
+  const closeList = () => {
+    if (inList) {
+      out.push('</ul>');
+      inList = false;
+    }
+  };
+
+  const closeQuote = () => {
+    if (inQuote) {
+      out.push('</blockquote>');
+      inQuote = false;
+    }
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trimEnd();
+
+    if (!line.trim()) {
+      closeList();
+      closeQuote();
+      continue;
+    }
+
+    if (line.startsWith('>')) {
+      closeList();
+      if (!inQuote) {
+        out.push('<blockquote>');
+        inQuote = true;
+      }
+      out.push(`<p>${inlineMarkup(line.replace(/^>\s?/, ''))}</p>`);
+      continue;
+    }
+
+    closeQuote();
+
+    if (/^[-*]\s+/.test(line)) {
+      if (!inList) {
+        out.push('<ul>');
+        inList = true;
+      }
+      out.push(`<li>${inlineMarkup(line.replace(/^[-*]\s+/, ''))}</li>`);
+      continue;
+    }
+
+    closeList();
+    out.push(`<p>${inlineMarkup(line)}</p>`);
+  }
+
+  closeList();
+  closeQuote();
+
+  return out.join('');
+}
+
+function inlineMarkup(line) {
+  let safe = escapeHtml(line);
+  safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  safe = safe.replace(/(^|\s)\*(.+?)\*(?=\s|$)/g, '$1<em>$2</em>');
+  safe = safe.replace(/(^|\s)_(.+?)_(?=\s|$)/g, '$1<em>$2</em>');
+  safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
+  return safe;
+}
+
+function applyEmojiShortcodes(text) {
+  return text.replace(/:([a-z0-9_-]+):/gi, (_, token) => emojiMap[token.toLowerCase()] || `:${token}:`);
+}
+
+async function resolveChromeExecutable(configured) {
+  const candidates = [
+    configured,
+    process.env.CHROME_PATH,
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+    '/usr/bin/google-chrome',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/chromium',
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    try {
+      await access(candidate);
+      return candidate;
+    } catch {
+      continue;
+    }
+  }
+
+  throw new Error(
+    'Could not find a Chrome/Chromium executable. Set scripts/karm/config.json chromeExecutable or CHROME_PATH.'
+  );
+}
+
+async function resolveWeasyExecutable(configured) {
+  const candidates = [
+    configured,
+    process.env.WEASYPRINT_PATH,
+    'weasyprint',
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    if (candidate === 'weasyprint') return candidate;
+    try {
+      await access(candidate);
+      return candidate;
+    } catch {
+      continue;
+    }
+  }
+
+  return 'weasyprint';
+}
+
+async function renderPdfWithChrome(chromeExecutable, htmlPath, pdfPath) {
+  const htmlUrl = toFileUrl(htmlPath);
+
+  const chromeArgs = [
+    '--headless=new',
+    '--disable-gpu',
+    '--allow-file-access-from-files',
+    '--print-to-pdf-no-header',
+    `--print-to-pdf=${pdfPath}`,
+    htmlUrl,
+  ];
+
+  if (verbose) {
+    log(`Running: ${chromeExecutable} ${chromeArgs.join(' ')}`);
+  }
+
+  await execFileAsync(chromeExecutable, chromeArgs, { maxBuffer: 1024 * 1024 * 20 });
+}
+
+async function renderPdfWithWeasyprint(weasyExecutable, htmlPath, pdfPath) {
+  const args = ['--presentational-hints', htmlPath, pdfPath];
+  if (verbose) {
+    log(`Running: ${weasyExecutable} ${args.join(' ')}`);
+  }
+  await execFileAsync(weasyExecutable, args, { maxBuffer: 1024 * 1024 * 20 });
+}
+
+function toFileUrl(filePath) {
+  const resolved = path.resolve(filePath);
+  const slashPath = resolved.split(path.sep).join('/');
+  return `file://${slashPath.startsWith('/') ? '' : '/'}${slashPath}`;
+}
+
+async function tryFetchJson(url) {
+  try {
+    const response = await fetch(url, { signal: AbortSignal.timeout(7000) });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
+
+function stringValue(value, fallback = '') {
+  if (typeof value !== 'string') return fallback;
+  const trimmed = decodeEscapedSequences(value).trim();
+  return trimmed || fallback;
+}
+
+function numberValue(value, fallback = 0) {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  return fallback;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value).replaceAll('`', '&#96;');
+}
+
+function log(message) {
+  process.stdout.write(`[karm-pdf] ${message}\n`);
+}
+
+function decodeEscapedSequences(value) {
+  return String(value).replace(/\\r\\n/g, '\n').replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+}
+
+main().catch((error) => {
+  process.stderr.write(`[karm-pdf] ERROR: ${error.message}\n`);
+  process.exit(1);
+});

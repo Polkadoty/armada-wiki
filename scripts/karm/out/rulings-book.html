@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <style>
+      :root { --page-background: none; }
+      :root {
+  --page-width: 2194px;
+  --page-height: 2820px;
+  --page-padding-y: 120px;
+  --page-padding-x: 129px;
+  --page-gap: 24px;
+  --ink: #221e1d;
+  --accent: #24408f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: Optima, "Segoe UI", Arial, sans-serif;
+  background: #444;
+}
+
+@page {
+  size: 2194px 2820px;
+  margin: 0;
+}
+
+.karm-book {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.karm-page {
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  gap: var(--page-gap);
+}
+
+.karm-page + .karm-page {
+  margin-top: 12px;
+}
+
+.karm-static-page {
+  width: 100%;
+  height: 100%;
+}
+
+.page-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.page-number {
+  position: absolute;
+  right: 88px;
+  bottom: 76px;
+  color: var(--accent);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "RevengerLightBBW00-Regular", Impact, sans-serif;
+}
+
+.karm-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.card-top {
+  display: flex;
+  gap: 25px;
+  min-height: 500px;
+}
+
+.card-image-wrap {
+  width: 350px;
+  min-width: 350px;
+}
+
+.card-image {
+  width: 350px;
+  height: 498px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #d9d9d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.card-image.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-style: italic;
+}
+
+.card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-title {
+  font-family: "Teuton Fett", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 29px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-faction-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.card-body,
+.card-keywords,
+.card-rulings {
+  font-weight: 700;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+}
+
+.card-keywords {
+  font-size: 27px;
+}
+
+.card-keyword-label {
+  font-family: "Trajan Pro", Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.card-bottom {
+  font-weight: 700;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ruling-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ruling-heading {
+  margin: 0 0 2px;
+  font-size: 40px;
+  line-height: 1.1;
+  font-family: "Trajan Pro", Georgia, serif;
+  color: #202020;
+}
+
+.ruling-content {
+  margin: 0;
+}
+
+.ruling-content p {
+  margin: 0 0 6px;
+}
+
+.ruling-content ul {
+  margin: 0;
+  padding-left: 32px;
+}
+
+.ruling-content blockquote {
+  margin: 8px 0;
+  padding: 6px 0 6px 18px;
+  border-left: 5px solid rgba(36, 64, 143, 0.4);
+  font-style: italic;
+}
+
+.ruling-content code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+@media print {
+  html,
+  body {
+    background: transparent;
+  }
+
+  .karm-page {
+    margin: 0;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .karm-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="karm-book">
+      
+      
+<section class="karm-page">
+  <div class="page-body">
+<article class="karm-card">
+  <div class="card-top">
+    <div class="card-image-wrap"><div class="card-image fallback">No image</div></div>
+    <div class="card-main">
+      <h2 class="card-title">No Rulings Data Found <span>◎</span></h2>
+      <div class="card-meta">objectives • core • generator notice</div>
+      <div class="card-body"><p>The generator could not fetch qualifying rulings data from the configured API endpoints.</p><ul><li>Check API URLs in scripts/karm/config.json</li><li>Verify network connectivity</li><li>Ensure Chrome path is configured for PDF output</li></ul></div>
+      <div class="card-keywords"><span class="card-keyword-label">Keywords:</span>diagnostic</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Next Steps</h3>
+  <div class="ruling-content"><ul><li>Confirm apiBaseUrl and backupApiUrl</li><li>Re-run <code>npm run rulings:pdf -- --verbose</code></li><li>Add fixed cover/back matter pages under scripts/karm/static/</li></ul></div>
+</div></div>
+</article></div>
+  <div class="page-number">1</div>
+</section>
+      
+    </div>
+    <!-- Generated cards: 1 -->
+  </body>
+</html>

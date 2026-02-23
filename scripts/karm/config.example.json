@@ -1,0 +1,28 @@
+{
+  "apiBaseUrl": "https://api.swarmada.wiki",
+  "backupApiUrl": "https://api-backup.swarmada.wiki",
+  "includeCategories": ["objectives", "damage-cards", "upgrades", "ace-squadrons"],
+  "outputHtml": "scripts/karm/out/rulings-book.html",
+  "outputPdf": "scripts/karm/out/rulings-book.pdf",
+  "templateCss": "scripts/karm/template.css",
+  "pageBackgroundImage": "",
+  "pdfEngine": "chrome",
+  "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "weasyprintExecutable": "weasyprint",
+  "staticPages": {
+    "before": [
+      "scripts/karm/static/before/cover.html"
+    ],
+    "after": [
+      "scripts/karm/static/after/back-matter.html"
+    ]
+  },
+  "factionIcons": {
+    "rebel": "",
+    "empire": "",
+    "republic": "",
+    "separatist": "",
+    "neutral": ""
+  },
+  "sourceOrder": ["core", "legacy", "legacy-beta", "nexus", "arc", "naboo", "legends"]
+}

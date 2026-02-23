@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "rulings:pdf": "node scripts/karm/generate-karm-rulings-book.mjs",
+    "rulings:pdf:dry": "node scripts/karm/generate-karm-rulings-book.mjs --dry-run",
+    "rulings:pdf:weasy": "node scripts/karm/generate-karm-rulings-book.mjs --engine=weasyprint"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
