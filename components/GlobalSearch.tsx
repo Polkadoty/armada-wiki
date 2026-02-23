@@ -47,6 +47,9 @@ const typeLabels = {
   upgrade: 'Upgrades',
   objective: 'Objectives',
 };
+const normalizeFactionList = (factions: unknown): string[] =>
+  Array.isArray(factions) ? factions.filter((f): f is string => typeof f === 'string') : [];
+const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'unknown');
 
 export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
   const router = useRouter();
@@ -97,8 +100,8 @@ export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
                 Object.entries(chassis.models as Record<string, ShipModel>).forEach(
                   ([modelId, model]) => {
                     if (
-                      model.name.toLowerCase().includes(lowerQuery) ||
-                      chassis.chassis_name.toLowerCase().includes(lowerQuery)
+                      model.name?.toLowerCase().includes(lowerQuery) ||
+                      chassis.chassis_name?.toLowerCase().includes(lowerQuery)
                     ) {
                       searchResults.push({
                         id: modelId,
@@ -125,7 +128,7 @@ export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
                   : squadron.name;
                 if (
                   displayName.toLowerCase().includes(lowerQuery) ||
-                  squadron.name.toLowerCase().includes(lowerQuery) ||
+                  squadron.name?.toLowerCase().includes(lowerQuery) ||
                   (squadron['ace-name'] &&
                     squadron['ace-name'].toLowerCase().includes(lowerQuery))
                 ) {
@@ -147,15 +150,16 @@ export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
             Object.entries(parsed.upgrades as Record<string, Upgrade>).forEach(
               ([id, upgrade]) => {
                 if (
-                  upgrade.name.toLowerCase().includes(lowerQuery) ||
+                  upgrade.name?.toLowerCase().includes(lowerQuery) ||
                   upgrade.ability?.toLowerCase().includes(lowerQuery)
                 ) {
+                  const factions = normalizeFactionList(upgrade.faction);
                   searchResults.push({
                     id,
                     type: 'upgrade',
                     name: upgrade.name,
-                    subtitle: upgrade.type,
-                    faction: upgrade.faction[0],
+                    subtitle: normalizeType(upgrade.type),
+                    faction: factions[0],
                     points: upgrade.points,
                     source: upgrade.source,
                     href: `/upgrades/${id}`,
@@ -169,14 +173,14 @@ export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
             Object.entries(parsed.objectives as Record<string, Objective>).forEach(
               ([id, objective]) => {
                 if (
-                  objective.name.toLowerCase().includes(lowerQuery) ||
+                  objective.name?.toLowerCase().includes(lowerQuery) ||
                   objective.special_rule?.toLowerCase().includes(lowerQuery)
                 ) {
                   searchResults.push({
                     id,
                     type: 'objective',
                     name: objective.name,
-                    subtitle: objective.type,
+                    subtitle: normalizeType(objective.type),
                     source: objective.source,
                     href: `/objectives/${id}`,
                   });

@@ -21,6 +21,9 @@ import { ArrowUpDown, Filter } from 'lucide-react';
 type SortOption = 'name' | 'points-asc' | 'points-desc' | 'type';
 
 const SOURCES = ['Core', 'Legacy', 'LegacyBeta', 'Nexus', 'ARC', 'Naboo', 'Legends'] as const;
+const normalizeFactionList = (factions: unknown): string[] =>
+  Array.isArray(factions) ? factions.filter((f): f is string => typeof f === 'string') : [];
+const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'unknown');
 
 export default function UpgradesPage() {
   const { upgrades, loading } = useUpgrades();
@@ -46,11 +49,11 @@ export default function UpgradesPage() {
         upgrade.ability?.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesType =
-        typeFilter === 'all' || upgrade.type === typeFilter;
+        typeFilter === 'all' || normalizeType(upgrade.type) === typeFilter;
 
       const matchesFaction =
         factionFilter === 'all' ||
-        upgrade.faction.includes(factionFilter);
+        normalizeFactionList(upgrade.faction).includes(factionFilter);
 
       const matchesSource =
         sourceFilter === 'all' || upgrade.source === sourceFilter;
@@ -68,7 +71,7 @@ export default function UpgradesPage() {
         case 'points-desc':
           return b.points - a.points;
         case 'type':
-          return a.type.localeCompare(b.type);
+          return normalizeType(a.type).localeCompare(normalizeType(b.type));
         default:
           return 0;
       }
@@ -79,14 +82,14 @@ export default function UpgradesPage() {
 
   const upgradeTypes = useMemo(() => {
     const types = new Set<string>();
-    Object.values(upgrades).forEach(upgrade => types.add(upgrade.type));
+    Object.values(upgrades).forEach(upgrade => types.add(normalizeType(upgrade.type)));
     return Array.from(types).sort();
   }, [upgrades]);
 
   const factions = useMemo(() => {
     const factionSet = new Set<string>();
     Object.values(upgrades).forEach(upgrade => {
-      upgrade.faction.forEach(f => factionSet.add(f));
+      normalizeFactionList(upgrade.faction).forEach(f => factionSet.add(f));
     });
     return Array.from(factionSet).sort();
   }, [upgrades]);
@@ -228,7 +231,9 @@ export default function UpgradesPage() {
         {!loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredUpgrades.map((upgrade) => {
-              const primaryFaction = upgrade.faction[0] || 'neutral';
+              const factions = normalizeFactionList(upgrade.faction);
+              const upgradeType = normalizeType(upgrade.type);
+              const primaryFaction = factions[0] || 'neutral';
               const factionColors = getFactionColorClasses(primaryFaction);
               return (
                 <Link
@@ -236,14 +241,14 @@ export default function UpgradesPage() {
                   href={`/upgrades/${upgrade.id}`}
                   className={cn(
                     "p-4 border-2 rounded-lg bg-card block card-hover",
-                    upgrade.faction.length > 0 ? factionColors.border : 'border-border'
+                    factions.length > 0 ? factionColors.border : 'border-border'
                   )}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-semibold text-lg">{upgrade.name}</h3>
                     <span className={cn(
                       "text-sm font-bold px-2 py-0.5 rounded",
-                      upgrade.faction.length > 0 ? `${factionColors.bg} ${factionColors.onBg}` : 'bg-secondary'
+                      factions.length > 0 ? `${factionColors.bg} ${factionColors.onBg}` : 'bg-secondary'
                     )}>
                       {upgrade.points}
                     </span>
@@ -255,9 +260,9 @@ export default function UpgradesPage() {
                       </Badge>
                     )}
                     <Badge variant="secondary" className="capitalize">
-                      {upgrade.type.replace(/-/g, ' ')}
+                      {upgradeType.replace(/-/g, ' ')}
                     </Badge>
-                    {upgrade.faction.slice(0, 2).map((faction, i) => (
+                    {factions.slice(0, 2).map((faction, i) => (
                       <Badge
                         key={i}
                         variant="outline"
@@ -265,9 +270,9 @@ export default function UpgradesPage() {
                         {formatFactionName(faction)}
                       </Badge>
                     ))}
-                    {upgrade.faction.length > 2 && (
+                    {factions.length > 2 && (
                       <Badge variant="outline">
-                        +{upgrade.faction.length - 2}
+                        +{factions.length - 2}
                       </Badge>
                     )}
                     {upgrade.unique && (

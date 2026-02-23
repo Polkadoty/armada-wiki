@@ -48,27 +48,31 @@ export default function SquadronDetailPage({
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
       <Header showBackButton={true} />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-10 right-1/3 h-72 w-72 rounded-full bg-[hsl(var(--faction-rebel)/0.15)] blur-3xl" />
+        <div className="absolute bottom-14 -left-16 h-64 w-64 rounded-full bg-[hsl(var(--faction-separatist)/0.15)] blur-3xl" />
+      </div>
 
-      <div className="max-w-4xl mx-auto p-8">
+      <div className="relative max-w-6xl mx-auto p-4 md:p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left column - Card image */}
-          <div>
+          <div className="rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-4 lg:sticky lg:top-24 h-fit">
             {squadron.cardimage && (
               <OptimizedImage
                 src={sanitizeImageUrl(squadron.cardimage)}
                 alt={squadron.name}
                 width={500}
                 height={700}
-                className="w-full rounded-lg shadow-lg"
+                className="w-full rounded-xl shadow-2xl shadow-black/25"
               />
             )}
           </div>
 
           {/* Right column - Details */}
           <div>
-            <div className="mb-6">
+            <div className="mb-6 rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-5">
               <h1 className="text-4xl font-bold mb-2">
                 {getSquadronDisplayName(squadron.name, squadron['ace-name'])}
               </h1>
@@ -97,11 +101,11 @@ export default function SquadronDetailPage({
 
               {/* Hull and Speed */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-3 border rounded">
+                <div className="p-3 border border-border/70 bg-card/70 rounded-xl">
                   <p className="text-sm text-muted-foreground">Hull</p>
                   <p className="text-2xl font-bold">{squadron.hull}</p>
                 </div>
-                <div className="p-3 border rounded">
+                <div className="p-3 border border-border/70 bg-card/70 rounded-xl">
                   <p className="text-sm text-muted-foreground">Speed</p>
                   <p className="text-2xl font-bold">{squadron.speed}</p>
                 </div>
@@ -109,7 +113,7 @@ export default function SquadronDetailPage({
 
               {/* Defense tokens - only show for unique squadrons */}
               {squadron.unique && squadron.tokens && Object.keys(squadron.tokens).length > 0 && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">Defense Tokens</h3>
                   <div className="flex gap-2 flex-wrap">
                     {Object.entries(squadron.tokens).map(([token, count]) => (
@@ -126,7 +130,7 @@ export default function SquadronDetailPage({
 
               {/* Armament */}
               {squadron.armament && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">Armament</h3>
                   <div className="space-y-2">
                     {squadron.armament['anti-squadron'] && (
@@ -151,7 +155,7 @@ export default function SquadronDetailPage({
 
               {/* Abilities/Keywords - only show non-false and non-zero values */}
               {squadron.abilities && Object.keys(squadron.abilities).length > 0 && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">Keywords</h3>
                   <div className="flex gap-2 flex-wrap">
                     {Object.entries(squadron.abilities)
@@ -176,7 +180,7 @@ export default function SquadronDetailPage({
 
               {/* Text ability */}
               {squadron.ability && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">Ability</h3>
                   <p className="text-sm whitespace-pre-wrap">{squadron.ability}</p>
                 </div>
@@ -184,7 +188,7 @@ export default function SquadronDetailPage({
 
               {/* Rulings */}
               {squadron.rulings && (
-                <div className="p-4 border rounded bg-muted/50">
+                <div className="p-4 border border-border/70 bg-muted/40 rounded-xl">
                   <h3 className="font-semibold mb-2">Rulings</h3>
                   <p className="text-sm whitespace-pre-wrap">{squadron.rulings}</p>
                 </div>
@@ -194,7 +198,7 @@ export default function SquadronDetailPage({
         </div>
 
         {/* Comments Section */}
-        <div className="mt-12 border-t pt-8">
+        <div className="mt-12 border-t border-border/70 pt-8">
           <Comments cardType="squadron" cardId={id} />
         </div>
       </div>

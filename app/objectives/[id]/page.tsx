@@ -7,6 +7,7 @@ import { Comments } from '@/components/Comments';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
 import { getSourceBadgeClasses } from '@/utils/diceDisplay';
+const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'objective');
 
 export default function ObjectiveDetailPage({
   params,
@@ -48,27 +49,31 @@ export default function ObjectiveDetailPage({
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
       <Header showBackButton={true} />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-16 left-1/4 h-72 w-72 rounded-full bg-[hsl(var(--faction-separatist)/0.16)] blur-3xl" />
+        <div className="absolute bottom-14 -right-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+      </div>
 
-      <div className="max-w-4xl mx-auto p-8">
+      <div className="relative max-w-6xl mx-auto p-4 md:p-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left column - Card image */}
-          <div>
+          <div className="rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-4 lg:sticky lg:top-24 h-fit">
             {objective.cardimage && (
               <OptimizedImage
                 src={sanitizeImageUrl(objective.cardimage)}
                 alt={objective.name}
                 width={500}
                 height={700}
-                className="w-full rounded-lg shadow-lg"
+                className="w-full rounded-xl shadow-2xl shadow-black/25"
               />
             )}
           </div>
 
           {/* Right column - Details */}
           <div>
-            <div className="mb-6">
+            <div className="mb-6 rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-5">
               <h1 className="text-4xl font-bold mb-2">{objective.name}</h1>
             </div>
 
@@ -76,7 +81,7 @@ export default function ObjectiveDetailPage({
             <div className="space-y-4 mb-6">
               <div className="flex gap-2 flex-wrap">
                 <span className="px-3 py-1 bg-primary text-primary-foreground rounded font-semibold capitalize">
-                  {objective.type}
+                  {normalizeType(objective.type)}
                 </span>
                 {objective.source && (
                   <span className={`px-3 py-1 rounded font-bold ${getSourceBadgeClasses(objective.source)}`}>
@@ -87,7 +92,7 @@ export default function ObjectiveDetailPage({
 
               {/* Obstacles */}
               {objective.obstacles && objective.obstacles.length > 0 && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">Obstacles</h3>
                   <div className="flex gap-2 flex-wrap">
                     {objective.obstacles.map((obstacle, i) => (
@@ -104,7 +109,7 @@ export default function ObjectiveDetailPage({
 
               {/* Setup */}
               {objective.setup && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">Setup</h3>
                   <p className="text-sm whitespace-pre-wrap">{objective.setup}</p>
                 </div>
@@ -112,7 +117,7 @@ export default function ObjectiveDetailPage({
 
               {/* Special Rule */}
               {objective.special_rule && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">Special Rule</h3>
                   <p className="text-sm whitespace-pre-wrap">{objective.special_rule}</p>
                 </div>
@@ -120,7 +125,7 @@ export default function ObjectiveDetailPage({
 
               {/* End of Round */}
               {objective.end_of_round && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">End of Round</h3>
                   <p className="text-sm whitespace-pre-wrap">{objective.end_of_round}</p>
                 </div>
@@ -128,7 +133,7 @@ export default function ObjectiveDetailPage({
 
               {/* End of Game */}
               {objective.end_of_game && (
-                <div className="p-4 border rounded">
+                <div className="p-4 border border-border/70 bg-card/70 rounded-xl">
                   <h3 className="font-semibold mb-2">End of Game</h3>
                   <p className="text-sm whitespace-pre-wrap">{objective.end_of_game}</p>
                 </div>
@@ -136,7 +141,7 @@ export default function ObjectiveDetailPage({
 
               {/* Token Information */}
               {(objective.victory_tokens || objective.objective_tokens || objective.command_tokens) && (
-                <div className="p-4 border rounded bg-muted/50">
+                <div className="p-4 border border-border/70 bg-muted/40 rounded-xl">
                   <h3 className="font-semibold mb-2">Token Information</h3>
                   <div className="space-y-2 text-sm">
                     {objective.victory_tokens && (
@@ -178,7 +183,7 @@ export default function ObjectiveDetailPage({
 
               {/* Errata */}
               {objective.errata && (
-                <div className="p-4 border rounded bg-muted/50">
+                <div className="p-4 border border-border/70 bg-muted/40 rounded-xl">
                   <h3 className="font-semibold mb-2">Errata</h3>
                   <p className="text-sm whitespace-pre-wrap">{objective.errata}</p>
                 </div>
@@ -188,7 +193,7 @@ export default function ObjectiveDetailPage({
         </div>
 
         {/* Comments Section */}
-        <div className="mt-12 border-t pt-8">
+        <div className="mt-12 border-t border-border/70 pt-8">
           <Comments cardType="objective" cardId={id} />
         </div>
       </div>

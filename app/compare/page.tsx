@@ -24,6 +24,9 @@ interface CompareItem {
   name: string;
   data: ShipModel | Squadron | Upgrade;
 }
+const normalizeFactionList = (factions: unknown): string[] =>
+  Array.isArray(factions) ? factions.filter((f): f is string => typeof f === 'string') : [];
+const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'unknown');
 
 export default function ComparePage() {
   const { isOpen, setIsOpen, openSearch } = useGlobalSearch();
@@ -219,7 +222,7 @@ export default function ComparePage() {
                   'faction' in item.data
                     ? getFactionColorClasses(
                         Array.isArray((item.data as Upgrade).faction)
-                          ? (item.data as Upgrade).faction[0]
+                          ? normalizeFactionList((item.data as Upgrade).faction)[0] || 'neutral'
                           : (item.data as ShipModel | Squadron).faction
                       )
                     : null;
@@ -239,7 +242,7 @@ export default function ComparePage() {
                         {'faction' in item.data && (
                           <span className="text-sm text-muted-foreground">
                             {Array.isArray((item.data as Upgrade).faction)
-                              ? (item.data as Upgrade).faction.map(formatFactionName).join(', ')
+                              ? normalizeFactionList((item.data as Upgrade).faction).map(formatFactionName).join(', ')
                               : formatFactionName((item.data as ShipModel | Squadron).faction)}
                           </span>
                         )}
@@ -318,7 +321,7 @@ export default function ComparePage() {
                     {compareType === 'upgrade' && (
                       <div className="space-y-2 text-sm">
                         <Badge variant="secondary" className="capitalize">
-                          {(item.data as Upgrade).type.replace(/-/g, ' ')}
+                          {normalizeType((item.data as Upgrade).type).replace(/-/g, ' ')}
                         </Badge>
                         {(item.data as Upgrade).unique && (
                           <Badge variant="outline" className="ml-1">Unique</Badge>

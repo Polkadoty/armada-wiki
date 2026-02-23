@@ -98,6 +98,10 @@ export function CardPreview(props: CardPreviewProps) {
   const faction = getPrimaryFaction(props);
   const factionColors = getFactionColorClasses(faction);
   const link = getCardLink(props);
+  const upgradeFactions = props.type === "upgrade" && Array.isArray(props.faction) ? props.faction : [];
+  const upgradeTypeLabel = props.type === "upgrade"
+    ? ((props.upgradeType || "unknown").replace(/-/g, " "))
+    : "";
 
   const cardImage = (() => {
     switch (props.type) {
@@ -200,7 +204,7 @@ export function CardPreview(props: CardPreviewProps) {
           {props.type === "upgrade" && (
             <>
               <Badge variant="secondary" className="text-xs capitalize">
-                {props.upgradeType.replace(/-/g, " ")}
+                {upgradeTypeLabel}
               </Badge>
               {props.unique && (
                 <Badge variant="outline" className="text-xs">
@@ -227,8 +231,8 @@ export function CardPreview(props: CardPreviewProps) {
           <div className="flex items-center gap-1.5">
             <span className={cn("w-2 h-2 rounded-full", factionColors.bg)} />
             <span className="text-xs text-muted-foreground">
-              {props.type === "upgrade" && props.faction.length > 1
-                ? props.faction.map(f => formatFactionName(f)).join(", ")
+              {props.type === "upgrade" && upgradeFactions.length > 1
+                ? upgradeFactions.map(f => formatFactionName(f)).join(", ")
                 : formatFactionName(faction)}
             </span>
           </div>

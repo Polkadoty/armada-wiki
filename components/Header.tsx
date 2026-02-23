@@ -51,28 +51,28 @@ export function Header({ onSearchClick }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
+    <header className="w-full border-b border-border/80 bg-background/85 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-16">
           {/* Left side - Logo and nav */}
           <div className="flex items-center gap-6">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 font-semibold text-sm">
-              <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold">
-                AW
+            <Link href="/" className="flex items-center gap-3 font-semibold text-sm">
+              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-primary via-faction-separatist to-faction-rebel flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-primary/25">
+                SW
               </div>
-              <span className="hidden sm:inline">Armada Wiki</span>
+              <span className="hidden sm:inline text-sm tracking-[0.14em] uppercase">Armada Wiki</span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center gap-1 rounded-full border border-border/70 bg-card/50 px-2 py-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-muted"
                   >
                     <Icon className="w-4 h-4" />
                     {item.label}
@@ -88,7 +88,7 @@ export function Header({ onSearchClick }: HeaderProps) {
             <Button
               variant="outline"
               size="sm"
-              className="hidden sm:flex items-center gap-2 text-muted-foreground w-48 justify-start"
+              className="hidden sm:flex items-center gap-2 text-muted-foreground w-52 justify-start rounded-full border-border/70 bg-card/60"
               onClick={onSearchClick}
             >
               <Search className="w-4 h-4" />

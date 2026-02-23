@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, memo } from 'react';
+import { useEffect } from 'react';
 import { AlertCircle } from 'lucide-react';
 
 interface OptimizedImageProps {
@@ -27,8 +28,14 @@ export const OptimizedImage = memo(({
   onLoad,
   loading = 'lazy'
 }: OptimizedImageProps) => {
+  const safeSrc = src?.trim() || '';
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setHasError] = useState(!safeSrc);
+
+  useEffect(() => {
+    setIsLoading(Boolean(safeSrc));
+    setHasError(!safeSrc);
+  }, [safeSrc]);
 
   const handleLoad = () => {
     setIsLoading(false);
@@ -51,7 +58,7 @@ export const OptimizedImage = memo(({
       {/* Main image */}
       {!hasError && (
         <img
-          src={src}
+          src={safeSrc}
           alt={alt}
           width={width}
           height={height}

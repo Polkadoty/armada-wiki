@@ -117,8 +117,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-faction-empire/5" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-faction-rebel/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-faction-empire/10" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-faction-rebel/20 via-transparent to-transparent" />
+        <div className="absolute -top-24 right-6 h-72 w-72 rounded-full bg-[hsl(var(--faction-separatist)/0.2)] blur-3xl" />
+        <div className="absolute top-16 -left-20 h-64 w-64 rounded-full bg-[hsl(var(--faction-rebel)/0.2)] blur-3xl" />
 
         {/* Stars effect */}
         <div className="absolute inset-0 opacity-30">
@@ -130,18 +132,18 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-28">
           <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/10 text-primary text-sm font-medium">
               <Sparkles className="w-4 h-4" />
               Community-Driven Database
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight uppercase">
               <span className="bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text">
                 Armada Wiki
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Your comprehensive reference for{" "}
               <span className="text-foreground font-medium">Star Wars: Armada</span>{" "}
               and <span className="text-foreground font-medium">Armada Legacy</span>
@@ -182,17 +184,17 @@ export default function Home() {
                 key={card.href}
                 href={card.href}
                 className={`
-                  group relative overflow-hidden rounded-xl border bg-card p-6
+                  group relative overflow-hidden rounded-2xl border border-border/70 bg-card/70 p-6 backdrop-blur-sm
                   transition-all duration-300
                   hover:scale-[1.02] hover:-translate-y-1
                   ${card.hoverGlow}
                 `}
               >
                 {/* Background gradient on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
 
                 <div className="relative flex items-start gap-4">
-                  <div className={`p-3 rounded-lg bg-gradient-to-br ${card.gradient} ${card.iconText}`}>
+                  <div className={`p-3 rounded-xl bg-gradient-to-br ${card.gradient} ${card.iconText} shadow-lg`}>
                     <Icon className="w-6 h-6" />
                   </div>
 
@@ -214,7 +216,7 @@ export default function Home() {
 
       {/* Quick Links Section */}
       <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="rounded-xl border bg-card/50 p-6 md:p-8">
+        <div className="rounded-2xl border border-border/70 bg-card/65 p-6 md:p-8 backdrop-blur-sm">
           <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Link
