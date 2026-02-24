@@ -1,0 +1,25 @@
+{
+  "apiBaseUrl": "https://api.swarmada.wiki",
+  "backupApiUrl": "https://api-backup.swarmada.wiki",
+  "includeCategories": ["objectives", "damage-cards", "upgrades", "ace-squadrons"],
+  "outputHtml": "public/rulings/index.html",
+  "compileLog": "public/rulings/compile.log",
+  "templateCss": "scripts/karm/template.css",
+  "pageBackgroundImage": "",
+  "iconsMapSource": "scripts/karm/icon-map.json",
+  "iconsMapSourceExternal": "",
+  "staticPages": {
+    "before": [],
+    "after": []
+  },
+  "fonts": {
+    "optimaRegular": "",
+    "optimaItalic": "",
+    "optimaBold": "",
+    "aeroMaticsBold": "",
+    "aeroMaticsRegular": "",
+    "teutonFett": "",
+    "revengerLite": "",
+    "iconFont": ""
+  }
+}

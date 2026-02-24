@@ -19,6 +19,8 @@ const engineArg = [...args].find((arg) => arg.startsWith('--engine=')) || '';
 const requestedEngine = engineArg ? engineArg.split('=')[1] : '';
 const dpiArg = [...args].find((arg) => arg.startsWith('--dpi=')) || '';
 const requestedDpi = dpiArg ? Number.parseInt(dpiArg.split('=')[1], 10) : null;
+const configArg = [...args].find((arg) => arg.startsWith('--config=')) || '';
+const configOverridePath = configArg ? configArg.split('=')[1] : '';
 let ICON_MAP_RUNTIME = {};
 
 const emojiMap = {
@@ -192,7 +194,7 @@ async function main() {
 }
 
 async function loadConfig() {
-  const configPath = path.resolve(repoRoot, 'scripts/karm/config.json');
+  const configPath = path.resolve(repoRoot, configOverridePath || 'scripts/karm/config.json');
   try {
     await access(configPath);
     const raw = await readFile(configPath, 'utf8');

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/karm/publish-rulings-web.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -10,7 +11,8 @@
     "rulings:pdf": "node scripts/karm/generate-karm-rulings-book.mjs",
     "rulings:pdf:dry": "node scripts/karm/generate-karm-rulings-book.mjs --dry-run",
     "rulings:pdf:weasy": "node scripts/karm/generate-karm-rulings-book.mjs --engine=weasyprint",
-    "rulings:icons:sync": "node scripts/karm/sync-icon-map.mjs"
+    "rulings:icons:sync": "node scripts/karm/sync-icon-map.mjs",
+    "rulings:web": "GENERATE_RULINGS_WEB=1 node scripts/karm/publish-rulings-web.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",

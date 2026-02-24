@@ -56,6 +56,12 @@ Full run with WeasyPrint:
 npm run rulings:pdf:weasy
 ```
 
+Generate web-hosted HTML output:
+
+```bash
+npm run rulings:web
+```
+
 Sync icon glyph mappings from armada-list-builder:
 
 ```bash
@@ -66,6 +72,10 @@ Output defaults:
 - HTML: `scripts/karm/out/rulings-book.html`
 - PDF: `scripts/karm/out/rulings-book.pdf`
 - Compile log: `scripts/karm/out/compile.log`
+
+Web output (`scripts/karm/config.web.json`):
+- HTML: `public/rulings/index.html`
+- Compile log: `public/rulings/compile.log`
 
 ## Notes
 
