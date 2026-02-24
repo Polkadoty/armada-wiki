@@ -1199,7 +1199,7 @@ function buildSectionBundle(card) {
             .join('')
         : `<ul>${entries
             .map((entry) => {
-              const suffix = entry.footnote ? ` <sup>[${entry.footnote}]</sup>` : '';
+              const suffix = entry.footnote ? ` <span class="footnote-ref">[${entry.footnote}]</span>` : '';
               return `<li>${markdownishToHtmlInline(entry.text)}${suffix}</li>`;
             })
             .join('')}</ul>`;

@@ -348,6 +348,15 @@ body.toc-open .toc-drawer {
   font-weight: 400;
 }
 
+.footnote-ref {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  transform: translateY(-0.38em);
+  margin-left: 0.12em;
+}
+
 .card-text-content p {
   margin: 0 0 8px;
 }
