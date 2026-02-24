@@ -747,13 +747,14 @@ function resolveSectionKey(raw) {
 }
 
 function splitLargeCard(card) {
+  if (!Array.isArray(card.rules) || card.rules.length === 0) return [card];
   const maxSectionChars = 2200;
   const chunks = [];
   let current = [];
   let currentChars = 0;
 
   for (const section of card.rules) {
-    const sectionChars = section.text.length + section.heading.length;
+    const sectionChars = (section.text || '').length + (section.section || '').length;
     if (current.length > 0 && currentChars + sectionChars > maxSectionChars) {
       chunks.push(current);
       current = [];
@@ -944,10 +945,6 @@ function renderCard(card, config) {
     ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
     : `<div class="card-image fallback">No image</div>`;
 
-  const cardTextHtml = card.cardText
-    ? `<div class="card-body">${markdownishToHtml(card.cardText)}</div>`
-    : '';
-
   return `
 <article class="karm-card">
   <div class="card-top">
@@ -955,7 +952,6 @@ function renderCard(card, config) {
     <div class="card-main">
       <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}</h2>
       <div class="card-meta">${escapeHtml(metadata)}</div>
-      ${cardTextHtml}
       ${keywordHtml}
     </div>
   </div>
@@ -1264,6 +1260,10 @@ function decodeEscapedSequences(value) {
 }
 
 main().catch((error) => {
-  process.stderr.write(`[karm-pdf] ERROR: ${error.message}\n`);
+  const message = error instanceof Error ? error.message : String(error);
+  process.stderr.write(`[karm-pdf] ERROR: ${message}\n`);
+  if (verbose && error instanceof Error && error.stack) {
+    process.stderr.write(`${error.stack}\n`);
+  }
   process.exit(1);
 });
