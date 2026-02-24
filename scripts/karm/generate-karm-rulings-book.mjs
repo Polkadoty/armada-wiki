@@ -279,14 +279,7 @@ async function discoverEndpointGroups(bases) {
     upgrades: new Set(),
     objectives: new Set(),
     squadrons: new Set(),
-    damageCards: new Set([
-      '/damage-cards/',
-      '/damagecards/',
-      '/damage-cards',
-      '/damage-cards/core/',
-      '/critical-damage-cards/',
-      '/crit-damage-cards/',
-    ]),
+    damageCards: new Set(),
   };
 
   for (const key of discoveredFileKeys) {
@@ -297,11 +290,6 @@ async function discoverEndpointGroups(bases) {
     if (inferred.group === 'squadrons') groups.squadrons.add(inferred.endpoint);
     if (inferred.group === 'damageCards') groups.damageCards.add(inferred.endpoint);
   }
-
-  // Ensure at least core endpoints exist even if manifest is unavailable.
-  if (groups.upgrades.size === 0) groups.upgrades.add('/upgrades/');
-  if (groups.objectives.size === 0) groups.objectives.add('/objectives/');
-  if (groups.squadrons.size === 0) groups.squadrons.add('/squadrons/');
 
   return {
     upgrades: [...groups.upgrades],
@@ -316,16 +304,23 @@ function inferEndpointFromFileKey(fileKey) {
     upgrades: { group: 'upgrades', endpoint: '/upgrades/' },
     objectives: { group: 'objectives', endpoint: '/objectives/' },
     squadrons: { group: 'squadrons', endpoint: '/squadrons/' },
+    'damage-cards': { group: 'damageCards', endpoint: '/damage-cards/' },
+    damagecards: { group: 'damageCards', endpoint: '/damagecards/' },
+    'critical-damage-cards': { group: 'damageCards', endpoint: '/critical-damage-cards/' },
+    'crit-damage-cards': { group: 'damageCards', endpoint: '/crit-damage-cards/' },
     ships: { group: 'ships', endpoint: '/ships/' },
   };
 
   if (direct[fileKey]) return direct[fileKey];
 
-  const match = fileKey.match(/^([a-z-]+)-(upgrades|objectives|squadrons|ships)$/);
+  const match = fileKey.match(/^([a-z-]+)-(upgrades|objectives|squadrons|ships|damage-cards|damagecards|critical-damage-cards|crit-damage-cards)$/);
   if (!match) return null;
 
   const prefix = match[1];
   const category = match[2];
+  if (category === 'damage-cards' || category === 'damagecards' || category === 'critical-damage-cards' || category === 'crit-damage-cards') {
+    return { group: 'damageCards', endpoint: `/${prefix}/${category}/` };
+  }
   return {
     group: category === 'upgrades' ? 'upgrades' : category === 'objectives' ? 'objectives' : category === 'squadrons' ? 'squadrons' : 'ships',
     endpoint: `/${prefix}/${category}/`,
@@ -333,13 +328,31 @@ function inferEndpointFromFileKey(fileKey) {
 }
 
 function inferSourceFromEndpoint(endpoint) {
-  if (endpoint.includes('/legacy-beta/')) return 'legacy-beta';
-  if (endpoint.includes('/legacy/')) return 'legacy';
-  if (endpoint.includes('/nexus/')) return 'nexus';
-  if (endpoint.includes('/arc/')) return 'arc';
-  if (endpoint.includes('/naboo/')) return 'naboo';
-  if (endpoint.includes('/legends/')) return 'legends';
-  return 'core';
+  const normalized = String(endpoint || '').replace(/^\/+|\/+$/g, '');
+  const parts = normalized.split('/').filter(Boolean);
+  if (parts.length <= 1) return 'core';
+  return parts[0];
+}
+
+function isNexusSource(source) {
+  const value = String(source || '').toLowerCase();
+  return value === 'nexus' || value === 'nexus-experimental';
+}
+
+function upgradeTypeToHeaderTitle(type) {
+  const normalized = String(type || 'unknown');
+  if (normalized === 'weapons-team-offensive-retro') return 'Boarding Teams';
+  return normalized
+    .split('-')
+    .filter(Boolean)
+    .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
+    .join(' ') || 'Unknown';
+}
+
+function categoryHeaderTitleForNexus(category) {
+  if (category === 'nexus-upgrades') return 'Nexus Upgrades';
+  if (category === 'nexus-ace-squadrons') return 'Nexus Ace Squadrons';
+  return 'Nexus';
 }
 
 function extractItemsByKey(groupKey, payload) {
@@ -457,8 +470,10 @@ function sortCard(a, b) {
     objectives: 0,
     'damage-cards': 1,
     upgrades: 2,
-    'ace-squadrons': 3,
-    header: 4,
+    'nexus-upgrades': 3,
+    'ace-squadrons': 4,
+    'nexus-ace-squadrons': 5,
+    header: 6,
   };
   const cat = (categoryRank[a.category] ?? 99) - (categoryRank[b.category] ?? 99);
   if (cat !== 0) return cat;
@@ -467,7 +482,7 @@ function sortCard(a, b) {
     if (typeCmp !== 0) return typeCmp;
     return a.name.localeCompare(b.name);
   }
-  if (a.category === 'upgrades' && b.category === 'upgrades') {
+  if ((a.category === 'upgrades' || a.category === 'nexus-upgrades') && (b.category === a.category)) {
     const typeCmp = getUpgradeTypeSortIndex(a.upgradeType) - getUpgradeTypeSortIndex(b.upgradeType);
     if (typeCmp !== 0) return typeCmp;
     if (isFactionSortedUpgradeType(a.upgradeType) && isFactionSortedUpgradeType(b.upgradeType)) {
@@ -476,7 +491,7 @@ function sortCard(a, b) {
     }
     return a.name.localeCompare(b.name);
   }
-  if (a.category === 'ace-squadrons' && b.category === 'ace-squadrons') {
+  if ((a.category === 'ace-squadrons' || a.category === 'nexus-ace-squadrons') && (b.category === a.category)) {
     const factionCmp = normalizeFaction(a.primaryFaction).localeCompare(normalizeFaction(b.primaryFaction));
     if (factionCmp !== 0) return factionCmp;
     return a.name.localeCompare(b.name);
@@ -516,13 +531,14 @@ function isFactionSortedUpgradeType(type) {
 
 function insertDynamicHeaderCards(cards, iconMap) {
   const output = [];
-  let commanderHeaderInserted = false;
+  const insertedCategoryHeaders = new Set();
+  const insertedUpgradeTypeHeaders = new Set();
   for (const card of cards) {
-    if (!commanderHeaderInserted && card.category === 'upgrades' && card.upgradeType === 'commander') {
+    if ((card.category === 'nexus-upgrades' || card.category === 'nexus-ace-squadrons') && !insertedCategoryHeaders.has(card.category)) {
       output.push({
         category: 'header',
         source: '',
-        name: 'Commanders',
+        name: categoryHeaderTitleForNexus(card.category),
         image: '',
         factions: [],
         cardText: '',
@@ -530,10 +546,33 @@ function insertDynamicHeaderCards(cards, iconMap) {
         keywords: [],
         rules: [],
         sections: [],
-        headerIcon: iconMap.commander || '',
+        headerIcon: card.category === 'nexus-upgrades' ? (iconMap.nexus || '') : (iconMap.squadron || ''),
       });
-      commanderHeaderInserted = true;
+      insertedCategoryHeaders.add(card.category);
     }
+
+    if ((card.category === 'upgrades' || card.category === 'nexus-upgrades') && card.upgradeType) {
+      const key = `${card.category}:${card.upgradeType}`;
+      if (!insertedUpgradeTypeHeaders.has(key)) {
+        const typeTitle = upgradeTypeToHeaderTitle(card.upgradeType);
+        const typeIcon = iconMap[upgradeTypeToIconKey(card.upgradeType)] || '';
+        output.push({
+          category: 'header',
+          source: '',
+          name: typeTitle,
+          image: '',
+          factions: [],
+          cardText: '',
+          details: '',
+          keywords: [],
+          rules: [],
+          sections: [],
+          headerIcon: typeIcon,
+        });
+        insertedUpgradeTypeHeaders.add(key);
+      }
+    }
+
     output.push(card);
   }
   return output;
@@ -547,7 +586,7 @@ function buildUpgradeCard(item, source, iconMap) {
   const typeIconChar = iconMap[upgradeTypeToIconKey(upgradeType)] || '';
 
   return {
-    category: 'upgrades',
+    category: isNexusSource(source) ? 'nexus-upgrades' : 'upgrades',
     source,
     name: stringValue(item.name, 'Unknown Upgrade'),
     image: stringValue(item.cardimage, ''),
@@ -610,7 +649,7 @@ function buildAceSquadronCard(item, source, iconMap, logLines) {
     });
 
   return {
-    category: 'ace-squadrons',
+    category: isNexusSource(source) ? 'nexus-ace-squadrons' : 'ace-squadrons',
     source,
     name: stringValue(item['ace-name'] || item.name, 'Unknown Ace'),
     image: stringValue(item.cardimage, ''),
