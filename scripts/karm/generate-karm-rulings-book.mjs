@@ -154,7 +154,7 @@ async function main() {
   }
 
   const pages = paginateCards(cards);
-  const html = await renderHtml({ pages, cards, config, iconMap });
+  const html = await renderHtml({ pages, cards, config });
   const outputHtmlPath = path.resolve(repoRoot, config.outputHtml);
   const outputPdfPath = path.resolve(repoRoot, config.outputPdf);
   const compileLogPath = path.resolve(repoRoot, config.compileLog);
@@ -406,8 +406,7 @@ function buildCards(data, config, iconMap) {
   const deduped = dedupeCards(cards);
   deduped.sort((a, b) => sortCard(a, b));
   const withHeaders = insertDynamicHeaderCards(deduped, iconMap);
-  const normalized = withHeaders.flatMap(splitLargeCard);
-  return { cards: normalized, logLines };
+  return { cards: withHeaders, logLines };
 }
 
 function buildPlaceholderCard() {
@@ -746,37 +745,6 @@ function resolveSectionKey(raw) {
   return RULE_SECTION_ALIASES[canonical] || RULE_SECTION_ALIASES[normalized] || 'clarifications';
 }
 
-function splitLargeCard(card) {
-  if (!Array.isArray(card.rules) || card.rules.length === 0) return [card];
-  const maxSectionChars = 2200;
-  const chunks = [];
-  let current = [];
-  let currentChars = 0;
-
-  for (const section of card.rules) {
-    const sectionChars = (section.text || '').length + (section.section || '').length;
-    if (current.length > 0 && currentChars + sectionChars > maxSectionChars) {
-      chunks.push(current);
-      current = [];
-      currentChars = 0;
-    }
-    current.push(section);
-    currentChars += sectionChars;
-  }
-
-  if (current.length > 0) chunks.push(current);
-  if (chunks.length <= 1) return [card];
-
-  return chunks.map((rules, index) => ({
-    ...card,
-    name: index === 0 ? card.name : `${card.name} (cont. ${index + 1})`,
-    cardText: index === 0 ? card.cardText : '',
-    keywords: index === 0 ? card.keywords : [],
-    image: index === 0 ? card.image : '',
-    rules,
-  }));
-}
-
 function paginateCards(cards) {
   const pageUsableHeight = 2580;
   const pages = [];
@@ -809,11 +777,11 @@ function paginateCards(cards) {
 
 function estimateCardHeight(card) {
   const textLength = (card.cardText || '').length + (card.rules || []).reduce((sum, r) => sum + (r.text || '').length, 0);
-  const sectionBonus = (card.rules || []).length * 120;
-  return 520 + Math.ceil(textLength * 0.24) + sectionBonus;
+  const sectionBonus = (card.rules || []).length * 180;
+  return 760 + Math.ceil(textLength * 0.38) + sectionBonus;
 }
 
-async function renderHtml({ pages, cards, config, iconMap }) {
+async function renderHtml({ pages, cards, config }) {
   const cssPath = path.resolve(repoRoot, config.templateCss);
   const css = await readFile(cssPath, 'utf8');
   const fontFaces = buildFontFaceCss(config.fonts);
@@ -824,7 +792,7 @@ async function renderHtml({ pages, cards, config, iconMap }) {
   const cardsHtml = pages
     .map((pageCards, idx) => {
       const body = pageCards
-        .map((card) => (card.category === 'header' ? renderHeaderCard(card) : renderCard(card, config, iconMap)))
+        .map((card) => (card.category === 'header' ? renderHeaderCard(card) : renderCard(card)))
         .join('\n');
       const pageNumber = idx + 1;
       return `
@@ -927,12 +895,12 @@ function buildFontFaceCss(fonts) {
   return rules.join('\n');
 }
 
-function renderCard(card, config) {
-  const titleIcons = [card.titleSuffix || '', ...card.factions.map((faction) => renderFactionIcon(faction, config))]
+function renderCard(card) {
+  const titleSuffixIcon = card.titleSuffix ? `<span class="icon-font">${escapeHtml(card.titleSuffix)}</span>` : '';
+  const titleIcons = [titleSuffixIcon]
     .filter(Boolean)
     .join(' ');
 
-  const metadata = [card.category.replace(/-/g, ' '), card.source, card.details].filter(Boolean).join(' • ');
   const keywordHtml = card.keywords.length
     ? `<div class="card-keywords"><span class="card-keyword-label">Keywords:</span>${escapeHtml(card.keywords.join(', '))}</div>`
     : '';
@@ -940,6 +908,9 @@ function renderCard(card, config) {
   const sectionBundle = buildSectionBundle(card);
   const rulesHtml = sectionBundle.sectionsHtml;
   const footnotesHtml = sectionBundle.footnotesHtml;
+  const upgradeTopSummary = card.category === 'upgrades'
+    ? renderUpgradeTopSummary(sectionBundle.sectionEntries)
+    : '';
 
   const imageHtml = card.image
     ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
@@ -951,7 +922,7 @@ function renderCard(card, config) {
     <div class="card-image-wrap">${imageHtml}</div>
     <div class="card-main">
       <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}</h2>
-      <div class="card-meta">${escapeHtml(metadata)}</div>
+      ${upgradeTopSummary}
       ${keywordHtml}
     </div>
   </div>
@@ -965,25 +936,6 @@ function renderHeaderCard(card) {
 <article class="karm-card karm-header-card">
   <div class="section-header-title">${escapeHtml(card.name)} <span class="icon-font">${escapeHtml(card.headerIcon || '')}</span></div>
 </article>`;
-}
-
-function renderFactionIcon(faction, config) {
-  const normalized = String(faction || 'neutral').toLowerCase();
-  const configured = config.factionIcons[normalized] || '';
-  if (configured) {
-    const src = configured.startsWith('http') ? configured : toFileUrl(path.resolve(repoRoot, configured));
-    return `<img class="card-faction-icon" src="${escapeAttribute(src)}" alt="${escapeAttribute(normalized)}" />`;
-  }
-
-  const fallbackMap = {
-    rebel: '⚑',
-    empire: '⬢',
-    republic: '◍',
-    separatist: '◈',
-    neutral: '◎',
-  };
-
-  return `<span class="icon-font">${fallbackMap[normalized] || '◎'}</span>`;
 }
 
 function buildSectionBundle(card) {
@@ -1014,7 +966,9 @@ function buildSectionBundle(card) {
   }
 
   const sectionHtmlParts = [];
+  const skipInBody = card.category === 'upgrades' ? new Set(['card_text', 'timing']) : new Set();
   for (const sectionKey of SECTION_ORDER) {
+    if (skipInBody.has(sectionKey)) continue;
     const entries = sections.get(sectionKey) || [];
     if (entries.length === 0) continue;
     const content =
@@ -1042,7 +996,36 @@ function buildSectionBundle(card) {
   return {
     sectionsHtml: sectionHtmlParts.join('\n'),
     footnotesHtml,
+    sectionEntries: sections,
   };
+}
+
+function renderUpgradeTopSummary(sectionEntries) {
+  const cardTextEntries = sectionEntries.get('card_text') || [];
+  const timingEntries = sectionEntries.get('timing') || [];
+  const blocks = [];
+
+  if (cardTextEntries.length > 0) {
+    blocks.push(`
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text">${markdownishToHtml(cardTextEntries[0].text)}</div>
+</div>`);
+  }
+
+  if (timingEntries.length > 0) {
+    const timingText = timingEntries
+      .map((entry) => markdownishToHtmlInline(entry.text))
+      .join('<br/>');
+    blocks.push(`
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">${timingText}</div>
+</div>`);
+  }
+
+  if (blocks.length === 0) return '';
+  return `<div class="top-summary">${blocks.join('')}</div>`;
 }
 
 function markdownishToHtml(input) {
