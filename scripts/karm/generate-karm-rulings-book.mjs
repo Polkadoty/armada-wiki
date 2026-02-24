@@ -748,7 +748,8 @@ function resolveSectionKey(raw) {
 }
 
 function paginateCards(cards) {
-  const pageUsableHeight = 2580;
+  // Keep a safety buffer for print/render engine differences so cards do not clip at the bottom.
+  const pageUsableHeight = 2520;
   const pages = [];
   let currentPage = [];
   let currentHeight = 0;
@@ -778,9 +779,61 @@ function paginateCards(cards) {
 }
 
 function estimateCardHeight(card) {
-  const textLength = (card.cardText || '').length + (card.rules || []).reduce((sum, r) => sum + (r.text || '').length, 0);
-  const sectionBonus = (card.rules || []).length * 180;
-  return 760 + Math.ceil(textLength * 0.38) + sectionBonus;
+  const baseTopBlock = 560; // image row + fixed card chrome
+  const rules = Array.isArray(card.rules) ? card.rules : [];
+  const sectionEntryCount = new Map();
+
+  for (const rule of rules) {
+    const sectionKey = resolveSectionKey(rule.section);
+    if (card.category === 'upgrades' && (sectionKey === 'card_text' || sectionKey === 'timing')) {
+      continue;
+    }
+    sectionEntryCount.set(sectionKey, (sectionEntryCount.get(sectionKey) || 0) + 1);
+  }
+
+  let sectionCount = sectionEntryCount.size;
+  if (card.category !== 'upgrades' && (card.cardText || '').trim()) {
+    sectionCount += 1; // Card Text is rendered as a section outside upgrades.
+  }
+
+  const cardTextLines = estimateLineCount(card.cardText || '', card.category === 'upgrades' ? 62 : 92);
+  const rulesTextLength = rules.reduce((sum, r) => sum + String(r.text || '').length, 0);
+  const rulesLines = estimateLineCountByLength(rulesTextLength, 96);
+  const sectionHeadingsHeight = sectionCount * 58;
+  const bulletSpacing = rules.length * 14;
+  const lineHeightTotal = Math.max(cardTextLines, 0) * 34 + Math.max(rulesLines, 0) * 34;
+  const upgradeSummaryBoost = card.category === 'upgrades' ? 130 : 0;
+  const keywordBoost = Array.isArray(card.keywords) && card.keywords.length > 0 ? 44 : 0;
+  const hasFootnotes = rules.some((r) => r.source || r.date || r.version);
+  const footnoteBoost = hasFootnotes ? 44 : 0;
+  const safetyPadding = 72;
+
+  return (
+    baseTopBlock +
+    sectionHeadingsHeight +
+    bulletSpacing +
+    lineHeightTotal +
+    upgradeSummaryBoost +
+    keywordBoost +
+    footnoteBoost +
+    safetyPadding
+  );
+}
+
+function estimateLineCount(text, charsPerLine) {
+  const normalized = String(text || '').trim();
+  if (!normalized) return 0;
+  const paragraphs = normalized
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+  return paragraphs.reduce((sum, line) => sum + Math.max(1, Math.ceil(line.length / charsPerLine)), 0);
+}
+
+function estimateLineCountByLength(totalChars, charsPerLine) {
+  if (!Number.isFinite(totalChars) || totalChars <= 0) return 0;
+  return Math.ceil(totalChars / charsPerLine);
 }
 
 async function renderHtml({ pages, cards, config }) {
