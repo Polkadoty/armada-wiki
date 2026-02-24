@@ -10,6 +10,7 @@
   "iconsMapSource": "scripts/karm/icon-map.json",
   "iconsMapSourceExternal": "/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts",
   "pdfEngine": "chrome",
+  "pdfDpi": 300,
   "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "weasyprintExecutable": "weasyprint",
   "staticPages": {

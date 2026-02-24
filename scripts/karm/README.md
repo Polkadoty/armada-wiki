@@ -20,6 +20,7 @@ cp scripts/karm/config.example.json scripts/karm/config.json
 
 2. Edit `scripts/karm/config.json`:
 - `pdfEngine`: `chrome` or `weasyprint`
+- `pdfDpi`: target Chrome render DPI (default `300`)
 - `chromeExecutable`: full path to Chrome/Chromium binary
 - `weasyprintExecutable`: optional executable path (`weasyprint` by default)
 - `iconsMapSource`: local icon map JSON in this repo (`scripts/karm/icon-map.json`)
@@ -41,6 +42,12 @@ Full run (HTML + PDF):
 
 ```bash
 npm run rulings:pdf
+```
+
+Full run with explicit DPI override:
+
+```bash
+node scripts/karm/generate-karm-rulings-book.mjs --dpi=300
 ```
 
 Full run with WeasyPrint:

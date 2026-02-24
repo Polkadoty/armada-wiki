@@ -17,6 +17,8 @@ const dryRun = args.has('--dry-run');
 const verbose = args.has('--verbose');
 const engineArg = [...args].find((arg) => arg.startsWith('--engine=')) || '';
 const requestedEngine = engineArg ? engineArg.split('=')[1] : '';
+const dpiArg = [...args].find((arg) => arg.startsWith('--dpi=')) || '';
+const requestedDpi = dpiArg ? Number.parseInt(dpiArg.split('=')[1], 10) : null;
 let ICON_MAP_RUNTIME = {};
 
 const emojiMap = {
@@ -142,6 +144,7 @@ const defaultConfig = {
   sourceOrder: ['core', 'legacy', 'legacy-beta', 'nexus', 'arc', 'naboo', 'legends'],
   pdfEngine: 'chrome',
   weasyprintExecutable: '',
+  pdfDpi: 300,
 };
 
 async function main() {
@@ -173,12 +176,15 @@ async function main() {
   }
 
   const engine = requestedEngine || config.pdfEngine || 'chrome';
+  const effectiveDpi = Number.isFinite(requestedDpi)
+    ? clampDpi(requestedDpi)
+    : clampDpi(config.pdfDpi);
   if (engine === 'weasyprint') {
     const weasyExecutable = await resolveWeasyExecutable(config.weasyprintExecutable);
     await renderPdfWithWeasyprint(weasyExecutable, outputHtmlPath, outputPdfPath);
   } else {
     const chromeExecutable = await resolveChromeExecutable(config.chromeExecutable);
-    await renderPdfWithChrome(chromeExecutable, outputHtmlPath, outputPdfPath);
+    await renderPdfWithChrome(chromeExecutable, outputHtmlPath, outputPdfPath, effectiveDpi);
   }
 
   log(`Generated ${cards.length} entries across ${pages.length} pages.`);
@@ -1235,13 +1241,15 @@ async function resolveWeasyExecutable(configured) {
   return 'weasyprint';
 }
 
-async function renderPdfWithChrome(chromeExecutable, htmlPath, pdfPath) {
+async function renderPdfWithChrome(chromeExecutable, htmlPath, pdfPath, dpi = 300) {
   const htmlUrl = toFileUrl(htmlPath);
+  const scaleFactor = (dpi / 96).toFixed(4);
 
   const chromeArgs = [
     '--headless=new',
     '--disable-gpu',
     '--allow-file-access-from-files',
+    `--force-device-scale-factor=${scaleFactor}`,
     '--print-to-pdf-no-header',
     `--print-to-pdf=${pdfPath}`,
     htmlUrl,
@@ -1264,6 +1272,11 @@ async function renderPdfWithWeasyprint(weasyExecutable, htmlPath, pdfPath) {
 
 function toFileUrl(filePath) {
   return pathToFileURL(path.resolve(filePath)).href;
+}
+
+function clampDpi(value) {
+  if (!Number.isFinite(value)) return 300;
+  return Math.max(72, Math.min(600, Math.round(value)));
 }
 
 async function tryFetchJson(url) {
