@@ -17,6 +17,7 @@ const dryRun = args.has('--dry-run');
 const verbose = args.has('--verbose');
 const engineArg = [...args].find((arg) => arg.startsWith('--engine=')) || '';
 const requestedEngine = engineArg ? engineArg.split('=')[1] : '';
+let ICON_MAP_RUNTIME = {};
 
 const emojiMap = {
   accuracy: '🎯',
@@ -36,6 +37,75 @@ const emojiMap = {
   shield: '🛡',
 };
 
+const RULE_SECTION_LABELS = {
+  card_text: 'Card Text',
+  timing: 'Timing',
+  clarifications: 'Clarifications',
+  upgrade_interactions: 'Upgrade Interactions',
+  squadron_interactions: 'Squadron Interactions',
+  objective_interactions: 'Objective Interactions',
+  counter_and_salvo_interactions: 'Counter and Salvo Interactions',
+  obstacle_interactions: 'Obstacle Interactions',
+  deployment_interactions: 'Deployment Interactions',
+  campaign_interactions: 'Campaign Interactions',
+};
+
+const RULE_SECTION_ALIASES = {
+  clarification: 'clarifications',
+  clarifications: 'clarifications',
+  rulings: 'clarifications',
+  ruling: 'clarifications',
+  timing: 'timing',
+  upgrade: 'upgrade_interactions',
+  upgrades: 'upgrade_interactions',
+  upgrade_interaction: 'upgrade_interactions',
+  squadron: 'squadron_interactions',
+  squadrons: 'squadron_interactions',
+  squadron_interaction: 'squadron_interactions',
+  objective: 'objective_interactions',
+  objectives: 'objective_interactions',
+  objective_interaction: 'objective_interactions',
+  counter: 'counter_and_salvo_interactions',
+  salvo: 'counter_and_salvo_interactions',
+  counter_and_salvo: 'counter_and_salvo_interactions',
+  obstacle: 'obstacle_interactions',
+  obstacles: 'obstacle_interactions',
+  deployment: 'deployment_interactions',
+  campaign: 'campaign_interactions',
+  card_text: 'card_text',
+};
+
+const SECTION_ORDER = [
+  'card_text',
+  'timing',
+  'clarifications',
+  'upgrade_interactions',
+  'squadron_interactions',
+  'objective_interactions',
+  'counter_and_salvo_interactions',
+  'obstacle_interactions',
+  'deployment_interactions',
+  'campaign_interactions',
+];
+
+const UPGRADE_TYPE_ORDER = [
+  'weapons-team-offensive-retro',
+  'commander',
+  'officer',
+  'weapons-team',
+  'offensive-retro',
+  'defensive-retro',
+  'turbolaser',
+  'ion-cannon',
+  'ordnance',
+  'fleet-support',
+  'support-team',
+  'experimental-retro',
+  'fleet-command',
+  'title',
+  'superweapon',
+];
+
 const defaultConfig = {
   apiBaseUrl: 'https://api.swarmada.wiki',
   backupApiUrl: 'https://api-backup.swarmada.wiki',
@@ -44,6 +114,17 @@ const defaultConfig = {
   outputPdf: 'scripts/karm/out/rulings-book.pdf',
   templateCss: 'scripts/karm/template.css',
   pageBackgroundImage: '',
+  compileLog: 'scripts/karm/out/compile.log',
+  iconsMapSource: '/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts',
+  fonts: {
+    optimaRegular: '/Users/andrew/Library/Fonts/Optima-Regular.ttf',
+    optimaItalic: '/Users/andrew/Downloads/armada-fonts/Optima Italic.ttf',
+    optimaBold: '/Users/andrew/Downloads/armada-fonts/Optima Bold.TTF',
+    aeroMaticsBold: '/Users/andrew/Downloads/aero_matics/Aero Matics Display Bold.ttf',
+    aeroMaticsRegular: '/Users/andrew/Downloads/aero-matics.display-regular.ttf',
+    revengerLite: '/Users/andrew/Library/Fonts/RevengerLiteBB.ttf',
+    iconFont: '/Users/andrew/Downloads/icons.otf',
+  },
   chromeExecutable: '',
   staticPages: {
     before: [],
@@ -63,21 +144,26 @@ const defaultConfig = {
 
 async function main() {
   const config = await loadConfig();
+  const iconMap = await loadIconMap(config.iconsMapSource);
   const data = await fetchAllData(config);
-  let cards = buildCards(data, config);
+  const buildResult = buildCards(data, config, iconMap);
+  let cards = buildResult.cards;
   if (cards.length === 0) {
     log('No qualifying cards were found from live APIs. Emitting a placeholder page.');
     cards = [buildPlaceholderCard()];
   }
 
   const pages = paginateCards(cards);
-  const html = await renderHtml({ pages, cards, config });
+  const html = await renderHtml({ pages, cards, config, iconMap });
   const outputHtmlPath = path.resolve(repoRoot, config.outputHtml);
   const outputPdfPath = path.resolve(repoRoot, config.outputPdf);
+  const compileLogPath = path.resolve(repoRoot, config.compileLog);
 
   await mkdir(path.dirname(outputHtmlPath), { recursive: true });
   await mkdir(path.dirname(outputPdfPath), { recursive: true });
+  await mkdir(path.dirname(compileLogPath), { recursive: true });
   await writeFile(outputHtmlPath, html, 'utf8');
+  await writeFile(compileLogPath, buildResult.logLines.join('\n') || 'No warnings.\n', 'utf8');
 
   if (dryRun) {
     log(`Dry run complete. HTML written to ${outputHtmlPath}`);
@@ -113,6 +199,10 @@ async function loadConfig() {
       factionIcons: {
         ...defaultConfig.factionIcons,
         ...(parsed.factionIcons || {}),
+      },
+      fonts: {
+        ...defaultConfig.fonts,
+        ...(parsed.fonts || {}),
       },
     };
   } catch {
@@ -273,13 +363,14 @@ function normalizeCandidateCollection(value) {
   return [];
 }
 
-function buildCards(data, config) {
+function buildCards(data, config, iconMap) {
   const cards = [];
+  const logLines = [];
 
   if (config.includeCategories.includes('upgrades')) {
     for (const group of data.upgrades) {
       for (const item of group.items) {
-        const card = buildUpgradeCard(item, group.source);
+        const card = buildUpgradeCard(item, group.source, iconMap);
         if (card) cards.push(card);
       }
     }
@@ -288,7 +379,7 @@ function buildCards(data, config) {
   if (config.includeCategories.includes('objectives')) {
     for (const group of data.objectives) {
       for (const item of group.items) {
-        const card = buildObjectiveCard(item, group.source);
+        const card = buildObjectiveCard(item, group.source, iconMap);
         if (card) cards.push(card);
       }
     }
@@ -297,7 +388,7 @@ function buildCards(data, config) {
   if (config.includeCategories.includes('ace-squadrons')) {
     for (const group of data.squadrons) {
       for (const item of group.items) {
-        const card = buildAceSquadronCard(item, group.source);
+        const card = buildAceSquadronCard(item, group.source, iconMap, logLines);
         if (card) cards.push(card);
       }
     }
@@ -306,16 +397,17 @@ function buildCards(data, config) {
   if (config.includeCategories.includes('damage-cards')) {
     for (const group of data.damageCards) {
       for (const item of group.items) {
-        const card = buildDamageCard(item, group.source);
+        const card = buildDamageCard(item, group.source, iconMap);
         if (card) cards.push(card);
       }
     }
   }
 
   const deduped = dedupeCards(cards);
-  deduped.sort((a, b) => sortCard(a, b, config));
-
-  return deduped.flatMap(splitLargeCard);
+  deduped.sort((a, b) => sortCard(a, b));
+  const withHeaders = insertDynamicHeaderCards(deduped, iconMap);
+  const normalized = withHeaders.flatMap(splitLargeCard);
+  return { cards: normalized, logLines };
 }
 
 function buildPlaceholderCard() {
@@ -353,35 +445,99 @@ function dedupeCards(cards) {
   return deduped;
 }
 
-function sortCard(a, b, config) {
+function sortCard(a, b) {
   const categoryRank = {
     objectives: 0,
     'damage-cards': 1,
     upgrades: 2,
     'ace-squadrons': 3,
+    header: 4,
   };
-  const sourceRank = new Map(config.sourceOrder.map((s, i) => [s, i]));
-
   const cat = (categoryRank[a.category] ?? 99) - (categoryRank[b.category] ?? 99);
   if (cat !== 0) return cat;
-
-  const src = (sourceRank.get(a.source) ?? 99) - (sourceRank.get(b.source) ?? 99);
-  if (src !== 0) return src;
-
+  if (a.category === 'objectives' && b.category === 'objectives') {
+    const typeCmp = normalizeObjectiveType(a.type).localeCompare(normalizeObjectiveType(b.type));
+    if (typeCmp !== 0) return typeCmp;
+    return a.name.localeCompare(b.name);
+  }
+  if (a.category === 'upgrades' && b.category === 'upgrades') {
+    const typeCmp = getUpgradeTypeSortIndex(a.upgradeType) - getUpgradeTypeSortIndex(b.upgradeType);
+    if (typeCmp !== 0) return typeCmp;
+    if (isFactionSortedUpgradeType(a.upgradeType) && isFactionSortedUpgradeType(b.upgradeType)) {
+      const factionCmp = normalizeFaction(a.primaryFaction).localeCompare(normalizeFaction(b.primaryFaction));
+      if (factionCmp !== 0) return factionCmp;
+    }
+    return a.name.localeCompare(b.name);
+  }
+  if (a.category === 'ace-squadrons' && b.category === 'ace-squadrons') {
+    const factionCmp = normalizeFaction(a.primaryFaction).localeCompare(normalizeFaction(b.primaryFaction));
+    if (factionCmp !== 0) return factionCmp;
+    return a.name.localeCompare(b.name);
+  }
   return a.name.localeCompare(b.name);
 }
 
-function buildUpgradeCard(item, source) {
+function getUpgradeTypeSortIndex(type) {
+  const idx = UPGRADE_TYPE_ORDER.indexOf(type || '');
+  return idx === -1 ? 999 : idx;
+}
+
+function normalizeUpgradeType(type) {
+  const normalized = String(type || '')
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .trim();
+  return normalized || 'unknown';
+}
+
+function upgradeTypeToIconKey(type) {
+  if (type === 'weapons-team-offensive-retro') return 'weapons_team';
+  return String(type || '').replace(/-/g, '_');
+}
+
+function normalizeObjectiveType(type) {
+  return String(type || 'zzzz').toLowerCase();
+}
+
+function normalizeFaction(faction) {
+  return String(faction || 'neutral').toLowerCase();
+}
+
+function isFactionSortedUpgradeType(type) {
+  return type === 'commander' || type === 'officer';
+}
+
+function insertDynamicHeaderCards(cards, iconMap) {
+  const output = [];
+  let commanderHeaderInserted = false;
+  for (const card of cards) {
+    if (!commanderHeaderInserted && card.category === 'upgrades' && card.upgradeType === 'commander') {
+      output.push({
+        category: 'header',
+        source: '',
+        name: 'Commanders',
+        image: '',
+        factions: [],
+        cardText: '',
+        details: '',
+        keywords: [],
+        rules: [],
+        sections: [],
+        headerIcon: iconMap.commander || '',
+      });
+      commanderHeaderInserted = true;
+    }
+    output.push(card);
+  }
+  return output;
+}
+
+function buildUpgradeCard(item, source, iconMap) {
   const rules = normalizeRules(item.rules, item.rulings);
   if (rules.length === 0) return null;
-
-  const factions = Array.isArray(item.faction) ? item.faction.filter((f) => typeof f === 'string') : [];
-  const keywords = [];
-
-  if (item.type) keywords.push(`Type: ${String(item.type).replace(/-/g, ' ')}`);
-  if (item.unique) keywords.push('Unique');
-  if (item.modification) keywords.push('Modification');
-  if (item.bound_shiptype) keywords.push(`Bound: ${String(item.bound_shiptype)}`);
+  const factions = Array.isArray(item.faction) ? item.faction.filter((f) => typeof f === 'string') : ['neutral'];
+  const upgradeType = normalizeUpgradeType(item.type);
+  const typeIconChar = iconMap[upgradeTypeToIconKey(upgradeType)] || '';
 
   return {
     category: 'upgrades',
@@ -391,7 +547,11 @@ function buildUpgradeCard(item, source) {
     factions,
     cardText: stringValue(item.ability, ''),
     details: `${numberValue(item.points, 0)} points`,
-    keywords,
+    keywords: [],
+    upgradeType,
+    primaryFaction: factions[0] || 'neutral',
+    type: upgradeType,
+    titleSuffix: typeIconChar ? ` ${typeIconChar}` : '',
     rules,
   };
 }
@@ -416,13 +576,21 @@ function buildObjectiveCard(item, source) {
     factions: ['neutral'],
     cardText: summaryParts.join('\n\n'),
     details: stringValue(item.type, 'objective'),
-    keywords: [stringValue(item.type, 'objective').replace(/-/g, ' ')],
+    keywords: [],
+    type: normalizeObjectiveType(item.type),
+    primaryFaction: 'neutral',
     rules,
   };
 }
 
-function buildAceSquadronCard(item, source) {
-  if (!item.unique) return null;
+function buildAceSquadronCard(item, source, iconMap, logLines) {
+  const isAce = item.ace === true;
+  if (!isAce) {
+    if (item.unique) {
+      logLines.push(`[warn] unique but not ace: ${stringValue(item.name, 'unknown')} (${source})`);
+    }
+    return null;
+  }
   const rules = normalizeRules(item.rules, item.rulings);
   if (rules.length === 0) return null;
 
@@ -443,6 +611,9 @@ function buildAceSquadronCard(item, source) {
     cardText: stringValue(item.ability, ''),
     details: `${numberValue(item.points, 0)} points`,
     keywords: ['Unique', ...abilityKeywords],
+    type: 'ace-squadron',
+    primaryFaction: stringValue(item.faction, 'neutral'),
+    titleSuffix: iconMap[normalizeFaction(item.faction)] || '',
     rules,
   };
 }
@@ -459,20 +630,21 @@ function buildDamageCard(item, source) {
     factions: ['neutral'],
     cardText: stringValue(item.card_text || item.text || item.ability, ''),
     details: 'damage card',
-    keywords: [stringValue(item.type || item.trait, 'damage').replace(/-/g, ' ')],
+    keywords: [],
+    type: 'damage',
+    primaryFaction: 'neutral',
     rules,
   };
 }
 
 function normalizeRules(structured, fallback) {
   const result = collectRuleEntries(structured);
-
-  if (result.length > 0) return mergeRulesByHeading(result);
+  if (result.length > 0) return mergeRulesBySection(result);
 
   const fallbackText = stringValue(fallback, '');
   if (!fallbackText) return [];
 
-  return [{ heading: 'Clarifications', text: fallbackText }];
+  return [{ section: 'clarifications', text: fallbackText, source: '', date: '', version: '' }];
 }
 
 function collectRuleEntries(input, headingHint = 'Clarifications') {
@@ -480,7 +652,7 @@ function collectRuleEntries(input, headingHint = 'Clarifications') {
 
   if (typeof input === 'string') {
     const text = stringValue(input, '');
-    return text ? [{ heading: headingHint, text, source: '', date: '' }] : [];
+    return text ? [{ section: resolveSectionKey(headingHint), text, source: '', date: '', version: '' }] : [];
   }
 
   if (Array.isArray(input)) {
@@ -490,13 +662,14 @@ function collectRuleEntries(input, headingHint = 'Clarifications') {
   if (typeof input === 'object') {
     const obj = input;
     const directText = stringValue(obj.text || obj.body || obj.value || obj.clarification || obj.ruling, '');
-    const directHeading = ruleHeadingFromType(obj.type || obj.section || obj.heading || headingHint);
+    const section = resolveSectionKey(obj.type || obj.section || obj.heading || headingHint);
     const source = stringValue(obj.source, '');
     const date = stringValue(obj.date, '');
+    const version = stringValue(obj.version, '');
     const collected = [];
 
     if (directText) {
-      collected.push({ heading: directHeading, text: directText, source, date });
+      collected.push({ section, text: directText, source, date, version });
     }
 
     for (const [key, value] of Object.entries(obj)) {
@@ -518,8 +691,8 @@ function collectRuleEntries(input, headingHint = 'Clarifications') {
       ].includes(key)) {
         continue;
       }
-      const nestedHeading = ruleHeadingFromType(key || headingHint);
-      collected.push(...collectRuleEntries(value, nestedHeading));
+      const nestedSection = resolveSectionKey(key || headingHint);
+      collected.push(...collectRuleEntries(value, nestedSection));
     }
 
     return collected;
@@ -528,31 +701,49 @@ function collectRuleEntries(input, headingHint = 'Clarifications') {
   return [];
 }
 
-function mergeRulesByHeading(rules) {
+function mergeRulesBySection(rules) {
   const grouped = new Map();
 
   for (const rule of rules) {
-    const key = rule.heading;
+    const key = rule.section;
     if (!grouped.has(key)) grouped.set(key, []);
-    const line = [rule.text, rule.source ? `(${rule.source}${rule.date ? `, ${rule.date}` : ''})` : '']
-      .filter(Boolean)
-      .join(' ');
-    grouped.get(key).push(line);
+    grouped.get(key).push({
+      text: rule.text,
+      source: rule.source || '',
+      date: rule.date || '',
+      version: rule.version || '',
+    });
   }
 
-  return [...grouped.entries()].map(([heading, lines]) => ({
-    heading,
-    text: [...new Set(lines)].map((line) => `- ${line}`).join('\n'),
-  }));
+  const merged = [];
+  for (const [section, rows] of grouped.entries()) {
+    const seen = new Set();
+    for (const row of rows) {
+      const dedupeKey = `${row.text}|${row.source}|${row.date}|${row.version}`;
+      if (seen.has(dedupeKey)) continue;
+      seen.add(dedupeKey);
+      merged.push({
+        section,
+        text: row.text,
+        source: row.source,
+        date: row.date,
+        version: row.version,
+      });
+    }
+  }
+  return merged;
 }
 
-function ruleHeadingFromType(type) {
-  const normalized = String(type).toLowerCase().replace(/[_-]+/g, ' ').trim();
-  if (!normalized) return 'Clarifications';
-  return normalized
-    .split(' ')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
+function resolveSectionKey(raw) {
+  const normalized = String(raw || '')
+    .toLowerCase()
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!normalized) return 'clarifications';
+  const canonical = normalized.replace(/\s+/g, '_');
+  if (RULE_SECTION_LABELS[canonical]) return canonical;
+  return RULE_SECTION_ALIASES[canonical] || RULE_SECTION_ALIASES[normalized] || 'clarifications';
 }
 
 function splitLargeCard(card) {
@@ -592,6 +783,15 @@ function paginateCards(cards) {
   let currentHeight = 0;
 
   for (const card of cards) {
+    if (card.category === 'header') {
+      if (currentPage.length > 0) {
+        pages.push(currentPage);
+      }
+      pages.push([card]);
+      currentPage = [];
+      currentHeight = 0;
+      continue;
+    }
     const height = estimateCardHeight(card);
     if (currentPage.length > 0 && currentHeight + height > pageUsableHeight) {
       pages.push(currentPage);
@@ -607,26 +807,29 @@ function paginateCards(cards) {
 }
 
 function estimateCardHeight(card) {
-  const textLength = (card.cardText || '').length + card.rules.reduce((sum, r) => sum + r.text.length, 0);
-  const sectionBonus = card.rules.length * 120;
+  const textLength = (card.cardText || '').length + (card.rules || []).reduce((sum, r) => sum + (r.text || '').length, 0);
+  const sectionBonus = (card.rules || []).length * 120;
   return 520 + Math.ceil(textLength * 0.24) + sectionBonus;
 }
 
-async function renderHtml({ pages, cards, config }) {
+async function renderHtml({ pages, cards, config, iconMap }) {
   const cssPath = path.resolve(repoRoot, config.templateCss);
   const css = await readFile(cssPath, 'utf8');
+  const fontFaces = buildFontFaceCss(config.fonts);
 
   const beforePages = await readStaticPages(config.staticPages.before || []);
   const afterPages = await readStaticPages(config.staticPages.after || []);
 
   const cardsHtml = pages
     .map((pageCards, idx) => {
-      const body = pageCards.map((card) => renderCard(card, config)).join('\n');
+      const body = pageCards
+        .map((card) => (card.category === 'header' ? renderHeaderCard(card) : renderCard(card, config, iconMap)))
+        .join('\n');
       const pageNumber = idx + 1;
       return `
 <section class="karm-page">
   <div class="page-body">${body}</div>
-  <div class="page-number">${pageNumber}</div>
+  ${pageCards.length === 1 && pageCards[0].category === 'header' ? '' : `<div class="page-number">${pageNumber}</div>`}
 </section>`;
     })
     .join('\n');
@@ -643,6 +846,7 @@ async function renderHtml({ pages, cards, config }) {
     <title>KARM Rulings Book</title>
     <style>
       :root { --page-background: ${pageBackground}; }
+      ${fontFaces}
       ${css}
     </style>
   </head>
@@ -671,9 +875,59 @@ async function readStaticPages(files) {
   return rendered.join('\n');
 }
 
+async function loadIconMap(iconMapSourcePath) {
+  const map = {};
+  try {
+    const raw = await readFile(iconMapSourcePath, 'utf8');
+    const objectMatch = raw.match(/ICON_MAP\s*=\s*{([\s\S]*?)}\s*as const/);
+    if (!objectMatch) {
+      ICON_MAP_RUNTIME = map;
+      return map;
+    }
+    const lines = objectMatch[1].split('\n');
+    for (const line of lines) {
+      const m = line.match(/^\s*([a-z0-9_]+)\s*:\s*'\\u([0-9A-Fa-f]{4})'/);
+      if (!m) continue;
+      const key = m[1].toLowerCase();
+      map[key] = String.fromCharCode(parseInt(m[2], 16));
+    }
+    ICON_MAP_RUNTIME = map;
+    return map;
+  } catch (error) {
+    if (verbose) {
+      const message = error instanceof Error ? error.message : String(error);
+      log(`Icon map load failed: ${message}`);
+    }
+    ICON_MAP_RUNTIME = map;
+    return map;
+  }
+}
+
+function buildFontFaceCss(fonts) {
+  const rules = [];
+  const pushFace = (name, file, weight = '400', style = 'normal') => {
+    if (!file) return;
+    rules.push(`
+@font-face {
+  font-family: '${name}';
+  src: url('${toFileUrl(file)}') format('truetype');
+  font-weight: ${weight};
+  font-style: ${style};
+}`);
+  };
+
+  pushFace('OptimaCustom', fonts?.optimaRegular, '400', 'normal');
+  pushFace('OptimaCustom', fonts?.optimaItalic, '400', 'italic');
+  pushFace('OptimaCustom', fonts?.optimaBold, '700', 'normal');
+  pushFace('AeroMaticsDisplay', fonts?.aeroMaticsRegular, '400', 'normal');
+  pushFace('AeroMaticsDisplay', fonts?.aeroMaticsBold, '700', 'normal');
+  pushFace('RevengerLite', fonts?.revengerLite, '400', 'normal');
+  pushFace('ArmadaIcons', fonts?.iconFont, '400', 'normal');
+  return rules.join('\n');
+}
+
 function renderCard(card, config) {
-  const titleIcons = card.factions
-    .map((faction) => renderFactionIcon(faction, config))
+  const titleIcons = [card.titleSuffix || '', ...card.factions.map((faction) => renderFactionIcon(faction, config))]
     .filter(Boolean)
     .join(' ');
 
@@ -682,15 +936,9 @@ function renderCard(card, config) {
     ? `<div class="card-keywords"><span class="card-keyword-label">Keywords:</span>${escapeHtml(card.keywords.join(', '))}</div>`
     : '';
 
-  const rulesHtml = card.rules
-    .map(
-      (rule) => `
-<div class="ruling-section">
-  <h3 class="ruling-heading">${escapeHtml(rule.heading)}</h3>
-  <div class="ruling-content">${markdownishToHtml(rule.text)}</div>
-</div>`
-    )
-    .join('\n');
+  const sectionBundle = buildSectionBundle(card);
+  const rulesHtml = sectionBundle.sectionsHtml;
+  const footnotesHtml = sectionBundle.footnotesHtml;
 
   const imageHtml = card.image
     ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
@@ -712,6 +960,14 @@ function renderCard(card, config) {
     </div>
   </div>
   <div class="card-bottom card-rulings">${rulesHtml}</div>
+  ${footnotesHtml}
+</article>`;
+}
+
+function renderHeaderCard(card) {
+  return `
+<article class="karm-card karm-header-card">
+  <div class="section-header-title">${escapeHtml(card.name)} <span class="icon-font">${escapeHtml(card.headerIcon || '')}</span></div>
 </article>`;
 }
 
@@ -731,7 +987,66 @@ function renderFactionIcon(faction, config) {
     neutral: '◎',
   };
 
-  return `<span>${fallbackMap[normalized] || '◎'}</span>`;
+  return `<span class="icon-font">${fallbackMap[normalized] || '◎'}</span>`;
+}
+
+function buildSectionBundle(card) {
+  const sections = new Map();
+  if (card.cardText) {
+    sections.set('card_text', [{ text: card.cardText, footnote: null }]);
+  }
+
+  const footnotes = [];
+  const footnoteKeyToIndex = new Map();
+
+  for (const rule of card.rules || []) {
+    const sectionKey = resolveSectionKey(rule.section);
+    if (!sections.has(sectionKey)) sections.set(sectionKey, []);
+    const footnoteLabel = [rule.source, rule.date, rule.version].filter(Boolean).join(' | ');
+    let footnoteIndex = null;
+    if (footnoteLabel) {
+      if (!footnoteKeyToIndex.has(footnoteLabel)) {
+        footnotes.push(footnoteLabel);
+        footnoteKeyToIndex.set(footnoteLabel, footnotes.length);
+      }
+      footnoteIndex = footnoteKeyToIndex.get(footnoteLabel);
+    }
+    sections.get(sectionKey).push({
+      text: rule.text,
+      footnote: footnoteIndex,
+    });
+  }
+
+  const sectionHtmlParts = [];
+  for (const sectionKey of SECTION_ORDER) {
+    const entries = sections.get(sectionKey) || [];
+    if (entries.length === 0) continue;
+    const content =
+      sectionKey === 'card_text'
+        ? entries
+            .map((entry) => `<div class="card-text-content">${markdownishToHtml(entry.text)}</div>`)
+            .join('')
+        : `<ul>${entries
+            .map((entry) => {
+              const suffix = entry.footnote ? ` <sup>[${entry.footnote}]</sup>` : '';
+              return `<li>${markdownishToHtmlInline(entry.text)}${suffix}</li>`;
+            })
+            .join('')}</ul>`;
+    sectionHtmlParts.push(`
+<div class="ruling-section">
+  <h3 class="ruling-heading">${RULE_SECTION_LABELS[sectionKey]}</h3>
+  <div class="ruling-content">${content}</div>
+</div>`);
+  }
+
+  const footnotesHtml = footnotes.length
+    ? `<div class="ruling-footnotes">${footnotes.map((note, idx) => `<div>[${idx + 1}] ${escapeHtml(note)}</div>`).join('')}</div>`
+    : '';
+
+  return {
+    sectionsHtml: sectionHtmlParts.join('\n'),
+    footnotesHtml,
+  };
 }
 
 function markdownishToHtml(input) {
@@ -801,11 +1116,22 @@ function inlineMarkup(line) {
   safe = safe.replace(/(^|\s)\*(.+?)\*(?=\s|$)/g, '$1<em>$2</em>');
   safe = safe.replace(/(^|\s)_(.+?)_(?=\s|$)/g, '$1<em>$2</em>');
   safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
+  safe = safe.replace(/:([a-z0-9_-]+):/gi, (_, token) => `<span class="icon-font">${escapeHtml(iconGlyphForToken(token))}</span>`);
   return safe;
 }
 
 function applyEmojiShortcodes(text) {
   return text.replace(/:([a-z0-9_-]+):/gi, (_, token) => emojiMap[token.toLowerCase()] || `:${token}:`);
+}
+
+function markdownishToHtmlInline(input) {
+  const text = decodeEscapedSequences(String(input || '')).trim();
+  return inlineMarkup(text);
+}
+
+function iconGlyphForToken(token) {
+  const lower = token.toLowerCase();
+  return ICON_MAP_RUNTIME[lower] || emojiMap[lower] || `:${token}:`;
 }
 
 async function resolveChromeExecutable(configured) {

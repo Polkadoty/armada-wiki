@@ -4,8 +4,10 @@
   "includeCategories": ["objectives", "damage-cards", "upgrades", "ace-squadrons"],
   "outputHtml": "scripts/karm/out/rulings-book.html",
   "outputPdf": "scripts/karm/out/rulings-book.pdf",
+  "compileLog": "scripts/karm/out/compile.log",
   "templateCss": "scripts/karm/template.css",
   "pageBackgroundImage": "",
+  "iconsMapSource": "/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts",
   "pdfEngine": "chrome",
   "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "weasyprintExecutable": "weasyprint",
@@ -23,6 +25,15 @@
     "republic": "",
     "separatist": "",
     "neutral": ""
+  },
+  "fonts": {
+    "optimaRegular": "/Users/andrew/Library/Fonts/Optima-Regular.ttf",
+    "optimaItalic": "/Users/andrew/Downloads/armada-fonts/Optima Italic.ttf",
+    "optimaBold": "/Users/andrew/Downloads/armada-fonts/Optima Bold.TTF",
+    "aeroMaticsBold": "/Users/andrew/Downloads/aero_matics/Aero Matics Display Bold.ttf",
+    "aeroMaticsRegular": "/Users/andrew/Downloads/aero-matics.display-regular.ttf",
+    "revengerLite": "/Users/andrew/Library/Fonts/RevengerLiteBB.ttf",
+    "iconFont": "/Users/andrew/Downloads/icons.otf"
   },
   "sourceOrder": ["core", "legacy", "legacy-beta", "nexus", "arc", "naboo", "legends"]
 }

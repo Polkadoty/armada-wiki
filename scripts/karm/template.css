@@ -17,7 +17,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--ink);
-  font-family: Optima, "Segoe UI", Arial, sans-serif;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
   background: #444;
 }
 
@@ -122,7 +122,7 @@ body {
 }
 
 .card-title {
-  font-family: "Teuton Fett", "Arial Narrow", sans-serif;
+  font-family: "AeroMaticsDisplay", "Teuton Fett", "Arial Narrow", sans-serif;
   font-size: 52px;
   line-height: 1.04;
   letter-spacing: -0.045em;
@@ -160,7 +160,7 @@ body {
 }
 
 .card-keyword-label {
-  font-family: "Trajan Pro", Georgia, serif;
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--accent);
@@ -186,7 +186,7 @@ body {
   margin: 0 0 2px;
   font-size: 40px;
   line-height: 1.1;
-  font-family: "Trajan Pro", Georgia, serif;
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
   color: #202020;
 }
 
@@ -201,6 +201,39 @@ body {
 .ruling-content ul {
   margin: 0;
   padding-left: 32px;
+}
+
+.card-text-content p {
+  margin: 0 0 8px;
+}
+
+.icon-font {
+  font-family: "ArmadaIcons", "RevengerLite", sans-serif;
+}
+
+.ruling-footnotes {
+  margin-top: 14px;
+  border-top: 1px solid rgba(36, 64, 143, 0.3);
+  padding-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.karm-header-card {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header-title {
+  font-size: 116px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
 }
 
 .ruling-content blockquote {
