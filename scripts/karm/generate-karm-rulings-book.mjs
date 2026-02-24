@@ -27,6 +27,10 @@ const outputHtmlArg = [...args].find((arg) => arg.startsWith('--output-html=')) 
 const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) || '';
 let ICON_MAP_RUNTIME = {};
 let ICON_FONT_ENABLED = true;
+const WEB_ASSET_VERSION =
+  (process.env.VERCEL_GIT_COMMIT_SHA || process.env.GIT_COMMIT || '')
+    .toString()
+    .slice(0, 12) || 'rulings-v1';
 
 const emojiMap = {
   accuracy: '🎯',
@@ -153,7 +157,7 @@ const defaultConfig = {
   weasyprintExecutable: '',
   pdfDpi: 300,
   includeUpgradeTypes: [],
-  excludeSources: ['legacy-alpha', 'arc-beta', 'nexus-experimental'],
+  excludeSources: ['legacy-alpha', 'legacy-beta', 'arc-beta', 'nexus-experimental'],
 };
 
 async function main() {
@@ -949,7 +953,7 @@ async function renderHtml({ pages, cards, config }) {
     .join('\n');
 
   const pageBackground = config.pageBackgroundImage
-    ? `url('${toAssetUrl(path.resolve(repoRoot, config.pageBackgroundImage), config)}')`
+    ? `url('${withAssetVersion(toAssetUrl(path.resolve(repoRoot, config.pageBackgroundImage), config), config)}')`
     : 'none';
   const webNav = isWebOutput(config) ? renderWebNav() : '';
 
@@ -1081,10 +1085,11 @@ function buildFontFaceCss(fonts, config) {
         : lower.endsWith('.woff')
           ? 'woff'
           : 'truetype';
+    const srcUrl = withAssetVersion(toAssetUrl(file, config), config);
     rules.push(`
 @font-face {
   font-family: '${name}';
-  src: url('${toAssetUrl(file, config)}') format('${format}');
+  src: url('${srcUrl}') format('${format}');
   font-weight: ${weight};
   font-style: ${style};
 }`);
@@ -1465,6 +1470,12 @@ function toAssetUrl(filePath, config) {
 function isWebOutput(config) {
   const outputHtml = String(config?.outputHtml || '');
   return outputHtml === 'public/rulings/index.html' || outputHtml.startsWith('public/');
+}
+
+function withAssetVersion(url, config) {
+  if (!isWebOutput(config)) return url;
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}v=${WEB_ASSET_VERSION}`;
 }
 
 function clampDpi(value) {
