@@ -5,7 +5,7 @@
   "outputHtml": "public/rulings/index.html",
   "compileLog": "public/rulings/compile.log",
   "templateCss": "scripts/karm/template.css",
-  "pageBackgroundImage": "",
+  "pageBackgroundImage": "public/rulings/assets/rulebook-background.webp",
   "iconsMapSource": "scripts/karm/icon-map.json",
   "iconsMapSourceExternal": "",
   "staticPages": {
@@ -13,13 +13,13 @@
     "after": []
   },
   "fonts": {
-    "optimaRegular": "",
+    "optimaRegular": "public/rulings/fonts/optima.woff",
     "optimaItalic": "",
     "optimaBold": "",
-    "aeroMaticsBold": "",
-    "aeroMaticsRegular": "",
-    "teutonFett": "",
-    "revengerLite": "",
-    "iconFont": ""
+    "aeroMaticsBold": "public/rulings/fonts/fighter-keyword.ttf",
+    "aeroMaticsRegular": "public/rulings/fonts/fighter-keyword.ttf",
+    "teutonFett": "public/rulings/fonts/TeutonFett.otf",
+    "revengerLite": "public/rulings/fonts/RevengerLiteBB.ttf",
+    "iconFont": "public/rulings/fonts/icons.ttf"
   }
 }

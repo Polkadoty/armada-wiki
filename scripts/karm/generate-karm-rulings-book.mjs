@@ -21,7 +21,12 @@ const dpiArg = [...args].find((arg) => arg.startsWith('--dpi=')) || '';
 const requestedDpi = dpiArg ? Number.parseInt(dpiArg.split('=')[1], 10) : null;
 const configArg = [...args].find((arg) => arg.startsWith('--config=')) || '';
 const configOverridePath = configArg ? configArg.split('=')[1] : '';
+const includeCategoriesArg = [...args].find((arg) => arg.startsWith('--include-categories=')) || '';
+const includeUpgradeTypesArg = [...args].find((arg) => arg.startsWith('--include-upgrade-types=')) || '';
+const outputHtmlArg = [...args].find((arg) => arg.startsWith('--output-html=')) || '';
+const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) || '';
 let ICON_MAP_RUNTIME = {};
+let ICON_FONT_ENABLED = true;
 
 const emojiMap = {
   accuracy: '🎯',
@@ -147,10 +152,24 @@ const defaultConfig = {
   pdfEngine: 'chrome',
   weasyprintExecutable: '',
   pdfDpi: 300,
+  includeUpgradeTypes: [],
 };
 
 async function main() {
   const config = await loadConfig();
+  if (includeCategoriesArg) {
+    config.includeCategories = splitCsv(includeCategoriesArg.split('=')[1]);
+  }
+  if (includeUpgradeTypesArg) {
+    config.includeUpgradeTypes = splitCsv(includeUpgradeTypesArg.split('=')[1]);
+  }
+  if (outputHtmlArg) {
+    config.outputHtml = outputHtmlArg.split('=')[1];
+  }
+  if (compileLogArg) {
+    config.compileLog = compileLogArg.split('=')[1];
+  }
+  ICON_FONT_ENABLED = Boolean(String(config.fonts?.iconFont || '').trim());
   const iconMap = await loadIconMap(config.iconsMapSource, config.iconsMapSourceExternal);
   const data = await fetchAllData(config);
   const buildResult = buildCards(data, config, iconMap);
@@ -426,10 +445,22 @@ function buildCards(data, config, iconMap) {
     }
   }
 
+  const requestedUpgradeTypes = new Set((config.includeUpgradeTypes || []).map((type) => normalizeUpgradeType(type)));
+  if (requestedUpgradeTypes.size > 0) {
+    for (let i = cards.length - 1; i >= 0; i -= 1) {
+      const card = cards[i];
+      if (card.category !== 'upgrades' && card.category !== 'nexus-upgrades') continue;
+      if (!requestedUpgradeTypes.has(normalizeUpgradeType(card.upgradeType))) {
+        cards.splice(i, 1);
+      }
+    }
+  }
+
   const deduped = dedupeCards(cards);
   deduped.sort((a, b) => sortCard(a, b));
   const withHeaders = insertDynamicHeaderCards(deduped, iconMap);
-  return { cards: withHeaders, logLines };
+  const withAnchors = assignAnchorIds(withHeaders);
+  return { cards: withAnchors, logLines };
 }
 
 function buildPlaceholderCard() {
@@ -886,7 +917,7 @@ function estimateLineCountByLength(totalChars, charsPerLine) {
 async function renderHtml({ pages, cards, config }) {
   const cssPath = path.resolve(repoRoot, config.templateCss);
   const css = await readFile(cssPath, 'utf8');
-  const fontFaces = buildFontFaceCss(config.fonts);
+  const fontFaces = buildFontFaceCss(config.fonts, config);
 
   const beforePages = await readStaticPages(config.staticPages.before || []);
   const afterPages = await readStaticPages(config.staticPages.after || []);
@@ -898,16 +929,19 @@ async function renderHtml({ pages, cards, config }) {
         .join('\n');
       const pageNumber = idx + 1;
       return `
-<section class="karm-page">
-  <div class="page-body">${body}</div>
-  ${pageCards.length === 1 && pageCards[0].category === 'header' ? '' : `<div class="page-number">${pageNumber}</div>`}
-</section>`;
+<div class="karm-page-shell">
+  <section class="karm-page">
+    <div class="page-body">${body}</div>
+    ${pageCards.length === 1 && pageCards[0].category === 'header' ? '' : `<div class="page-number">${pageNumber}</div>`}
+  </section>
+</div>`;
     })
     .join('\n');
 
   const pageBackground = config.pageBackgroundImage
-    ? `url('${toFileUrl(path.resolve(repoRoot, config.pageBackgroundImage))}')`
+    ? `url('${toAssetUrl(path.resolve(repoRoot, config.pageBackgroundImage), config)}')`
     : 'none';
+  const webNav = isWebOutput(config) ? renderWebNav() : '';
 
   return `<!doctype html>
 <html lang="en">
@@ -922,14 +956,47 @@ async function renderHtml({ pages, cards, config }) {
     </style>
   </head>
   <body>
+    ${webNav}
     <div class="karm-book">
       ${beforePages}
       ${cardsHtml}
       ${afterPages}
     </div>
+    <script>
+      (function () {
+        const PAGE_WIDTH = 2194;
+        const GUTTER = 24;
+        function updateScale() {
+          const usable = Math.max(320, window.innerWidth - GUTTER);
+          const scale = Math.min(1, usable / PAGE_WIDTH);
+          document.documentElement.style.setProperty('--page-scale', String(scale));
+        }
+        updateScale();
+        window.addEventListener('resize', updateScale);
+      })();
+    </script>
     <!-- Generated cards: ${cards.length} -->
   </body>
 </html>`;
+}
+
+function renderWebNav() {
+  const links = [];
+  links.push(`<a href="/rulings/" class="toc-link">All</a>`);
+  links.push(`<a href="/rulings/objectives.html" class="toc-link">Objectives</a>`);
+  links.push(`<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>`);
+  links.push(`<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>`);
+  links.push(`<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>`);
+  links.push(`<a href="/rulings/upgrades/commander.html" class="toc-link">Commander</a>`);
+  links.push(`<a href="/rulings/upgrades/officer.html" class="toc-link">Officer</a>`);
+  links.push(`<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link">Boarding Teams</a>`);
+
+  return `
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open')">Contents</button>
+<aside class="toc-drawer" aria-label="Rulings navigation">
+  <div class="toc-title">Rulings</div>
+  ${links.join('\n')}
+</aside>`;
 }
 
 async function readStaticPages(files) {
@@ -991,16 +1058,22 @@ async function loadIconMap(localMapPath, externalMapPath) {
   }
 }
 
-function buildFontFaceCss(fonts) {
+function buildFontFaceCss(fonts, config) {
   const rules = [];
   const pushFace = (name, file, weight = '400', style = 'normal') => {
     if (!file) return;
     const lower = String(file).toLowerCase();
-    const format = lower.endsWith('.otf') ? 'opentype' : 'truetype';
+    const format = lower.endsWith('.otf')
+      ? 'opentype'
+      : lower.endsWith('.woff2')
+        ? 'woff2'
+        : lower.endsWith('.woff')
+          ? 'woff'
+          : 'truetype';
     rules.push(`
 @font-face {
   font-family: '${name}';
-  src: url('${toFileUrl(file)}') format('${format}');
+  src: url('${toAssetUrl(file, config)}') format('${format}');
   font-weight: ${weight};
   font-style: ${style};
 }`);
@@ -1018,7 +1091,9 @@ function buildFontFaceCss(fonts) {
 }
 
 function renderCard(card) {
-  const titleSuffixIcon = card.titleSuffix ? `<span class="icon-font">${escapeHtml(card.titleSuffix)}</span>` : '';
+  const titleSuffixIcon = ICON_FONT_ENABLED && card.titleSuffix
+    ? `<span class="icon-font">${escapeHtml(card.titleSuffix)}</span>`
+    : '';
   const titleIcons = [titleSuffixIcon]
     .filter(Boolean)
     .join(' ');
@@ -1030,21 +1105,19 @@ function renderCard(card) {
   const sectionBundle = buildSectionBundle(card);
   const rulesHtml = sectionBundle.sectionsHtml;
   const footnotesHtml = sectionBundle.footnotesHtml;
-  const upgradeTopSummary = card.category === 'upgrades'
-    ? renderUpgradeTopSummary(sectionBundle.sectionEntries)
-    : '';
+  const topSummary = renderTopSummary(card, sectionBundle.sectionEntries);
 
   const imageHtml = card.image
     ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
     : `<div class="card-image fallback">No image</div>`;
 
   return `
-<article class="karm-card">
+<article class="karm-card" id="${escapeAttribute(card.anchorId || '')}">
   <div class="card-top">
     <div class="card-image-wrap">${imageHtml}</div>
     <div class="card-main">
       <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}</h2>
-      ${upgradeTopSummary}
+      ${topSummary}
       ${keywordHtml}
     </div>
   </div>
@@ -1054,9 +1127,12 @@ function renderCard(card) {
 }
 
 function renderHeaderCard(card) {
+  const iconHtml = ICON_FONT_ENABLED && card.headerIcon
+    ? `<span class="icon-font">${escapeHtml(card.headerIcon)}</span>`
+    : '';
   return `
-<article class="karm-card karm-header-card">
-  <div class="section-header-title">${escapeHtml(card.name)} <span class="icon-font">${escapeHtml(card.headerIcon || '')}</span></div>
+<article class="karm-card karm-header-card" id="${escapeAttribute(card.anchorId || '')}">
+  <div class="section-header-title">${escapeHtml(card.name)} ${iconHtml}</div>
 </article>`;
 }
 
@@ -1088,7 +1164,12 @@ function buildSectionBundle(card) {
   }
 
   const sectionHtmlParts = [];
-  const skipInBody = card.category === 'upgrades' ? new Set(['card_text', 'timing']) : new Set();
+  const skipInBody =
+    card.category === 'upgrades'
+      ? new Set(['card_text', 'timing'])
+      : card.category === 'objectives'
+        ? new Set(['card_text'])
+        : new Set();
   for (const sectionKey of SECTION_ORDER) {
     if (skipInBody.has(sectionKey)) continue;
     const entries = sections.get(sectionKey) || [];
@@ -1148,6 +1229,24 @@ function renderUpgradeTopSummary(sectionEntries) {
 
   if (blocks.length === 0) return '';
   return `<div class="top-summary">${blocks.join('')}</div>`;
+}
+
+function renderObjectiveTopSummary(sectionEntries) {
+  const cardTextEntries = sectionEntries.get('card_text') || [];
+  if (cardTextEntries.length === 0) return '';
+
+  return `<div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text">${markdownishToHtml(cardTextEntries[0].text)}</div>
+</div>
+</div>`;
+}
+
+function renderTopSummary(card, sectionEntries) {
+  if (card.category === 'upgrades') return renderUpgradeTopSummary(sectionEntries);
+  if (card.category === 'objectives') return renderObjectiveTopSummary(sectionEntries);
+  return '';
 }
 
 function markdownishToHtml(input) {
@@ -1232,7 +1331,22 @@ function markdownishToHtmlInline(input) {
 
 function iconGlyphForToken(token) {
   const lower = token.toLowerCase();
-  return ICON_MAP_RUNTIME[lower] || emojiMap[lower] || `:${token}:`;
+  const mapped = ICON_MAP_RUNTIME[lower] || '';
+  if (ICON_FONT_ENABLED && mapped) return mapped;
+  if (mapped && isPrivateUseGlyph(mapped)) {
+    return emojiMap[lower] || `:${token}:`;
+  }
+  return mapped || emojiMap[lower] || `:${token}:`;
+}
+
+function isPrivateUseGlyph(char) {
+  if (!char) return false;
+  const code = char.codePointAt(0) || 0;
+  return (
+    (code >= 0xe000 && code <= 0xf8ff) ||
+    (code >= 0xf0000 && code <= 0xffffd) ||
+    (code >= 0x100000 && code <= 0x10fffd)
+  );
 }
 
 async function resolveChromeExecutable(configured) {
@@ -1315,9 +1429,52 @@ function toFileUrl(filePath) {
   return pathToFileURL(path.resolve(filePath)).href;
 }
 
+function toAssetUrl(filePath, config) {
+  const resolved = path.resolve(filePath);
+  if (isWebOutput(config)) {
+    const publicRoot = path.resolve(repoRoot, 'public');
+    if (resolved === publicRoot || resolved.startsWith(`${publicRoot}${path.sep}`)) {
+      const rel = path.relative(publicRoot, resolved);
+      const parts = rel.split(path.sep).filter(Boolean).map(encodeURIComponent);
+      return `/${parts.join('/')}`;
+    }
+  }
+  return toFileUrl(resolved);
+}
+
+function isWebOutput(config) {
+  const outputHtml = String(config?.outputHtml || '');
+  return outputHtml === 'public/rulings/index.html' || outputHtml.startsWith('public/');
+}
+
 function clampDpi(value) {
   if (!Number.isFinite(value)) return 300;
   return Math.max(72, Math.min(600, Math.round(value)));
+}
+
+function assignAnchorIds(cards) {
+  const seen = new Set();
+  return cards.map((card, idx) => {
+    const base = slugify(card.name || card.category || 'entry');
+    let candidate = `${base}-${idx + 1}`;
+    while (seen.has(candidate)) candidate = `${candidate}-x`;
+    seen.add(candidate);
+    return { ...card, anchorId: candidate };
+  });
+}
+
+function slugify(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'entry';
+}
+
+function splitCsv(value) {
+  return String(value || '')
+    .split(',')
+    .map((part) => part.trim())
+    .filter(Boolean);
 }
 
 async function tryFetchJson(url) {

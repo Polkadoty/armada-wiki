@@ -1,6 +1,7 @@
 :root {
   --page-width: 2194px;
   --page-height: 2820px;
+  --page-scale: 1;
   --page-padding-y: 120px;
   --page-padding-x: 129px;
   --page-gap: 24px;
@@ -21,6 +22,63 @@ body {
   background: #444;
 }
 
+.toc-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.toc-open .toc-drawer {
+  transform: translateX(0);
+}
+
+.toc-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.toc-link {
+  display: block;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.toc-link:hover {
+  color: #24408f;
+}
+
 @page {
   size: 2194px 2820px;
   margin: 0;
@@ -29,13 +87,22 @@ body {
 .karm-book {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 12px;
+  padding: 8px;
+}
+
+.karm-page-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--page-height) * var(--page-scale));
+  overflow: hidden;
 }
 
 .karm-page {
   width: var(--page-width);
   height: var(--page-height);
-  margin: 0 auto;
+  margin: 0;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -47,10 +114,8 @@ body {
   background-repeat: no-repeat;
   padding: var(--page-padding-y) var(--page-padding-x);
   gap: var(--page-gap);
-}
-
-.karm-page + .karm-page {
-  margin-top: 12px;
+  transform: scale(var(--page-scale));
+  transform-origin: top center;
 }
 
 .karm-static-page {
@@ -293,13 +358,33 @@ body {
 }
 
 @media print {
+  .toc-fab,
+  .toc-drawer {
+    display: none !important;
+  }
+
+  :root {
+    --page-scale: 1;
+  }
+
   html,
   body {
     background: transparent;
   }
 
+  .karm-book {
+    gap: 0;
+    padding: 0;
+  }
+
+  .karm-page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
   .karm-page {
     margin: 0;
+    transform: none;
     page-break-after: always;
     break-after: page;
   }
