@@ -362,7 +362,16 @@ body.toc-open .toc-drawer {
 }
 
 .icon-font {
-  font-family: "ArmadaIcons", "RevengerLite", sans-serif;
+  font-family: "Icons", "ArmadaIcons", "RevengerLite", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
 }
 
 .ruling-footnotes {

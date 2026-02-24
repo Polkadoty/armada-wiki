@@ -1097,6 +1097,7 @@ function buildFontFaceCss(fonts, config) {
   pushFace('AeroMaticsDisplay', fonts?.aeroMaticsBold, '700', 'normal');
   pushFace('TeutonFett', fonts?.teutonFett, '400', 'normal');
   pushFace('RevengerLite', fonts?.revengerLite, '400', 'normal');
+  pushFace('Icons', fonts?.iconFont, '400', 'normal');
   pushFace('ArmadaIcons', fonts?.iconFont, '400', 'normal');
   return rules.join('\n');
 }
