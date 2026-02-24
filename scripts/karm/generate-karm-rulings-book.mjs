@@ -153,6 +153,7 @@ const defaultConfig = {
   weasyprintExecutable: '',
   pdfDpi: 300,
   includeUpgradeTypes: [],
+  excludeSources: ['legacy-alpha', 'arc-beta', 'nexus-experimental'],
 };
 
 async function main() {
@@ -249,6 +250,7 @@ async function fetchAllData(config) {
   };
 
   const bases = [config.apiBaseUrl, config.backupApiUrl].filter(Boolean);
+  const excludedSources = new Set((config.excludeSources || []).map((source) => String(source || '').toLowerCase()));
   const endpointGroups = await discoverEndpointGroups(bases);
   if (verbose) {
     for (const [group, endpoints] of Object.entries(endpointGroups)) {
@@ -266,6 +268,12 @@ async function fetchAllData(config) {
         }
 
         const source = inferSourceFromEndpoint(endpoint);
+        if (excludedSources.has(String(source || '').toLowerCase())) {
+          if (verbose) {
+            log(`Skipping source ${source}: ${endpoint}`);
+          }
+          continue;
+        }
         const items = extractItemsByKey(key, payload);
         if (items.length === 0) {
           continue;
@@ -663,6 +671,9 @@ function buildObjectiveCard(item, source) {
 }
 
 function buildAceSquadronCard(item, source, iconMap, logLines) {
+  if (String(source || '').toLowerCase() === 'legends') {
+    return null;
+  }
   const isAce = item.ace === true;
   if (!isAce) {
     if (item.unique) {

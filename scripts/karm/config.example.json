@@ -38,5 +38,6 @@
     "revengerLite": "/Users/andrew/Library/Fonts/RevengerLiteBB.ttf",
     "iconFont": "/Users/andrew/Downloads/icons.otf"
   },
-  "sourceOrder": ["core", "legacy", "legacy-beta", "nexus", "arc", "naboo", "legends"]
+  "sourceOrder": ["core", "legacy", "legacy-beta", "nexus", "arc", "naboo", "legends"],
+  "excludeSources": ["legacy-alpha", "arc-beta", "nexus-experimental"]
 }
