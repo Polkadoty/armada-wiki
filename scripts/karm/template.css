@@ -24,19 +24,38 @@ body {
 
 .toc-fab {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 30;
   border: 0;
   border-radius: 999px;
-  padding: 10px 16px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
   background: #24408f;
   color: #fff;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 700;
   cursor: pointer;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hamburger > span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
 }
 
 .toc-drawer {
@@ -77,6 +96,15 @@ body.toc-open .toc-drawer {
 
 .toc-link:hover {
   color: #24408f;
+}
+
+@media (max-width: 760px) {
+  .toc-fab {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+  }
 }
 
 @page {

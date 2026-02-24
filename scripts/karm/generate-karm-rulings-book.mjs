@@ -671,7 +671,6 @@ function buildAceSquadronCard(item, source, iconMap, logLines) {
     return null;
   }
   const rules = normalizeRules(item.rules, item.rulings);
-  if (rules.length === 0) return null;
 
   const abilities = item.abilities && typeof item.abilities === 'object' ? item.abilities : {};
   const abilityKeywords = Object.entries(abilities)
@@ -982,7 +981,6 @@ async function renderHtml({ pages, cards, config }) {
 
 function renderWebNav() {
   const links = [];
-  links.push(`<a href="/rulings/" class="toc-link">All</a>`);
   links.push(`<a href="/rulings/objectives.html" class="toc-link">Objectives</a>`);
   links.push(`<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>`);
   links.push(`<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>`);
@@ -992,7 +990,9 @@ function renderWebNav() {
   links.push(`<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link">Boarding Teams</a>`);
 
   return `
-<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open')">Contents</button>
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open')">
+  <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
 <aside class="toc-drawer" aria-label="Rulings navigation">
   <div class="toc-title">Rulings</div>
   ${links.join('\n')}
