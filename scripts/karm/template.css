@@ -122,7 +122,7 @@ body {
 }
 
 .card-title {
-  font-family: "AeroMaticsDisplay", "Teuton Fett", "Arial Narrow", sans-serif;
+  font-family: "TeutonFett", "Teuton Fett", "AeroMaticsDisplay", "Arial Narrow", sans-serif;
   font-size: 52px;
   line-height: 1.04;
   letter-spacing: -0.045em;
@@ -149,7 +149,7 @@ body {
 .card-body,
 .card-keywords,
 .card-rulings {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 29px;
   line-height: 35px;
   letter-spacing: 0.006em;
@@ -160,7 +160,8 @@ body {
 }
 
 .card-keyword-label {
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--accent);
@@ -168,7 +169,7 @@ body {
 }
 
 .card-bottom {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 29px;
   line-height: 35px;
   letter-spacing: 0.006em;
@@ -191,15 +192,16 @@ body {
 }
 
 .top-summary-label {
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
-  font-size: 44px;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
   line-height: 1.05;
   text-transform: capitalize;
 }
 
 .top-summary-text {
-  font-size: 50px;
-  line-height: 1.16;
+  font-size: 29px;
+  line-height: 1.22;
   font-weight: 400;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
 }
@@ -215,9 +217,10 @@ body {
 
 .ruling-heading {
   margin: 0 0 2px;
-  font-size: 40px;
+  font-size: 46px;
   line-height: 1.1;
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
   color: #202020;
 }
 
@@ -227,11 +230,19 @@ body {
 
 .ruling-content p {
   margin: 0 0 6px;
+  font-weight: 400;
 }
 
 .ruling-content ul {
   margin: 0;
   padding-left: 32px;
+}
+
+.ruling-content li,
+.ruling-content li p,
+.card-text-content,
+.card-text-content p {
+  font-weight: 400;
 }
 
 .card-text-content p {

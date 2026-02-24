@@ -9,7 +9,8 @@
     "lint": "eslint",
     "rulings:pdf": "node scripts/karm/generate-karm-rulings-book.mjs",
     "rulings:pdf:dry": "node scripts/karm/generate-karm-rulings-book.mjs --dry-run",
-    "rulings:pdf:weasy": "node scripts/karm/generate-karm-rulings-book.mjs --engine=weasyprint"
+    "rulings:pdf:weasy": "node scripts/karm/generate-karm-rulings-book.mjs --engine=weasyprint",
+    "rulings:icons:sync": "node scripts/karm/sync-icon-map.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",

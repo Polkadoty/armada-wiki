@@ -3,7 +3,7 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { mkdir, readFile, writeFile, access } from 'node:fs/promises';
 import process from 'node:process';
 
@@ -115,13 +115,15 @@ const defaultConfig = {
   templateCss: 'scripts/karm/template.css',
   pageBackgroundImage: '',
   compileLog: 'scripts/karm/out/compile.log',
-  iconsMapSource: '/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts',
+  iconsMapSource: 'scripts/karm/icon-map.json',
+  iconsMapSourceExternal: '/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts',
   fonts: {
     optimaRegular: '/Users/andrew/Library/Fonts/Optima-Regular.ttf',
     optimaItalic: '/Users/andrew/Downloads/armada-fonts/Optima Italic.ttf',
     optimaBold: '/Users/andrew/Downloads/armada-fonts/Optima Bold.TTF',
     aeroMaticsBold: '/Users/andrew/Downloads/aero_matics/Aero Matics Display Bold.ttf',
     aeroMaticsRegular: '/Users/andrew/Downloads/aero-matics.display-regular.ttf',
+    teutonFett: '/Users/andrew/Downloads/armada-fonts/TeutonFett.otf',
     revengerLite: '/Users/andrew/Library/Fonts/RevengerLiteBB.ttf',
     iconFont: '/Users/andrew/Downloads/icons.otf',
   },
@@ -144,7 +146,7 @@ const defaultConfig = {
 
 async function main() {
   const config = await loadConfig();
-  const iconMap = await loadIconMap(config.iconsMapSource);
+  const iconMap = await loadIconMap(config.iconsMapSource, config.iconsMapSourceExternal);
   const data = await fetchAllData(config);
   const buildResult = buildCards(data, config, iconMap);
   let cards = buildResult.cards;
@@ -844,23 +846,40 @@ async function readStaticPages(files) {
   return rendered.join('\n');
 }
 
-async function loadIconMap(iconMapSourcePath) {
+async function loadIconMap(localMapPath, externalMapPath) {
   const map = {};
   try {
-    const raw = await readFile(iconMapSourcePath, 'utf8');
-    const objectMatch = raw.match(/ICON_MAP\s*=\s*{([\s\S]*?)}\s*as const/);
-    if (!objectMatch) {
-      ICON_MAP_RUNTIME = map;
-      return map;
+    const localPath = path.resolve(repoRoot, localMapPath);
+    try {
+      const localRaw = await readFile(localPath, 'utf8');
+      const parsed = JSON.parse(localRaw);
+      if (parsed && typeof parsed === 'object') {
+        for (const [key, val] of Object.entries(parsed)) {
+          if (typeof val === 'string' && val.length > 0) {
+            map[String(key).toLowerCase()] = val;
+          }
+        }
+      }
+    } catch {
+      // Local map is optional fallback.
     }
-    const lines = objectMatch[1].split('\n');
-    for (const line of lines) {
-      const m = line.match(/^\s*([a-z0-9_]+)\s*:\s*'\\u([0-9A-Fa-f]{4})'/);
-      if (!m) continue;
-      const key = m[1].toLowerCase();
-      map[key] = String.fromCharCode(parseInt(m[2], 16));
+
+    if (Object.keys(map).length === 0 && externalMapPath) {
+      const raw = await readFile(externalMapPath, 'utf8');
+      const objectMatch = raw.match(/ICON_MAP\s*=\s*{([\s\S]*?)}\s*as const/);
+      if (objectMatch) {
+        const lines = objectMatch[1].split('\n');
+        for (const line of lines) {
+          const m = line.match(/^\s*([a-z0-9_]+)\s*:\s*'\\u([0-9A-Fa-f]{4})'/);
+          if (!m) continue;
+          const key = m[1].toLowerCase();
+          map[key] = String.fromCharCode(parseInt(m[2], 16));
+        }
+      }
     }
+
     ICON_MAP_RUNTIME = map;
+    if (verbose) log(`Loaded ${Object.keys(map).length} icon glyph mappings`);
     return map;
   } catch (error) {
     if (verbose) {
@@ -876,10 +895,12 @@ function buildFontFaceCss(fonts) {
   const rules = [];
   const pushFace = (name, file, weight = '400', style = 'normal') => {
     if (!file) return;
+    const lower = String(file).toLowerCase();
+    const format = lower.endsWith('.otf') ? 'opentype' : 'truetype';
     rules.push(`
 @font-face {
   font-family: '${name}';
-  src: url('${toFileUrl(file)}') format('truetype');
+  src: url('${toFileUrl(file)}') format('${format}');
   font-weight: ${weight};
   font-style: ${style};
 }`);
@@ -890,6 +911,7 @@ function buildFontFaceCss(fonts) {
   pushFace('OptimaCustom', fonts?.optimaBold, '700', 'normal');
   pushFace('AeroMaticsDisplay', fonts?.aeroMaticsRegular, '400', 'normal');
   pushFace('AeroMaticsDisplay', fonts?.aeroMaticsBold, '700', 'normal');
+  pushFace('TeutonFett', fonts?.teutonFett, '400', 'normal');
   pushFace('RevengerLite', fonts?.revengerLite, '400', 'normal');
   pushFace('ArmadaIcons', fonts?.iconFont, '400', 'normal');
   return rules.join('\n');
@@ -1188,9 +1210,7 @@ async function renderPdfWithWeasyprint(weasyExecutable, htmlPath, pdfPath) {
 }
 
 function toFileUrl(filePath) {
-  const resolved = path.resolve(filePath);
-  const slashPath = resolved.split(path.sep).join('/');
-  return `file://${slashPath.startsWith('/') ? '' : '/'}${slashPath}`;
+  return pathToFileURL(path.resolve(filePath)).href;
 }
 
 async function tryFetchJson(url) {

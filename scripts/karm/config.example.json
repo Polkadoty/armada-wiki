@@ -7,7 +7,8 @@
   "compileLog": "scripts/karm/out/compile.log",
   "templateCss": "scripts/karm/template.css",
   "pageBackgroundImage": "",
-  "iconsMapSource": "/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts",
+  "iconsMapSource": "scripts/karm/icon-map.json",
+  "iconsMapSourceExternal": "/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts",
   "pdfEngine": "chrome",
   "chromeExecutable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
   "weasyprintExecutable": "weasyprint",
@@ -32,6 +33,7 @@
     "optimaBold": "/Users/andrew/Downloads/armada-fonts/Optima Bold.TTF",
     "aeroMaticsBold": "/Users/andrew/Downloads/aero_matics/Aero Matics Display Bold.ttf",
     "aeroMaticsRegular": "/Users/andrew/Downloads/aero-matics.display-regular.ttf",
+    "teutonFett": "/Users/andrew/Downloads/armada-fonts/TeutonFett.otf",
     "revengerLite": "/Users/andrew/Library/Fonts/RevengerLiteBB.ttf",
     "iconFont": "/Users/andrew/Downloads/icons.otf"
   },
