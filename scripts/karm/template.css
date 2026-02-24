@@ -233,6 +233,16 @@ body.toc-open .toc-drawer {
   margin-right: 8px;
 }
 
+.squadron-keywords .squadron-keyword-values,
+.squadron-keywords .squadron-keyword-token {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+}
+
+.squadron-keywords .squadron-keyword-token {
+  letter-spacing: 0.01em;
+}
+
 .card-bottom {
   font-weight: 400;
   font-size: 29px;

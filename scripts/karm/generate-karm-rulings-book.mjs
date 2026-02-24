@@ -1098,14 +1098,20 @@ function renderCard(card) {
     .filter(Boolean)
     .join(' ');
 
+  const isSquadronCard = card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons';
   const keywordHtml = card.keywords.length
-    ? `<div class="card-keywords"><span class="card-keyword-label">Keywords:</span>${escapeHtml(card.keywords.join(', '))}</div>`
+    ? isSquadronCard
+      ? `<div class="card-keywords squadron-keywords"><span class="card-keyword-label">Keywords:</span><span class="squadron-keyword-values">${card.keywords.map((value) => `<span class="squadron-keyword-token">${escapeHtml(value)}</span>`).join(', ')}</span></div>`
+      : `<div class="card-keywords"><span class="card-keyword-label">Keywords:</span>${escapeHtml(card.keywords.join(', '))}</div>`
     : '';
 
   const sectionBundle = buildSectionBundle(card);
   const rulesHtml = sectionBundle.sectionsHtml;
   const footnotesHtml = sectionBundle.footnotesHtml;
   const topSummary = renderTopSummary(card, sectionBundle.sectionEntries);
+  const topBody = isSquadronCard
+    ? `${keywordHtml}${topSummary}`
+    : `${topSummary}${keywordHtml}`;
 
   const imageHtml = card.image
     ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
@@ -1117,8 +1123,7 @@ function renderCard(card) {
     <div class="card-image-wrap">${imageHtml}</div>
     <div class="card-main">
       <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}</h2>
-      ${topSummary}
-      ${keywordHtml}
+      ${topBody}
     </div>
   </div>
   <div class="card-bottom card-rulings">${rulesHtml}</div>
@@ -1169,6 +1174,8 @@ function buildSectionBundle(card) {
       ? new Set(['card_text', 'timing'])
       : card.category === 'objectives'
         ? new Set(['card_text'])
+        : card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons'
+          ? new Set(['card_text', 'timing'])
         : new Set();
   for (const sectionKey of SECTION_ORDER) {
     if (skipInBody.has(sectionKey)) continue;
@@ -1246,6 +1253,7 @@ function renderObjectiveTopSummary(sectionEntries) {
 function renderTopSummary(card, sectionEntries) {
   if (card.category === 'upgrades') return renderUpgradeTopSummary(sectionEntries);
   if (card.category === 'objectives') return renderObjectiveTopSummary(sectionEntries);
+  if (card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons') return renderUpgradeTopSummary(sectionEntries);
   return '';
 }
 
