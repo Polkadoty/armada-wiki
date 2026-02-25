@@ -1594,8 +1594,8 @@ function markdownishToHtml(input) {
 function inlineMarkup(line) {
   let safe = escapeHtml(line);
   safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  safe = safe.replace(/(^|\s)\*(.+?)\*(?=\s|$)/g, '$1<em>$2</em>');
-  safe = safe.replace(/(^|\s)_(.+?)_(?=\s|$)/g, '$1<em>$2</em>');
+  safe = safe.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  safe = safe.replace(/_([^_]+)_/g, '<em>$1</em>');
   safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
   safe = safe.replace(/:([a-z0-9_-]+):/gi, (_, token) => `<span class="icon-font">${escapeHtml(iconGlyphForToken(token))}</span>`);
   return safe;
