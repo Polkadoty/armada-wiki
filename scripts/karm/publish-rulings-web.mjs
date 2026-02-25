@@ -16,29 +16,41 @@ if (!shouldRun) {
   process.exit(0);
 }
 
+const repoFontsRoot = path.resolve(repoRoot, 'scripts/karm/fonts');
 const listBuilderFontsRoot = '/Users/andrew/Documents/GitHub/armada-list-builder/public/fonts';
 const targetFontsRoot = path.resolve(repoRoot, 'public/rulings/fonts');
 const targetAssetsRoot = path.resolve(repoRoot, 'public/rulings/assets');
-const fontCopies = [
-  ['icons.woff', 'icons.woff'],
-  ['optima.woff', 'optima.woff'],
-  ['TeutonFett.woff', 'TeutonFett.woff'],
-  ['RevengerLiteBB.woff', 'RevengerLiteBB.woff'],
-  ['fighter-keyword.woff', 'fighter-keyword.woff'],
-  ['optima-bold.woff', 'optima-bold.woff'],
-  ['optima-italic.woff', 'optima-italic.woff'],
+const fontFiles = [
+  'icons.woff',
+  'optima.woff',
+  'TeutonFett.woff',
+  'RevengerLiteBB.woff',
+  'fighter-keyword.woff',
+  'optima-bold.woff',
+  'optima-italic.woff',
 ];
 
 await mkdir(targetFontsRoot, { recursive: true });
 await mkdir(targetAssetsRoot, { recursive: true });
-for (const [srcName, dstName] of fontCopies) {
-  const src = path.join(listBuilderFontsRoot, srcName);
-  const dst = path.join(targetFontsRoot, dstName);
-  try {
-    await copyFile(src, dst);
-    process.stdout.write(`[karm-web] Copied font ${srcName}\n`);
-  } catch (error) {
-    process.stdout.write(`[karm-web] Missing optional font ${srcName}: ${error.message}\n`);
+for (const name of fontFiles) {
+  const dst = path.join(targetFontsRoot, name);
+  const candidates = [
+    path.join(repoFontsRoot, name),
+    path.join(listBuilderFontsRoot, name),
+  ];
+  let copied = false;
+  for (const src of candidates) {
+    try {
+      await copyFile(src, dst);
+      process.stdout.write(`[karm-web] Copied font ${name} from ${src}\n`);
+      copied = true;
+      break;
+    } catch {
+      // try next candidate
+    }
+  }
+  if (!copied) {
+    process.stdout.write(`[karm-web] WARNING: Font ${name} not found in any source\n`);
   }
 }
 

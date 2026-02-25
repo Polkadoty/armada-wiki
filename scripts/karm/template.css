@@ -413,7 +413,8 @@ body.toc-open .toc-drawer {
   border-radius: 4px;
 }
 
-/* ── Continuous web layout ── */
+/* ── Continuous responsive web layout ── */
+
 body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
@@ -421,10 +422,12 @@ body.karm-web {
   background-position: center top -60px;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  overflow-x: hidden;
 }
 
 body.karm-web .karm-book {
   max-width: 960px;
+  width: 100%;
   margin: 0 auto;
   padding: 32px 24px;
   gap: 0;
@@ -443,55 +446,78 @@ body.karm-web .karm-continuous {
   gap: 0;
 }
 
+body.karm-web .page-number {
+  display: none;
+}
+
+/* ── Card layout ── */
+
+body.karm-web .karm-card {
+  max-width: 100%;
+}
+
 body.karm-web .card-top {
   min-height: auto;
+  gap: 20px;
 }
 
 body.karm-web .card-main {
   min-width: 0;
+  flex: 1;
 }
 
 body.karm-web .card-image-wrap {
-  width: 240px;
-  min-width: 240px;
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
 }
 
 body.karm-web .card-image {
-  width: 240px;
-  height: 340px;
+  width: 220px;
+  height: 312px;
+  max-width: 100%;
+  border-radius: 10px;
 }
 
+/* ── Typography ── */
+
 body.karm-web .card-title {
-  font-size: 32px;
+  font-size: 28px;
+  letter-spacing: -0.03em;
 }
 
 body.karm-web .card-meta {
-  font-size: 18px;
+  font-size: 16px;
+  gap: 8px;
 }
 
 body.karm-web .card-body,
 body.karm-web .card-keywords,
 body.karm-web .card-rulings,
 body.karm-web .card-bottom {
-  font-size: 17px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .card-keywords {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 body.karm-web .top-summary-label {
-  font-size: 28px;
+  font-size: 24px;
 }
 
 body.karm-web .top-summary-text {
-  font-size: 17px;
-  line-height: 1.4;
+  font-size: 16px;
+  line-height: 1.45;
 }
 
 body.karm-web .ruling-heading {
-  font-size: 28px;
+  font-size: 24px;
+}
+
+body.karm-web .ruling-content ul {
+  padding-left: 24px;
 }
 
 body.karm-web .ruling-footnotes {
@@ -499,46 +525,101 @@ body.karm-web .ruling-footnotes {
 }
 
 body.karm-web .section-header-title {
-  font-size: 56px;
+  font-size: 48px;
 }
 
 body.karm-web .karm-header-card {
-  min-height: 200px;
-}
-
-body.karm-web .page-number {
-  display: none;
+  min-height: 120px;
+  padding: 24px 0;
 }
 
 body.karm-web .card-divider {
   border: none;
   border-top: 1px solid rgba(36, 64, 143, 0.2);
-  margin: 32px 0;
+  margin: 28px 0;
 }
 
-@media (max-width: 640px) {
+/* ── Tablet ── */
+
+@media (max-width: 768px) {
+  body.karm-web .karm-book {
+    padding: 24px 16px;
+  }
+
   body.karm-web .card-top {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 
   body.karm-web .card-image-wrap {
-    width: 100%;
+    width: auto;
     min-width: unset;
-    display: flex;
-    justify-content: center;
+    flex-shrink: unset;
   }
 
   body.karm-web .card-image {
-    width: 200px;
-    height: 284px;
+    width: 180px;
+    height: 256px;
   }
 
   body.karm-web .card-title {
-    font-size: 26px;
+    font-size: 24px;
   }
 
+  body.karm-web .section-header-title {
+    font-size: 36px;
+  }
+
+  body.karm-web .karm-header-card {
+    min-height: 80px;
+    padding: 16px 0;
+  }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
   body.karm-web .karm-book {
     padding: 16px 12px;
+  }
+
+  body.karm-web .card-top {
+    align-items: center;
+  }
+
+  body.karm-web .card-image {
+    width: 160px;
+    height: 228px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  body.karm-web .card-body,
+  body.karm-web .card-keywords,
+  body.karm-web .card-rulings,
+  body.karm-web .card-bottom {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  body.karm-web .top-summary-label {
+    font-size: 20px;
+  }
+
+  body.karm-web .ruling-heading {
+    font-size: 20px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 28px;
+  }
+
+  body.karm-web .card-divider {
+    margin: 20px 0;
   }
 }
 
