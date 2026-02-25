@@ -604,6 +604,12 @@ body.search-open .search-drawer {
   border-radius: 4px;
 }
 
+.keyword-name {
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {

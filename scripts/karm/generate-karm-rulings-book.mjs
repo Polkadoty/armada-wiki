@@ -1605,6 +1605,17 @@ function markdownishToHtml(input) {
   return out.join('');
 }
 
+const KEYWORD_NAMES = [
+  'ADEPT', 'AI', 'ASSAULT', 'BOMBER', 'CLOAK', 'COUNTER', 'DODGE',
+  'ESCORT', 'GRIT', 'HEAVY', 'INTEL', 'RELAY', 'ROGUE', 'SCOUT',
+  'SCREEN', 'SNIPE', 'STRATEGIC', 'SWARM', 'BOOST', 'HUNT',
+];
+const KEYWORD_REGEX = new RegExp(`\\b(${KEYWORD_NAMES.join('|')})\\b`, 'g');
+
+function formatKeyword(match) {
+  return `<span class="keyword-name">${match.charAt(0)}${match.slice(1).toLowerCase()}</span>`;
+}
+
 function inlineMarkup(line) {
   let safe = escapeHtml(line);
   safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -1612,6 +1623,7 @@ function inlineMarkup(line) {
   safe = safe.replace(/_([^_]+)_/g, '<em>$1</em>');
   safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
   safe = safe.replace(/:([a-z0-9_-]+):/gi, (_, token) => `<span class="icon-font">${escapeHtml(iconGlyphForToken(token))}</span>`);
+  safe = safe.replace(KEYWORD_REGEX, formatKeyword);
   return safe;
 }
 
