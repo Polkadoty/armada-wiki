@@ -8,7 +8,7 @@
   "pageBackgroundImage": "public/rulings/assets/rulebook-background.webp",
   "iconsMapSource": "scripts/karm/icon-map.json",
   "iconsMapSourceExternal": "",
-  "excludeSources": ["legacy-alpha", "legacy-beta", "arc-beta", "nexus-experimental"],
+  "excludeSources": ["legacy-alpha", "legacy-beta", "arc-beta", "nexus-experimental", "legends"],
   "staticPages": {
     "before": [],
     "after": []
