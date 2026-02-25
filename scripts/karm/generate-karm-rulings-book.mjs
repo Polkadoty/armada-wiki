@@ -160,7 +160,7 @@ const defaultConfig = {
   weasyprintExecutable: '',
   pdfDpi: 300,
   includeUpgradeTypes: [],
-  excludeSources: ['legacy-alpha', 'legacy-beta', 'arc-beta', 'nexus-experimental'],
+  excludeSources: ['legacy-alpha', 'legacy-beta', 'arc-beta', 'nexus-experimental', 'legends'],
 };
 
 async function main() {
