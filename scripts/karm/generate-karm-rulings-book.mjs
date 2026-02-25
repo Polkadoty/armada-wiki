@@ -1605,15 +1605,24 @@ function markdownishToHtml(input) {
   return out.join('');
 }
 
-const KEYWORD_NAMES = [
+const KEYWORD_COMPOUND = [
+  'AI: ANTI-SQUADRON', 'AI: BATTERY',
+];
+const KEYWORD_SINGLE = [
   'ADEPT', 'AI', 'ASSAULT', 'BOMBER', 'CLOAK', 'COUNTER', 'DODGE',
   'ESCORT', 'GRIT', 'HEAVY', 'INTEL', 'RELAY', 'ROGUE', 'SCOUT',
   'SCREEN', 'SNIPE', 'STRATEGIC', 'SWARM', 'BOOST', 'HUNT',
 ];
-const KEYWORD_REGEX = new RegExp(`\\b(${KEYWORD_NAMES.join('|')})\\b`, 'g');
+// Match compound keywords first (longer matches), then single words
+const KEYWORD_REGEX = new RegExp(
+  `(${KEYWORD_COMPOUND.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})|\\b(${KEYWORD_SINGLE.join('|')})\\b`, 'g'
+);
 
 function formatKeyword(match) {
-  return `<span class="keyword-name">${match.charAt(0)}${match.slice(1).toLowerCase()}</span>`;
+  // "AI: BATTERY" → "Ai: Battery", "AI: ANTI-SQUADRON" → "Ai: Anti-Squadron"
+  return `<span class="keyword-name">${match.split(/(\s+|-)/).map(
+    part => /[A-Z]/.test(part) ? part.charAt(0) + part.slice(1).toLowerCase() : part
+  ).join('')}</span>`;
 }
 
 function inlineMarkup(line) {
