@@ -220,7 +220,7 @@ body.toc-open .toc-drawer {
   line-height: 1.04;
   letter-spacing: -0.045em;
   font-variant: small-caps;
-  text-transform: lowercase;
+  text-transform: none;
   margin: 0;
 }
 

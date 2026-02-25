@@ -1324,7 +1324,7 @@ function renderTopSummary(card, sectionEntries) {
 }
 
 function markdownishToHtml(input) {
-  const text = applyEmojiShortcodes(decodeEscapedSequences(String(input || '')));
+  const text = decodeEscapedSequences(String(input || ''));
   const lines = text.split(/\r?\n/);
   const out = [];
   let inList = false;
@@ -1405,12 +1405,10 @@ function markdownishToHtmlInline(input) {
 
 function iconGlyphForToken(token) {
   const lower = token.toLowerCase();
-  const mapped = ICON_MAP_RUNTIME[lower] || '';
-  if (ICON_FONT_ENABLED && mapped) return mapped;
-  if (mapped && isPrivateUseGlyph(mapped)) {
-    return emojiMap[lower] || `:${token}:`;
-  }
-  return mapped || emojiMap[lower] || `:${token}:`;
+  const underscored = lower.replace(/-/g, '_');
+  const mapped = ICON_MAP_RUNTIME[lower] || ICON_MAP_RUNTIME[underscored] || '';
+  if (mapped) return mapped;
+  return `:${token}:`;
 }
 
 function isPrivateUseGlyph(char) {
