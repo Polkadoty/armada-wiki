@@ -1217,9 +1217,9 @@ function renderWebNav() {
   links.push(`<a href="/rulings/objectives.html" class="toc-link">Objectives</a>`);
   links.push(`<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>`);
   links.push(`<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>`);
-  links.push(`<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>`);
   links.push(`<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>`);
-  links.push(`<div class="toc-section-label">Upgrade Types</div>`);
+  links.push(`<div class="toc-section-label">Upgrades</div>`);
+  links.push(`<a href="/rulings/upgrades.html" class="toc-link toc-sub">All</a>`);
   links.push(`<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>`);
   links.push(`<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>`);
   links.push(`<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>`);
