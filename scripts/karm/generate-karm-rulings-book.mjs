@@ -299,6 +299,18 @@ async function fetchAllData(config) {
         if (verbose) {
           log(`Loaded ${items.length} records from ${url}`);
         }
+
+        // Objectives responses may also contain damage cards
+        if (key === 'objectives') {
+          const dmgItems = extractItemsByKey('damageCards', payload);
+          if (dmgItems.length > 0) {
+            result.damageCards.push({ source, endpoint, items: dmgItems });
+            if (verbose) {
+              log(`Extracted ${dmgItems.length} damage cards from ${url}`);
+            }
+          }
+        }
+
         break;
       }
     }

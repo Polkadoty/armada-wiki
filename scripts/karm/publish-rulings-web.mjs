@@ -76,7 +76,7 @@ if (!copiedBackground) {
 
 const jobs = [
   { label: 'all', out: 'public/rulings/index.html', log: 'public/rulings/compile.log', categories: '' },
-  { label: 'objectives', out: 'public/rulings/objectives.html', log: 'public/rulings/objectives.log', categories: 'objectives' },
+  { label: 'objectives', out: 'public/rulings/objectives.html', log: 'public/rulings/objectives.log', categories: 'objectives', objectiveTypes: 'assault,defense,navigation,skirmish' },
   { label: 'campaign', out: 'public/rulings/campaign.html', log: 'public/rulings/campaign.log', categories: 'objectives', objectiveTypes: 'campaign' },
   { label: 'damage-cards', out: 'public/rulings/damage-cards.html', log: 'public/rulings/damage-cards.log', categories: 'damage-cards' },
   { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades', splitUpgradesDir: 'public/rulings/upgrades' },
