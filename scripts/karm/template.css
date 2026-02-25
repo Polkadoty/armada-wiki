@@ -219,7 +219,8 @@ body.toc-open .toc-drawer {
   font-size: 52px;
   line-height: 1.04;
   letter-spacing: -0.045em;
-  text-transform: capitalize;
+  font-variant: small-caps;
+  text-transform: lowercase;
   margin: 0;
 }
 

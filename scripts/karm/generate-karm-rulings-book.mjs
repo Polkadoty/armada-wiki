@@ -704,7 +704,7 @@ function buildAceSquadronCard(item, source, iconMap, logLines) {
     factions: [stringValue(item.faction, 'neutral')],
     cardText: stringValue(item.ability, ''),
     details: `${numberValue(item.points, 0)} points`,
-    keywords: ['Unique', ...abilityKeywords],
+    keywords: [...abilityKeywords],
     type: 'ace-squadron',
     primaryFaction: stringValue(item.faction, 'neutral'),
     titleSuffix: iconMap[normalizeFaction(item.faction)] || '',
