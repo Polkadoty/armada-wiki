@@ -348,6 +348,10 @@ async function discoverEndpointGroups(bases) {
     if (inferred.group === 'damageCards') groups.damageCards.add(inferred.endpoint);
   }
 
+  // Always include nexus endpoints as fallbacks
+  groups.upgrades.add('/nexus/upgrades/');
+  groups.squadrons.add('/nexus/squadrons/');
+
   return {
     upgrades: [...groups.upgrades],
     objectives: [...groups.objectives],
@@ -1445,7 +1449,9 @@ function buildSectionBundle(card) {
         ? new Set(['card_text'])
         : card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons'
           ? new Set(['card_text', 'timing'])
-        : new Set();
+          : card.category === 'damage-cards'
+            ? new Set(['card_text'])
+            : new Set();
   for (const sectionKey of SECTION_ORDER) {
     if (skipInBody.has(sectionKey)) continue;
     const entries = sections.get(sectionKey) || [];
@@ -1519,10 +1525,22 @@ function renderObjectiveTopSummary(sectionEntries) {
 </div>`;
 }
 
+function renderDamageCardTopSummary(sectionEntries) {
+  const cardTextEntries = sectionEntries.get('card_text') || [];
+  if (cardTextEntries.length === 0) return '';
+
+  return `<div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-text">${markdownishToHtml(cardTextEntries[0].text)}</div>
+</div>
+</div>`;
+}
+
 function renderTopSummary(card, sectionEntries) {
   if (card.category === 'upgrades') return renderUpgradeTopSummary(sectionEntries);
   if (card.category === 'objectives') return renderObjectiveTopSummary(sectionEntries);
   if (card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons') return renderUpgradeTopSummary(sectionEntries);
+  if (card.category === 'damage-cards') return renderDamageCardTopSummary(sectionEntries);
   return '';
 }
 
