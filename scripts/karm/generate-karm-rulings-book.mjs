@@ -669,7 +669,6 @@ function insertDynamicHeaderCards(cards, iconMap) {
 
 function buildUpgradeCard(item, source, iconMap) {
   const rules = normalizeRules(item.rules, item.rulings);
-  if (rules.length === 0) return null;
   const factions = Array.isArray(item.faction) ? item.faction.filter((f) => typeof f === 'string') : ['neutral'];
   const upgradeType = normalizeUpgradeType(item.type);
   const typeIconChar = iconMap[upgradeTypeToIconKey(upgradeType)] || '';
@@ -700,8 +699,6 @@ function buildObjectiveCard(item, source) {
   if (item.end_of_round) summaryParts.push(`**End of Round:** ${stringValue(item.end_of_round, '')}`);
   if (item.end_of_game) summaryParts.push(`**End of Game:** ${stringValue(item.end_of_game, '')}`);
   if (item.errata) summaryParts.push(`**Errata:** ${stringValue(item.errata, '')}`);
-
-  if (rules.length === 0 && summaryParts.length === 0) return null;
 
   return {
     category: 'objectives',
@@ -757,7 +754,6 @@ function buildAceSquadronCard(item, source, iconMap, logLines) {
 
 function buildDamageCard(item, source) {
   const rules = normalizeRules(item.rules, item.rulings || item.clarification || item.clarifications);
-  if (rules.length === 0) return null;
 
   return {
     category: 'damage-cards',
