@@ -25,6 +25,7 @@ const includeCategoriesArg = [...args].find((arg) => arg.startsWith('--include-c
 const includeUpgradeTypesArg = [...args].find((arg) => arg.startsWith('--include-upgrade-types=')) || '';
 const includeObjectiveTypesArg = [...args].find((arg) => arg.startsWith('--include-objective-types=')) || '';
 const nexusOnly = args.has('--nexus-only');
+const splitUpgradesDirArg = [...args].find((arg) => arg.startsWith('--split-upgrades-dir=')) || '';
 const outputHtmlArg = [...args].find((arg) => arg.startsWith('--output-html=')) || '';
 const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) || '';
 let ICON_MAP_RUNTIME = {};
@@ -201,6 +202,11 @@ async function main() {
   await mkdir(path.dirname(compileLogPath), { recursive: true });
   await writeFile(outputHtmlPath, html, 'utf8');
   await writeFile(compileLogPath, buildResult.logLines.join('\n') || 'No warnings.\n', 'utf8');
+
+  const splitUpgradesDir = splitUpgradesDirArg ? splitUpgradesDirArg.split('=')[1] : '';
+  if (splitUpgradesDir && webMode) {
+    await generateSplitUpgradeFiles(cards, config, iconMap, splitUpgradesDir);
+  }
 
   if (dryRun) {
     log(`Dry run complete. HTML written to ${outputHtmlPath}`);
@@ -1089,7 +1095,7 @@ function renderWebNav() {
   links.push(`<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>`);
   links.push(`<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>`);
   links.push(`<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>`);
-  links.push(`<a href="/rulings/upgrades/superweapon.html" class="toc-link toc-sub">Superweapon</a>`);
+  links.push(`<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>`);
   links.push(`<div class="toc-section-label">Nexus</div>`);
   links.push(`<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>`);
   links.push(`<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>`);
@@ -1554,6 +1560,31 @@ function toAssetUrl(filePath, config) {
     }
   }
   return toFileUrl(resolved);
+}
+
+async function generateSplitUpgradeFiles(allCards, config, iconMap, splitDir) {
+  const upgradeCards = allCards.filter(
+    (c) => c.category === 'upgrades' || c.category === 'nexus-upgrades'
+  );
+  const byType = new Map();
+  for (const card of upgradeCards) {
+    const type = normalizeUpgradeType(card.upgradeType);
+    if (!byType.has(type)) byType.set(type, []);
+    byType.get(type).push(card);
+  }
+
+  const resolvedDir = path.resolve(repoRoot, splitDir);
+  await mkdir(resolvedDir, { recursive: true });
+
+  for (const [type, typeCards] of byType) {
+    const sorted = [...typeCards].sort((a, b) => sortCard(a, b));
+    const withHeaders = insertDynamicHeaderCards(sorted, iconMap);
+    const withAnchors = assignAnchorIds(withHeaders);
+    const html = await renderHtml({ pages: null, cards: withAnchors, config });
+    const outPath = path.join(resolvedDir, `${type}.html`);
+    await writeFile(outPath, html, 'utf8');
+    log(`Split upgrade file: ${type} (${typeCards.length} cards) -> ${outPath}`);
+  }
 }
 
 function isWebOutput(config) {

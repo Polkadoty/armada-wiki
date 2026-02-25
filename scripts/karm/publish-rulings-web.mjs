@@ -74,40 +74,15 @@ if (!copiedBackground) {
   process.stdout.write('[karm-web] Background image not found; rulings pages will use solid background.\n');
 }
 
-const upgradeTypes = [
-  'weapons-team-offensive-retro',
-  'commander',
-  'officer',
-  'weapons-team',
-  'offensive-retro',
-  'defensive-retro',
-  'turbolaser',
-  'ion-cannon',
-  'ordnance',
-  'fleet-support',
-  'support-team',
-  'experimental-retro',
-  'fleet-command',
-  'title',
-  'superweapon',
-];
-
 const jobs = [
   { label: 'all', out: 'public/rulings/index.html', log: 'public/rulings/compile.log', categories: '' },
   { label: 'objectives', out: 'public/rulings/objectives.html', log: 'public/rulings/objectives.log', categories: 'objectives' },
   { label: 'campaign', out: 'public/rulings/campaign.html', log: 'public/rulings/campaign.log', categories: 'objectives', objectiveTypes: 'campaign' },
   { label: 'damage-cards', out: 'public/rulings/damage-cards.html', log: 'public/rulings/damage-cards.log', categories: 'damage-cards' },
-  { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades' },
+  { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades', splitUpgradesDir: 'public/rulings/upgrades' },
   { label: 'squadrons', out: 'public/rulings/squadrons.html', log: 'public/rulings/squadrons.log', categories: 'ace-squadrons' },
   { label: 'nexus-upgrades', out: 'public/rulings/nexus-upgrades.html', log: 'public/rulings/nexus-upgrades.log', categories: 'upgrades', nexusOnly: true },
   { label: 'nexus-squadrons', out: 'public/rulings/nexus-squadrons.html', log: 'public/rulings/nexus-squadrons.log', categories: 'ace-squadrons', nexusOnly: true },
-  ...upgradeTypes.map((type) => ({
-    label: `upgrades:${type}`,
-    out: `public/rulings/upgrades/${type}.html`,
-    log: `public/rulings/upgrades/${type}.log`,
-    categories: 'upgrades',
-    upgradeTypes: type,
-  })),
 ];
 
 for (const job of jobs) {
@@ -129,6 +104,7 @@ async function runGenerator(job) {
   if (job.upgradeTypes) args.push(`--include-upgrade-types=${job.upgradeTypes}`);
   if (job.objectiveTypes) args.push(`--include-objective-types=${job.objectiveTypes}`);
   if (job.nexusOnly) args.push('--nexus-only');
+  if (job.splitUpgradesDir) args.push(`--split-upgrades-dir=${job.splitUpgradesDir}`);
 
   await new Promise((resolve, reject) => {
     const child = spawn(cmd, args, { stdio: 'inherit' });
