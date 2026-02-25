@@ -418,6 +418,7 @@ body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
   background-size: cover;
+  background-position: center top -60px;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
