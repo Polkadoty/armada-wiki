@@ -167,7 +167,7 @@ body.toc-open .toc-drawer {
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  font-family: "RevengerLightBBW00-Regular", Impact, sans-serif;
+  font-family: "RevengerLite", Impact, sans-serif;
 }
 
 .karm-card {
@@ -411,6 +411,128 @@ body.toc-open .toc-drawer {
   background: rgba(0, 0, 0, 0.05);
   padding: 0 4px;
   border-radius: 4px;
+}
+
+/* ── Continuous web layout ── */
+body.karm-web {
+  background: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+body.karm-web .karm-book {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  gap: 0;
+}
+
+body.karm-web .karm-page-shell,
+body.karm-web .karm-page {
+  display: none;
+}
+
+body.karm-web .karm-continuous {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+body.karm-web .card-top {
+  min-height: auto;
+}
+
+body.karm-web .card-image-wrap {
+  width: 240px;
+  min-width: 240px;
+}
+
+body.karm-web .card-image {
+  width: 240px;
+  height: 340px;
+}
+
+body.karm-web .card-title {
+  font-size: 32px;
+}
+
+body.karm-web .card-meta {
+  font-size: 18px;
+}
+
+body.karm-web .card-body,
+body.karm-web .card-keywords,
+body.karm-web .card-rulings,
+body.karm-web .card-bottom {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+body.karm-web .card-keywords {
+  font-size: 16px;
+}
+
+body.karm-web .top-summary-label {
+  font-size: 28px;
+}
+
+body.karm-web .top-summary-text {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+body.karm-web .ruling-heading {
+  font-size: 28px;
+}
+
+body.karm-web .ruling-footnotes {
+  font-size: 13px;
+}
+
+body.karm-web .section-header-title {
+  font-size: 56px;
+}
+
+body.karm-web .karm-header-card {
+  min-height: 200px;
+}
+
+body.karm-web .page-number {
+  display: none;
+}
+
+body.karm-web .card-divider {
+  border: none;
+  border-top: 1px solid rgba(36, 64, 143, 0.2);
+  margin: 32px 0;
+}
+
+@media (max-width: 640px) {
+  body.karm-web .card-top {
+    flex-direction: column;
+  }
+
+  body.karm-web .card-image-wrap {
+    width: 100%;
+    min-width: unset;
+    display: flex;
+    justify-content: center;
+  }
+
+  body.karm-web .card-image {
+    width: 200px;
+    height: 284px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 26px;
+  }
+
+  body.karm-web .karm-book {
+    padding: 16px 12px;
+  }
 }
 
 @media print {

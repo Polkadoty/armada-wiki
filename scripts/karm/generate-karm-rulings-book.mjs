@@ -184,7 +184,8 @@ async function main() {
     cards = [buildPlaceholderCard()];
   }
 
-  const pages = paginateCards(cards);
+  const webMode = isWebOutput(config);
+  const pages = webMode ? null : paginateCards(cards);
   const html = await renderHtml({ pages, cards, config });
   const outputHtmlPath = path.resolve(repoRoot, config.outputHtml);
   const outputPdfPath = path.resolve(repoRoot, config.outputPdf);
@@ -932,51 +933,48 @@ async function renderHtml({ pages, cards, config }) {
   const cssPath = path.resolve(repoRoot, config.templateCss);
   const css = await readFile(cssPath, 'utf8');
   const fontFaces = buildFontFaceCss(config.fonts, config);
+  const webMode = isWebOutput(config);
 
   const beforePages = await readStaticPages(config.staticPages.before || []);
   const afterPages = await readStaticPages(config.staticPages.after || []);
 
-  const cardsHtml = pages
-    .map((pageCards, idx) => {
-      const body = pageCards
-        .map((card) => (card.category === 'header' ? renderHeaderCard(card) : renderCard(card)))
-        .join('\n');
-      const pageNumber = idx + 1;
-      return `
+  let cardsHtml;
+  if (pages) {
+    // Paginated mode (PDF output)
+    cardsHtml = pages
+      .map((pageCards, idx) => {
+        const body = pageCards
+          .map((card) => (card.category === 'header' ? renderHeaderCard(card) : renderCard(card)))
+          .join('\n');
+        const pageNumber = idx + 1;
+        return `
 <div class="karm-page-shell">
   <section class="karm-page">
     <div class="page-body">${body}</div>
     ${pageCards.length === 1 && pageCards[0].category === 'header' ? '' : `<div class="page-number">${pageNumber}</div>`}
   </section>
 </div>`;
-    })
-    .join('\n');
+      })
+      .join('\n');
+  } else {
+    // Continuous mode (web output)
+    const rendered = cards.map((card, idx) => {
+      const html = card.category === 'header' ? renderHeaderCard(card) : renderCard(card);
+      const divider = idx < cards.length - 1 && card.category !== 'header' ? '\n<hr class="card-divider" />' : '';
+      return html + divider;
+    });
+    cardsHtml = `<div class="karm-continuous">${rendered.join('\n')}</div>`;
+  }
 
   const pageBackground = config.pageBackgroundImage
     ? `url('${withAssetVersion(toAssetUrl(path.resolve(repoRoot, config.pageBackgroundImage), config), config)}')`
     : 'none';
-  const webNav = isWebOutput(config) ? renderWebNav() : '';
-
-  return `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
-    <style>
-      :root { --page-background: ${pageBackground}; }
-      ${fontFaces}
-      ${css}
-    </style>
-  </head>
-  <body>
-    ${webNav}
-    <div class="karm-book">
-      ${beforePages}
-      ${cardsHtml}
-      ${afterPages}
-    </div>
-    <script>
+  const webNav = webMode ? renderWebNav() : '';
+  const preloadLinks = webMode ? buildPreloadLinks(config) : '';
+  const bodyClass = webMode ? ' class="karm-web"' : '';
+  const scaleScript = webMode
+    ? ''
+    : `<script>
       (function () {
         const PAGE_WIDTH = 2194;
         const GUTTER = 24;
@@ -988,10 +986,60 @@ async function renderHtml({ pages, cards, config }) {
         updateScale();
         window.addEventListener('resize', updateScale);
       })();
-    </script>
+    </script>`;
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    ${preloadLinks}
+    <style>
+      :root { --page-background: ${pageBackground}; }
+      ${fontFaces}
+      ${css}
+    </style>
+  </head>
+  <body${bodyClass}>
+    ${webNav}
+    <div class="karm-book">
+      ${beforePages}
+      ${cardsHtml}
+      ${afterPages}
+    </div>
+    ${scaleScript}
     <!-- Generated cards: ${cards.length} -->
   </body>
 </html>`;
+}
+
+function buildPreloadLinks(config) {
+  const fonts = config.fonts || {};
+  const entries = [
+    fonts.optimaRegular,
+    fonts.optimaItalic,
+    fonts.optimaBold,
+    fonts.revengerLite,
+    fonts.teutonFett,
+    fonts.iconFont,
+  ].filter(Boolean);
+
+  return entries
+    .map((file) => {
+      const url = withAssetVersion(toAssetUrl(file, config), config);
+      const lower = String(file).toLowerCase();
+      const format = lower.endsWith('.otf')
+        ? 'opentype'
+        : lower.endsWith('.woff2')
+          ? 'woff2'
+          : lower.endsWith('.woff')
+            ? 'woff'
+            : 'truetype';
+      const crossorigin = format === 'woff' || format === 'woff2' ? ' crossorigin' : '';
+      return `<link rel="preload" href="${url}" as="font" type="font/${format}"${crossorigin} />`;
+    })
+    .join('\n    ');
 }
 
 function renderWebNav() {
@@ -1092,6 +1140,7 @@ function buildFontFaceCss(fonts, config) {
   src: url('${srcUrl}') format('${format}');
   font-weight: ${weight};
   font-style: ${style};
+  font-display: swap;
 }`);
   };
 

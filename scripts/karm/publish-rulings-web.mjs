@@ -25,6 +25,8 @@ const fontCopies = [
   ['TeutonFett.otf', 'TeutonFett.otf'],
   ['RevengerLiteBB.ttf', 'RevengerLiteBB.ttf'],
   ['fighter-keyword.ttf', 'fighter-keyword.ttf'],
+  ['optima-bold.woff', 'optima-bold.woff'],
+  ['optima-italic.woff', 'optima-italic.woff'],
 ];
 
 await mkdir(targetFontsRoot, { recursive: true });
