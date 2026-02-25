@@ -23,6 +23,8 @@ const configArg = [...args].find((arg) => arg.startsWith('--config=')) || '';
 const configOverridePath = configArg ? configArg.split('=')[1] : '';
 const includeCategoriesArg = [...args].find((arg) => arg.startsWith('--include-categories=')) || '';
 const includeUpgradeTypesArg = [...args].find((arg) => arg.startsWith('--include-upgrade-types=')) || '';
+const includeObjectiveTypesArg = [...args].find((arg) => arg.startsWith('--include-objective-types=')) || '';
+const nexusOnly = args.has('--nexus-only');
 const outputHtmlArg = [...args].find((arg) => arg.startsWith('--output-html=')) || '';
 const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) || '';
 let ICON_MAP_RUNTIME = {};
@@ -167,6 +169,9 @@ async function main() {
   }
   if (includeUpgradeTypesArg) {
     config.includeUpgradeTypes = splitCsv(includeUpgradeTypesArg.split('=')[1]);
+  }
+  if (includeObjectiveTypesArg) {
+    config.includeObjectiveTypes = splitCsv(includeObjectiveTypesArg.split('=')[1]);
   }
   if (outputHtmlArg) {
     config.outputHtml = outputHtmlArg.split('=')[1];
@@ -464,6 +469,26 @@ function buildCards(data, config, iconMap) {
       const card = cards[i];
       if (card.category !== 'upgrades' && card.category !== 'nexus-upgrades') continue;
       if (!requestedUpgradeTypes.has(normalizeUpgradeType(card.upgradeType))) {
+        cards.splice(i, 1);
+      }
+    }
+  }
+
+  const requestedObjectiveTypes = new Set((config.includeObjectiveTypes || []).map((t) => t.toLowerCase()));
+  if (requestedObjectiveTypes.size > 0) {
+    for (let i = cards.length - 1; i >= 0; i -= 1) {
+      const card = cards[i];
+      if (card.category !== 'objectives') continue;
+      if (!requestedObjectiveTypes.has(normalizeObjectiveType(card.type))) {
+        cards.splice(i, 1);
+      }
+    }
+  }
+
+  if (nexusOnly) {
+    for (let i = cards.length - 1; i >= 0; i -= 1) {
+      const card = cards[i];
+      if (card.category !== 'nexus-upgrades' && card.category !== 'nexus-ace-squadrons') {
         cards.splice(i, 1);
       }
     }
@@ -1045,12 +1070,29 @@ function buildPreloadLinks(config) {
 function renderWebNav() {
   const links = [];
   links.push(`<a href="/rulings/objectives.html" class="toc-link">Objectives</a>`);
+  links.push(`<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>`);
   links.push(`<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>`);
   links.push(`<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>`);
   links.push(`<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>`);
-  links.push(`<a href="/rulings/upgrades/commander.html" class="toc-link">Commander</a>`);
-  links.push(`<a href="/rulings/upgrades/officer.html" class="toc-link">Officer</a>`);
-  links.push(`<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link">Boarding Teams</a>`);
+  links.push(`<div class="toc-section-label">Upgrade Types</div>`);
+  links.push(`<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>`);
+  links.push(`<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>`);
+  links.push(`<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>`);
+  links.push(`<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>`);
+  links.push(`<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>`);
+  links.push(`<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>`);
+  links.push(`<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>`);
+  links.push(`<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>`);
+  links.push(`<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>`);
+  links.push(`<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>`);
+  links.push(`<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>`);
+  links.push(`<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>`);
+  links.push(`<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>`);
+  links.push(`<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>`);
+  links.push(`<a href="/rulings/upgrades/superweapon.html" class="toc-link toc-sub">Superweapon</a>`);
+  links.push(`<div class="toc-section-label">Nexus</div>`);
+  links.push(`<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>`);
+  links.push(`<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>`);
 
   return `
 <button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open')">

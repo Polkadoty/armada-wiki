@@ -98,6 +98,19 @@ body.toc-open .toc-drawer {
   color: #24408f;
 }
 
+.toc-link.toc-sub {
+  padding-left: 16px;
+  font-size: 17px;
+}
+
+.toc-section-label {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  padding: 12px 4px 4px;
+  letter-spacing: 0.02em;
+}
+
 @media (max-width: 760px) {
   .toc-fab {
     top: auto;

@@ -95,9 +95,12 @@ const upgradeTypes = [
 const jobs = [
   { label: 'all', out: 'public/rulings/index.html', log: 'public/rulings/compile.log', categories: '' },
   { label: 'objectives', out: 'public/rulings/objectives.html', log: 'public/rulings/objectives.log', categories: 'objectives' },
+  { label: 'campaign', out: 'public/rulings/campaign.html', log: 'public/rulings/campaign.log', categories: 'objectives', objectiveTypes: 'campaign' },
   { label: 'damage-cards', out: 'public/rulings/damage-cards.html', log: 'public/rulings/damage-cards.log', categories: 'damage-cards' },
   { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades' },
   { label: 'squadrons', out: 'public/rulings/squadrons.html', log: 'public/rulings/squadrons.log', categories: 'ace-squadrons' },
+  { label: 'nexus-upgrades', out: 'public/rulings/nexus-upgrades.html', log: 'public/rulings/nexus-upgrades.log', categories: 'upgrades', nexusOnly: true },
+  { label: 'nexus-squadrons', out: 'public/rulings/nexus-squadrons.html', log: 'public/rulings/nexus-squadrons.log', categories: 'ace-squadrons', nexusOnly: true },
   ...upgradeTypes.map((type) => ({
     label: `upgrades:${type}`,
     out: `public/rulings/upgrades/${type}.html`,
@@ -124,6 +127,8 @@ async function runGenerator(job) {
 
   if (job.categories) args.push(`--include-categories=${job.categories}`);
   if (job.upgradeTypes) args.push(`--include-upgrade-types=${job.upgradeTypes}`);
+  if (job.objectiveTypes) args.push(`--include-objective-types=${job.objectiveTypes}`);
+  if (job.nexusOnly) args.push('--nexus-only');
 
   await new Promise((resolve, reject) => {
     const child = spawn(cmd, args, { stdio: 'inherit' });
