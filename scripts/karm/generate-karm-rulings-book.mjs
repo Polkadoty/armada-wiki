@@ -30,6 +30,17 @@ const outputHtmlArg = [...args].find((arg) => arg.startsWith('--output-html=')) 
 const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) || '';
 let ICON_MAP_RUNTIME = {};
 let ICON_FONT_ENABLED = true;
+let NR_LOGO_SVG = '';
+
+const FACTION_TAG_RE = /\s*\{([^}]+)\}/g;
+const FACTION_TAG_MAP = {
+  nr: 'new-republic',
+  scum: 'scum',
+  rebel: 'rebel',
+  empire: 'empire',
+  republic: 'republic',
+  separatist: 'separatist',
+};
 const WEB_ASSET_VERSION =
   (process.env.VERCEL_GIT_COMMIT_SHA || process.env.GIT_COMMIT || '')
     .toString()
@@ -182,6 +193,19 @@ async function main() {
   }
   ICON_FONT_ENABLED = Boolean(String(config.fonts?.iconFont || '').trim());
   const iconMap = await loadIconMap(config.iconsMapSource, config.iconsMapSourceExternal);
+
+  try {
+    const nrSvgPath = path.resolve(__dirname, 'assets', 'nr-logo.svg');
+    const raw = await readFile(nrSvgPath, 'utf8');
+    NR_LOGO_SVG = raw
+      .replace(/\s*width="[^"]*"/, '')
+      .replace(/\s*height="[^"]*"/, '')
+      .replace(/fill="black"/g, 'fill="currentColor"')
+      .replace(/stroke="black"/g, 'stroke="currentColor"')
+      .replace(/\n\s*/g, ' ')
+      .trim();
+  } catch { /* NR SVG not available */ }
+
   const data = await fetchAllData(config);
   const buildResult = buildCards(data, config, iconMap);
   let cards = buildResult.cards;
@@ -618,6 +642,39 @@ function normalizeFaction(faction) {
   return String(faction || 'neutral').toLowerCase();
 }
 
+function stripFactionTags(name) {
+  const tags = [];
+  const cleanName = name.replace(FACTION_TAG_RE, (_match, tag) => {
+    const parts = tag.toLowerCase().split('/');
+    for (const part of parts) {
+      const mapped = FACTION_TAG_MAP[part.trim()];
+      if (mapped) tags.push(mapped);
+    }
+    return '';
+  }).trim();
+  return { cleanName, derivedFactions: tags };
+}
+
+function buildFactionIconHtml(factions, iconMap) {
+  if (!factions || factions.length === 0) return '';
+  const parts = [];
+  for (const faction of factions) {
+    const normalized = normalizeFaction(faction);
+    if (normalized === 'neutral') continue;
+    if (normalized === 'new-republic') {
+      if (NR_LOGO_SVG) {
+        parts.push(`<span class="faction-icon-nr">${NR_LOGO_SVG}</span>`);
+      }
+    } else {
+      const glyph = iconMap[normalized];
+      if (glyph) {
+        parts.push(`<span class="icon-font">${escapeHtml(glyph)}</span>`);
+      }
+    }
+  }
+  return parts.join('');
+}
+
 function isFactionSortedUpgradeType(type) {
   return type === 'commander' || type === 'officer';
 }
@@ -673,14 +730,24 @@ function insertDynamicHeaderCards(cards, iconMap) {
 
 function buildUpgradeCard(item, source, iconMap) {
   const rules = normalizeRules(item.rules, item.rulings);
-  const factions = Array.isArray(item.faction) ? item.faction.filter((f) => typeof f === 'string') : ['neutral'];
+  let factions = Array.isArray(item.faction) ? item.faction.filter((f) => typeof f === 'string') : ['neutral'];
   const upgradeType = normalizeUpgradeType(item.type);
   const typeIconChar = iconMap[upgradeTypeToIconKey(upgradeType)] || '';
+
+  const rawName = stringValue(item.name, 'Unknown Upgrade');
+  const { cleanName, derivedFactions } = stripFactionTags(rawName);
+
+  if (derivedFactions.length > 0) {
+    factions = derivedFactions;
+  }
+
+  const isHondo = cleanName.toLowerCase().includes('hondo ohnaka');
+  const factionIconHtml = isHondo ? '' : buildFactionIconHtml(factions, iconMap);
 
   return {
     category: isNexusSource(source) ? 'nexus-upgrades' : 'upgrades',
     source,
-    name: stringValue(item.name, 'Unknown Upgrade'),
+    name: cleanName,
     image: stringValue(item.cardimage, ''),
     factions,
     cardText: stringValue(item.ability, ''),
@@ -690,6 +757,7 @@ function buildUpgradeCard(item, source, iconMap) {
     primaryFaction: factions[0] || 'neutral',
     type: upgradeType,
     titleSuffix: typeIconChar ? ` ${typeIconChar}` : '',
+    factionIconHtml,
     rules,
   };
 }
@@ -740,18 +808,28 @@ function buildAceSquadronCard(item, source, iconMap, logLines) {
       return name.replace(/-/g, ' ');
     });
 
+  const rawName = stringValue(item['ace-name'] || item.name, 'Unknown Ace');
+  const { cleanName, derivedFactions } = stripFactionTags(rawName);
+  let factions = derivedFactions.length > 0
+    ? derivedFactions
+    : [stringValue(item.faction, 'neutral')];
+
+  const isHondo = cleanName.toLowerCase().includes('hondo ohnaka');
+  const factionIconHtml = isHondo ? '' : buildFactionIconHtml(factions, iconMap);
+
   return {
     category: isNexusSource(source) ? 'nexus-ace-squadrons' : 'ace-squadrons',
     source,
-    name: stringValue(item['ace-name'] || item.name, 'Unknown Ace'),
+    name: cleanName,
     image: stringValue(item.cardimage, ''),
-    factions: [stringValue(item.faction, 'neutral')],
+    factions,
     cardText: stringValue(item.ability, ''),
     details: `${numberValue(item.points, 0)} points`,
     keywords: [...abilityKeywords],
     type: 'ace-squadron',
-    primaryFaction: stringValue(item.faction, 'neutral'),
-    titleSuffix: iconMap[normalizeFaction(item.faction)] || '',
+    primaryFaction: factions[0] || 'neutral',
+    titleSuffix: '',
+    factionIconHtml,
     rules,
   };
 }
@@ -1042,7 +1120,7 @@ async function renderHtml({ pages, cards, config }) {
 
   var factionBtns = filtersContainer.querySelectorAll('.faction-btn[data-faction]');
   var allBtn = filtersContainer.querySelector('.faction-btn[data-faction="all"]');
-  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral'];
+  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral', 'new-republic', 'scum'];
   var activeFactions = new Set(factionKeys);
 
   function syncAllBtn() {
@@ -1260,6 +1338,8 @@ function renderWebNav() {
     <button type="button" class="faction-btn faction-republic active" data-faction="republic" aria-label="Republic" title="Republic"><span class="icon-font">|</span></button>
     <button type="button" class="faction-btn faction-separatist active" data-faction="separatist" aria-label="Separatist" title="Separatist"><span class="icon-font">}</span></button>
     <button type="button" class="faction-btn faction-neutral active" data-faction="neutral" aria-label="Neutral" title="Neutral">&#9733;</button>
+    <button type="button" class="faction-btn faction-scum active" data-faction="scum" aria-label="Scum" title="Scum"><span class="icon-font">{</span></button>
+    <button type="button" class="faction-btn faction-nr active" data-faction="new-republic" aria-label="New Republic" title="New Republic">${NR_LOGO_SVG ? `<span class="faction-icon-nr">${NR_LOGO_SVG}</span>` : 'NR'}</button>
   </div>
   <div class="search-result-count" id="karm-result-count"></div>
 </aside>
@@ -1364,7 +1444,8 @@ function renderCard(card) {
   const titleSuffixIcon = ICON_FONT_ENABLED && card.titleSuffix
     ? `<span class="icon-font">${escapeHtml(card.titleSuffix)}</span>`
     : '';
-  const titleIcons = [titleSuffixIcon]
+  const factionIcons = card.factionIconHtml || '';
+  const titleIcons = [factionIcons, titleSuffixIcon]
     .filter(Boolean)
     .join(' ');
 
@@ -1443,7 +1524,7 @@ function buildSectionBundle(card) {
 
   const sectionHtmlParts = [];
   const skipInBody =
-    card.category === 'upgrades'
+    card.category === 'upgrades' || card.category === 'nexus-upgrades'
       ? new Set(['card_text', 'timing'])
       : card.category === 'objectives'
         ? new Set(['card_text'])
@@ -1537,7 +1618,7 @@ function renderDamageCardTopSummary(sectionEntries) {
 }
 
 function renderTopSummary(card, sectionEntries) {
-  if (card.category === 'upgrades') return renderUpgradeTopSummary(sectionEntries);
+  if (card.category === 'upgrades' || card.category === 'nexus-upgrades') return renderUpgradeTopSummary(sectionEntries);
   if (card.category === 'objectives') return renderObjectiveTopSummary(sectionEntries);
   if (card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons') return renderUpgradeTopSummary(sectionEntries);
   if (card.category === 'damage-cards') return renderDamageCardTopSummary(sectionEntries);
