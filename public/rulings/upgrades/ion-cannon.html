@@ -1,0 +1,1409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <style>
+      :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
+      
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-italic.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-bold.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeutonFett';
+  src: url('/rulings/fonts/TeutonFett.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RevengerLite';
+  src: url('/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaIcons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+      :root {
+  --page-width: 2194px;
+  --page-height: 2820px;
+  --page-scale: 1;
+  --page-padding-y: 120px;
+  --page-padding-x: 129px;
+  --page-gap: 24px;
+  --ink: #221e1d;
+  --accent: #24408f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  background: #444;
+}
+
+.toc-fab {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hamburger > span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.toc-open .toc-drawer {
+  transform: translateX(0);
+}
+
+.toc-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.toc-link {
+  display: block;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.toc-link:hover {
+  color: #24408f;
+}
+
+.toc-link.toc-sub {
+  padding-left: 16px;
+  font-size: 17px;
+}
+
+.toc-section-label {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  padding: 12px 4px 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Search FAB ── */
+
+.search-fab {
+  position: fixed;
+  right: 10px;
+  top: calc(50% + 70px);
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-fab svg {
+  display: block;
+}
+
+/* ── Search drawer ── */
+
+.search-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.search-open .search-drawer {
+  transform: translateX(0);
+}
+
+.search-drawer-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 16px;
+}
+
+.search-input {
+  width: 100%;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 2px solid rgba(36, 64, 143, 0.35);
+  background: transparent;
+  outline: none;
+  color: #221e1d;
+  margin-bottom: 18px;
+}
+
+.search-input:focus {
+  border-bottom-color: #24408f;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+/* ── Faction filter buttons ── */
+
+.faction-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.faction-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid #ccc;
+  background: #e8e5de;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  padding: 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.faction-btn .icon-font {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.faction-btn[data-faction="all"] {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.faction-btn.active {
+  border-color: #24408f;
+  background: #24408f;
+  color: #fff;
+}
+
+.faction-btn.faction-rebel.active {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.faction-btn.faction-empire.active {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.faction-btn.faction-republic.active {
+  background: #b8860b;
+  border-color: #b8860b;
+}
+
+.faction-btn.faction-separatist.active {
+  background: #1565c0;
+  border-color: #1565c0;
+}
+
+.faction-btn.faction-neutral.active {
+  background: #666;
+  border-color: #666;
+}
+
+.search-result-count {
+  font-size: 14px;
+  color: #666;
+  padding: 4px 0;
+}
+
+/* ── Filtered-out cards and dividers ── */
+
+.karm-card.filtered-out,
+.card-divider.filtered-out {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 18px;
+  color: #666;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  display: none;
+}
+
+.no-results.visible {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .toc-fab {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+  }
+
+  .search-fab {
+    top: auto;
+    bottom: 80px;
+    right: 14px;
+    transform: none;
+  }
+}
+
+@page {
+  size: 2194px 2820px;
+  margin: 0;
+}
+
+.karm-book {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+.karm-page-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--page-height) * var(--page-scale));
+  overflow: hidden;
+}
+
+.karm-page {
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  gap: var(--page-gap);
+  transform: scale(var(--page-scale));
+  transform-origin: top center;
+}
+
+.karm-static-page {
+  width: 100%;
+  height: 100%;
+}
+
+.page-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.page-number {
+  position: absolute;
+  right: 88px;
+  bottom: 76px;
+  color: var(--accent);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "RevengerLite", Impact, sans-serif;
+}
+
+.karm-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.card-top {
+  display: flex;
+  gap: 25px;
+  min-height: 500px;
+}
+
+.card-image-wrap {
+  width: 350px;
+  min-width: 350px;
+}
+
+.card-image {
+  width: 350px;
+  height: 498px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #d9d9d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.card-image.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-style: italic;
+}
+
+.card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-family: "TeutonFett", "Teuton Fett", "AeroMaticsDisplay", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  font-variant: small-caps;
+  text-transform: none;
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 29px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-faction-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.card-body,
+.card-keywords,
+.card-rulings {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+}
+
+.card-keywords {
+  font-size: 27px;
+}
+
+.card-keyword-label {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.squadron-keywords .squadron-keyword-values,
+.squadron-keywords .squadron-keyword-token {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+}
+
+.squadron-keywords .squadron-keyword-token {
+  letter-spacing: 0.01em;
+}
+
+.card-bottom {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.top-summary-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-summary-label {
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: capitalize;
+}
+
+.top-summary-text {
+  font-size: 29px;
+  line-height: 1.22;
+  font-weight: 400;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.top-summary-text p {
+  margin: 0;
+}
+
+.ruling-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ruling-heading {
+  margin: 0 0 2px;
+  font-size: 46px;
+  line-height: 1.1;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  color: #202020;
+}
+
+.ruling-content {
+  margin: 0;
+}
+
+.ruling-content p {
+  margin: 0 0 6px;
+  font-weight: 400;
+}
+
+.ruling-content ul {
+  margin: 0;
+  padding-left: 32px;
+}
+
+.ruling-content li,
+.ruling-content li p,
+.card-text-content,
+.card-text-content p {
+  font-weight: 400;
+}
+
+.footnote-ref {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  transform: translateY(-0.38em);
+  margin-left: 0.12em;
+}
+
+.card-text-content p {
+  margin: 0 0 8px;
+}
+
+.icon-font {
+  font-family: "Icons", "ArmadaIcons", "RevengerLite", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+.ruling-footnotes {
+  margin-top: 14px;
+  border-top: 1px solid rgba(36, 64, 143, 0.3);
+  padding-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.karm-header-card {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header-title {
+  font-size: 116px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+}
+
+.ruling-content blockquote {
+  margin: 8px 0;
+  padding: 6px 0 6px 18px;
+  border-left: 5px solid rgba(36, 64, 143, 0.4);
+  font-style: italic;
+}
+
+.ruling-content code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.keyword-name {
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ── Continuous responsive web layout ── */
+
+body.karm-web {
+  background: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-position: center top -60px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+body.karm-web .karm-book {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  gap: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+body.karm-web .karm-page-shell,
+body.karm-web .karm-page {
+  display: none;
+}
+
+body.karm-web .karm-continuous {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+body.karm-web .page-number {
+  display: none;
+}
+
+/* ── Card layout ── */
+
+body.karm-web .karm-card {
+  max-width: 100%;
+}
+
+body.karm-web .card-top {
+  min-height: auto;
+  gap: 20px;
+}
+
+body.karm-web .card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+body.karm-web .card-image-wrap {
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+body.karm-web .card-image {
+  width: 220px;
+  height: 312px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ── Typography ── */
+
+body.karm-web .card-title {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+body.karm-web .card-meta {
+  font-size: 16px;
+  gap: 8px;
+}
+
+body.karm-web .card-body,
+body.karm-web .card-keywords,
+body.karm-web .card-rulings,
+body.karm-web .card-bottom {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body.karm-web .card-keywords {
+  font-size: 15px;
+}
+
+body.karm-web .top-summary-label {
+  font-size: 24px;
+}
+
+body.karm-web .top-summary-text {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.karm-web .ruling-heading {
+  font-size: 24px;
+}
+
+body.karm-web .ruling-content ul {
+  padding-left: 24px;
+}
+
+body.karm-web .ruling-footnotes {
+  font-size: 13px;
+}
+
+body.karm-web .section-header-title {
+  font-size: 48px;
+}
+
+body.karm-web .karm-header-card {
+  min-height: 120px;
+  padding: 24px 0;
+}
+
+body.karm-web .card-divider {
+  border: none;
+  border-top: 1px solid rgba(36, 64, 143, 0.2);
+  margin: 28px 0;
+}
+
+/* ── Tablet ── */
+
+@media (max-width: 768px) {
+  body.karm-web .karm-book {
+    padding: 24px 16px;
+  }
+
+  body.karm-web .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  body.karm-web .card-image-wrap {
+    width: auto;
+    min-width: unset;
+    flex-shrink: unset;
+  }
+
+  body.karm-web .card-image {
+    width: 180px;
+    height: 256px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 24px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 36px;
+  }
+
+  body.karm-web .karm-header-card {
+    min-height: 80px;
+    padding: 16px 0;
+  }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+  body.karm-web .karm-book {
+    padding: 16px 12px;
+  }
+
+  body.karm-web .card-top {
+    align-items: center;
+  }
+
+  body.karm-web .card-image {
+    width: 160px;
+    height: 228px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  body.karm-web .card-body,
+  body.karm-web .card-keywords,
+  body.karm-web .card-rulings,
+  body.karm-web .card-bottom {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  body.karm-web .top-summary-label {
+    font-size: 20px;
+  }
+
+  body.karm-web .ruling-heading {
+    font-size: 20px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 28px;
+  }
+
+  body.karm-web .card-divider {
+    margin: 20px 0;
+  }
+}
+
+@media print {
+  .toc-fab,
+  .toc-drawer,
+  .search-fab,
+  .search-drawer,
+  .no-results {
+    display: none !important;
+  }
+
+  :root {
+    --page-scale: 1;
+  }
+
+  html,
+  body {
+    background: transparent;
+  }
+
+  .karm-book {
+    gap: 0;
+    padding: 0;
+  }
+
+  .karm-page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .karm-page {
+    margin: 0;
+    transform: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .karm-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+
+    </style>
+  </head>
+  <body class="karm-web">
+    
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+  <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
+<aside class="toc-drawer" aria-label="Rulings navigation">
+  <div class="toc-title">Rulings</div>
+  <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
+<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
+<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
+<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>
+<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
+<div class="toc-section-label">Upgrade Types</div>
+<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
+<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
+<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
+<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
+<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>
+<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>
+<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>
+<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>
+<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>
+<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>
+<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>
+<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>
+<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
+<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
+<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<div class="toc-section-label">Nexus</div>
+<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
+<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
+</aside>
+<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+<aside class="search-drawer" aria-label="Search and filter">
+  <div class="search-drawer-title">Search &amp; Filter</div>
+  <input type="text" class="search-input" id="karm-search-input" placeholder="Search cards..." autocomplete="off" />
+  <div class="faction-filters" id="karm-faction-filters">
+    <button type="button" class="faction-btn active" data-faction="all" aria-label="All factions" title="All">All</button>
+    <button type="button" class="faction-btn faction-rebel active" data-faction="rebel" aria-label="Rebel Alliance" title="Rebel"><span class="icon-font">[</span></button>
+    <button type="button" class="faction-btn faction-empire active" data-faction="empire" aria-label="Galactic Empire" title="Empire"><span class="icon-font">\</span></button>
+    <button type="button" class="faction-btn faction-republic active" data-faction="republic" aria-label="Republic" title="Republic"><span class="icon-font">|</span></button>
+    <button type="button" class="faction-btn faction-separatist active" data-faction="separatist" aria-label="Separatist" title="Separatist"><span class="icon-font">}</span></button>
+    <button type="button" class="faction-btn faction-neutral active" data-faction="neutral" aria-label="Neutral" title="Neutral">&#9733;</button>
+  </div>
+  <div class="search-result-count" id="karm-result-count"></div>
+</aside>
+<div class="no-results" id="karm-no-results">No matching cards found.</div>
+    <div class="karm-book">
+      
+      <div class="karm-continuous">
+<article class="karm-card karm-header-card" id="ion-cannon-1" data-category="header">
+  <div class="section-header-title">Ion Cannon <span class="icon-font">E</span></div>
+</article>
+
+<article class="karm-card" id="heavy-ion-emplacements-2" data-name="heavy ion emplacements" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/heavy-ion-emplacements.webp" alt="Heavy Ion Emplacements" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Heavy Ion Emplacements <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>BLUE <span class="icon-font">T</span> : You may exhaust this card. If you do, the defending hull zone and each adjacent hull zone loses 1 shield.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be exhausted and resolved during the &#39;Resolve Damage&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The damage suffered by this card ability only affects the shield values of a ship; it does not cause any damage to a ship&#39;s hull. That shield damage is suffered before the damage total is calculated, so it cannot be blocked by card effects such as Major Derlin or Seventh Fleet Star Destroyer. <span class="footnote-ref">[1]</span></li><li>This upgrade resolves during the &#39;Resolve Damage&#39; step, meaning that the defender must decide whether or not to spend their defense tokens before this card may be triggered. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A defending ship that has Tranquility equipped may choose to reallocate shields before the attacker can trigger this card. Tranquility triggers after the &#39;Spend Defense Tokens&#39; step but before the &#39;Resolve Damage&#39; step. <span class="footnote-ref">[1]</span></li><li>Implacable cannot reduce the loss of shields from this card as Implacable only applies to the total damage dealt at the end of the &#39;Resolve Damage&#39; step. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="high-capacity-ion-turbines-3" data-name="high-capacity ion turbines" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/high-capacity-ion-turbines.webp" alt="High-Capacity Ion Turbines" /></div>
+    <div class="card-main">
+      <h2 class="card-title">High-Capacity Ion Turbines <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Modification.</p><p>The battery armaments for your left and right hull zones are increased by 1 blue die.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card is always active, unless it is discarded.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Battery armament is used when attacking a ship. This Upgrade Card does not increase that ship&#39;s anti squadron armament. <span class="footnote-ref">[1]</span></li><li>This card ability only increases the &#39;Left&#39; and &#39;Right&#39; hull zones of a ship&#39;s battery armament; &#39;Auxiliary Left&#39; and &#39;Auxiliary Right&#39; hull zones (such as those on the Super Star Destroyer) do not qualify. <span class="footnote-ref">[1]</span></li><li>This added die is part of the initial attack pool when gathering dice. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>The blue dice added by this card can be used to claim Fire Lanes objective tokens during the &#39;End of Round&#39; step, as they are considered part of the ship&#39;s battery armament. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ion-cannon-batteries-4" data-name="ion cannon batteries" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-cannon-batteries.webp" alt="Ion Cannon Batteries" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ion Cannon Batteries <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Blue <span class="icon-font">T</span>: Choose and discard 1 command token from the defender. If the defender does not have any command tokens, the defending hull zone loses 1 shield instead.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be exhausted and resolved during the &#39;Resolve Damage&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The damage suffered by this card ability only affects the shield values of a ship, it does not cause any damage to a ship&#39;s hull. When suffering the shield damage, that shield damage is suffered before the damage total is calculated, so it cannot be blocked by card effects such as Major Derlin or Seventh Fleet Star Destroyer. <span class="footnote-ref">[1]</span></li><li>The defender may not choose to have the defending hull zone lose one shield instead of discarding a command token. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A defending ship that has Tranquility equipped may choose to reallocate shields before the attacker can trigger this card as Tranquility resolves before the &#39;Resolve Damage&#39; step. <span class="footnote-ref">[1]</span></li><li>If a defending ship is the target of the Implacable effect during the &#39;Resolve Damage&#39; step, because this card forces the defender to &#39;lose 1 shield&#39; instead of &#39;suffer a damage&#39;, Implacable cannot reduce the loss of shields from this card, only any other damage present in the pool. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="leading-shots-5" data-name="leading shots" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leading-shots.webp" alt="Leading Shots" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Leading Shots <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking, you may spend 1 blue die to reroll any number of dice in your attack pool.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved once during the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s ability works on attacks against both ships and squadrons. <span class="footnote-ref">[1]</span></li><li>A blue die spent for any other effect does not also resolve this card; a die can only be spent for one effect at a time unless a card ability states otherwise. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ms-1-ion-cannons-6" data-name="ms-1 ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ms-1-ion-cannons.webp" alt="MS-1 Ion Cannons" /></div>
+    <div class="card-main">
+      <h2 class="card-title">MS-1 Ion Cannons <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Blue <span class="icon-font">T</span>: Choose and exhaust 1 of the defender&#39;s upgrade cards.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved during the &#39;Resolve Damage&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card has no effect on cards that are already exhausted. <span class="footnote-ref">[1]</span></li><li>Exhausting a card that does not have any abilities relating to its exhaustion (such as Spinal Armament or Intensify Firepower!) will have no effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="nk-7-ion-cannons-7" data-name="nk-7 ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nk-7-ion-cannons.webp" alt="NK-7 Ion Cannons" /></div>
+    <div class="card-main">
+      <h2 class="card-title">NK-7 Ion Cannons <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Blue <span class="icon-font">T</span> : Exhaust this card to force the defender to choose and discard 1 of its defense tokens.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be exhausted and resolved during the &#39;Resolve Damage&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The defender can choose and discard any defense token of their choice including any exhausted defense tokens that were spent in the &#39;Spend Defense Tokens&#39; step. <span class="footnote-ref">[1]</span></li><li>If an Evade defense token was discarded to resolve the Evade effect, the defender must select another available token to be discarded by this card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>A token discarded by this Upgrade Card&#39;s effect will not resolve its normal effect. <span class="footnote-ref">[1]</span></li><li>The faceup damage card Faulty Countermeasures does not prevent a defending ship from discarding an exhausted defense token due to this Upgrade Card; the token is &#39;discarded&#39;, not spent. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A defending ship that has Admonition equipped (and not discarded) cannot resolve the Admonition effect by discarding a token from this card as the &#39;Spend Defense Token&#39; timing window has already passed. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="overcharged-plasma-cells-8" data-name="overcharged plasma cells" data-factions="covenant" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/over-plasma-cells-halo-legends.webp" alt="Overcharged Plasma Cells" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Overcharged Plasma Cells <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="overload-pulse-9" data-name="overload pulse" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/overload-pulse.webp" alt="Overload Pulse" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Overload Pulse <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>BLUE <span class="icon-font">T</span> : Exhaust all of the defender&#39;s defense tokens.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved during the &#39;Resolve Damage&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This card ability does not resolve before defense tokens are spent. The Defender may still spend defense tokens in the &#39;Spend Defense Tokens&#39; step, which is before the &#39;Resolve Damage&#39; step. In the &#39;Resolve Damage&#39; step, when the attacker chooses and resolves this critical effect, any remaining readied defense tokens will be flipped to the exhausted state. <span class="footnote-ref">[1]</span></li><li>Exhausted defense tokens are not affected by this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="point-defense-ion-cannons-10" data-name="point defense ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/point-defense-ion-cannons.webp" alt="Point Defense Ion Cannons" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Point Defense Ion Cannons <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending at close range or distance 1, during the Spend Defense Tokens step, you may force the attacker to reroll 1 die of your choice.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card is resolved during the Spend Defense Tokens step of the Attack step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="sustain-motor-missiles-11" data-name="sustain motor missiles" data-factions="unsc" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sustain-motor-missiles-halo-legends.webp" alt="Sustain Motor Missiles" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Sustain Motor Missiles <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="sw-7-ion-batteries-12" data-name="sw-7 ion batteries" data-factions="" data-category="upgrades" data-type="ion-cannon">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sw-7-ion-batteries.webp" alt="SW-7 Ion Batteries" /></div>
+    <div class="card-main">
+      <h2 class="card-title">SW-7 Ion Batteries <span class="icon-font"> E</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking a ship, each of your unspent blue <span class="icon-font">U</span> icons adds 1 damage to the damage total.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card is resolved during the &#39;Resolve Damage&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>During the &#39;Spend Defense Tokens&#39; step, if dice are rerolled by a defense token (Evade) or card effect (Lando Calrissian or Targeting Scrambler, etc), any accuracies rolled at that time cannot be spent to lock defense tokens as the &#39;Resolve Attack effects&#39; step has already passed. However, this Upgrade Card will allow blue die accuracies to still be counted as damage, as they are &#39;unspent&#39;. <span class="footnote-ref">[1]</span></li><li>The Damage card &#39;Blinded Gunners&#39; does not prevent this Upgrade Card&#39;s effect, as the accuracy dice are &#39;unspent&#39;. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article></div>
+      
+    </div>
+    
+    <script>
+(function () {
+  var searchInput = document.getElementById('karm-search-input');
+  var filtersContainer = document.getElementById('karm-faction-filters');
+  var noResults = document.getElementById('karm-no-results');
+  var resultCount = document.getElementById('karm-result-count');
+  if (!searchInput || !filtersContainer) return;
+
+  var factionBtns = filtersContainer.querySelectorAll('.faction-btn[data-faction]');
+  var allBtn = filtersContainer.querySelector('.faction-btn[data-faction="all"]');
+  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral'];
+  var activeFactions = new Set(factionKeys);
+
+  function syncAllBtn() {
+    if (allBtn) {
+      if (activeFactions.size === factionKeys.length) {
+        allBtn.classList.add('active');
+      } else {
+        allBtn.classList.remove('active');
+      }
+    }
+  }
+
+  function applyFilters() {
+    var query = (searchInput.value || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('.karm-card');
+    var dividers = document.querySelectorAll('.card-divider');
+    var visibleCount = 0;
+    var lastHeaderIdx = -1;
+    var cardsAfterHeader = 0;
+    var headerElements = [];
+    var allFactions = activeFactions.size === factionKeys.length;
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var isHeader = card.getAttribute('data-category') === 'header';
+
+      if (isHeader) {
+        if (lastHeaderIdx >= 0) {
+          cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+        }
+        lastHeaderIdx = i;
+        cardsAfterHeader = 0;
+        continue;
+      }
+
+      var name = card.getAttribute('data-name') || '';
+      var factions = (card.getAttribute('data-factions') || '').split(',').filter(Boolean);
+
+      var matchesSearch = !query || name.indexOf(query) !== -1;
+      var matchesFaction = allFactions || factions.length === 0 || factions.some(function (f) { return activeFactions.has(f.toLowerCase()); });
+      var visible = matchesSearch && matchesFaction;
+
+      card.classList.toggle('filtered-out', !visible);
+      if (visible) {
+        visibleCount++;
+        cardsAfterHeader++;
+      }
+    }
+
+    if (lastHeaderIdx >= 0) {
+      cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+    }
+
+    for (var d = 0; d < dividers.length; d++) {
+      var hr = dividers[d];
+      var prev = hr.previousElementSibling;
+      var next = hr.nextElementSibling;
+      var hideDivider = (!prev || prev.classList.contains('filtered-out')) ||
+                        (!next || next.classList.contains('filtered-out'));
+      hr.classList.toggle('filtered-out', hideDivider);
+    }
+
+    if (noResults) {
+      noResults.classList.toggle('visible', visibleCount === 0 && (query || !allFactions));
+    }
+    if (resultCount) {
+      if (query || !allFactions) {
+        resultCount.textContent = visibleCount + ' card' + (visibleCount !== 1 ? 's' : '') + ' found';
+        resultCount.style.display = '';
+      } else {
+        resultCount.textContent = '';
+        resultCount.style.display = 'none';
+      }
+    }
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  filtersContainer.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faction-btn');
+    if (!btn) return;
+    var faction = btn.getAttribute('data-faction');
+
+    if (faction === 'all') {
+      if (activeFactions.size === factionKeys.length) {
+        activeFactions.clear();
+        factionBtns.forEach(function (b) { b.classList.remove('active'); });
+      } else {
+        factionKeys.forEach(function (f) { activeFactions.add(f); });
+        factionBtns.forEach(function (b) { b.classList.add('active'); });
+      }
+    } else {
+      if (activeFactions.has(faction)) {
+        activeFactions.delete(faction);
+        btn.classList.remove('active');
+      } else {
+        activeFactions.add(faction);
+        btn.classList.add('active');
+      }
+    }
+    syncAllBtn();
+    applyFilters();
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      applyFilters();
+    }
+  });
+})();
+</script>
+    <!-- Generated cards: 12 -->
+  </body>
+</html>

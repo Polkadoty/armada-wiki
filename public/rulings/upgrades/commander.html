@@ -1,0 +1,3047 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <style>
+      :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
+      
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-italic.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-bold.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeutonFett';
+  src: url('/rulings/fonts/TeutonFett.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RevengerLite';
+  src: url('/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaIcons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+      :root {
+  --page-width: 2194px;
+  --page-height: 2820px;
+  --page-scale: 1;
+  --page-padding-y: 120px;
+  --page-padding-x: 129px;
+  --page-gap: 24px;
+  --ink: #221e1d;
+  --accent: #24408f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  background: #444;
+}
+
+.toc-fab {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hamburger > span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.toc-open .toc-drawer {
+  transform: translateX(0);
+}
+
+.toc-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.toc-link {
+  display: block;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.toc-link:hover {
+  color: #24408f;
+}
+
+.toc-link.toc-sub {
+  padding-left: 16px;
+  font-size: 17px;
+}
+
+.toc-section-label {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  padding: 12px 4px 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Search FAB ── */
+
+.search-fab {
+  position: fixed;
+  right: 10px;
+  top: calc(50% + 70px);
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-fab svg {
+  display: block;
+}
+
+/* ── Search drawer ── */
+
+.search-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.search-open .search-drawer {
+  transform: translateX(0);
+}
+
+.search-drawer-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 16px;
+}
+
+.search-input {
+  width: 100%;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 2px solid rgba(36, 64, 143, 0.35);
+  background: transparent;
+  outline: none;
+  color: #221e1d;
+  margin-bottom: 18px;
+}
+
+.search-input:focus {
+  border-bottom-color: #24408f;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+/* ── Faction filter buttons ── */
+
+.faction-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.faction-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid #ccc;
+  background: #e8e5de;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  padding: 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.faction-btn .icon-font {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.faction-btn[data-faction="all"] {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.faction-btn.active {
+  border-color: #24408f;
+  background: #24408f;
+  color: #fff;
+}
+
+.faction-btn.faction-rebel.active {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.faction-btn.faction-empire.active {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.faction-btn.faction-republic.active {
+  background: #b8860b;
+  border-color: #b8860b;
+}
+
+.faction-btn.faction-separatist.active {
+  background: #1565c0;
+  border-color: #1565c0;
+}
+
+.faction-btn.faction-neutral.active {
+  background: #666;
+  border-color: #666;
+}
+
+.search-result-count {
+  font-size: 14px;
+  color: #666;
+  padding: 4px 0;
+}
+
+/* ── Filtered-out cards and dividers ── */
+
+.karm-card.filtered-out,
+.card-divider.filtered-out {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 18px;
+  color: #666;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  display: none;
+}
+
+.no-results.visible {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .toc-fab {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+  }
+
+  .search-fab {
+    top: auto;
+    bottom: 80px;
+    right: 14px;
+    transform: none;
+  }
+}
+
+@page {
+  size: 2194px 2820px;
+  margin: 0;
+}
+
+.karm-book {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+.karm-page-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--page-height) * var(--page-scale));
+  overflow: hidden;
+}
+
+.karm-page {
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  gap: var(--page-gap);
+  transform: scale(var(--page-scale));
+  transform-origin: top center;
+}
+
+.karm-static-page {
+  width: 100%;
+  height: 100%;
+}
+
+.page-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.page-number {
+  position: absolute;
+  right: 88px;
+  bottom: 76px;
+  color: var(--accent);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "RevengerLite", Impact, sans-serif;
+}
+
+.karm-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.card-top {
+  display: flex;
+  gap: 25px;
+  min-height: 500px;
+}
+
+.card-image-wrap {
+  width: 350px;
+  min-width: 350px;
+}
+
+.card-image {
+  width: 350px;
+  height: 498px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #d9d9d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.card-image.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-style: italic;
+}
+
+.card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-family: "TeutonFett", "Teuton Fett", "AeroMaticsDisplay", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  font-variant: small-caps;
+  text-transform: none;
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 29px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-faction-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.card-body,
+.card-keywords,
+.card-rulings {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+}
+
+.card-keywords {
+  font-size: 27px;
+}
+
+.card-keyword-label {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.squadron-keywords .squadron-keyword-values,
+.squadron-keywords .squadron-keyword-token {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+}
+
+.squadron-keywords .squadron-keyword-token {
+  letter-spacing: 0.01em;
+}
+
+.card-bottom {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.top-summary-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-summary-label {
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: capitalize;
+}
+
+.top-summary-text {
+  font-size: 29px;
+  line-height: 1.22;
+  font-weight: 400;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.top-summary-text p {
+  margin: 0;
+}
+
+.ruling-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ruling-heading {
+  margin: 0 0 2px;
+  font-size: 46px;
+  line-height: 1.1;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  color: #202020;
+}
+
+.ruling-content {
+  margin: 0;
+}
+
+.ruling-content p {
+  margin: 0 0 6px;
+  font-weight: 400;
+}
+
+.ruling-content ul {
+  margin: 0;
+  padding-left: 32px;
+}
+
+.ruling-content li,
+.ruling-content li p,
+.card-text-content,
+.card-text-content p {
+  font-weight: 400;
+}
+
+.footnote-ref {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  transform: translateY(-0.38em);
+  margin-left: 0.12em;
+}
+
+.card-text-content p {
+  margin: 0 0 8px;
+}
+
+.icon-font {
+  font-family: "Icons", "ArmadaIcons", "RevengerLite", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+.ruling-footnotes {
+  margin-top: 14px;
+  border-top: 1px solid rgba(36, 64, 143, 0.3);
+  padding-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.karm-header-card {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header-title {
+  font-size: 116px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+}
+
+.ruling-content blockquote {
+  margin: 8px 0;
+  padding: 6px 0 6px 18px;
+  border-left: 5px solid rgba(36, 64, 143, 0.4);
+  font-style: italic;
+}
+
+.ruling-content code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.keyword-name {
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ── Continuous responsive web layout ── */
+
+body.karm-web {
+  background: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-position: center top -60px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+body.karm-web .karm-book {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  gap: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+body.karm-web .karm-page-shell,
+body.karm-web .karm-page {
+  display: none;
+}
+
+body.karm-web .karm-continuous {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+body.karm-web .page-number {
+  display: none;
+}
+
+/* ── Card layout ── */
+
+body.karm-web .karm-card {
+  max-width: 100%;
+}
+
+body.karm-web .card-top {
+  min-height: auto;
+  gap: 20px;
+}
+
+body.karm-web .card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+body.karm-web .card-image-wrap {
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+body.karm-web .card-image {
+  width: 220px;
+  height: 312px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ── Typography ── */
+
+body.karm-web .card-title {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+body.karm-web .card-meta {
+  font-size: 16px;
+  gap: 8px;
+}
+
+body.karm-web .card-body,
+body.karm-web .card-keywords,
+body.karm-web .card-rulings,
+body.karm-web .card-bottom {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body.karm-web .card-keywords {
+  font-size: 15px;
+}
+
+body.karm-web .top-summary-label {
+  font-size: 24px;
+}
+
+body.karm-web .top-summary-text {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.karm-web .ruling-heading {
+  font-size: 24px;
+}
+
+body.karm-web .ruling-content ul {
+  padding-left: 24px;
+}
+
+body.karm-web .ruling-footnotes {
+  font-size: 13px;
+}
+
+body.karm-web .section-header-title {
+  font-size: 48px;
+}
+
+body.karm-web .karm-header-card {
+  min-height: 120px;
+  padding: 24px 0;
+}
+
+body.karm-web .card-divider {
+  border: none;
+  border-top: 1px solid rgba(36, 64, 143, 0.2);
+  margin: 28px 0;
+}
+
+/* ── Tablet ── */
+
+@media (max-width: 768px) {
+  body.karm-web .karm-book {
+    padding: 24px 16px;
+  }
+
+  body.karm-web .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  body.karm-web .card-image-wrap {
+    width: auto;
+    min-width: unset;
+    flex-shrink: unset;
+  }
+
+  body.karm-web .card-image {
+    width: 180px;
+    height: 256px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 24px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 36px;
+  }
+
+  body.karm-web .karm-header-card {
+    min-height: 80px;
+    padding: 16px 0;
+  }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+  body.karm-web .karm-book {
+    padding: 16px 12px;
+  }
+
+  body.karm-web .card-top {
+    align-items: center;
+  }
+
+  body.karm-web .card-image {
+    width: 160px;
+    height: 228px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  body.karm-web .card-body,
+  body.karm-web .card-keywords,
+  body.karm-web .card-rulings,
+  body.karm-web .card-bottom {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  body.karm-web .top-summary-label {
+    font-size: 20px;
+  }
+
+  body.karm-web .ruling-heading {
+    font-size: 20px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 28px;
+  }
+
+  body.karm-web .card-divider {
+    margin: 20px 0;
+  }
+}
+
+@media print {
+  .toc-fab,
+  .toc-drawer,
+  .search-fab,
+  .search-drawer,
+  .no-results {
+    display: none !important;
+  }
+
+  :root {
+    --page-scale: 1;
+  }
+
+  html,
+  body {
+    background: transparent;
+  }
+
+  .karm-book {
+    gap: 0;
+    padding: 0;
+  }
+
+  .karm-page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .karm-page {
+    margin: 0;
+    transform: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .karm-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+
+    </style>
+  </head>
+  <body class="karm-web">
+    
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+  <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
+<aside class="toc-drawer" aria-label="Rulings navigation">
+  <div class="toc-title">Rulings</div>
+  <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
+<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
+<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
+<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>
+<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
+<div class="toc-section-label">Upgrade Types</div>
+<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
+<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
+<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
+<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
+<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>
+<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>
+<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>
+<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>
+<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>
+<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>
+<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>
+<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>
+<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
+<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
+<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<div class="toc-section-label">Nexus</div>
+<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
+<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
+</aside>
+<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+<aside class="search-drawer" aria-label="Search and filter">
+  <div class="search-drawer-title">Search &amp; Filter</div>
+  <input type="text" class="search-input" id="karm-search-input" placeholder="Search cards..." autocomplete="off" />
+  <div class="faction-filters" id="karm-faction-filters">
+    <button type="button" class="faction-btn active" data-faction="all" aria-label="All factions" title="All">All</button>
+    <button type="button" class="faction-btn faction-rebel active" data-faction="rebel" aria-label="Rebel Alliance" title="Rebel"><span class="icon-font">[</span></button>
+    <button type="button" class="faction-btn faction-empire active" data-faction="empire" aria-label="Galactic Empire" title="Empire"><span class="icon-font">\</span></button>
+    <button type="button" class="faction-btn faction-republic active" data-faction="republic" aria-label="Republic" title="Republic"><span class="icon-font">|</span></button>
+    <button type="button" class="faction-btn faction-separatist active" data-faction="separatist" aria-label="Separatist" title="Separatist"><span class="icon-font">}</span></button>
+    <button type="button" class="faction-btn faction-neutral active" data-faction="neutral" aria-label="Neutral" title="Neutral">&#9733;</button>
+  </div>
+  <div class="search-result-count" id="karm-result-count"></div>
+</aside>
+<div class="no-results" id="karm-no-results">No matching cards found.</div>
+    <div class="karm-book">
+      
+      <div class="karm-continuous">
+<article class="karm-card karm-header-card" id="commander-1" data-category="header">
+  <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+</article>
+
+<article class="karm-card" id="helena-agathon-2" data-name="helena agathon" data-factions="colonial" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/helena-agathon-commander-bsg-legends.webp" alt="Helena Agathon" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Helena Agathon <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="lucinda-cain-3" data-name="lucinda cain" data-factions="colonial" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lucinda-cain-commander-bsg-legends.webp" alt="Lucinda Cain" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Lucinda Cain <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="william-adama-4" data-name="william adama" data-factions="colonial" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/william-adama-commander-bsg-legends.webp" alt="William Adama" /></div>
+    <div class="card-main">
+      <h2 class="card-title">William Adama <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship reveals a command, you may reveal and discard 1 dial from this card. That ship gains a matching dial to that discarded dial.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ardo-moretumee-5" data-name="ardo moretumee" data-factions="covenant" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ardo-moretumee-commander-halo-legends.webp" alt="Ardo Moretumee" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ardo Moretumee <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="atriox-6" data-name="atriox" data-factions="covenant" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/atriox-commander-halo-legends.webp" alt="Atriox" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Atriox <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="prophet-of-truth-7" data-name="prophet of truth" data-factions="covenant" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/prophet-of-truth-commander-halo-legends.webp" alt="Prophet of Truth" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Prophet of Truth <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="thel-vadamee-8" data-name="thel vadamee" data-factions="covenant" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/thel-vadamee-commander-halo-legends.webp" alt="Thel Vadamee" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Thel Vadamee <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Ships in your fleet gain Elite.</p><p>After both players have finished deploying fleets, you may redeploy up to 2 small ships or 1 medium-large ship. You may also redeploy up to 2 squadrons.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="atropos-9" data-name="atropos" data-factions="cylon" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/atropos-commander-bsg-legends.webp" alt="Atropos" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Atropos <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="clothos-10" data-name="clothos" data-factions="cylon" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/clothos-commander-bsg-legends.webp" alt="Clothos" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Clothos <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship is defending, you may remove 1 raid token from the attacking ship to ready 1 defense token.</p><p>When a friendly ship activates, you may spend raid tokens on enemy ships within distance 1-5 to resolve a matching command token. If you do so, remove that raid token from the enemy ship.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="lachesis-11" data-name="lachesis" data-factions="cylon" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lachesis-commander-bsg-legends.webp" alt="Lachesis" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Lachesis <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-konstantine-12" data-name="admiral konstantine" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-konstantine-commander.webp" alt="Admiral Konstantine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Konstantine <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the start of each Status Phase, you may choose any number of enemy ships at distance 1-5 of at least 2 friendly non-flotilla ships, 1 of which must be of medium or larger size class. For each chosen ship you may discard 1 <span class="icon-font">7</span> token from it or increase or decrease that enemy ship&#39;s speed by 1 to a minimum of speed 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The effect of this Upgrade Card is resolved at the start of the Status Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s ability may resolve against all enemy ships in range. <span class="footnote-ref">[1]</span></li><li>If this Upgrade Card&#39;s effect changes the speed of a ship with a faceup Thruster Fissure damage card, that ship does not suffer 1 damage from Thruster Fissure&#39;s effect since this Upgrade Card is forcing the speed change, and not the ship&#39;s owner. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>The Grand Inquisitor may resolve from this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card can be used in conjunction with Unarmed Stations; they are treated as ships when resolving effects. <span class="footnote-ref">[1]</span></li><li>Unarmed Stations are a non-flotilla ship with no size class. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-motti-13" data-name="admiral motti" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-motti-commander.webp" alt="Admiral Motti" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Motti <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>The hull value of each friendly ship is increased according to its size class:</p><p>Small ship: 1</p><p>Medium ship: 2</p><p>Large ship: 3</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The effect of this Upgrade Card is permanent unless the flagship is destroyed, then all ships of the fleet lose their additional hull point(s).</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The additional hull value is a permanent effect unless the flagship is destroyed. If this happens, check any remaining friendly ships in this card&#39;s fleet; if a ship meets or exceeds its printed hull value on its ship card, they are immediately destroyed and removed from the play area. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card does not work with Super Star Destroyers as it has no effect on a huge ship. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li>This card does not work with Armed Stations or Unarmed Stations as they are not given a size class. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-motti-14" data-name="admiral motti" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-motti-commander-errata-arc.webp" alt="Admiral Motti" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Motti <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>The hull value of each friendly ship is increased according to its size class:</p><p>Small ship: 1</p><p>Medium ship: 2</p><p>Large ship: 3</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-ozzel-15" data-name="admiral ozzel" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-ozzel-commander.webp" alt="Admiral Ozzel" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Ozzel <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>During each friendly ship&#39;s Determine Course step, it may change its speed by 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves in a friendly ship&#39;s &#39;Determine Course&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>During a friendly ship&#39;s &#39;Determine Course&#39; step, the player may change the speed of that ship by 1. This effect can resolve during any of your ships&#39; &#39;Determine Course&#39; steps such as when conducting a maneuver from Rift Ambush or Engine Techs. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-piett-16" data-name="admiral piett" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-piett-commander.webp" alt="Admiral Piett" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Piett <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship spends only a command token to resolve a command, you may exhaust this card. If you do, that ship resolves that command as if it had spent a dial of the same type instead.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card is exhausted and triggers when resolving only a command token.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When only a command token is spent, you may exhaust this Upgrade Card to turn the token into a dial instead. Since you are already spending a token to resolve the command, you cannot also then spend another token of the same command to increase the value of the command. <span class="footnote-ref">[1]</span></li><li>This card does not grant the Super Star Destroyer an additional token from changing a command token into a dial, as the dial is not &quot;revealed&quot;. It gains a token from a &quot;revealed&quot; dial. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If this Upgrade Card is equipped to a ship with the Interdictor title, this Upgrade Card can be chosen to become unexhausted. <span class="footnote-ref">[1]</span></li><li>Commander Beck&#39;s ability can be used by this card for one command. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-screed-17" data-name="admiral screed" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-screed-commander.webp" alt="Admiral Screed" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Screed <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per activation, when a friendly ship is attacking, it may spend 1 die to change a die to a face with a <span class="icon-font">T</span> icon.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This ability is resolved in the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card can use its ability only once per activation, when a friendly ship is attacking during the &#39;Resolve Attack Effects&#39; step. <span class="footnote-ref">[1]</span></li><li>On your activation, if attacking squadrons, you may only use this Upgrade Card&#39;s ability on one squadron. <span class="footnote-ref">[1]</span></li><li>You may spend a die to change any other die in your attack pool to a face with a critical icon, even a hit/critical icon. <span class="footnote-ref">[1]</span></li><li>This card&#39;s effect can resolve once during any ship or squadron&#39;s activation, even an opponent&#39;s. <span class="footnote-ref">[1]</span></li><li>Admiral Screed can use his ability when a friendly ship is performing a Salvo or Counter attack against a squadron. It would only be effective if there is a black die in the attack pool. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-screed-18" data-name="admiral screed" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-screed-commander-errata-arc.webp" alt="Admiral Screed" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Screed <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per activation, when a friendly ship is attacking, it may spend 1 die to change a die to a face with a <span class="icon-font">T</span> icon. That die cannot be rerolled.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-sloane-19" data-name="admiral sloane" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-sloane-commander.webp" alt="Admiral Sloane" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Sloane <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly squadron without Rogue is attacking, it may spend 1 die with an <span class="icon-font">U</span> icon to choose and spend 1 of the defender&#39;s defense tokens. While attacking a ship, it may also reroll 1 die with a <span class="icon-font">T</span> icon.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The effect of this Upgrade Card triggers while a squadron is attacking, during the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card can trigger on any squadron attack, including Counter, as long as the friendly squadron does not have Rogue. <span class="footnote-ref">[1]</span></li><li>A token spent by this card&#39;s effect cannot be spent by the defender during that attack. The defender may spend another token of the same type during that attack. <span class="footnote-ref">[1]</span></li><li>1 die with the accuracy icon may be &#39;spent&#39; during &#39;Resolve Attack Effects&#39; to spend 1 of the defender&#39;s defense tokens of the attacker&#39;s choice. <span class="footnote-ref">[1]</span></li><li>While a squadron is attacking a ship, it can reroll 1 die showing the critical icon in the &#39;Resolve Attack Effects&#39; step. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Electronic Countermeasures does not allow the defender to spend a defense token that, during this attack, has already been spent by this Upgrade Card&#39;s ability. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="darth-vader-20" data-name="darth vader" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-vader-commander.webp" alt="Darth Vader" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Darth Vader <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship, it may spend 1 defense token to reroll any number of dice in its attack pool.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved when a ship is attacking during the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>While a friendly ship is attacking, during the &#39;Resolve Attack Effects&#39; step, it can spend a defense token to reroll any die in its attack pool, even if the attacking ship is at speed 0. Speed 0 only prevents a ship from spending tokens during the &#39;Spend Defense Tokens&#39; step of an attack. <span class="footnote-ref">[1]</span></li><li>You cannot use this ability when attacking squadrons or proximity mines. <span class="footnote-ref">[1]</span></li><li>If a ship has the critical card Faulty Countermeasures (&#39;You cannot spend exhausted defense tokens.&#39;) you may not spend an exhausted defense token for this card&#39;s ability. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Intel Officer allows you to target your own defense tokens. If that defense token is chosen by this Upgrade Card to be spent for a reroll, that defense token would be discarded. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="darth-vader-21" data-name="darth vader" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-vader-commander-errata-arc.webp" alt="Darth Vader" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Darth Vader <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship, it may spend 1 of its defense tokens to reroll any number of dice in its attack pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="emperor-palpatine-22" data-name="emperor palpatine" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/emperor-palpatine-commander.webp" alt="Emperor Palpatine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Emperor Palpatine <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets, place 1 defense token of each type on this card. At the start of each Ship Phase you may discard 1 of those tokens. If you do, until the end of the round, if an enemy ship or squadron spends a matching token during its Spend Defense Tokens step, discard that token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The initial effect of this Upgrade Card triggers &#39;after deploying fleets&#39; when you place 1 defense token of each type on this card. This Upgrade Card may be then resolved at the start of a Ship Phase by discarding a defense token.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>If the ship this Upgrade Card is equipped to is destroyed, this Upgrade Card&#39;s ability (if active) will remain in effect until the end of the round. <span class="footnote-ref">[1]</span></li><li>This card can only resolve against enemy ships that spend tokens in their &#39;Spend Defense Tokens&#39; step. Any defense tokens that are spent &#39;while attacking&#39; would not be discarded due to this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>If this Upgrade Card is discarded due to Darth Vader (Officer), any remaining defensive tokens on this Upgrade Card cannot be discarded. However if a defensive token was discarded at the beginning of the turn, the card ability will remain in effect until the end of the turn. <span class="footnote-ref">[1]</span></li><li>The Injured Crew damage card only affects the ship&#39;s defense tokens, not those on this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card will resolve against Jan Ors&#39; card ability, as it is still a defense token being &#39;spent&#39; in the &#39;Spend Defense Tokens&#39; step. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card will not resolve against Axe as his effect takes place outside of the &#39;Spend Defense Tokens&#39; step. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="emperor-palpatine-23" data-name="emperor palpatine" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/emperor-palpatine-commander-errata-arc.webp" alt="Emperor Palpatine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Emperor Palpatine <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets, place 1 defense token of each type on this card. At the start of each Ship Phase you may discard 1 of those tokens. If you do, until the end of the round, if an enemy ship or squadron spends a matching token, discard that token. This card&#39;s effect cannot be resolved against friendly ships or squadrons.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-romodi-24" data-name="general romodi" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-romodi-commander.webp" alt="General Romodi" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Romodi <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship, if the attack is obstructed by a ship or obstacle, the attacker does not remove a die (even if the attack is also obstructed by a card effect), and may add 1 red die to the attack pool.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card is resolved during the &#39;Roll Attack Dice&#39; step (not removing a die due to obstruction) and in the &#39;Resolve Attack Effects&#39; step (adding a die).<br/>After rolling your initial attack pool, you may roll 1 red die.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>If the Salvo attack is obstructed by another ship or obstacle and the attacker has this Upgrade Card, then the attacking ship would not lose a die due to obstruction, but it would not add any dice either. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s ability would not prevent the obstruction caused by Early Warning System, General Cracken, and Admiral Montferrat. However if line of sight would also trace through an obstacle or another ship this Upgrade Card would supersede those cards&#39; effects, no longer removing a die and adding 1 red to the attack pool. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>When determining control of tokens in Fire Lanes, this Upgrade Card would not prevent the removal of a die due to obstruction as this is not an attack against a ship. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-tagge-25" data-name="general tagge" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-tagge-commander.webp" alt="General Tagge" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Tagge <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets, place 2 non-consecutive round tokens on this card. At the start of the Ship Phase during each round matching 1 of those tokens each friendly ship may recover 1 of its discarded defense tokens.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The first part of this Upgrade Card resolves after fleets are deployed. The second half of this card may resolve at the start of the selected rounds&#39; Ship Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card does not &#39;ready&#39; any exhausted defense tokens. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card will not resolve if the card is discarded, as it is no longer in play when the appropriate timing window is reached to resolve its effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>General Tagge cannot choose to recover any defense token &#39;replaced&#39; by card effects such as Captain Needa and Local Fire Control. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="grand-admiral-thrawn-26" data-name="grand admiral thrawn" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/grand-admiral-thrawn-commander.webp" alt="Grand Admiral Thrawn" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Grand Admiral Thrawn <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Choose command dials for this card after deploying fleets.</p><p>At the start of each Ship Phase, you may reveal and discard 1 dial from this card. If you do, until the end of the round, when each friendly ship activates, it gains 1 additional dial matching that discarded dial.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The first effect (choosing command dials) triggers &#39;after deploying fleets&#39;. The second effect (revealing and discarding a dial, and friendly ships gaining a matching dial) resolves at the start of a Ship Phase and, when active, when each friendly ship activates.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>A dial &#39;gained&#39; from this card can be converted into a matching command token. <span class="footnote-ref">[1]</span></li><li>A ship gaining a command dial from this effect can spend it to resolve that command, but cannot resolve the same command more than once during its activation. <span class="footnote-ref">[1]</span></li><li>If the ship equipped with Grand Admiral Thrawn is destroyed, any command dial already revealed and discarded can still be gained by other friendly ships activating for the rest of the turn. <span class="footnote-ref">[1]</span></li><li>Huge ships do not gain a matching token from this card&#39;s dials because they are &#39;gained&#39; not &#39;revealed&#39;. <span class="footnote-ref">[1]</span></li><li>A ship cannot discard a dial gained from card effects (like Thrawn&#39;s) to discard raid tokens directly. However, it can use the dial to gain a matching token, and then discard that token to remove a matching raid token. <span class="footnote-ref">[1]</span></li><li>The Crew Panic damage card only affects dials on a ship&#39;s command stack, not the dials on Grand Admiral Thrawn, as they are &#39;gained&#39; not &#39;revealed&#39;. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s dials cannot be targeted by effects like Slicer Tools, the damage card Comm Noise, or the boarding team Cham Syndulla. This is because these effects target dials in a ship&#39;s command stack, and Thrawn&#39;s dials are not kept in a command stack; they are gained at the beginning of the ship phase. <span class="footnote-ref">[1]</span></li><li>If Grand Admiral Thrawn is discarded due to Darth Vader (Officer), any remaining command dials on the card cannot be revealed and discarded. <span class="footnote-ref">[1]</span></li><li>Dials gained from this card can be discarded to trigger Boarding Teams, provided any command dial is being revealed by the ship. The squadron dial being discarded does not need to be the one being revealed. <span class="footnote-ref">[1]</span></li><li>Upgrades that trigger or resolve only on a ship&#39;s &#39;revealed&#39; dial (e.g., Commandant Aresko, Taskmaster Grint, Wing Commander) do not trigger or resolve on dials &#39;gained&#39; from Grand Admiral Thrawn&#39;s effect. <span class="footnote-ref">[1]</span></li><li>For ships with Comms Net: When a ship &#39;reveals&#39; its command dial, it also &#39;gains&#39; a dial from Thrawn at the same time. The player must declare if these dials will be used or gained as tokens. If the ship is at maximum token capacity, the gained dial would replace an existing token before it could be assigned by Comms Net. <span class="footnote-ref">[1]</span></li><li>Grand Admiral Thrawn&#39;s timing occurs before Comms Net&#39;s timing (which is after the Reveal Command dial step). Comms Net can send away a token gained from Thrawn. However, a player cannot gain a token from Thrawn, send it away with Comms Net, and then convert their dial to another command token. Also, Comms Net cannot be used to make room for a token gained from Thrawn. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card will not gain facedown command dials if the ship it is equipped to is set aside before fleets are deployed (e.g., by Hyperspace Assault&#39;s Setup effect). <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="grand-moff-tarkin-27" data-name="grand moff tarkin" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/grand-moff-tarkin-commander.webp" alt="Grand Moff Tarkin" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Grand Moff Tarkin <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the start of each Ship Phase, you may choose 1 command. Each friendly ship gains a command token matching that command.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card triggers at the start of each Ship Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>A ship may replace a token with a token gained from this card. <span class="footnote-ref">[1]</span></li><li>You may resolve this Upgrade Card&#39;s ability before you choose to resolve Fleet Commands, as they share the same timing. <span class="footnote-ref">[1]</span></li><li>This Upgrade card is unable to assign command tokens to ships with the Life Support Failure damage card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="moff-jerjerrod-28" data-name="moff jerjerrod" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/moff-jerjerrod-commander.webp" alt="Moff Jerjerrod" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Moff Jerjerrod <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship executes a maneuver, during the Determine Course step, that ship may suffer 1 damage to change the first yaw value of that maneuver to &#39;II&#39;.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may resolve during a ship&#39;s Determine Course step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When a ship is determining its course with the maneuver tool, before the maneuver tool is locked in it may suffer 1 damage to any selected hull zone. This changes the first yaw value of the ship&#39;s current speed to &#39;II&#39; until the end of its activation. &#39;Current Speed&#39; refers to the numeric value that is currently displayed on the ship&#39;s speed dial, not the speed of any maneuver granted by another effect, such as Engine Techs or Rift Ambush. <span class="footnote-ref">[1]</span></li><li>If the ship&#39;s &#39;current speed&#39; is speed 1, then Moff Jerjerrod&#39;s effect would last until the end of that ship&#39;s activation and affect movement from Engine Techs, Admiral Ozzel (Officer) or Rift Ambush (see below). <span class="footnote-ref">[1]</span></li><li>When a ship suffers damage from this Upgrade Card&#39;s ability, that damage must be taken on a selected hull zone. That hull zone would suffer damage to shields in that zone first. If no shields are present, then that damage would be taken to the ship&#39;s hull as a facedown damage card. You cannot bypass shields to take a facedown damage card. <span class="footnote-ref">[1]</span></li><li>A first yaw value of &#39;II&#39; does not require you to use both clicks. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card can be used to add a yaw back to a yaw joint after Thrust Control Malfunction reduction if a ships speed dial is set to 1. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card effect can be resolved with Rakehell to add an additional yaw at speed 0. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>In Rift Ambush if you are first player the Rift Ambush special rule overrides this Upgrade Card&#39;s ability because &#39;it must execute a speed-1 maneuver with a yaw of &#39;-&#39;. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-ackbar-29" data-name="admiral ackbar" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-ackbar-commander.webp" alt="Admiral Ackbar" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Ackbar <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before a friendly ship&#39;s Attack step, it may choose to attack from only its left and right hull zones this round. If it does, it may add 2 red dice to its attack pool while attacking a ship.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved only before an activated ship&#39;s &#39;Attack&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Resolving this Upgrade Card&#39;s effect would not prevent a ship from attacking from its left or right hull zones with a <span class="icon-font">6</span> or <span class="keyword-name">Counter</span> attacks. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If a ship is equipped with Gunnery Teams, this Upgrade Card&#39;s effect may apply to both attacks performed from the same hull zone. <span class="footnote-ref">[1]</span></li><li>Using this Upgrade Card will prevent a ship from attacking from its front or rear hull zones with upgrade cards such as Ordnance Pods. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>Ships that have chosen to use this Upgrade Card&#39;s effect can claim Fire Lanes tokens with their front and rear ship batteries. However, this Upgrade Card&#39;s effect does not increase a ship&#39;s battery armament, and the extra dice added from this card cannot be used to claim Fire Lanes tokens. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-raddus-30" data-name="admiral raddus" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-raddus-commander.webp" alt="Admiral Raddus" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Raddus <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before deploying fleets, you may set aside 1 other friendly ship. At the start of any round, you may deploy that ship at distance 1 of a friendly ship. That ship cannot be deployed overlapping squadrons and cannot be the first ship to activate that round.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers at the start of a game round, before command dials are set in the Command Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>If the ship with this Upgrade Card equipped is destroyed after resolving this Upgrade Card&#39;s effect to deploy a ship, the ship that was deployed by this Upgrade Card&#39;s effect still cannot be the first ship to activate that round. <span class="footnote-ref">[1]</span></li><li>Ships deployed with this Upgrade Card&#39;s effect can be deployed overlapping anything except other ships and squadrons. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card must be on a ship in the play area in order to trigger its effect. For example, if this Upgrade Card&#39;s ship was set aside by Hyperspace Assault or into Profundity, that ship must be deployed before being able to use this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>You cannot set aside this Upgrade Card&#39;s ship into Profundity, and then set aside Profundity with this Upgrade Card. This is because this Upgrade Card is no longer in effect after being set aside, and there would be no way to deploy Profundity if it was also set aside with this Upgrade Card. <span class="footnote-ref">[1]</span></li><li>When a ship set aside by this Upgrade Card is equipped with Aspiration or Local Fire Control, those effects trigger during deployment, since those effects resolve when the ship deploys. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>Objectives which target ships in the play area cannot target a ship set aside by this Upgrade Card. Objectives which target ships not yet in the play area can target a ship set aside by this Upgrade Card. For this reason, a ship set aside by this Upgrade Card can be chosen for Intel Sweep and will receive a token for Blockade Run; it cannot be assigned as an objective ship for Most Wanted. <span class="footnote-ref">[1]</span></li><li>Proximity Mines and this Upgrade Card share the same timing window, so Proximity Mine tokens can be placed before choosing a ship to be set aside by this Upgrade Card (subject to first and second player considerations). <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="commander-sato-31" data-name="commander sato" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commander-sato-commander.webp" alt="Commander Sato" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Commander Sato <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship at distance 1 of a friendly squadron, before rolling attack dice, the attacker may replace up to 2 dice in its attack pool with an equal number of dice of any color or colors.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers before rolling attack dice during the &#39;Roll Attack Dice&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>A ship using this Upgrade Card&#39;s effect may replace 1 die with a die of another color or may replace 2 dice with 2 dice of any color(s) before rolling attack dice. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Any dice gained by equipped cards that increase the battery armament of a ship (e.g. Spinal Armament, Rapid Reload) are eligible to be chosen. <span class="footnote-ref">[1]</span></li><li>Thermal Shields trigger &#39;after an attacker gathers dice&#39; while this Upgrade Card&#39;s effect triggers &#39;before rolling attack dice&#39;. During the Roll Attack Dice Step, the attacker will gather dice and then roll attack dice, so Thermal Shields will trigger before this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="commander-sato-32" data-name="commander sato" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commander-sato-commander-errata-arc.webp" alt="Commander Sato" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Commander Sato <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship at distance 1 of a friendly squadron, the attacker may add 2 dice, each of any color. If it does, it must cancel 1 attack dice.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="garm-bel-iblis-33" data-name="garm bel iblis" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/garm-bel-iblis-commander.webp" alt="Garm Bel Iblis" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Garm Bel Iblis <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets, place 2 non-consecutive round tokens on this card. At the start of the Ship Phase during each round matching 1 of those tokens, each friendly ship may gain a number of command tokens equal to its command value.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect resolves at the start of Ship Phase for the two non-consecutive rounds chosen.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>At the start of the Ship Phase for the chosen rounds, each ship can choose to gain command tokens equal to its command value. As usual, a ship can only have as many tokens as its command value and one of each type of token. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect resolves at the start of the Ship Phase and not at the start of a round. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card is unable to assign command tokens to ships with the Life Support Failure damage card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Phoenix Home does not increase a ship&#39;s command value; it allows it to be assigned up to 4 command tokens. However, this Upgrade Card only allows ships to gain command tokens equal to its command value, so Phoenix Home would only gain 2 command tokens. If Phoenix Home already has 2 command tokens and this Upgrade Card&#39;s effect triggers at the start of a Ship Phase, it could gain another 2 command tokens. <span class="footnote-ref">[1]</span></li><li>When this Upgrade Card assigns command tokens, if a ship has the title Tantive IV, before it gains its command token, it may assign that token to another ship in range. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-cracken-34" data-name="general cracken" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-cracken-commander.webp" alt="General Cracken" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Cracken <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly small or medium ship is defending against a ship, if the defender is at speed 3 or higher, the attack is treated as obstructed.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect may resolve before the attacker rolls dice during the &#39;Roll Attack Dice&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect is active whenever a small or medium base ship&#39;s speed dial is at 3 or higher. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Attacks made by a ship equipped with Jaina&#39;s Light ignore this Upgrade Card&#39;s effect as those attacks cannot be obstructed. <span class="footnote-ref">[1]</span></li><li>If an attacking ship is using General Romodi&#39;s effect, and the defending ship is using this Upgrade Card&#39;s effect, the attack does not benefit from General Romodi&#39;s effect unless line of sight is traced over an obstacle or another ship. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect does not affect squadron attacks. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-dodonna-35" data-name="general dodonna" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-dodonna-commander.webp" alt="General Dodonna" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Dodonna <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before an enemy ship is dealt a faceup damage card, look at the top 4 cards of the damage deck, place 1 on top of the deck and discard the others.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers before an enemy ship would be dealt a faceup damage card.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card resolves for each faceup damage card dealt, separately. <span class="footnote-ref">[1]</span></li><li>The player with this Upgrade Card does not have to reveal what damage cards were drawn to their opponent. The cards in the discard pile also cannot be looked at. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If this Upgrade Card is equipped to a ship that is also equipped with Garel&#39;s Honor and that ship overlaps an enemy ship but is destroyed in doing so, this Upgrade Card&#39;s effect may still trigger and resolve before that ship is destroyed. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect is not resolved when damage cards already dealt face down are flipped face up (e.g. Boarding Engineers or Precision Strike). <span class="footnote-ref">[1]</span></li><li>A damage card chosen by this Upgrade Card&#39;s effect may be flipped face down by Lira Wessex before the damage card resolves its effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-draven-36" data-name="general draven" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-draven-commander.webp" alt="General Draven" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Draven <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Choose command dials for this card after deploying fleets.</p><p>At the start of each Ship Phase, you may reveal and discard 1 command dial from this card. If you do, until the end of the round, when an enemy ship spends a matching command dial, it resolves that dial as though it spent a token of the same type instead. .</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers at the end of the command phase and again after an enemy ship resolves a command, either token or dial.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card may have any number of command tokens of any number of types on it. Tokens do not need to be discarded from this card except when resolving this Upgrade Card&#39;s ability. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-draven-37" data-name="general draven" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-draven-commander-errata-arc.webp" alt="General Draven" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Draven <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After an enemy ship resolves a command, you may discard a matching command token from this card. If you do, that enemy ship gains 1 matching raid token.</p><p>While a friendly squadron is attacking, if it is at distance 1-2 of an enemy ship with at least 1 raid token, it may reroll 1 die.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-madine-38" data-name="general madine" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-madine-commander.webp" alt="General Madine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Madine <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship is executing its first maneuver during its activation, during the Determine Course step, it may increase 1 yaw value by 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect is active during the &#39;Determine Course&#39; step of the first maneuver of a friendly ship&#39;s activation.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect does not trigger during a maneuver from Engine Techs as it is not the first maneuver a ship would perform during its activation. <span class="footnote-ref">[1]</span></li><li>If a ship&#39;s yaw value is reduced by a card effect or damage card, this Upgrade Card&#39;s effect can be used to add yaw back after the reduction. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect does not trigger during a maneuver from the Rift Ambush special rule as it is not the first maneuver a ship would perform during its activation. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-rieekan-39" data-name="general rieekan" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-rieekan-commander.webp" alt="General Rieekan" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Rieekan <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per round, when a friendly ship or friendly unique squadron is destroyed, it remains in the play area and is treated as if it was not destroyed until the end of the Status Phase.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers when a friendly ship or unique squadron is dealt damage equal to or higher than its hull value, which would result in it being destroyed.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Ships and squadrons affected by this Upgrade Card are destroyed at the end of the Status Phase regardless of the number of damage cards or hull points they have at that time. These ships or squadrons are removed before resolving any &#39;end of round&#39; or &#39;end of game&#39; effects. <span class="footnote-ref">[1]</span></li><li>Ships and squadrons affected by this effect are treated as not destroyed until the end of the Status Phase for all purposes (attacking, defending, resolving card abilities, etc). These ships and squadrons can suffer additional damage from resolving effects such as Ruthless Strategists. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect affects the ship he is equipped to. If this effect prevents the last ship in this Upgrade Card&#39;s fleet from being destroyed, the game ends at the end of the game round. <span class="footnote-ref">[1]</span></li><li>A ship or unique squadron may continue to be attacked and/or suffer damage while in the play area. Damage cards are still drawn on a ship that has been destroyed yet still in the play area under the effect of this Upgrade Card. <span class="footnote-ref">[1]</span></li><li>Once a ship or unique squadron is destroyed and under the effect of this Upgrade Card, it must be removed from the play area at the end of the Status Phase, even if it had recovered lost hull. <span class="footnote-ref">[1]</span></li><li>If a ship or squadron would be destroyed by leaving the play area, it is destroyed immediately (regardless of this Upgrade Card&#39;s effect). <span class="footnote-ref">[1]</span></li><li>If the ship that this Upgrade Card is equipped to leaves the play area, a ship or squadron already affected by this effect remains in the play area until the end of the Status Phase. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>Biggs Darklighter cannot move damage to a friendly unique squadron that is destroyed yet still in play due to this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship under this Upgrade Card&#39;s effect may still be used by the opponent to score points from objectives such as Precision Strike and Superior Positions. <span class="footnote-ref">[1]</span></li><li>A ship or squadron under this Upgrade Card&#39;s effect is removed from the play area at the end of the Status Phase, meaning that it cannot score on objectives that take place &#39;end of round&#39; or &#39;end of game&#39;. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect may be used on an armed or unarmed station that the player controls as &#39;stations are treated as ships when resolving effects&#39;. This ruling is primarily for Station Assault and Corellian Conflict objectives. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Campaign Interactions</h3>
+  <div class="ruling-content"><ul><li>In the Corellian Conflict campaign, if a ship is under the effect of this Upgrade Card and it departs the area via hyperspace retreat, then the ship is NOT considered destroyed (although its points are scored as if it had been). That ship is also not scarred, as it was never removed from the play area. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="kyrsta-agate-40" data-name="kyrsta agate" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyrsta-agate-commander.webp" alt="Kyrsta Agate" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Kyrsta Agate <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After you deploy, gain 1 non-<span class="icon-font">1</span> defense token.</p><p>During your &quot;Spend Defense Tokens&quot; step, if your speed is not 0, you may discard 1 defense token to resolve the effect of that defense token. You cannot resolve the effect of each type of defense token more than once per attack.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect immediately resolves when a ship is deployed. This Upgrade Card&#39;s second effect resolves during the &#39;Spend Defense Tokens&#39; step, and only if the flagship is defending.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When an Evade defense token is discarded using this Upgrade Card&#39;s second effect, the defender cannot affect an additional die since the Evade defense token must have been &#39;spent&#39; and then discarded to be able to affect an additional die. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship equipped with both this Upgrade Card and Expert Shield Tech may spend a Redirect defense token and resolve the Expert Shield Tech card effect, and then discard that token to resolve this Upgrade Card&#39;s second effect to resolve the standard Redirect defense token effect. This is because these are two different defense token effects. However, a ship cannot discard a Redirect defense token using this Upgrade Card&#39;s second effect and choose to resolve the Expert Shield Tech card effect as that effect requires a defense token to be &#39;spent&#39; and not &#39;discarded&#39;. <span class="footnote-ref">[1]</span></li><li>A ship equipped with this Upgrade Card defending against an attack using the Heavy Turbolaser Turrets upgrade effect may resolve the Brace defense token effect by spending a Brace defense token and also discard another type of defense token to resolve a different defense token effect without suffering the effect of Heavy Turbolaser Turrets. This is because this Upgrade Card&#39;s second effect &#39;discards&#39; a defense token to resolve a defense token effect. However, if the defender uses this Upgrade Card&#39;s second effect to discard a Brace defense token to resolve its defense token effect, then the Heavy Turbolaser Turrets upgrade effect would trigger and the defender would not be able to reduce the damage total by more than 1. This is because Heavy Turbolaser Turrets requires the defender to &#39;spend&#39; a single Brace defense token, not &#39;discard&#39;. <span class="footnote-ref">[1]</span></li><li>A ship equipped with this Upgrade Card defending against an attack using XI7 Turbolasers may use this Upgrade Card&#39;s second effect to discard a Redirect defense token and effectively ignore the effect of XI7 Turbolasers. This is because XI7 Turbolasers requires the defender to &#39;spend&#39; a Redirect defense token, whereas this Upgrade Card has the defender &#39;discard&#39; a Redirect defense token to resolve that defense token effect. <span class="footnote-ref">[1]</span></li><li>Titles such as Avenger and Mon Karren do not prevent a defender equipped with this Upgrade Card from discarding a defense token to resolve its effect. <span class="footnote-ref">[1]</span></li><li>Walex Blissex can choose to recover a defense token granted by this Upgrade Card&#39;s first effect. <span class="footnote-ref">[1]</span></li><li>A ship at speed 0 and equipped with the title Concord may spend 1 defense token while defending. If this ship is also equipped with this Upgrade Card it would not be able to resolve this Upgrade Card&#39;s second effect and discard a defense token at speed 0. <span class="footnote-ref">[1]</span></li><li>When a ship is equipped with both Admonition and this Upgrade Card, it may not resolve both effects when using Admonition to discard a single defense token while defending. Each card requires its own separate discard. <span class="footnote-ref">[1]</span></li><li>If this Upgrade Card is equipped to a ship deployed by Profundity, the deployed ship would not be granted a defense token by this Upgrade Card&#39;s second effect. This is because the ship is deployed and then equipped with this Upgrade Card, thus missing the timing window. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>When a ship equipped with this Upgrade Card deploys from being set aside by Hyperspace Assault, it may resolve this Upgrade Card&#39;s first effect, since it is &#39;after you deploy&#39;. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="leia-organa-41" data-name="leia organa" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leia-organa-commander.webp" alt="Leia Organa" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Leia Organa <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship resolves a command by spending a command dial, if it has not resolved another command this round, it may resolve that command as if it also spent a matching command token. If it does, that ship cannot resolve additional commands this round.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers during a ship&#39;s activation when resolving a command.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect cannot be resolved when a ship resolves a command by spending a command dial and a matching command token. To be eligible to use this Upgrade Card&#39;s effect, a ship must resolve a command by only spending a command dial. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect is unaffected by Life Support Failure. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect is unimpeded when spending tokens for Fleet Command upgrade cards or upgrade cards like Boarding Teams, because those cards do not resolve commands. <span class="footnote-ref">[1]</span></li><li>However, if a dial must be discarded for a card or otherwise, this Upgrade Card&#39;s effect would not be able to trigger since there is no dial with which to resolve a command. <span class="footnote-ref">[1]</span></li><li>A ship using this Upgrade Card&#39;s effect is considered to have spent a command token, which would resolve cards such as Liberty or Nav Team. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="leia-organa-42" data-name="leia organa" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leia-organa-commander-errata-arc.webp" alt="Leia Organa" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Leia Organa <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship resolves a command by spending the command dial it revealed, it may resolve that command as if it also spent a matching command token.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="mon-mothma-43" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-mothma-commander.webp" alt="Mon Mothma" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Mon Mothma <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship resolves the <span class="icon-font">4</span> token effect, it can cancel 1 die at medium range or reroll 1 additional die at close range or distance 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect is used during a ship&#39;s &#39;Spend Defense Tokens&#39; step during an attack.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect provides an alternative way to resolve the Evade defense effect at medium range. When the Evade defense effect is resolved in this way it does not also produce its normal effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect works alongside Foresight to affect an additional die when a ship resolves the Evade defense effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="mon-mothma-44" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-mothma-commander-errata-arc.webp" alt="Mon Mothma" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Mon Mothma <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship resolves the <span class="icon-font">4</span> token effect, it can cancel 1 die at medium range or reroll 1 additional die at close range or distance 1.</p><p>While a friendly ship is defending, it may spend an <span class="icon-font">4</span> token that the attacker has targeted with an <span class="icon-font">U</span> result.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-coburn-45" data-name="admiral coburn" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-coburn-commander-legacy.webp" alt="Admiral Coburn" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Coburn <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship at distance 1-2 of an enemy ship or obstacle is executing a maneuver, before the Determine Course step, it may change each of its &#39;-&#39; yaw values to &#39;I&#39; until the end of that maneuver.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect occurs before the Determine Course step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>If a friendly ship does not have any native &#39;-&#39; yaw values in its navigation chart, it cannot resolve this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>If a ship&#39;s yaw effect is reduced by a card effect or damage card during the Determine Course step, this Upgrade Card&#39;s effect cannot be used to increase the yaw value in that timestep. This is different from General Madine, who resolves during the Determine Course step, not before the Determine Course step. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect may apply to any maneuvers executed during a ship&#39;s activation, including a second maneuver, such as one granted by Engine Techs or Rift Assault. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-tarkin-46" data-name="admiral tarkin" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-tarkin-commander.webp" alt="Admiral Tarkin" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Tarkin <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the start of each Ship Phase, you may discard 1 command token from this card. If you do, either you gain 1 matching command dial, or each friendly ship gains 1 matching command token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The initial effect of this card triggers when that ship is deployed &#39;during the Deploy Ships step of setup&#39;, place only 6 command tokens of any type on this card. The second part of this Upgrade Card triggers at the start of each Ship Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card would not receive any command tokens on this card (and would thus be useless) if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect. <span class="footnote-ref">[1]</span></li><li>The dial that is &#39;gained&#39; from this Upgrade Card may be turned into a matching command token. <span class="footnote-ref">[1]</span></li><li>You cannot resolve two dials of the same command. You may use this Upgrade Card&#39;s effect to generate a token if you have revealed the matching command dial. Only a dial, or a token, or a dial + token together may be resolved in the same activation. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s dial cannot be discarded to clear all Raid tokens. Only a ship&#39;s &#39;revealed&#39; dial may be discarded, and this Upgrade Card&#39;s dials are &#39;gained&#39; not &#39;revealed&#39;. However this Upgrade Card&#39;s dial can be turned into a token that may be used to clear a matching Raid token. This would allow a command to be resolved if the ship&#39;s dial is also of that command. <span class="footnote-ref">[1]</span></li><li>The Crew Panic damage card only affects the ship&#39;s dial, not this Upgrade Card&#39;s dial as they are &#39;gained&#39; not &#39;revealed&#39;. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>As long as a ship has &#39;revealed&#39; a dial, this Upgrade Card&#39;s dial can be discarded to trigger Boarding Teams, as the squadron dial being discarded does not need to be the one being revealed. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s ability can be resolved before you choose to resolve Fleet Commands, as they share the same timing. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s timing occurs before that of Comms Net, which is after the Reveal Command dial step. Comms Net can send away a token gained from this Upgrade Card. However you may not gain a token from this Upgrade Card, send it to another ship using Comms Net, and then convert your dial to another command token. You also may not use Comms Net to make room for a token gained from this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-yularen-47" data-name="admiral yularen" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-yularen-commander.webp" alt="Admiral Yularen" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Yularen <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship resolves a <span class="icon-font">8</span> command, if it spend a <span class="icon-font">8</span> token, it may activate 1 additional squadron. When a friendly ship resolves a <span class="icon-font">0</span> command, it may spend engineering points on the following repair effect: Repair Squadron: Spend 2 points to choose a friendly squadron at distance 1-3. That squadron recovers 1 hull point.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card triggers after the Reveal Command Dial step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>A ship with a Squadron dial and token would activate as many squadrons as its Squadron Value, plus an additional one from a Squadron token, and another additional squadron from this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>Using a squadron token to clear a Raid token would not count as spending a Squadron token for the purpose of this Upgrade Card&#39;s ability. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="anakin-skywalker-48" data-name="anakin skywalker" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/anakin-skywalker-commander.webp" alt="Anakin Skywalker" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Anakin Skywalker <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship, if the defender is at distance 1-5 of at least 2 other friendly ships, 1 other friendly ship at distance 1-5 of the defender may spend 1 defense token. If it does, the attacker may reroll up to 3 dice.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This ability may be resolved in the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>While a friendly ship at distance 1-5 of at least 2 other friendly ships is attacking, during &#39;Resolve Attack Effects&#39;, another friendly ship at distance 1-5 may spend 1 defense token. Even if the other ship is at speed 0, it may spend a token, as only defending ships are not allowed to spend defense tokens at speed 0. <span class="footnote-ref">[1]</span></li><li>You cannot use this ability when attacking squadrons or proximity mines. <span class="footnote-ref">[1]</span></li><li>If a ship has the Faulty Countermeasures critical card (&#39;You cannot spend exhausted defense tokens.&#39;) it may not spend its defense token to allow another friendly attacking ship to resolve this Upgrade Card&#39;s ability if it has no readied defense tokens. If the attacking ship has the Faulty Countermeasures damage card, it may still choose another friendly ship at distance 1-5 and resolve this Upgrade Card&#39;s ability even if it has no readied defense tokens. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="bail-organa-49" data-name="bail organa" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bail-organa-commander.webp" alt="Bail Organa" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Bail Organa <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship reveals a command, you may discard up to 1 token of each type from this card. For each token you discard, that ship gains 1 additional command dial matching that token&#39;s type.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The initial effect of this card triggers when that ship is deployed &#39;during the Deploy Ships step of setup&#39;. The second part of this Upgrade Card may then resolve when one of your ships activates and &#39;reveals&#39; its command dial.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card would not gain any command tokens on this card if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect. <span class="footnote-ref">[1]</span></li><li>The dial that is gained from this Upgrade Card may be turned into a matching command token. <span class="footnote-ref">[1]</span></li><li>You cannot resolve two dials of the same command. You may use this Upgrade Card&#39;s effect to generate a token if you have revealed the matching command dial. Only a dial, or a token, or a dial + token together may be resolved. <span class="footnote-ref">[1]</span></li><li>Only a ship&#39;s &#39;revealed&#39; dial may be discarded to clear raid tokens. This Upgrade Card&#39;s dials are &#39;gained&#39; not &#39;revealed&#39; and thus may not be used to clear Raid tokens. This Upgrade Card&#39;s dials can be turned into a token that may be then used to clear a matching Raid token. This would allow a command to be resolved if the ship&#39;s dial is also of that command. <span class="footnote-ref">[1]</span></li><li>If a ship does not &#39;reveal&#39; a command because it chose to discard it due to a card effect such as Crew Panic or another effect, then you cannot resolve this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>A ship with this Upgrade Card as well as the Crew Panic damage card may reveal a normal command dial as well as gain this Upgrade Card&#39;s dial, and only suffer 1 damage (not 2), as Crew Panic only affects the ship dial. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Upgrades that trigger and resolve, or resolve on, that ship&#39;s &#39;revealed&#39; dial, do not trigger on this Upgrade Card&#39;s &#39;gained&#39; dial. Examples include; Clone Navigation Officer, Navigation Officer, Engineering Captain, Tactical Expert, Wing Commander, Weapons Liaison, Defense Liaison, and Support Officer. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s timing occurs before that of Comms Net, which is after the Reveal Command dial step. Comms Net can send away a token gained from this Upgrade Card. However you may not gain a token from this Upgrade Card, send it to another ship using Comms Net, and then convert your dial to another command token. You also may not use Comms Net to make room for a token gained from this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ki-adi-mundi-50" data-name="ki-adi-mundi" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ki-adi-mundi-commander-legacy.webp" alt="Ki-Adi-Mundi" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ki-Adi-Mundi <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking, after they roll their attack pool, it may suffer one damage to add one dice of any color already in its attack pool to the attack pool. Then, the attacker gains a <span class="icon-font">)</span> token. If it already has a <span class="icon-font">)</span>, the attacking hull zone suffers one damage.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers after rolling the initial attack pool, but before the &#39;Resolve Attack Effects&#39; step.<br/>The timing window to add the die from this Upgrade Card is shared with Intel Officer, meaning that you must add the die from this Upgrade Card before resolving additional attack effects. In this case, as the timing window is shared, the attacker may choose to resolve this Upgrade Card&#39;s effect or Intel Officer&#39;s effect in either order.<br/>Dice addition effects which may add dice of other colors, such as Clone Gunners, Quad Battery Turrets, Swivel-Mount Batteries, Dual Turbolaser Turrets, and Opening Salvo, must be declared after this Upgrade Card’s effect. This means this Upgrade Card may only add dice of a color in the original attack pool, before these upgrades resolve.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When a ship suffers damage from this Upgrade Card&#39;s effect, the 2 damage dealt to the attacking hull zone bypasses standard defense mechanics, and cannot be reduced or redirected. Damage can be dealt straight to hull as a facedown damage card if suffered on a hull zone with one or no shields remaining. You cannot bypass shields to take a facedown damage card. <span class="footnote-ref">[1]</span></li><li>If you resolve this Upgrade Card&#39;s effect during an attack, and the attacker suffers damage from this card&#39;s effect that would destroy it, it is immediately destroyed and the attack ends without resolving. However, if the ship is performing a <span class="keyword-name">Counter</span> attack, the attack will resolve completely. <span class="footnote-ref">[1]</span></li><li>You may resolve this Upgrade Card&#39;s effect when a ship is already destroyed and resolving a <span class="keyword-name">Counter</span> attack, as it would suffer damage and then be removed from the board as normal. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card cannot cause a proximity mine token to suffer damage, as a token does not make an attack and is not a ship. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect cannot be added to a SALVO attack. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card can be added to a <span class="keyword-name">Counter</span> attack, such as one granted by Quad Laser Turrets. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect can be applied to an attack initiated from Ordnance Pods. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect can be applied to an anti-squadron attack using Linked Turbolaser Towers, although due to the timing window, the attacker must add a die of a color already in the attack pool, not add dice of a color only added through Linked Turbolaser Towers&#39;s effect. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect does not count as &quot;suffering damage from an attack&quot; for interactions with upgrades like Adi Gallia. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect can be used during an anti-squadron attack against any number of squadrons. The attacker may choose which squadron(s) to apply this Upgrade&#39;s effect to and which to resolve normally. The cost (gaining a raid token or suffering 2 damage) applies once for each instance the ability is used during the anti-squadron attack, and is applied as the ability use is declared. <span class="footnote-ref">[1]</span></li><li>If you add a die using this Upgrade Card&#39;s effect to a squadron you attack, you are not required to add a die against other squadrons in that attack. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect has a timing window at the start of the &quot;Resolve Attack Effects&quot; step that must be declared before other dice adding or modifying effects, such as from Opening Salvo, can occur. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect applies to Armed Stations. Armed Stations are treated as ships when resolving effects, and although you cannot assign an raid token to an Armed Station, you can still add a die to its attack pool as the dice-add effect occurs before the raid token assignment. In addition, because the station cannot be assigned a raid token, it cannot suffer 2 damage for having a raid token equipped. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-07-17 | FAQ 1.1</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="luminara-unduli-51" data-name="luminara unduli" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-commander.webp" alt="Luminara Unduli" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Luminara Unduli <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship or unique squadron is defending, after the Spend Defense Tokens step, if it spent fewer than 2 defense tokens, it may either ready 1 of its defense tokens it did not spend, or choose another friendly ship at distance 1-5 and ready 1 of that ship&#39;s defense tokens.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card triggers after Attack Step 4: Spend Defense Tokens.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card can resolve with any defending friendly ship or unique squadron owned by that player, even if the defending ship or unique squadron has no defense tokens. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card effect is able to be resolved if 0 defense tokens are spent by a defending ship or unique squadron. <span class="footnote-ref">[1]</span></li><li>A &#39;readied&#39; defense token which was spent to be &#39;exhausted&#39; by an attacker (for example, using Admiral Sloane&#39;s ability), can be chosen by the defender with this Upgrade Card&#39;s effect to &#39;ready&#39; and return it to its &#39;readied&#39; side. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card may be used in conjunction with Unarmed Stations. They are treated as a ship that spent 0 defense tokens and are friendly to the second player. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If a ship spends a defense token to resolve Thermal Shields, that spent defense token is counted when determining if this Upgrade Card&#39;s effect can be resolved. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>Spending a defense token using Axe&#39;s ability to reduce damage on a friendly squadron does not resolve this Upgrade Card effect as Axe is not the defending squadron. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="obi-wan-kenobi-52" data-name="obi-wan kenobi" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/obi-wan-kenobi-commander.webp" alt="Obi-Wan Kenobi" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Obi-Wan Kenobi <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is defending, when it spends a readied <span class="icon-font">2</span> token, it may reduce the total damage by 1 before it suffers damage.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves in the &#39;Spend Defense Tokens&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This reduction shares the same timing as Brace, so the defender can choose which effect is resolved first. <span class="footnote-ref">[1]</span></li><li>The defender must be able to spend the Redirect token, so an accuracy could prevent this Upgrade Card effect from triggering. <span class="footnote-ref">[1]</span></li><li>The Capacitor Failure critical prevents the spending of a Redirect token and would prevent this Upgrade Card&#39;s effect from triggering. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect does not take the place of the standard Redirect effect. As such, cards that do replace the standard Redirect effect (such as Expert Shield Tech or Reactive Gunnery) would be able to stack with the effects of this Upgrade Card. If a ship had all three cards it would have to choose between the latter two, in addition to this Upgrade Card effect. <span class="footnote-ref">[1]</span></li><li>A defender cannot spend more than one defense token of each type per attack. For example, a defender cannot spend one Redirect token to resolve the Redirect effect and a second Redirect token to resolve Reactive Gunnery to trigger this Upgrade Card twice. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="plo-koon-53" data-name="plo koon" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-commander.webp" alt="Plo Koon" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Plo Koon <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly squadron is attacking a ship that is at distance 1-3 of a friendly ship, the attacker may add 1 blue die set to an [accuracy] icon to its attack pool. That die cannot be rerolled or changed. Friendly squadrons without adept gain grit while they are at distance 1 of a friendly squadron with adept.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The first effect of this Upgrade Card triggers during a friendly squadron&#39;s Attack step 3: &#39;Modifying Dice&#39;.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Grit only applies as long as the &#39;at distance 1 of a friendly Adept squadron&#39; condition is satisfied. If that condition is lost (by either the friendly squadron or the Adept squadron moving away) then Grit will also be lost instantly. <span class="footnote-ref">[1]</span></li><li>If Kickback performs an attack before moving while at distance 1 of a friendly squadron with Adept but moves out of distance 1 using his ability, he would lose Grit and not be able to move after the attack if engaged by a squadron. The same would apply in reverse if he used his ability to move into distance 1. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-trench-54" data-name="admiral trench" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-trench-commander.webp" alt="Admiral Trench" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Trench <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the start of each Ship Phase, you may reveal and discard 1 command dial from this card. If you do, until the end of the round, when a friendly ship spends only a matching command token to resolve a command, that ship resolves that command as if it had spent a dial and token of the same type instead.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The initial effect of this card triggers when that ship is deployed &#39;during the Deploy Ships step of setup&#39;. The second part of this Upgrade Card may resolve at the start of the Ship Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card would not gain any command dials on this card if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect. <span class="footnote-ref">[1]</span></li><li>If a ship under the effect of this Upgrade Card has a Raid token, it may not spend a matching command token to resolve This Upgrade Card&#39;s ability. <span class="footnote-ref">[1]</span></li><li>If the ship this Upgrade Card is equipped to is destroyed after this Upgrade Card&#39;s effect is resolved, the effect would last until the end of the round. <span class="footnote-ref">[1]</span></li><li>Effects which trigger when a ship &#39;Reveals&#39; a command dial are not triggered by this Upgrade Card, as this Upgrade Card&#39;s dials are on the card, not its ship. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="count-dooku-55" data-name="count dooku" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/count-dooku-commander.webp" alt="Count Dooku" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Count Dooku <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You must choose at least 2 types of command tokens for this card. At the start of each Ship Phase, you may discard 1 command token from this card. If you do, each enemy ship gains a raid token matching that command token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The initial effect of this card triggers when that ship is deployed &#39;during the Deploy Ships step of setup&#39;. The second part of this Upgrade Card may resolve at the start of the Ship Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card would not gain any command tokens on this card if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="daultay-dofine-56" data-name="daultay dofine" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/daultay-dofine-commander-legacy.webp" alt="Daultay Dofine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Daultay Dofine <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When activated by a ship, friendly non-unique squadrons with <span class="keyword-name">Ai</span>: ANTI-SQUADRON may add a die of any color using <span class="keyword-name">Ai</span>: ANTI-SQUADRON instead of a color already in their attack pool and friendly non-unique squadrons with <span class="keyword-name">Ai</span>: BATTERY may reroll one die in their attack pool when attacking a ship.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The effects of this Upgrade Card trigger during a squadron&#39;s attack step when it resolves <span class="keyword-name">Ai</span>: Anti-Squadron or <span class="keyword-name">Ai</span>: Battery.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card only affects non-unique squadrons. Unique squadrons do not benefit from either effect. <span class="footnote-ref">[1]</span></li><li>The reroll granted after using <span class="keyword-name">Ai</span>: BATTERY occurs after the <span class="keyword-name">Ai</span> die has been added, and must occur before a reroll from another source, such as Bomber Command Center. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card does not apply to <span class="keyword-name">Counter</span> attacks made outside of a squadron&#39;s activation, as those do not resolve the <span class="keyword-name">Ai</span> keyword. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s first effect applies to a <span class="keyword-name">Counter</span> attack made during a friendly squadron&#39;s activation. For example, Haor Chall Prototypes resolves its ability and initiates an anti-squadron attack against a friendly squadron during its activation. If that friendly squadron has both <span class="keyword-name">Ai</span>: ANTI-SQUADRON and <span class="keyword-name">Counter</span>, the <span class="keyword-name">Counter</span> attack occurs during that squadron&#39;s activation, and thus it may resolve the <span class="keyword-name">Ai</span> keyword. If it does, it could resolve this Upgrade Card&#39;s first effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Squadrons chosen by Hyperwave Signal Boost may also use this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>When using <span class="keyword-name">Ai</span>: ANTI-SQUADRON, if the squadron is adding more than 1 die (such as with an <span class="keyword-name">Ai</span> value greater than 1), only 1 of those dice may be of any color. The others must follow standard <span class="keyword-name">Ai</span> rules. <span class="footnote-ref">[1]</span></li><li>When using <span class="keyword-name">Ai</span>: BATTERY, squadrons may reroll a die from the initial attack pool, or one added from <span class="keyword-name">Ai</span>: BATTERY. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-07-17 | FAQ 1.1</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-grievous-57" data-name="general grievous" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-grievous-commander.webp" alt="General Grievous" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Grievous <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship or squadron is destroyed, you may choose 1 friendly ship or unique squadron at distance 1-5 of the destroyed ship or squadron. If you do, the chosen ship or unique squadron may either ready 1 of its defense tokens or recover 1 of its discarded defense tokens and then exhaust that token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The effect of this card triggers immediately upon the destruction of a friendly ship or squadron at distance 1-5.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>If a player chooses to resolve the Reserve Hangar Deck effect when a squadron is destroyed, the squadron is still considered destroyed and would resolve this Upgrade Card&#39;s effect. These effects share a timing window and can be resolved in the order of the controlling player&#39;s choice. <span class="footnote-ref">[1]</span></li><li>If a player chooses to move a ship or squadron so that any of it is outside of the play area; i.e., fly it off the board, it is considered destroyed and would trigger this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect can resolve when a friendly Unarmed Stations is destroyed as Unarmed Stations are treated as ships when resolving effects. <span class="footnote-ref">[1]</span></li><li>The squadron&#39;s position when it was destroyed would be used when determining distance for this Upgrade Card effect, not the squadron&#39;s position after being placed by Reserve Hangar Deck. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="kraken-58" data-name="kraken" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kraken-commander.webp" alt="Kraken" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Kraken <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per activation, while a friendly ship is attacking a ship, if another friendly ship is at close-medium range of the defender, the attacker may change 1 die to a face with any 1 icon (and no other icons).</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This ability may be resolved in the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect can resolve once per enemy ship&#39;s activation while performing a Salvo attack. <span class="footnote-ref">[1]</span></li><li>You cannot change a die to a blank face, a double hit icon, or a hit/crit icon. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect does not work against enemy squadrons. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s requirement of a friendly ship at close-medium range of the defender can be met by a friendly Unarmed Station, as Unarmed Stations are treated as ships when resolving effects. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="kraken-59" data-name="kraken" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kraken-commander-errata-arc.webp" alt="Kraken" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Kraken <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per activation, while a friendly ship is attacking a ship, if another friendly ship is at close-medium range of the defender, the attacker may change 1 die to a face with any 1 icon (and no other icons).</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This ability may be resolved in the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect can resolve once per enemy ship&#39;s activation while performing a Salvo attack. <span class="footnote-ref">[1]</span></li><li>You cannot change a die to a blank face, a double hit icon, or a hit/crit icon. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect does not work against enemy squadrons. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s requirement of a friendly ship at close-medium range of the defender can be met by a friendly Unarmed Station, as Unarmed Stations are treated as ships when resolving effects. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="mar-tuuk-60" data-name="mar tuuk" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mar-tuuk-commander.webp" alt="Mar Tuuk" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Mar Tuuk <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking, if the defending hull zone has at least 1 shield remaining, the attacker may add 1 red die to its attack pool.</p><p>While a friendly ship is attacking a ship that has no shields remaining, after rolling the attack dice, the attacker must cancel 1 attack die.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect can be resolved in the &#39;Resolve Attack Effects&#39; step - after rolling dice during an attack.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>If a ship with this Upgrade Card&#39;s ability performs an attack with a single die in the attack pool against a ship that has no shields remaining, the attack would not be canceled despite having no dice in the pool. It has already passed the &#39;Gather Dice&#39; step (at which point the attack would be cancelled if there were no dice) and has now moved on to the &#39;Roll Dice&#39; step of the attack. At this point the attack must continue. Effects that add additional dice may still add dice to this attack pool, such as Quad Battery Turrets, or External Racks. Effects that have a requirement based on dice currently in the attack would only trigger if dice were later added to the pool. e.g., Concentrate Fire adds a die of any color already present in the attack pool. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="poggle-the-lesser-61" data-name="poggle the lesser" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/poggle-the-lesser-commander-legacy.webp" alt="Poggle the Lesser" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Poggle the Lesser <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship reveals a command dial, if another friendly non-flotilla ship at distance 1-5 has already revealed the same command dial this round, it may gain 1 matching command token, recover 1 shield, or ready 1 exhausted <span class="icon-font">4</span> token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect is permanent until the flagship is destroyed, then all command 1 ships in the fleet must choose and discard any excess command tokens.<br/>This Upgrade Card&#39;s second effect occurs during the Reveal Command Dial step, if a friendly ship at distance 1-5 has revealed a matching command dial this round.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The size restriction is only related to the ship that reveals a command dial (ship A). If a large or huge ship (ship B) had already revealed a matching command dial that round, if ship A is small or medium, it may still use this Upgrade Card&#39;s second effect. <span class="footnote-ref">[1]</span></li><li>If a friendly ship reveals a command dial this round, and then discards the dial to clear a raid token, because the command dial was revealed prior to discarding, this Upgrade Card&#39;s second effect may still apply. <span class="footnote-ref">[1]</span></li><li>If a friendly ship at distance 1-5 cannot reveal a command dial due to that dial being discarded before the reveal, this Upgrade Card&#39;s second effect may not apply. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s second effect occurs before the window for the Squadron or Repair commands. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Command dials gained by Passel Argente do not count as &#39;revealing a dial&#39; as they are &#39;gained&#39; dials. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s second effect occurs before that of Comms Net, which is after the Reveal Command dial step. Comms Net can affect a token gained from this Upgrade Card&#39;s second effect. However, you may not gain a token from this effect, send it to another ship using Comms Net, and then convert your dial to another command token. You also may not use Comms Net to make room for a token gained from this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="tf-1726-62" data-name="tf-1726" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tf-1726-commander.webp" alt="TF-1726" /></div>
+    <div class="card-main">
+      <h2 class="card-title">TF-1726 <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per activation, while a friendly ship is attacking a ship, the attacker adds 1 black die to its attack pool for each raid token the defender has, to a maximum of 2 additional dice.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers during the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect is treated as a &#39;may&#39; effect so the attacking player may choose which attack to resolve the effect with, once per activation. <span class="footnote-ref">[1]</span></li><li>The black dice can be added at any range. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="captain-keyes-63" data-name="captain keyes" data-factions="unsc" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/captain-keyes-commander-halo-legends.webp" alt="Captain Keyes" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Captain Keyes <span class="icon-font"> B</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before a friendly ship resolves a <span class="icon-font">7</span> command dial, it may discard that dial. If it does, after it performs its maneuver, it may perform a 0-speed maneuver with a yaw value of &quot;I&quot;.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="captain-wallace-64" data-name="captain wallace" data-factions="unsc" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/captain-wallace-commander-halo-legends.webp" alt="Captain Wallace" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Captain Wallace <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="commander-keyes-65" data-name="commander keyes" data-factions="unsc" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commander-keyes-commander-halo-legends.webp" alt="Commander Keyes" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Commander Keyes <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="lord-hood-66" data-name="lord hood" data-factions="unsc" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lord-hood-commander-halo-legends.webp" alt="Lord Hood" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Lord Hood <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card karm-header-card" id="nexus-upgrades-67" data-category="header">
+  <div class="section-header-title">Nexus Upgrades </div>
+</article>
+
+<article class="karm-card karm-header-card" id="commander-68" data-category="header">
+  <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+</article>
+
+<article class="karm-card" id="admiral-ackbar-nr-69" data-name="admiral ackbar {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-ackbar-commander-new-republic-nexus.webp" alt="Admiral Ackbar {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Ackbar {NR} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Before a friendly ship&#39;s Attack step, it may choose to attack only once this activation. If it does, it may add 2 red dice to its attack pool while attacking a ship.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="etahn-a-baht-nr-70" data-name="etahn a&#39;baht {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/etahn-abaht-commander-new-republic-nexus.webp" alt="Etahn A&#39;baht {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Etahn A&#39;baht {NR} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While a friendly ship is defending, during the Spend Defense Tokens step, it may discard a <span class="icon-font">3</span> defense token to resolve that token&#39;s effect.</p><p>While a friendly ship or squadron resolves the <span class="icon-font">3</span> defense effect, if it is at distance 1-3 of another friendly ship, it reduces the total damage to half rounded down, to a minimum of 1.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="garm-bel-iblis-nr-71" data-name="garm bel iblis {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/garm-bel-iblis-commander-new-republic-nexus.webp" alt="Garm Bel Iblis {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Garm Bel Iblis {NR} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After deploying fleets, place 2 non-consecutive round tokens on this card. During each round matching 1 of those tokens, when a friendly ship activates, it may gain 1 additional command dial of your choice.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-cracken-nr-72" data-name="general cracken {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-cracken-commander-new-republic-nexus.webp" alt="General Cracken {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Cracken {NR} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>When a friendly ship at distance 1-5 is declared the target of an attack by an enemy ship, it may spend a readied defense token to obstruct that attack.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="traest-kre-fey-nr-73" data-name="traest kre&#39;fey {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/traest-krefey-commander-new-republic-nexus.webp" alt="Traest Kre&#39;fey {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Traest Kre&#39;fey {NR} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While a friendly ship is attacking, it may remove a die from its attack pool and place it on this card.</p><p>While a friendly ship at distance 1-3 or a friendly non-New Class ship at distance 1-5 is attacking, it may exhaust this card to cancel any number of dice in its attack pool and replace them with an equal number of dice from this card. All dice remain set to their current faces.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="wedge-antilles-nr-74" data-name="wedge antilles {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/wedge-antilles-commander-new-republic-nexus.webp" alt="Wedge Antilles {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Wedge Antilles {NR} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While a friendly ship resolves a <span class="icon-font">8</span> command, if it spent a <span class="icon-font">8</span> token, each squadron it activates may increase its speed by 1 to a maximum of 5 until the end of its activation.</p><p>Friendly squadrons without <span class="keyword-name">Escort</span> gain <span class="keyword-name">Grit</span> while at distance 1 of friendly squadrons with <span class="keyword-name">Escort</span>.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hera-syndulla-75" data-name="hera syndulla" data-factions="rebel" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hera-syndulla-commander-nexus.webp" alt="Hera Syndulla" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hera Syndulla <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-kilian-76" data-name="admiral kilian" data-factions="republic" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-kilian-commander-nexus.webp" alt="Admiral Kilian" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Kilian <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While a friendly ship is perfoming a non-<strong>ignition</strong>, non-<code>salvo</code> attack against a ship, before it gathers dice, it may replace 1 die in its battery armament with a red die.</p><p>If that ship has the <em>Bombard</em> tag, it may replace up to 2 dice instead.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hondo-ohnaka-scum-77" data-name="hondo ohnaka {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hondo-ohnaka-commander-scum-nexus.webp" alt="Hondo Ohnaka {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hondo Ohnaka {Scum} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Before an enemy ship at distance 1-5 of a friendly ship would gain a command token, you may exhaust this card to assign it to that friendly ship instead.</p><p>At the start of the Ship Phase, you may exhaust this card to discard any number of command tokens from friendly ships and assign that number of matching raid tokens to enemy ship at distance 1-5.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="jerid-sykes-scum-78" data-name="jerid sykes {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jerid-sykes-commander-scum-nexus.webp" alt="Jerid Sykes {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Jerid Sykes {Scum} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>When a friendly squadron begins its activation at distance 1-2 of a friendly ship, it gains <strong>Rogue</strong> until the end of its activation.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="maul-scum-79" data-name="maul {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/maul-commander-scum-nexus.webp" alt="Maul {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Maul {Scum} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While a friendly ship is attacking, it may spend 1 of its defense tokens. If it does, it may exhaust a matching defense token on the defender.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="pre-vizsla-scum-80" data-name="pre vizsla {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/pre-vizsla-commander-scum-nexus.webp" alt="Pre Vizsla {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Pre Vizsla {Scum} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While attacking a ship, a friendly ship may add 1 die of any color to its attack pool. If it does, choose and cancel 1 die.</p><p>If that ship has the tag <em>Mandalorian</em>, do not cancel any dice instead.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="prince-xizor-scum-81" data-name="prince xizor {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/prince-xizor-commander-scum-nexus.webp" alt="Prince Xizor {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Prince Xizor {Scum} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While defending, before a friendly ship would be dealt 1 or more damage cards, you may deal 1 of those damage cards to another friendly ship at distance 1-4 of the defender.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="tyber-zann-scum-82" data-name="tyber zann {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tyber-zann-commander-scum-nexus.webp" alt="Tyber Zann {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Tyber Zann {Scum} <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>At the start of each Ship Phase, you may reveal and discard 1 command token from this card. If you do, until the end of the round, when a friendly ship resolves a matching command, it may gain 1 command token of its choice. When an enemy ship resolves a matching command, it gains 1 raid token of its choice.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="linwodo-83" data-name="linwodo" data-factions="separatist" data-category="nexus-upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/linwodo-commander-nexus.webp" alt="Linwodo" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Linwodo <span class="icon-font"> B</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article></div>
+      
+    </div>
+    
+    <script>
+(function () {
+  var searchInput = document.getElementById('karm-search-input');
+  var filtersContainer = document.getElementById('karm-faction-filters');
+  var noResults = document.getElementById('karm-no-results');
+  var resultCount = document.getElementById('karm-result-count');
+  if (!searchInput || !filtersContainer) return;
+
+  var factionBtns = filtersContainer.querySelectorAll('.faction-btn[data-faction]');
+  var allBtn = filtersContainer.querySelector('.faction-btn[data-faction="all"]');
+  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral'];
+  var activeFactions = new Set(factionKeys);
+
+  function syncAllBtn() {
+    if (allBtn) {
+      if (activeFactions.size === factionKeys.length) {
+        allBtn.classList.add('active');
+      } else {
+        allBtn.classList.remove('active');
+      }
+    }
+  }
+
+  function applyFilters() {
+    var query = (searchInput.value || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('.karm-card');
+    var dividers = document.querySelectorAll('.card-divider');
+    var visibleCount = 0;
+    var lastHeaderIdx = -1;
+    var cardsAfterHeader = 0;
+    var headerElements = [];
+    var allFactions = activeFactions.size === factionKeys.length;
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var isHeader = card.getAttribute('data-category') === 'header';
+
+      if (isHeader) {
+        if (lastHeaderIdx >= 0) {
+          cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+        }
+        lastHeaderIdx = i;
+        cardsAfterHeader = 0;
+        continue;
+      }
+
+      var name = card.getAttribute('data-name') || '';
+      var factions = (card.getAttribute('data-factions') || '').split(',').filter(Boolean);
+
+      var matchesSearch = !query || name.indexOf(query) !== -1;
+      var matchesFaction = allFactions || factions.length === 0 || factions.some(function (f) { return activeFactions.has(f.toLowerCase()); });
+      var visible = matchesSearch && matchesFaction;
+
+      card.classList.toggle('filtered-out', !visible);
+      if (visible) {
+        visibleCount++;
+        cardsAfterHeader++;
+      }
+    }
+
+    if (lastHeaderIdx >= 0) {
+      cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+    }
+
+    for (var d = 0; d < dividers.length; d++) {
+      var hr = dividers[d];
+      var prev = hr.previousElementSibling;
+      var next = hr.nextElementSibling;
+      var hideDivider = (!prev || prev.classList.contains('filtered-out')) ||
+                        (!next || next.classList.contains('filtered-out'));
+      hr.classList.toggle('filtered-out', hideDivider);
+    }
+
+    if (noResults) {
+      noResults.classList.toggle('visible', visibleCount === 0 && (query || !allFactions));
+    }
+    if (resultCount) {
+      if (query || !allFactions) {
+        resultCount.textContent = visibleCount + ' card' + (visibleCount !== 1 ? 's' : '') + ' found';
+        resultCount.style.display = '';
+      } else {
+        resultCount.textContent = '';
+        resultCount.style.display = 'none';
+      }
+    }
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  filtersContainer.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faction-btn');
+    if (!btn) return;
+    var faction = btn.getAttribute('data-faction');
+
+    if (faction === 'all') {
+      if (activeFactions.size === factionKeys.length) {
+        activeFactions.clear();
+        factionBtns.forEach(function (b) { b.classList.remove('active'); });
+      } else {
+        factionKeys.forEach(function (f) { activeFactions.add(f); });
+        factionBtns.forEach(function (b) { b.classList.add('active'); });
+      }
+    } else {
+      if (activeFactions.has(faction)) {
+        activeFactions.delete(faction);
+        btn.classList.remove('active');
+      } else {
+        activeFactions.add(faction);
+        btn.classList.add('active');
+      }
+    }
+    syncAllBtn();
+    applyFilters();
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      applyFilters();
+    }
+  });
+})();
+</script>
+    <!-- Generated cards: 83 -->
+  </body>
+</html>

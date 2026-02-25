@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <style>
+      :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
+      
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-italic.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-bold.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeutonFett';
+  src: url('/rulings/fonts/TeutonFett.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RevengerLite';
+  src: url('/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaIcons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+      :root {
+  --page-width: 2194px;
+  --page-height: 2820px;
+  --page-scale: 1;
+  --page-padding-y: 120px;
+  --page-padding-x: 129px;
+  --page-gap: 24px;
+  --ink: #221e1d;
+  --accent: #24408f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  background: #444;
+}
+
+.toc-fab {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hamburger > span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.toc-open .toc-drawer {
+  transform: translateX(0);
+}
+
+.toc-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.toc-link {
+  display: block;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.toc-link:hover {
+  color: #24408f;
+}
+
+.toc-link.toc-sub {
+  padding-left: 16px;
+  font-size: 17px;
+}
+
+.toc-section-label {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  padding: 12px 4px 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Search FAB ── */
+
+.search-fab {
+  position: fixed;
+  right: 10px;
+  top: calc(50% + 70px);
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-fab svg {
+  display: block;
+}
+
+/* ── Search drawer ── */
+
+.search-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.search-open .search-drawer {
+  transform: translateX(0);
+}
+
+.search-drawer-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 16px;
+}
+
+.search-input {
+  width: 100%;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 2px solid rgba(36, 64, 143, 0.35);
+  background: transparent;
+  outline: none;
+  color: #221e1d;
+  margin-bottom: 18px;
+}
+
+.search-input:focus {
+  border-bottom-color: #24408f;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+/* ── Faction filter buttons ── */
+
+.faction-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.faction-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid #ccc;
+  background: #e8e5de;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  padding: 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.faction-btn .icon-font {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.faction-btn[data-faction="all"] {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.faction-btn.active {
+  border-color: #24408f;
+  background: #24408f;
+  color: #fff;
+}
+
+.faction-btn.faction-rebel.active {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.faction-btn.faction-empire.active {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.faction-btn.faction-republic.active {
+  background: #b8860b;
+  border-color: #b8860b;
+}
+
+.faction-btn.faction-separatist.active {
+  background: #1565c0;
+  border-color: #1565c0;
+}
+
+.faction-btn.faction-neutral.active {
+  background: #666;
+  border-color: #666;
+}
+
+.search-result-count {
+  font-size: 14px;
+  color: #666;
+  padding: 4px 0;
+}
+
+/* ── Filtered-out cards and dividers ── */
+
+.karm-card.filtered-out,
+.card-divider.filtered-out {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 18px;
+  color: #666;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  display: none;
+}
+
+.no-results.visible {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .toc-fab {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+  }
+
+  .search-fab {
+    top: auto;
+    bottom: 80px;
+    right: 14px;
+    transform: none;
+  }
+}
+
+@page {
+  size: 2194px 2820px;
+  margin: 0;
+}
+
+.karm-book {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+.karm-page-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--page-height) * var(--page-scale));
+  overflow: hidden;
+}
+
+.karm-page {
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  gap: var(--page-gap);
+  transform: scale(var(--page-scale));
+  transform-origin: top center;
+}
+
+.karm-static-page {
+  width: 100%;
+  height: 100%;
+}
+
+.page-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.page-number {
+  position: absolute;
+  right: 88px;
+  bottom: 76px;
+  color: var(--accent);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "RevengerLite", Impact, sans-serif;
+}
+
+.karm-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.card-top {
+  display: flex;
+  gap: 25px;
+  min-height: 500px;
+}
+
+.card-image-wrap {
+  width: 350px;
+  min-width: 350px;
+}
+
+.card-image {
+  width: 350px;
+  height: 498px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #d9d9d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.card-image.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-style: italic;
+}
+
+.card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-family: "TeutonFett", "Teuton Fett", "AeroMaticsDisplay", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  font-variant: small-caps;
+  text-transform: none;
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 29px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-faction-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.card-body,
+.card-keywords,
+.card-rulings {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+}
+
+.card-keywords {
+  font-size: 27px;
+}
+
+.card-keyword-label {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.squadron-keywords .squadron-keyword-values,
+.squadron-keywords .squadron-keyword-token {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+}
+
+.squadron-keywords .squadron-keyword-token {
+  letter-spacing: 0.01em;
+}
+
+.card-bottom {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.top-summary-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-summary-label {
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: capitalize;
+}
+
+.top-summary-text {
+  font-size: 29px;
+  line-height: 1.22;
+  font-weight: 400;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.top-summary-text p {
+  margin: 0;
+}
+
+.ruling-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ruling-heading {
+  margin: 0 0 2px;
+  font-size: 46px;
+  line-height: 1.1;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  color: #202020;
+}
+
+.ruling-content {
+  margin: 0;
+}
+
+.ruling-content p {
+  margin: 0 0 6px;
+  font-weight: 400;
+}
+
+.ruling-content ul {
+  margin: 0;
+  padding-left: 32px;
+}
+
+.ruling-content li,
+.ruling-content li p,
+.card-text-content,
+.card-text-content p {
+  font-weight: 400;
+}
+
+.footnote-ref {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  transform: translateY(-0.38em);
+  margin-left: 0.12em;
+}
+
+.card-text-content p {
+  margin: 0 0 8px;
+}
+
+.icon-font {
+  font-family: "Icons", "ArmadaIcons", "RevengerLite", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+.ruling-footnotes {
+  margin-top: 14px;
+  border-top: 1px solid rgba(36, 64, 143, 0.3);
+  padding-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.karm-header-card {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header-title {
+  font-size: 116px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+}
+
+.ruling-content blockquote {
+  margin: 8px 0;
+  padding: 6px 0 6px 18px;
+  border-left: 5px solid rgba(36, 64, 143, 0.4);
+  font-style: italic;
+}
+
+.ruling-content code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.keyword-name {
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ── Continuous responsive web layout ── */
+
+body.karm-web {
+  background: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-position: center top -60px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+body.karm-web .karm-book {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  gap: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+body.karm-web .karm-page-shell,
+body.karm-web .karm-page {
+  display: none;
+}
+
+body.karm-web .karm-continuous {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+body.karm-web .page-number {
+  display: none;
+}
+
+/* ── Card layout ── */
+
+body.karm-web .karm-card {
+  max-width: 100%;
+}
+
+body.karm-web .card-top {
+  min-height: auto;
+  gap: 20px;
+}
+
+body.karm-web .card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+body.karm-web .card-image-wrap {
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+body.karm-web .card-image {
+  width: 220px;
+  height: 312px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ── Typography ── */
+
+body.karm-web .card-title {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+body.karm-web .card-meta {
+  font-size: 16px;
+  gap: 8px;
+}
+
+body.karm-web .card-body,
+body.karm-web .card-keywords,
+body.karm-web .card-rulings,
+body.karm-web .card-bottom {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body.karm-web .card-keywords {
+  font-size: 15px;
+}
+
+body.karm-web .top-summary-label {
+  font-size: 24px;
+}
+
+body.karm-web .top-summary-text {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.karm-web .ruling-heading {
+  font-size: 24px;
+}
+
+body.karm-web .ruling-content ul {
+  padding-left: 24px;
+}
+
+body.karm-web .ruling-footnotes {
+  font-size: 13px;
+}
+
+body.karm-web .section-header-title {
+  font-size: 48px;
+}
+
+body.karm-web .karm-header-card {
+  min-height: 120px;
+  padding: 24px 0;
+}
+
+body.karm-web .card-divider {
+  border: none;
+  border-top: 1px solid rgba(36, 64, 143, 0.2);
+  margin: 28px 0;
+}
+
+/* ── Tablet ── */
+
+@media (max-width: 768px) {
+  body.karm-web .karm-book {
+    padding: 24px 16px;
+  }
+
+  body.karm-web .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  body.karm-web .card-image-wrap {
+    width: auto;
+    min-width: unset;
+    flex-shrink: unset;
+  }
+
+  body.karm-web .card-image {
+    width: 180px;
+    height: 256px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 24px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 36px;
+  }
+
+  body.karm-web .karm-header-card {
+    min-height: 80px;
+    padding: 16px 0;
+  }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+  body.karm-web .karm-book {
+    padding: 16px 12px;
+  }
+
+  body.karm-web .card-top {
+    align-items: center;
+  }
+
+  body.karm-web .card-image {
+    width: 160px;
+    height: 228px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  body.karm-web .card-body,
+  body.karm-web .card-keywords,
+  body.karm-web .card-rulings,
+  body.karm-web .card-bottom {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  body.karm-web .top-summary-label {
+    font-size: 20px;
+  }
+
+  body.karm-web .ruling-heading {
+    font-size: 20px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 28px;
+  }
+
+  body.karm-web .card-divider {
+    margin: 20px 0;
+  }
+}
+
+@media print {
+  .toc-fab,
+  .toc-drawer,
+  .search-fab,
+  .search-drawer,
+  .no-results {
+    display: none !important;
+  }
+
+  :root {
+    --page-scale: 1;
+  }
+
+  html,
+  body {
+    background: transparent;
+  }
+
+  .karm-book {
+    gap: 0;
+    padding: 0;
+  }
+
+  .karm-page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .karm-page {
+    margin: 0;
+    transform: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .karm-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+
+    </style>
+  </head>
+  <body class="karm-web">
+    
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+  <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
+<aside class="toc-drawer" aria-label="Rulings navigation">
+  <div class="toc-title">Rulings</div>
+  <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
+<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
+<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
+<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>
+<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
+<div class="toc-section-label">Upgrade Types</div>
+<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
+<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
+<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
+<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
+<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>
+<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>
+<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>
+<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>
+<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>
+<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>
+<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>
+<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>
+<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
+<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
+<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<div class="toc-section-label">Nexus</div>
+<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
+<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
+</aside>
+<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+<aside class="search-drawer" aria-label="Search and filter">
+  <div class="search-drawer-title">Search &amp; Filter</div>
+  <input type="text" class="search-input" id="karm-search-input" placeholder="Search cards..." autocomplete="off" />
+  <div class="faction-filters" id="karm-faction-filters">
+    <button type="button" class="faction-btn active" data-faction="all" aria-label="All factions" title="All">All</button>
+    <button type="button" class="faction-btn faction-rebel active" data-faction="rebel" aria-label="Rebel Alliance" title="Rebel"><span class="icon-font">[</span></button>
+    <button type="button" class="faction-btn faction-empire active" data-faction="empire" aria-label="Galactic Empire" title="Empire"><span class="icon-font">\</span></button>
+    <button type="button" class="faction-btn faction-republic active" data-faction="republic" aria-label="Republic" title="Republic"><span class="icon-font">|</span></button>
+    <button type="button" class="faction-btn faction-separatist active" data-faction="separatist" aria-label="Separatist" title="Separatist"><span class="icon-font">}</span></button>
+    <button type="button" class="faction-btn faction-neutral active" data-faction="neutral" aria-label="Neutral" title="Neutral">&#9733;</button>
+  </div>
+  <div class="search-result-count" id="karm-result-count"></div>
+</aside>
+<div class="no-results" id="karm-no-results">No matching cards found.</div>
+    <div class="karm-book">
+      
+      <div class="karm-continuous">
+<article class="karm-card karm-header-card" id="experimental-retro-1" data-category="header">
+  <div class="section-header-title">Experimental Retro <span class="icon-font">L</span></div>
+</article>
+
+<article class="karm-card" id="g-8-experimental-projector-2" data-name="g-8 experimental projector" data-factions="" data-category="upgrades" data-type="experimental-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/g-8-experimental-projector.webp" alt="G-8 Experimental Projector" /></div>
+    <div class="card-main">
+      <h2 class="card-title">G-8 Experimental Projector <span class="icon-font"> L</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before an enemy ship at distance 1-5 resolves the Determine Course step, you may exhaust this card to temporarily reduce its speed by 1 to a minimum of speed 0 until the end of the maneuver.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This upgrade card may be resolved before an enemy ship resolves its Determine Course Step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When a ship&#39;s speed is temporarily reduced, its speed dial is not changed and its current speed is equal to the number on its speed dial minus one until the end of that maneuver. This temporary reduction never changes the speed value on the physical speed dial. <span class="footnote-ref">[1]</span></li><li>When using this upgrade card its owner must use this card before an enemy ship resolves the Determine Course Step. The user of this Upgrade Card should declare their intentions and exhaust this card as soon as possible so their opponent may know the range of legal maneuvers. Adjusting the maneuver tool and resolving a Navigation command to adjust speed or yaw happen after this Upgrade Card is used. Waiting to use this Upgrade Card until an opponent is about to lock in a maneuver with the Maneuver Tool is a missed opportunity. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card may be resolved on an enemy ship executing a non-standard maneuver granted by an upgrade card, objective, or any other effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>The maneuver granted by Engine Techs, Quantum Storm, or Admiral Ozzel (officer) may be affected by this Upgrade Card. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card does not trigger The Grand Inquisitor as the ship&#39;s speed dial is not changed. <span class="footnote-ref">[1]</span></li><li>If a ship&#39;s speed is temporarily slowed by an effect such as this Upgrade Card, that ship will not be able to use Take Evasive Action! For example, a ship&#39;s &#39;current speed&#39; is 3. It is then temporarily slowed to &#39;2&#39;, but this temporary reduction in speed does not change the ship&#39;s speed dial. Since the ship&#39;s &#39;current speed&#39; is 3, but forced to conduct the maneuver at speed 2, Take Evasive Action! cannot modify the yaw value in the speed 2 chart. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card would not prevent Moff Jerjerrod&#39;s effect from resolving. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card effect stacks with the speed reduction of the Gravity Rift Obstacle. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card may affect the special rule maneuver granted by Rift Ambush. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="g7-x-grav-well-projector-3" data-name="g7-x grav well projector" data-factions="" data-category="upgrades" data-type="experimental-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/g7-x-grav-well-projector.webp" alt="G7-X Grav Well Projector" /></div>
+    <div class="card-main">
+      <h2 class="card-title">G7-X Grav Well Projector <span class="icon-font"> L</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before deploying fleets, place 1 grav well token anywhere in the play area.</p><p>When a ship deploys at distance 1-3 of a grav well token, its speed dial must be set to 0.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may resolve before deploying fleets, but after obstacles are placed.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Grav well tokens are never removed from play, and cannot be moved unless they are placed on an obstacle that is moved. This is important as ships that deploy during play from abilities such as Admiral Raddus or Hyperspace Assault can be affected by this Upgrade Card. <span class="footnote-ref">[1]</span></li><li>Grav Well tokens may be placed anywhere in the play area, including deployment zones. <span class="footnote-ref">[1]</span></li><li>Each copy of this Upgrade Card in a fleet grants one Grav Well token. <span class="footnote-ref">[1]</span></li><li>A ship equipped with this Upgrade Card must be in the play area (not set aside or otherwise not in play) in order for its effect to be resolved. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>The maneuver granted by Admiral Ozzel (officer) is not affected by this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="grav-shift-reroute-4" data-name="grav shift reroute" data-factions="" data-category="upgrades" data-type="experimental-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/grav-shift-reroute.webp" alt="Grav Shift Reroute" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Grav Shift Reroute <span class="icon-font"> L</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before deploying fleets, place 1 grav shift token anywhere in the play area.</p><p>After deploying fleets, you may move each obstacle at distance 1-3 of that token to within distance 1-2 of that obstacle&#39;s current location. Obstacles cannot overlap tokens, obstacles, or ships.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may resolve before deploying fleets, but after obstacles are placed. It resolves obstacle movement after deploying fleets.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Obstacles moved with this Upgrade Card&#39;s effect are restricted from overlapping tokens, obstacles, and ships only at their final position. If an obstacle overlaps one or more squadrons, move any overlapped squadron out of the way and place the obstacle. Then the player who is not moving the obstacle places the overlapped squadrons, regardless of who owns them, in any position touching or overlapping that obstacle. <span class="footnote-ref">[1]</span></li><li>An obstacle moved with this Upgrade Card&#39;s effect can be rotated or flipped; however, no part of that obstacle can be beyond distance 2 of the object&#39;s original position. <span class="footnote-ref">[1]</span></li><li>If an obstacle with an objective token or proximity mine on it is moved, that objective token or proximity mine remains on that obstacle in the same position. If the token or mine is bumped, moved, or falls off after final placement, the opponent should place that token nearest to the original placement. <span class="footnote-ref">[1]</span></li><li>After deploying fleets, if the ship with this Upgrade Card equipped is not in play (because it has been set aside), that ship&#39;s owner cannot resolve the remainder of this Upgrade Card&#39;s effects. <span class="footnote-ref">[1]</span></li><li>The Grav shift token remains in the play area until the end of the game. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>During the Doomed Station objective, if an obstacle is moved by this Upgrade Card so it is touching the Gravity Rift, the obstacle is not removed as obstacles are only removed during &#39;End of Round&#39;. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="targeting-scrambler-5" data-name="targeting scrambler" data-factions="" data-category="upgrades" data-type="experimental-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/targeting-scrambler.webp" alt="Targeting Scrambler" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Targeting Scrambler <span class="icon-font"> L</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship at distance 1-3 is defending at close range, during the Spend Defense Tokens step, you may exhaust this card to force the attacker to reroll up to 4 dice of your choice.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be exhausted to resolve its effect during the Spend Defense Tokens step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Multiple copies of this card can each resolve their effect during the same attack. Each card&#39;s effect must be resolved separately. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card can be used on any friendly ship defending at close range, such as from a ship, squadron, or armed/unarmed station. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card cannot be used on an attack that is not at close range. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card cannot reroll a die that has been modified by the Lando Calrissian (squadron) card effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article></div>
+      
+    </div>
+    
+    <script>
+(function () {
+  var searchInput = document.getElementById('karm-search-input');
+  var filtersContainer = document.getElementById('karm-faction-filters');
+  var noResults = document.getElementById('karm-no-results');
+  var resultCount = document.getElementById('karm-result-count');
+  if (!searchInput || !filtersContainer) return;
+
+  var factionBtns = filtersContainer.querySelectorAll('.faction-btn[data-faction]');
+  var allBtn = filtersContainer.querySelector('.faction-btn[data-faction="all"]');
+  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral'];
+  var activeFactions = new Set(factionKeys);
+
+  function syncAllBtn() {
+    if (allBtn) {
+      if (activeFactions.size === factionKeys.length) {
+        allBtn.classList.add('active');
+      } else {
+        allBtn.classList.remove('active');
+      }
+    }
+  }
+
+  function applyFilters() {
+    var query = (searchInput.value || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('.karm-card');
+    var dividers = document.querySelectorAll('.card-divider');
+    var visibleCount = 0;
+    var lastHeaderIdx = -1;
+    var cardsAfterHeader = 0;
+    var headerElements = [];
+    var allFactions = activeFactions.size === factionKeys.length;
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var isHeader = card.getAttribute('data-category') === 'header';
+
+      if (isHeader) {
+        if (lastHeaderIdx >= 0) {
+          cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+        }
+        lastHeaderIdx = i;
+        cardsAfterHeader = 0;
+        continue;
+      }
+
+      var name = card.getAttribute('data-name') || '';
+      var factions = (card.getAttribute('data-factions') || '').split(',').filter(Boolean);
+
+      var matchesSearch = !query || name.indexOf(query) !== -1;
+      var matchesFaction = allFactions || factions.length === 0 || factions.some(function (f) { return activeFactions.has(f.toLowerCase()); });
+      var visible = matchesSearch && matchesFaction;
+
+      card.classList.toggle('filtered-out', !visible);
+      if (visible) {
+        visibleCount++;
+        cardsAfterHeader++;
+      }
+    }
+
+    if (lastHeaderIdx >= 0) {
+      cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+    }
+
+    for (var d = 0; d < dividers.length; d++) {
+      var hr = dividers[d];
+      var prev = hr.previousElementSibling;
+      var next = hr.nextElementSibling;
+      var hideDivider = (!prev || prev.classList.contains('filtered-out')) ||
+                        (!next || next.classList.contains('filtered-out'));
+      hr.classList.toggle('filtered-out', hideDivider);
+    }
+
+    if (noResults) {
+      noResults.classList.toggle('visible', visibleCount === 0 && (query || !allFactions));
+    }
+    if (resultCount) {
+      if (query || !allFactions) {
+        resultCount.textContent = visibleCount + ' card' + (visibleCount !== 1 ? 's' : '') + ' found';
+        resultCount.style.display = '';
+      } else {
+        resultCount.textContent = '';
+        resultCount.style.display = 'none';
+      }
+    }
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  filtersContainer.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faction-btn');
+    if (!btn) return;
+    var faction = btn.getAttribute('data-faction');
+
+    if (faction === 'all') {
+      if (activeFactions.size === factionKeys.length) {
+        activeFactions.clear();
+        factionBtns.forEach(function (b) { b.classList.remove('active'); });
+      } else {
+        factionKeys.forEach(function (f) { activeFactions.add(f); });
+        factionBtns.forEach(function (b) { b.classList.add('active'); });
+      }
+    } else {
+      if (activeFactions.has(faction)) {
+        activeFactions.delete(faction);
+        btn.classList.remove('active');
+      } else {
+        activeFactions.add(faction);
+        btn.classList.add('active');
+      }
+    }
+    syncAllBtn();
+    applyFilters();
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      applyFilters();
+    }
+  });
+})();
+</script>
+    <!-- Generated cards: 5 -->
+  </body>
+</html>

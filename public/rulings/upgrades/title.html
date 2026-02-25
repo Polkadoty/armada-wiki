@@ -1,0 +1,4009 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <style>
+      :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
+      
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-italic.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-bold.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeutonFett';
+  src: url('/rulings/fonts/TeutonFett.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RevengerLite';
+  src: url('/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaIcons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+      :root {
+  --page-width: 2194px;
+  --page-height: 2820px;
+  --page-scale: 1;
+  --page-padding-y: 120px;
+  --page-padding-x: 129px;
+  --page-gap: 24px;
+  --ink: #221e1d;
+  --accent: #24408f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  background: #444;
+}
+
+.toc-fab {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hamburger > span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.toc-open .toc-drawer {
+  transform: translateX(0);
+}
+
+.toc-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.toc-link {
+  display: block;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.toc-link:hover {
+  color: #24408f;
+}
+
+.toc-link.toc-sub {
+  padding-left: 16px;
+  font-size: 17px;
+}
+
+.toc-section-label {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  padding: 12px 4px 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Search FAB ── */
+
+.search-fab {
+  position: fixed;
+  right: 10px;
+  top: calc(50% + 70px);
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-fab svg {
+  display: block;
+}
+
+/* ── Search drawer ── */
+
+.search-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.search-open .search-drawer {
+  transform: translateX(0);
+}
+
+.search-drawer-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 16px;
+}
+
+.search-input {
+  width: 100%;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 2px solid rgba(36, 64, 143, 0.35);
+  background: transparent;
+  outline: none;
+  color: #221e1d;
+  margin-bottom: 18px;
+}
+
+.search-input:focus {
+  border-bottom-color: #24408f;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+/* ── Faction filter buttons ── */
+
+.faction-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.faction-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid #ccc;
+  background: #e8e5de;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  padding: 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.faction-btn .icon-font {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.faction-btn[data-faction="all"] {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.faction-btn.active {
+  border-color: #24408f;
+  background: #24408f;
+  color: #fff;
+}
+
+.faction-btn.faction-rebel.active {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.faction-btn.faction-empire.active {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.faction-btn.faction-republic.active {
+  background: #b8860b;
+  border-color: #b8860b;
+}
+
+.faction-btn.faction-separatist.active {
+  background: #1565c0;
+  border-color: #1565c0;
+}
+
+.faction-btn.faction-neutral.active {
+  background: #666;
+  border-color: #666;
+}
+
+.search-result-count {
+  font-size: 14px;
+  color: #666;
+  padding: 4px 0;
+}
+
+/* ── Filtered-out cards and dividers ── */
+
+.karm-card.filtered-out,
+.card-divider.filtered-out {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 18px;
+  color: #666;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  display: none;
+}
+
+.no-results.visible {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .toc-fab {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+  }
+
+  .search-fab {
+    top: auto;
+    bottom: 80px;
+    right: 14px;
+    transform: none;
+  }
+}
+
+@page {
+  size: 2194px 2820px;
+  margin: 0;
+}
+
+.karm-book {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+.karm-page-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--page-height) * var(--page-scale));
+  overflow: hidden;
+}
+
+.karm-page {
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  gap: var(--page-gap);
+  transform: scale(var(--page-scale));
+  transform-origin: top center;
+}
+
+.karm-static-page {
+  width: 100%;
+  height: 100%;
+}
+
+.page-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.page-number {
+  position: absolute;
+  right: 88px;
+  bottom: 76px;
+  color: var(--accent);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "RevengerLite", Impact, sans-serif;
+}
+
+.karm-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.card-top {
+  display: flex;
+  gap: 25px;
+  min-height: 500px;
+}
+
+.card-image-wrap {
+  width: 350px;
+  min-width: 350px;
+}
+
+.card-image {
+  width: 350px;
+  height: 498px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #d9d9d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.card-image.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-style: italic;
+}
+
+.card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-family: "TeutonFett", "Teuton Fett", "AeroMaticsDisplay", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  font-variant: small-caps;
+  text-transform: none;
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 29px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-faction-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.card-body,
+.card-keywords,
+.card-rulings {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+}
+
+.card-keywords {
+  font-size: 27px;
+}
+
+.card-keyword-label {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.squadron-keywords .squadron-keyword-values,
+.squadron-keywords .squadron-keyword-token {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+}
+
+.squadron-keywords .squadron-keyword-token {
+  letter-spacing: 0.01em;
+}
+
+.card-bottom {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.top-summary-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-summary-label {
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: capitalize;
+}
+
+.top-summary-text {
+  font-size: 29px;
+  line-height: 1.22;
+  font-weight: 400;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.top-summary-text p {
+  margin: 0;
+}
+
+.ruling-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ruling-heading {
+  margin: 0 0 2px;
+  font-size: 46px;
+  line-height: 1.1;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  color: #202020;
+}
+
+.ruling-content {
+  margin: 0;
+}
+
+.ruling-content p {
+  margin: 0 0 6px;
+  font-weight: 400;
+}
+
+.ruling-content ul {
+  margin: 0;
+  padding-left: 32px;
+}
+
+.ruling-content li,
+.ruling-content li p,
+.card-text-content,
+.card-text-content p {
+  font-weight: 400;
+}
+
+.footnote-ref {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  transform: translateY(-0.38em);
+  margin-left: 0.12em;
+}
+
+.card-text-content p {
+  margin: 0 0 8px;
+}
+
+.icon-font {
+  font-family: "Icons", "ArmadaIcons", "RevengerLite", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+.ruling-footnotes {
+  margin-top: 14px;
+  border-top: 1px solid rgba(36, 64, 143, 0.3);
+  padding-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.karm-header-card {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header-title {
+  font-size: 116px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+}
+
+.ruling-content blockquote {
+  margin: 8px 0;
+  padding: 6px 0 6px 18px;
+  border-left: 5px solid rgba(36, 64, 143, 0.4);
+  font-style: italic;
+}
+
+.ruling-content code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.keyword-name {
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ── Continuous responsive web layout ── */
+
+body.karm-web {
+  background: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-position: center top -60px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+body.karm-web .karm-book {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  gap: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+body.karm-web .karm-page-shell,
+body.karm-web .karm-page {
+  display: none;
+}
+
+body.karm-web .karm-continuous {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+body.karm-web .page-number {
+  display: none;
+}
+
+/* ── Card layout ── */
+
+body.karm-web .karm-card {
+  max-width: 100%;
+}
+
+body.karm-web .card-top {
+  min-height: auto;
+  gap: 20px;
+}
+
+body.karm-web .card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+body.karm-web .card-image-wrap {
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+body.karm-web .card-image {
+  width: 220px;
+  height: 312px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ── Typography ── */
+
+body.karm-web .card-title {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+body.karm-web .card-meta {
+  font-size: 16px;
+  gap: 8px;
+}
+
+body.karm-web .card-body,
+body.karm-web .card-keywords,
+body.karm-web .card-rulings,
+body.karm-web .card-bottom {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body.karm-web .card-keywords {
+  font-size: 15px;
+}
+
+body.karm-web .top-summary-label {
+  font-size: 24px;
+}
+
+body.karm-web .top-summary-text {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.karm-web .ruling-heading {
+  font-size: 24px;
+}
+
+body.karm-web .ruling-content ul {
+  padding-left: 24px;
+}
+
+body.karm-web .ruling-footnotes {
+  font-size: 13px;
+}
+
+body.karm-web .section-header-title {
+  font-size: 48px;
+}
+
+body.karm-web .karm-header-card {
+  min-height: 120px;
+  padding: 24px 0;
+}
+
+body.karm-web .card-divider {
+  border: none;
+  border-top: 1px solid rgba(36, 64, 143, 0.2);
+  margin: 28px 0;
+}
+
+/* ── Tablet ── */
+
+@media (max-width: 768px) {
+  body.karm-web .karm-book {
+    padding: 24px 16px;
+  }
+
+  body.karm-web .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  body.karm-web .card-image-wrap {
+    width: auto;
+    min-width: unset;
+    flex-shrink: unset;
+  }
+
+  body.karm-web .card-image {
+    width: 180px;
+    height: 256px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 24px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 36px;
+  }
+
+  body.karm-web .karm-header-card {
+    min-height: 80px;
+    padding: 16px 0;
+  }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+  body.karm-web .karm-book {
+    padding: 16px 12px;
+  }
+
+  body.karm-web .card-top {
+    align-items: center;
+  }
+
+  body.karm-web .card-image {
+    width: 160px;
+    height: 228px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  body.karm-web .card-body,
+  body.karm-web .card-keywords,
+  body.karm-web .card-rulings,
+  body.karm-web .card-bottom {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  body.karm-web .top-summary-label {
+    font-size: 20px;
+  }
+
+  body.karm-web .ruling-heading {
+    font-size: 20px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 28px;
+  }
+
+  body.karm-web .card-divider {
+    margin: 20px 0;
+  }
+}
+
+@media print {
+  .toc-fab,
+  .toc-drawer,
+  .search-fab,
+  .search-drawer,
+  .no-results {
+    display: none !important;
+  }
+
+  :root {
+    --page-scale: 1;
+  }
+
+  html,
+  body {
+    background: transparent;
+  }
+
+  .karm-book {
+    gap: 0;
+    padding: 0;
+  }
+
+  .karm-page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .karm-page {
+    margin: 0;
+    transform: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .karm-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+
+    </style>
+  </head>
+  <body class="karm-web">
+    
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+  <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
+<aside class="toc-drawer" aria-label="Rulings navigation">
+  <div class="toc-title">Rulings</div>
+  <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
+<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
+<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
+<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>
+<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
+<div class="toc-section-label">Upgrade Types</div>
+<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
+<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
+<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
+<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
+<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>
+<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>
+<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>
+<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>
+<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>
+<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>
+<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>
+<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>
+<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
+<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
+<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<div class="toc-section-label">Nexus</div>
+<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
+<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
+</aside>
+<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+<aside class="search-drawer" aria-label="Search and filter">
+  <div class="search-drawer-title">Search &amp; Filter</div>
+  <input type="text" class="search-input" id="karm-search-input" placeholder="Search cards..." autocomplete="off" />
+  <div class="faction-filters" id="karm-faction-filters">
+    <button type="button" class="faction-btn active" data-faction="all" aria-label="All factions" title="All">All</button>
+    <button type="button" class="faction-btn faction-rebel active" data-faction="rebel" aria-label="Rebel Alliance" title="Rebel"><span class="icon-font">[</span></button>
+    <button type="button" class="faction-btn faction-empire active" data-faction="empire" aria-label="Galactic Empire" title="Empire"><span class="icon-font">\</span></button>
+    <button type="button" class="faction-btn faction-republic active" data-faction="republic" aria-label="Republic" title="Republic"><span class="icon-font">|</span></button>
+    <button type="button" class="faction-btn faction-separatist active" data-faction="separatist" aria-label="Separatist" title="Separatist"><span class="icon-font">}</span></button>
+    <button type="button" class="faction-btn faction-neutral active" data-faction="neutral" aria-label="Neutral" title="Neutral">&#9733;</button>
+  </div>
+  <div class="search-result-count" id="karm-result-count"></div>
+</aside>
+<div class="no-results" id="karm-no-results">No matching cards found.</div>
+    <div class="karm-book">
+      
+      <div class="karm-continuous">
+<article class="karm-card karm-header-card" id="title-1" data-category="header">
+  <div class="section-header-title">Title <span class="icon-font">A</span></div>
+</article>
+
+<article class="karm-card" id="adamant-2" data-name="adamant" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/adamant-title-bsg-legends.webp" alt="Adamant" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Adamant <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admonition-3" data-name="admonition" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admonition-title.webp" alt="Admonition" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admonition <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending, during the Spend Defense Tokens step, you may discard a defense token to cancel 1 attack die.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="amity-4" data-name="amity" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/amity-title.webp" alt="Amity" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Amity <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Mark I only.</p><p>After you deploy, gain 1 <span class="icon-font">4</span> defense token.</p><p>When an enemy ship overlaps you, you may deal 1 additional facedown damage card to both ships.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="annihilator-5" data-name="annihilator" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/annihilator-title.webp" alt="Annihilator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Annihilator <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking a squadron, you may reroll 1 attack die.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="arachnid-6" data-name="arachnid" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/arachnid-title-bsg-legends.webp" alt="Arachnid" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Arachnid <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ardent-prayer-7" data-name="ardent prayer" data-factions="covenant" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ardent-prayer-title-halo-legends.webp" alt="Ardent Prayer" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ardent Prayer <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="arlionne-8" data-name="arlionne" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/arlionne-title-legacy.webp" alt="Arlionne" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Arlionne <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong><span class="icon-font">T</span></strong>: You may exhaust this card. If you do, the defender suffers 1 damage. This occurs once for each of your exhausted or discarded defense tokens.</p><p>You can resolve this critical effect during a <span class="icon-font">6</span> attack. You cannot resolve this critical effect during an <strong>ignition</strong> attack.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved during the &quot;Resolve Damage&quot; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect may only resolve on &quot;exhausted&quot; defense tokens, not discarded defense tokens. <span class="footnote-ref">[1]</span></li><li>Because this Upgrade Card specifies &quot;this occurs once&quot;, the defender will choose a new hull zone (or the same hull zone) for each instance of damage triggered by this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>The damage inflicted by this Upgrade Card&#39;s effect is not an attack, it is a critical effect. Therefore this damage cannot be reduced or cancelled by defense tokens, nor can any card effects that involve moving or reducing damage &quot;from an attack&quot; be utilized. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship defending against an attack using both this Upgrade Card and XI-7 Turbolasers may suffer each damage from this Upgrade Card&#39;s critical effect on any of its hull zones, one at a time. The XI-7 effect will prevent the defender from redirecting more than 1 of the total damage dealt during the &quot;Resolve Damage&quot; step. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="aspiration-9" data-name="aspiration" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/aspiration-title.webp" alt="Aspiration" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Aspiration <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you deploy this ship, you may move shields to up to 2 of your hull zones from your other hull zones. If you do, the number of shields in a zone cannot exceed a maximum of &quot;6&quot;. You cannot recover shields while any zone is greater than its maximum shield value.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="avenger-10" data-name="avenger" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/avenger-title.webp" alt="Avenger" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Avenger <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking, you may exhaust this card. If you do, the defender cannot spend more than 1 exhausted defense token during this attack.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="battle-cruiser-11" data-name="battle cruiser" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/battle-cruiser-title-legacy.webp" alt="Battle Cruiser" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Battle Cruiser <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><em>&#39;Combat Refit only.&#39;</em></p><p>You gain 1 <span class="icon-font">D</span> icon in your upgrade bar.</p><p>After you deploy, you may replace 1 of your defense tokens with a <span class="icon-font">6</span> token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect occurs before deployment.<br/>This Upgrade Card&#39;s second effect occurs after you deploy.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">6</span> token and <span class="icon-font">D</span> upgrade card slot granted from this title would remain. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="beast-of-burden-12" data-name="beast of burden" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/beast-of-burden-title.webp" alt="Beast of Burden" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Beast of Burden <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you activate you may exhaust this card and spend 1 or more of your Defense Tokens to choose the same number of Defense Tokens of a friendly ship at distance 1-3 and ready those Defense Tokens.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="bright-hope-13" data-name="bright hope" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bright-hope-title.webp" alt="Bright Hope" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Bright Hope <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending against an attack that does not target your rear hull zone, before you suffer damage reduce the total damage by 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="cataclysm-14" data-name="cataclysm" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/cataclysm-title.webp" alt="Cataclysm" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Cataclysm <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After the start of the Ship Phase, you may spend 1 <span class="icon-font">9</span> to place your targeting token within your special firing arc within the range specified by one of your Ignition keywords.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="centicore-15" data-name="centicore" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/centicore-title.webp" alt="Centicore" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Centicore <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When another friendly ship resolves a <span class="icon-font">8</span> command, up to 2 of the squadrons it activates can be at close-medium range of you.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="chimaera-16" data-name="chimaera" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/chimaera-title.webp" alt="Chimaera" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Chimaera <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 <span class="icon-font">M</span> icon in your upgrade bar. You cannot equip this card if you have a <span class="icon-font">M</span> icon in your upgrade bar. At the start of the Command Phase, you may discard 1 <span class="icon-font">M</span> upgrade card you have equipped and replace it with another <span class="icon-font">M</span> upgrade card.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="columbia-17" data-name="columbia" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/columbia-title-bsg-legends.webp" alt="Columbia" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Columbia <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="concord-18" data-name="concord" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/concord-title.webp" alt="Concord" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Concord <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Mark I only.</p><p>After you deploy, gain 1 <span class="icon-font">6</span> defense token.</p><p>While defending, if your speed is 0, during your Spend Defense Tokens step, you can spend 1 defense token.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="corrupter-19" data-name="corrupter" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/corrupter-title.webp" alt="Corrupter" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Corrupter <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: The speed of each squadron with <span class="keyword-name">Bomber</span> you activate is increased by 1 until the end of its activation</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="corvus-20" data-name="corvus" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/corvus-title.webp" alt="Corvus" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Corvus <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets you may redeploy this ship within your deployment zone.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="crucible-21" data-name="crucible" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/crucible-title-bsg-legends.webp" alt="Crucible" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Crucible <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="dagger-22" data-name="dagger" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dagger-title-bsg-legends.webp" alt="Dagger" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Dagger <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="defiance-23" data-name="defiance" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/defiance-title.webp" alt="Defiance" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Defiance <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking a ship that has already activated this round, add 1 die of any color to your attack pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="demolisher-24" data-name="demolisher" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/demolisher-title.webp" alt="Demolisher" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Demolisher <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>During your Attack step, you can perform only 1 attack.</p><p>You can perform 1 of your attacks after you execute your first maneuver during your activation.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="devastator-25" data-name="devastator" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/devastator-title.webp" alt="Devastator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Devastator <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per round, while attacking from your front hull zone, you may add 1 blue die to your attack pool for each of your discarded defense tokens.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="dodonna-s-pride-26" data-name="dodonna&#39;s pride" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dodonnas-pride-title.webp" alt="Dodonna&#39;s Pride" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Dodonna&#39;s Pride <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>BLUE <span class="icon-font">T</span> Cancel all attack dice to deal 1 faceup damage card to the defender.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="dominator-27" data-name="dominator" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dominator-title.webp" alt="Dominator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Dominator <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When attacking at close-medium range, you may spend up to 2 shields from any of your hull zones to add that number of blue dice to your attack pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="eclipse-28" data-name="eclipse" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/eclipse-title.webp" alt="Eclipse" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Eclipse <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When an enemy ship overlaps you, the enemy ship suffers a faceup damage card instead of a facedown damage card.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="elegy-s-lament-29" data-name="elegy&#39;s lament" data-factions="covenant" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/elegys-lament-title-halo-legends.webp" alt="Elegy&#39;s Lament" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Elegy&#39;s Lament <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="endeavor-30" data-name="endeavor" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/endeavor-title.webp" alt="Endeavor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Endeavor <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the start of the first round, gain 1 <span class="icon-font">5</span> defense token.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="executor-31" data-name="executor" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/executor-title.webp" alt="Executor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Executor <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You can be assigned any number of command tokens of any types, instead of a number of command tokens equal to your command value.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="falchion-32" data-name="falchion" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/falchion-title-bsg-legends.webp" alt="Falchion" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Falchion <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="fb-88-33" data-name="fb-88" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fb-88-title.webp" alt="FB-88" /></div>
+    <div class="card-main">
+      <h2 class="card-title">FB-88 <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before you reveal a command, you may discard your top command dial.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="foreman-s-labor-34" data-name="foreman&#39;s labor" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/foremans-labor-title.webp" alt="Foreman&#39;s Labor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Foreman&#39;s Labor <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before you suffer damage from an attack, if the defending hull zone has at least 1 shield remaining, you may exhaust this card to reduce the total damage by 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="foresight-35" data-name="foresight" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/foresight-title.webp" alt="Foresight" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Foresight <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you resolve the <span class="icon-font">4</span> defense effect, you can affect 1 additional die. When you resolve the <span class="icon-font">2</span> defense effect, you can choose 1 additional adjacent hull zone to suffer damage.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="galactica-36" data-name="galactica" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/galactica-title-bsg-legends.webp" alt="Galactica" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Galactica <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="gallant-haven-37" data-name="gallant haven" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gallant-haven-title.webp" alt="Gallant Haven" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Gallant Haven <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before a friendly squadron at distance 1 suffers damage from an attack, reduce the total damage by 1, to a minimum of 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="garel-s-honor-38" data-name="garel&#39;s honor" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/garels-honor-title.webp" alt="Garel&#39;s Honor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Garel&#39;s Honor <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you overlap an enemy ship, the enemy ship suffers a faceup damage card instead of a facedown damage card.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="gilded-aegis-39" data-name="gilded aegis" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gilded-aegis-title.webp" alt="Gilded Aegis" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Gilded Aegis <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the end of Command Phase or Ship Phase, you may discard a <span class="icon-font">2</span> defense token to move shields to 1 of your hull zones. If you do, the number if shields in that zone cannot exceed a maximum of &quot;6&quot;. You cannot recover shields in that zone while it is greater than its maximum shield value.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hand-of-justice-40" data-name="hand of justice" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hand-of-justice-title.webp" alt="Hand of Justice" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hand of Justice <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before you reveal a command, you may exhaust this card to choose another friendly ship at distance 1-5 and ready 1 of its defense tokens.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="harrow-41" data-name="harrow" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/harrow-title.webp" alt="Harrow" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Harrow <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 additional <span class="icon-font">J</span> icon in your upgrade bar.</p><p>When you execute a speed-1 maneuver, during your Determine Course step, you may change your first yaw value to &quot;II&quot; until the end of your activation.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="herald-42" data-name="herald" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/herald-title-bsg-legends.webp" alt="Herald" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Herald <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hesperides-43" data-name="hesperides" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hesperides-title-bsg-legends.webp" alt="Hesperides" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hesperides <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="home-one-44" data-name="home one" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/home-one-title.webp" alt="Home One" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Home One <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While another friendly ship at distance 1-5 is attacking, it may change 1 die to a face with an <span class="icon-font">U</span> icon.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hyperion-45" data-name="hyperion" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperion-title-bsg-legends.webp" alt="Hyperion" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hyperion <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="icarus-46" data-name="icarus" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/icarus-title-bsg-legends.webp" alt="Icarus" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Icarus <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="impetuous-47" data-name="impetuous" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/impetuous-title.webp" alt="Impetuous" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Impetuous <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the end of your Attack Step, choose 1 of your hull zones. You may perform an attack against 1 enemy squadron from that hull zone, even if you have already attacked from that zone this round.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="implacable-48" data-name="implacable" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/implacable-title.webp" alt="Implacable" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Implacable <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before a friendly ship or squadron at distance 1-2 suffers damage from an attack, you may exhaust this card and spend up to 2 shields from your front hull zone to reduce the total damage by that amount.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="independence-49" data-name="independence" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/independence-title.webp" alt="Independence" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Independence <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span> Each squadron you activate may increase its speed to 4 until the end of its activation. Squadrons that change speed in this way cannot attack this activation.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="insatiable-50" data-name="insatiable" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/insatiable-title-legacy.webp" alt="Insatiable" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Insatiable <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: When a squadron you activate uses <strong><span class="keyword-name">Ai</span>:Battery</strong>, you may suffer 1 damage. If you do, one of the dice it adds can be of any color.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers when a squadron activated by this ship uses <span class="keyword-name">Ai</span>: Battery.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When a ship suffers damage from this Upgrade Card&#39;s effect, the 1 damage dealt to the ship bypasses standard defense mechanics, and cannot be reduced or redirected. Damage can be dealt straight to hull as a facedown damage card if suffered on a hull zone with no shields remaining. You cannot bypass shields to take a facedown damage card. <span class="footnote-ref">[1]</span></li><li>If you resolve this Upgrade Card&#39;s effect during a Squadron command, and suffer damage that would destroy your ship, it is immediately destroyed and the ship may not activate other squadrons in its activation. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>As this Upgrade Card&#39;s effect allows the attacking squadron to swap the dice color upon resolving the <span class="keyword-name">Ai</span>: Battery keyword, DBS-404 may choose to add a die of a color that is added through this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="insidious-51" data-name="insidious" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/insidious-title.webp" alt="Insidious" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Insidious <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>The black dice in your battery armament can be used at medium range. This effect applies only while attacking the rear hull zone of a ship.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="instigator-52" data-name="instigator" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/instigator-title.webp" alt="Instigator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Instigator <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Enemy squadrons at distance 1 are treated as if they are engaged by 2 additional squadrons, even if they are not currently engaged.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="interdictor-53" data-name="interdictor" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/interdictor-title.webp" alt="Interdictor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Interdictor <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a ship activates, you may exhaust this card to ready 1 other upgrade card equipped to this ship.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="intrepid-54" data-name="intrepid" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intrepid-title-legacy.webp" alt="Intrepid" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Intrepid <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After you deploy, gain 1 <span class="icon-font">5</span> defense token.</p><p>While a friendly squadron with no defense tokens at distance 1-2 suffers damage, you may spend 1 <span class="icon-font">5</span> defense token. If you do, it may reduce the damage by 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect triggers after the Deployment step.<br/>This Upgrade Card&#39;s second effect triggers whenever a friendly squadron with no defense tokens at distance 1-2 suffers damage. This damage can be suffered from any source.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Squadrons suffering damage through both attack and non-attack effects, such as Anakin Skywalker (Delta-7), Ten Numb&#39;s splash effect, Exogorths, Purrgils, etc. may have the non-attack damage reduced by this Upgrade Card&#39;s second effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>The <span class="icon-font">5</span> defense token added by this Upgrade Card&#39;s first effect may be replaced through other card effects. <span class="footnote-ref">[1]</span></li><li>If Emperor Palpatine Commander (Base Game) selects a contain defense token as the target for the round, as this Upgrade Card&#39;s second effect spends the token outside of the Spend Defense Tokens step, then it would not be discarded. <span class="footnote-ref">[1]</span></li><li>If Emperor Palpatine Commander (ARC) selects a contain defense token as the target for the round, then this Upgrade Card&#39;s effect would trigger Emperor Palpatine and thus cause that contain token to be discarded. <span class="footnote-ref">[1]</span></li><li>If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">5</span> token granted from this title would remain. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>If an unique squadron discards all of its defense tokens and is within distance 1-2 of this ship, then this Upgrade Card&#39;s effect may be used on that squadron as it no longer has defense tokens. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li>Damage suffered by obstacle effects, such as Exogorths and Purrgils, are eligible for reduction from this Upgrade Card&#39;s second effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="invincible-55" data-name="invincible" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/invincible-title.webp" alt="Invincible" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Invincible <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 additional :defensive retrofit: icon in your upgrade bar.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="invisible-hand-56" data-name="invisible hand" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/invisible-hand-title.webp" alt="Invisible Hand" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Invisible Hand <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While deploying fleets, if you are in the play area, when you would deploy a squadron with <span class="keyword-name">Swarm</span>, you may set that squadron aside next to your ship card instead. You may set aside up to 5 squadrons this way. <span class="icon-font">8</span> : Choose any number of squadrons set aside with this card. Then place them within distance 1-3 of you. During your activation, those squadrons cannot move, and if they have <span class="keyword-name">Ai</span>, may increase their <span class="keyword-name">Ai</span> value by 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="jaina-s-light-57" data-name="jaina&#39;s light" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jainas-light-title.webp" alt="Jaina&#39;s Light" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Jaina&#39;s Light <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You can ignore the effects of overlapping obstacles.</p><p>Your attacks cannot be obstructed.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="koklivex-58" data-name="koklivex" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/koklivex-title-legacy.webp" alt="Koklivex" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Koklivex <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 <span class="icon-font">G</span> icon in your upgrade bar.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves during Fleet Building.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">G</span> icon granted from this title would remain. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="liberator-59" data-name="liberator" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/liberator-title.webp" alt="Liberator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Liberator <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 additional <span class="icon-font">M</span> icon in you upgrade bar.</p><p>You cannot equip this card if you have a <span class="icon-font">M</span> icon in your upgrade bar.</p><p>You cannot spend a command token to resolve a <span class="icon-font">M</span> card&#39;s effect.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="liberty-60" data-name="liberty" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/liberty-title.webp" alt="Liberty" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Liberty <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: If you spent a <span class="icon-font">8</span> token, you may activate 1 additional squadron.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="lucid-voice-61" data-name="lucid voice" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lucid-voice-title.webp" alt="Lucid Voice" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Lucid Voice <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Treat your rear hull zone&#39;s printed battery armament as 3 red dice. The battery armament of your left and right hull zones are each increased by 1 black die and decreased by 1 blue die.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="mon-calamari-exodus-fleet-62" data-name="mon calamari exodus fleet" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-calamari-exodus-fleet-title.webp" alt="Mon Calamari Exodus Fleet" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Mon Calamari Exodus Fleet <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>MC only.</p><p><span class="icon-font">0</span> : You may choose and exhaust another copy of this card on a friendly ship at distance 1-4. If you do, gain 2 additional engineering points.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="mon-karren-63" data-name="mon karren" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-karren-title.webp" alt="Mon Karren" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Mon Karren <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">9</span>: While attacking a ship, the defender cannot spend more than 1 defense token during this attack.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="nautilian-64" data-name="nautilian" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nautilian-title-legacy.webp" alt="Nautilian" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Nautilian <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Gain 1 <span class="icon-font">M</span> icon in your upgrade bar.</p><p>When a friendly ship is choosing another copy of its non-unique <span class="icon-font">A</span> upgrade to exhaust, it may treat this card as if it were a copy of its <span class="icon-font">A</span> upgrade.</p><p>When you activate, you may ready this card.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers when a friendly ship is choosing a non-unique title upgrade to exhaust.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Any non-unique title available for the Rebel faction, including one with a refresh cost, is considered eligible for this Upgrade Card&#39;s effect. This includes Mon Calamari Exodus Fleet, Task Force Organa, and Task Force Antilles. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">M</span> icon granted from this title would remain. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="nevoota-bee-65" data-name="nevoota bee" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nevoota-bee-title.webp" alt="Nevoota Bee" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Nevoota Bee <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: Each non-unique squadron that you activate gains swarm until the end of its activation. Each squadron with swarm that you activate may reroll 1 die while attacking a ship.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="nova-defiant-66" data-name="nova defiant" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nova-defiant-title.webp" alt="Nova Defiant" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Nova Defiant <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you are deployed, you must choose 1 of each type of command token for this card.</p><p>Your command value is increased to 4.</p><p>You can be assigned more than 1 of each type of command token.</p><p>When you reveal a command, you may discard all of the tokens from this card to gain them.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="paragon-67" data-name="paragon" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/paragon-title.webp" alt="Paragon" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Paragon <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking a ship you have already attacked this round, add 1 black die to your attack pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="patriot-fist-68" data-name="patriot fist" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/patriot-fist-title.webp" alt="Patriot Fist" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Patriot Fist <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking a ship at medium-long range, if this is your first attack during your activation, you may add 2 blue dice to your attack pool. If you do, you cannot attack again during this activation.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="petranaki-69" data-name="petranaki" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/petranaki-title-legacy.webp" alt="Petranaki" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Petranaki <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending, if the attack is obstructed, you may choose which die is removed from the attack pool.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect may resolve before the attacker rolls dice during the Roll Attack Dice step.<br/>This Upgrade Card&#39;s second effect resolves during the Spend Defense Tokens step, and only if the ship it is equipped to is defending.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When an <span class="icon-font">4</span> defense token is discarded using this Upgrade Card&#39;s second effect, the defender cannot affect an additional die since the <span class="icon-font">4</span> defense token must have been spent and then discarded to be able to affect an additional die with the natural <span class="icon-font">4</span> defense effect. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s second effect allows an <span class="icon-font">4</span> token to be discarded while at speed 0 to resolve the effect of that defense token. <span class="footnote-ref">[1]</span></li><li>The ship this Upgrade Card is equipped to may discard an <span class="icon-font">4</span> token to resolve the Upgrade Card&#39;s second effect even if that token were targeted by an <span class="icon-font">U</span>. <span class="footnote-ref">[1]</span></li><li>Similarly to Admonition, the ship this Upgrade Card is equipped to may &#39;double spend&#39; an <span class="icon-font">4</span> token as there is not an explicit restriction against resolving the same defense effect twice. For example, while defending against an attack at long range against a small ship, an <span class="icon-font">4</span> token could be spent to remove 1 die from the attack pool, and then discarded with this Upgrade Card&#39;s second effect to remove another die from the attack pool. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="phoenix-home-70" data-name="phoenix home" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/phoenix-home-title.webp" alt="Phoenix Home" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Phoenix Home <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 additional <span class="icon-font">C</span> icon in your upgrade bar. You can be assigned up to 4 command tokens instead of a number of command tokens equal to your command value.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="profundity-71" data-name="profundity" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/profundity-title.webp" alt="Profundity" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Profundity <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before deploying fleets, you may set aside 1 small ship with a command value of 1.</p><p>At the start of any round, you may deploy the set-aside ship at distance 1. You may un-equip up to 1 <span class="icon-font">B</span> and 1 <span class="icon-font">C</span> upgrade cards and equip them to it (if able).</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="purity-of-spirit-72" data-name="purity of spirit" data-factions="covenant" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/purity-of-spirit-title-halo-legends.webp" alt="Purity of Spirit" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Purity of Spirit <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="pursuant-73" data-name="pursuant" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/pursuant-title.webp" alt="Pursuant" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Pursuant <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you reveal a command other than a <span class="icon-font">8</span> command, you may discard this card to resolve a <span class="icon-font">8</span> Command. You treat this command as if you spent a <span class="icon-font">8</span> dial.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="quantum-storm-74" data-name="quantum storm" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/quantum-storm-title.webp" alt="Quantum Storm" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Quantum Storm <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">7</span>: After you execute a maneuver, you may exhaust this card to execute a 1-speed maneuver with a yaw of &quot;-&quot;.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="radiant-vii-75" data-name="radiant vii" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/radiant-vii-title.webp" alt="Radiant VII" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Radiant VII <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 <span class="icon-font">K</span> icon in your upgrade bar.</p><p>You cannot equip <span class="icon-font">D</span> or <span class="icon-font">F</span> upgrades.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="rakehell-76" data-name="rakehell" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rakehell-title.webp" alt="Rakehell" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Rakehell <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">7</span>: While executing a 0-speed maneuver, you can resolve clicks of yaw at the speed-0 joint, and are treated as having a yaw value of &quot;I&quot; for that maneuver.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ravager-77" data-name="ravager" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ravager-title.webp" alt="Ravager" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ravager <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">9</span>: Your <span class="icon-font">9</span> tokens can either reroll 1 attack die or add 1 die to your attack pool. If you add a die, that die must be of a color already in your attack pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="rebel-one-78" data-name="rebel one" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rebel-one-title-legacy.webp" alt="Rebel One" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Rebel One <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending, you may discard 1 of your <span class="icon-font">I</span> or <span class="icon-font">J</span> upgrades and exhaust this card to spend a defense token an opponent targeted with an <span class="icon-font">U</span>.</p><p>While attacking, you may discard this card. If you do, you may add up to 3 dice of different colors equal to the number of your discarded <span class="icon-font">I</span> or <span class="icon-font">J</span> cards.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect triggers while defending, during the Spend Defense Tokens step.<br/>This Upgrade Card&#39;s second effect triggers while attacking, during the Resolve Attack Effects step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>As the dice addition from this Upgrade Card occurs during the Resolve Attack Effects step, it may occur in any order desired by the attacker. If a <span class="icon-font">I</span> or <span class="icon-font">J</span> upgrade were to be discarded during the course of an attack, as long as the upgrade is discarded before resolving this Upgrade Card&#39;s second effect, then that discarded upgrade would count towards the total. <span class="footnote-ref">[1]</span></li><li>The dice addition from this Upgrade Card&#39;s second effect does not specify a range, meaning that this ship may discard this Upgrade Card to add dice of different colors at close, medium, or long range. <span class="footnote-ref">[1]</span></li><li>The dice addition from this Upgrade Card&#39;s second effect cannot be added to a <span class="icon-font">6</span> attack. <span class="footnote-ref">[1]</span></li><li>A defense token effected by Faulty Countermeasures cannot be overruled by this Upgrade Card&#39;s second effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If an <span class="icon-font">I</span> or <span class="icon-font">J</span> upgrade is discarded by an upgrade card effect, such as resolving Medical Team or the effect of an upgrade such as Darth Vader (Boarding Team) or Shriv Suurgav, that upgrade card still counts towards the number of discarded upgrades on the ship. <span class="footnote-ref">[1]</span></li><li>Defense tokens spent by this Upgrade Card&#39;s effect are still affected by Emperor Palpatine&#39;s or Intel Officer&#39;s effects. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="redemption-79" data-name="redemption" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/redemption-title.webp" alt="Redemption" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Redemption <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship at distance 1-5 resolves a <span class="icon-font">0</span> command, it gains 1 additional engineering point.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="relentless-80" data-name="relentless" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/relentless-title.webp" alt="Relentless" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Relentless <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>The total number of command dials that must be assigned to your ship during the Command Phase is reduced by 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="resolute-81" data-name="resolute" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/resolute-title.webp" alt="Resolute" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Resolute <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You must choose at least 2 types of command tokens for this card. After you resolve a command by spending a dial, you may discard 1 matching command token from this card to gain that token.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="sa-nalaor-82" data-name="sa nalaor" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sa-nalaor-title.webp" alt="Sa Nalaor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Sa Nalaor <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending, if you are at speed 2 or higher, you may spend a defense token to resolve the <span class="icon-font">4</span> defense effect instead of that token&#39;s effect. You cannot resolve the <span class="icon-font">4</span> defense effect more than once per attack.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="salvation-83" data-name="salvation" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/salvation-title.webp" alt="Salvation" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Salvation <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking a ship from your front hull zone, your <span class="icon-font">T</span> icons count as 2 damage instead of 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="seventh-fleet-star-destroyer-84" data-name="seventh fleet star destroyer" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/seventh-fleet-star-destroyer-title.webp" alt="Seventh Fleet Star Destroyer" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Seventh Fleet Star Destroyer <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Star Destroyer only.</p><p>While defending against an attack that targets your front hull zone, before you suffer damage, you may choose and exhaust a copy of this card on another friendly ship at distance 1-4 to reduce the total damage by 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="sovereign-85" data-name="sovereign" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sovereign-title.webp" alt="Sovereign" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Sovereign <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the start of Ship Phase, you may exhaust this card to discard 1 command token from up to 3 friendly ships at distance 1-5. If you do, each of those ships may gain 1 command token of any type.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="squall-86" data-name="squall" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/squall-title.webp" alt="Squall" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Squall <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you activate, you may choose up to 3 unengaged, friendly squadrons at close-medium range. Those squadrons may move up to distance 2. If they do, they cannot end their movement engaged.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="stellar-rise-87" data-name="stellar rise" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/stellar-rise-title-legacy.webp" alt="Stellar Rise" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Stellar Rise <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Your printed squadron value is treated as 3. You cannot spend <span class="icon-font">8</span> dials to resolve the <span class="icon-font">8</span> command.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>While a ship equipped with this Upgrade Card would resolve a <span class="icon-font">8</span> command, it may only resolve the effect of <span class="icon-font">8</span> tokens. The effect of a dial cannot be used. <span class="footnote-ref">[1]</span></li><li>Ships equipped with this Upgrade Card may still spend a <span class="icon-font">8</span> dial to receive a <span class="icon-font">8</span> token, they just cannot resolve the <span class="icon-font">8</span> command with that dial. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card may set aside up to 3 squadrons with Rapid Launch Bays&#39; effect. <span class="footnote-ref">[1]</span></li><li>When a ship equipped with this Upgrade Card resolves Boarding Troopers, it may spend up to 3 defense tokens on the chosen enemy ship. <span class="footnote-ref">[1]</span></li><li>If a ship is equipped with this Upgrade Card, it may choose up to 3 friendly squadrons when resolving Fighter Coordination Team. <span class="footnote-ref">[1]</span></li><li>If a ship equipped with this Upgrade Card is eligible for Admiral Yularen&#39;s first effect and resolves the effect of a <span class="icon-font">8</span> token, it may still activate an extra squadron from Admiral Yularen&#39;s effect. <span class="footnote-ref">[1]</span></li><li>Ships equipped with this Upgrade Card may still discard a <span class="icon-font">8</span> dial to clear raid tokens, resolve another card effect, or damage card effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="stronghold-88" data-name="stronghold" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/stronghold-title.webp" alt="Stronghold" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Stronghold <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly squadron with Swarm at distance 1-2 is defending, the attack is treated as obstructed.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="sunder-89" data-name="sunder" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sunder-title.webp" alt="Sunder" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Sunder <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Blue or Black <span class="icon-font">T</span>: You may discard this card to choose and discard 1 <span class="icon-font">G</span>, <span class="icon-font">H</span>, <span class="icon-font">F</span>, <span class="icon-font">E</span>, or <span class="icon-font">D</span> upgrade card equipped to the defender.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="suppressor-90" data-name="suppressor" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/suppressor-title.webp" alt="Suppressor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Suppressor <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After an enemy ship ends its activation, if it is at distance 1-3, you may choose and exhaust 1 of its defense tokens.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="surrogator-91" data-name="surrogator" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/surrogator-title-legacy.webp" alt="Surrogator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Surrogator <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: Squadrons you activate at distance 1 of a squadron with the printed <strong><span class="keyword-name">Assault</span></strong> keyword may reroll 1 <span class="icon-font">T</span> icon when attacking.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect occurs when a squadron that is at distance 1 of a friendly squadron with the printed <span class="keyword-name">Assault</span> keyword is activated by this ship&#39;s <span class="icon-font">8</span> command.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The squadron does not have to begin its activation at distance 1 of a friendly squadron with the printed <span class="keyword-name">Assault</span> keyword to gain this Upgrade Card&#39;s effect. It only has to be at distance 1 when performing its attack. <span class="footnote-ref">[1]</span></li><li>The reroll granted by this Upgrade Card may be used while attacking a ship or squadron. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>Squadrons that gain <span class="keyword-name">Assault</span> from an effect such as Clone Commander Wolffe, but do not have the <span class="keyword-name">Assault</span> keyword printed on their squadron card do not trigger this Upgrade Card. <span class="footnote-ref">[1]</span></li><li>Squadrons activated by a ship equipped with both this Upgrade Card and Clone Commander Wolffe that begin their activation at distance 1 of a friendly squadron with the printed <span class="keyword-name">Assault</span> keyword may reroll 1 die while attacking a ship, and spend a die with either a <span class="icon-font">T</span> or an <span class="icon-font">U</span> icon to resolve the <span class="keyword-name">Assault</span> effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="swift-return-92" data-name="swift return" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/swift-return-title.webp" alt="Swift Return" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Swift Return <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>During your Determine Course step, if you are at distance 1-2 of an obstacle, you may change your speed by 1 or increase 1 yaw value by 1.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="tantive-iv-93" data-name="tantive iv" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tantive-iv-title.webp" alt="Tantive IV" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Tantive IV <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before you gain a command token, 1 friendly ship at distance 1-5 may gain that token instead.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="task-force-antilles-94" data-name="task force antilles" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/task-force-antilles-title.webp" alt="Task Force Antilles" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Task Force Antilles <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you suffer damage from an attack, you may choose and exhaust a copy of this card on another friendly ship at distance 1-3. If you do, that ship suffers 1 of your damage instead. While this card is exhausted, you cannot spend engineering points.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="task-force-organa-95" data-name="task force organa" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/task-force-organa-title.webp" alt="Task Force Organa" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Task Force Organa <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking, you may choose and exhaust a copy of this card on another friendly ship at distance 1-3 to reroll up to 2 attack dice. While this card is exhausted, you cannot attack ships.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="tb-73-96" data-name="tb-73" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tb-73-title.webp" alt="TB-73" /></div>
+    <div class="card-main">
+      <h2 class="card-title">TB-73 <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After you deploy, gain 1 additional <span class="icon-font">4</span> defense token.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="thanatos-97" data-name="thanatos" data-factions="colonial" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/thanatos-title-bsg-legends.webp" alt="Thanatos" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Thanatos <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="thunder-wasp-98" data-name="thunder wasp" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/thunder-wasp-title-legacy.webp" alt="Thunder Wasp" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Thunder Wasp <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you would add a die from the <span class="icon-font">9</span> dial effect, that die may be of any color.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect occurs when the ship is resolving a <span class="icon-font">9</span> command as a dial.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The die added may be of any color, and does not have to match a color already in the attack pool. <span class="footnote-ref">[1]</span></li><li>The die can be added regardless of range, so a black die may be added at medium and long range, and a blue die may be added at long range. <span class="footnote-ref">[1]</span></li><li>After rolling dice, if all dice are removed from the attack pool (such as Solar Corona forcing a die to be discarded) so there are no dice remaining, this Upgrade Card can still be used to add a die of any color to the attack pool. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect may be used before or after effects like Clone Gunners which also share the <span class="icon-font">9</span> command timing window. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="tide-of-progress-xii-99" data-name="tide of progress xii" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tide-of-progress-xii-title.webp" alt="Tide of Progress XII" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Tide of Progress XII <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before you are dealt a faceup damage card with the SHIP trait, you may exhaust this card to discard that damage card (without resolving its effect).</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="tranquility-100" data-name="tranquility" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tranquility-title.webp" alt="Tranquility" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Tranquility <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending, after the Spend Defense Tokens step, if you spent fewer than 2 defense tokens, you may move up to 2 shields from 1 of your hull zones to the defending hull zone. If you do, the number of shields in that zone cannot exceed a maximum of &#39;6&#39;. You cannot recover shields while any zone is greater than its maximum shield value.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="triumphant-101" data-name="triumphant" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/triumphant-title.webp" alt="Triumphant" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Triumphant <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While another friendly non-flotilla ship resolves a <span class="icon-font">8</span> command, up to 3 squadrons without adept that it activates can be at close range of you (even if the squadrons are beyond close-medium range of that ship). This effect is not active during the first round.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="truth-and-reconciliation-102" data-name="truth and reconciliation" data-factions="covenant" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/truth-and-reco-title-halo-legends.webp" alt="Truth and Reconciliation" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Truth and Reconciliation <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unity-103" data-name="unity" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/unity-title.webp" alt="Unity" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Unity <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After you deploy, gain 1 <span class="icon-font">2</span> defense token.</p><p>While attacking a squadron, if the defender is engaged with a friendly squadron without the printed Heavy keyword, you may reroll 1 die.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unsc-commonwealth-104" data-name="unsc commonwealth" data-factions="unsc" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commonwealth-title-halo-legends.webp" alt="UNSC Commonwealth" /></div>
+    <div class="card-main">
+      <h2 class="card-title">UNSC Commonwealth <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unsc-constantinople-105" data-name="unsc constantinople" data-factions="unsc" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/constantinople-title-halo-legends.webp" alt="UNSC Constantinople" /></div>
+    <div class="card-main">
+      <h2 class="card-title">UNSC Constantinople <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unsc-in-amber-clad-106" data-name="unsc in amber clad" data-factions="unsc" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/in-amber-clad-title-halo-legends.webp" alt="UNSC In Amber Clad" /></div>
+    <div class="card-main">
+      <h2 class="card-title">UNSC In Amber Clad <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unsc-meriwether-lewis-107" data-name="unsc meriwether lewis" data-factions="unsc" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/meriwether-lewis-title-halo-legends.webp" alt="UNSC Meriwether Lewis" /></div>
+    <div class="card-main">
+      <h2 class="card-title">UNSC Meriwether Lewis <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unsc-pillar-of-autumn-108" data-name="unsc pillar of autumn" data-factions="unsc" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/pillar-of-autumn-title-halo-legends.webp" alt="UNSC Pillar of Autumn" /></div>
+    <div class="card-main">
+      <h2 class="card-title">UNSC Pillar of Autumn <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unsc-roman-blue-109" data-name="unsc roman blue" data-factions="unsc" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/roman-blue-title-halo-legends.webp" alt="UNSC Roman Blue" /></div>
+    <div class="card-main">
+      <h2 class="card-title">UNSC Roman Blue <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="unsc-savannah-110" data-name="unsc savannah" data-factions="unsc" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/savannah-title-halo-legends.webp" alt="UNSC Savannah" /></div>
+    <div class="card-main">
+      <h2 class="card-title">UNSC Savannah <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="vanguard-111" data-name="vanguard" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/vanguard-title.webp" alt="Vanguard" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Vanguard <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 additional <span class="icon-font">I</span> icon in your upgrade bar.</p><p>At the start of the first round, you may replace 1 of your defense tokens with a <span class="icon-font">2</span> defense token.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="vector-112" data-name="vector" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/vector-title.webp" alt="Vector" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Vector <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: The speed of each squadron without heavy you activate is increased by 1, to a maximum of 5, until the end of its activation.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="visgura-113" data-name="visgura" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/visgura-title-legacy.webp" alt="Visgura" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Visgura <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After you reveal a command, you may discard a command token and choose 1 friendly ship at distance 1-5. If you do, you may change that ship&#39;s top command to match the discarded command token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This upgrade card&#39;s effect triggers before the Reveal Command Dial Step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Because this upgrade card occurs before the Reveal Command Dial Step, it can be used to change the top command dial on the ship it is equipped to. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card&#39;s effect can be used to change a command dial that was required to be set to a specific command by Tikkes. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect can change a command dial that was previously changed by Slicer Tools. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="warlord-114" data-name="warlord" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/warlord-title.webp" alt="Warlord" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Warlord <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attack, you may change 1 die face with an <span class="icon-font">U</span> icon to a face with a <span class="icon-font">S</span> icon.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="yavaris-115" data-name="yavaris" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/yavaris-title.webp" alt="Yavaris" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Yavaris <span class="icon-font"> A</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: Each squadron you activate may choose to only attack during your activation. If it does, while attacking, it may add 1 die to its attack pool of a color already in its attack pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card karm-header-card" id="nexus-upgrades-116" data-category="header">
+  <div class="section-header-title">Nexus Upgrades </div>
+</article>
+
+<article class="karm-card karm-header-card" id="title-117" data-category="header">
+  <div class="section-header-title">Title <span class="icon-font">A</span></div>
+</article>
+
+<article class="karm-card" id="a-den-scum-118" data-name="a&#39;den {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/aden-title-scum-nexus.webp" alt="A&#39;Den {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">A&#39;Den {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Your squadron value is increased by 1. You cannot equip <span class="icon-font">E</span> upgrades.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="anvil-scum-119" data-name="anvil {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/anvil-title-scum-nexus.webp" alt="Anvil {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Anvil {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After gathering dice for a <span class="icon-font">6</span> attack, you may change the color of any number of dice in the attack pool.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="blue-hawk-120" data-name="blue hawk" data-factions="empire" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/blue-hawk-title-nexus.webp" alt="Blue Hawk" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Blue Hawk <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Treat your rear hull zone&#39;s printed battery armament as 2 blue dice.</p><p>You gain 1 <span class="icon-font">I</span> icon in your upgrade bar.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="boldheart-nr-121" data-name="boldheart {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boldheart-title-new-republic-nexus.webp" alt="Boldheart {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Boldheart {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While another friendly ship at distance 1-2 is defending, before it suffers damage, you may exhaust this card and suffer 1 damage to reduce the total damage by 1.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="brilliant-nr-122" data-name="brilliant {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/brilliant-title-new-republic-nexus.webp" alt="Brilliant {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Brilliant {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While defending, you may exhaust a readied defense token to resolve the <span class="icon-font">4</span> defense effect instead of that token&#39;s effect.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="broken-horn-scum-123" data-name="broken horn {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/broken-horn-title-scum-nexus.webp" alt="Broken Horn {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Broken Horn {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Before deploying fleets, you may be set aside. At the start of any round, you may be deployed at distance 1 of your flagship. You may not be deployed overlapping squadrons.</p><p>While an enemy ship is attacking, before rolling dice, if line of sight is drawn through you, that ship must choose and remove 1 additional die.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="champion-nr-124" data-name="champion {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/champion-title-new-republic-nexus.webp" alt="Champion {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Champion {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While defending at distance 1-2 of a friendly ship, during the Spend Defense Tokens step, you may exhaust this card to choose and cancel 1 attack die.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="charybdis-scum-125" data-name="charybdis {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/charybdis-title-scum-nexus.webp" alt="Charybdis {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Charybdis {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>The printed shield values of your front, left, and right hull zones are increased by 1.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="claymore-of-bonadan-126" data-name="claymore of bonadan" data-factions="republic" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/claymore-of-bonadan-title-nexus.webp" alt="Claymore of Bonadan" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Claymore of Bonadan <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>During your activation, after attacking a ship you have already attacked this round, you may exhaust this card to immediately perform a speed-1 maneuver.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="condor-127" data-name="condor" data-factions="rebel" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/condor-title-nexus.webp" alt="Condor" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Condor <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p><span class="icon-font">8</span>: Each squadron you activate, up to your squadron value, that has only 1 die in its battery armament may add 1 red die to its attack pool when attacking a ship.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="defiance-nr-128" data-name="defiance {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/defiance-title-new-republic-nexus.webp" alt="Defiance {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Defiance {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While attacking a ship that has already activated this round, add 1 die of any color to the attack pool.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="deliverance-129" data-name="deliverance" data-factions="republic" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/deliverance-title-nexus.webp" alt="Deliverance" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Deliverance <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While friendly squadrons at close-medium range of you are attacking a ship, they may spend an accuracy to choose a die in the attack pool. That die cannot be modified.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="devastation-130" data-name="devastation" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/devastation-title-nexus.webp" alt="Devastation" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Devastation <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Beam only.</p><p>When you would discard a <span class="icon-font">N</span> card on the equipped ship, you may discard this card instead.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="di-kut-scum-131" data-name="di&#39;kut {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dikut-title-scum-nexus.webp" alt="Di&#39;Kut {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Di&#39;Kut {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After you resolve a command dial, you may exhaust this card to gain a token matching that command dial.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="end-of-days-scum-132" data-name="end of days {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/end-of-days-title-scum-nexus.webp" alt="End of Days {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">End of Days {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Gain 1 <span class="icon-font">F</span> icon in your upgrade bar.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="endurance-nr-133" data-name="endurance {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/endurance-title-new-republic-nexus.webp" alt="Endurance {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Endurance {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While deploying fleets, if you are in the play area, when you would deploy a squadron with <strong><span class="keyword-name">Snipe</span></strong>, you may set that squadron aside next to your ship card instead. You may set aside up to 5 squadrons in this way.</p><p><span class="icon-font">8</span>: Choose any number of squadrons set aside with this card. Then place them within distance 1-4 of you. During your activation, those squadrons cannot move and treat all enemy squadrons as if they are <strong><span class="keyword-name">Heavy</span></strong>.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="flatline-scum-134" data-name="flatline {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/flatline-title-scum-nexus.webp" alt="Flatline {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Flatline {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Treat your printed battery armament in your rear hull zone as 1 blue and 1 black die.</p><p>After you deploy, gain 1 <span class="icon-font">6</span> defense token.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="freedom-s-wing-nr-135" data-name="freedom&#39;s wing {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/freedoms-wing-title-new-republic-nexus.webp" alt="Freedom&#39;s Wing {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Freedom&#39;s Wing {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>You gain 1 <span class="icon-font">I</span> icon in your upgrade bar.</p><p>Before you suffer damage from an attack, if the attacker is at close range, you may exhaust this card to reduce the total damage by 1.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="furious-136" data-name="furious" data-factions="empire" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/furious-title-nexus.webp" alt="Furious" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Furious <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While attacking a squadron, each of your unspent <span class="icon-font">U</span> icons add 1 damage to the damage total.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="galactic-voyager-nr-137" data-name="galactic voyager {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/galactic-voyager-title-new-republic-nexus.webp" alt="Galactic Voyager {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Galactic Voyager {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After the Reveal Command Dial step, you may choose up to 2 friendly ships at distance 1-5. Each chosen ship discards 1 command token. For each token discarded this way, that ship may gain 1 command token of your choice.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="gratua-scum-138" data-name="gratua {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gratua-title-scum-nexus.webp" alt="Gratua {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Gratua {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After you deploy, gain 1 <span class="icon-font">5</span> token.</p><p> While defending, you may spend a <span class="icon-font">5</span> token to resolve the <span class="icon-font">2</span> defense effect. You cannot resolve the <span class="icon-font">2</span> defense effect more than once per attack.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="harbinger-nr-139" data-name="harbinger {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/harbinger-title-new-republic-nexus.webp" alt="Harbinger {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Harbinger {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>During your Attack Step, you may perform 3 attacks. You cannot attack from the same hull zone more than once per activation.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="intrepid-nr-140" data-name="intrepid {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intrepid-title-new-republic-nexus.webp" alt="Intrepid {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Intrepid {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>When attacking a squadron, each of your unspent <span class="icon-font">U</span> icons add 1 damage to the damage total.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="judicial-fleet-141" data-name="judicial fleet" data-factions="republic" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/judicial-fleet-title-nexus.webp" alt="Judicial Fleet" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Judicial Fleet <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>placeholder</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="katana-fleet-142" data-name="katana fleet" data-factions="republic" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/katana-fleet-title-nexus.webp" alt="Katana Fleet" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Katana Fleet <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Before you reveal a command, you may exhaust a copy of this card on a friendly ship at distance 1-5 to discard your top command dial without revealing it.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="malevolence-143" data-name="malevolence" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/malevolence-title-nexus.webp" alt="Malevolence" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Malevolence <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Ion only.</p><p>Ignition,<span class="icon-font">T</span>: Cancel all attack dice and reduce the defender&#39;s speed to 0, then discard this card.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="merchant-one-scum-144" data-name="merchant one {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/merchant-one-title-scum-nexus.webp" alt="Merchant One {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Merchant One {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>When an enemy ship at distance 1-5 activates, you may discard this card to execute a speed-2 maneuver.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="omze-s-incredible-traveling-starport-scum-145" data-name="omze&#39;s incredible traveling starport {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/omzes-incredible-traveling-starport-title-scum-nexus.webp" alt="Omze&#39;s Incredible Traveling Starport {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Omze&#39;s Incredible Traveling Starport {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>You can be assigned any number of command tokens of any types.</p><p>When a friendly ship at distance 1-5 reveals a command dial, it may discard 1 command token assigned to you to gain a matching command token.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="parjai-iv-scum-146" data-name="parjai iv {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/parjai-iv-title-scum-nexus.webp" alt="Parjai IV {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Parjai IV {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p><span class="icon-font">8</span> : After a squadron you activate destroys an enemy ship or squadron, that squadron recovers 1 hull point.</p><p>After you destroy an enemy ship, you may discard one of your facedown damage cards.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="poison-moon-scum-147" data-name="poison moon {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/poison-moon-title-scum-nexus.webp" alt="Poison Moon {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Poison Moon {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>When you reveal a command dial, you may discard this card. If you do, until the end of the round, black dice in your battery armament may be used at medium range and blue dice in your battery armament may be used at long range.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="pulsar-148" data-name="pulsar" data-factions="empire" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/pulsar-title-nexus.webp" alt="Pulsar" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Pulsar <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>You gain 1 <span class="icon-font">F</span> upgrade in your upgrade bar. You may only equip one <span class="icon-font">G</span> upgrade.</p><p>At the end of the Squadron Phase, you may attack 1 enemy squadron at distance 1 with your printed anti-squadron armament. You cannot add dice to this attack.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ralroost-nr-149" data-name="ralroost {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ralroost-title-new-republic-nexus.webp" alt="Ralroost {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ralroost {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While attacking, you may exhaust this card to ready 1 other upgrade card equipped to this ship.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="redhawk-scum-150" data-name="redhawk {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/redhawk-title-scum-nexus.webp" alt="Redhawk {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Redhawk {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>You gain 1 <span class="icon-font">D</span> icon in your upgrade bar.</p><p>You lose 1 <span class="icon-font">H</span> icon in your upgrade bar.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="rendili-s-sword-151" data-name="rendili&#39;s sword" data-factions="republic" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rendilis-sword-title-nexus.webp" alt="Rendili&#39;s Sword" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Rendili&#39;s Sword <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While attacking a ship, if you are at speed 0 or 1, you may add one die of a color already in the attack pool to the attack pool.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="resolve-nr-152" data-name="resolve {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/resolve-title-new-republic-nexus.webp" alt="Resolve {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Resolve {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>When attacking a squadron, each of your unspent <span class="icon-font">U</span> icons add 1 damage to the damage total.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ruination-153" data-name="ruination" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ruination-title-nexus.webp" alt="Ruination" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ruination <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>When you reveal a command dial, you may spend a <span class="icon-font">6</span> token and exhaust this card to flip 1 face-up damage card face down.</p><p>While attacking a ship out of your side hull zones, you may exhaust this card and spend a <span class="icon-font">6</span> token to add 1 to the damage toal for each face-up damage card you have, to a maximum of 5 damage.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="saak-ak-154" data-name="saak&#39;ak" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/saakak-title-nexus.webp" alt="Saak&#39;ak" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Saak&#39;ak <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After you deploy, gain a <span class="icon-font">5</span> token.</p><p>During the Spend Defense Tokens step, you may spend a <span class="icon-font">5</span> token to prevent the attacker from resolving any critical effects.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="savrip-scum-155" data-name="savrip {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/savrip-title-scum-nexus.webp" alt="Savrip {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Savrip {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While attacking, if your speed is 0 or 1 and this is your first attack during your activation, you may add 2 dice of any color to your attack pool.</p><p>If you do, you cannot attack again during this activation.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="shadow-156" data-name="shadow" data-factions="rebel" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/shadow-title-nexus.webp" alt="Shadow" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Shadow <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While a friendly ship at distance 1-2 is the target of an attack at long or extreme range, the attack is treated as obstructed.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="starworm-157" data-name="starworm" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/starworm-title-nexus.webp" alt="Starworm" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Starworm <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While attacking a ship you have already attacked during your activation, you may add 1 die of any color to your attack pool.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="stockade-158" data-name="stockade" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/stockade-title-nexus.webp" alt="Stockade" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Stockade <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After you execute a maneuver, if you overlapped an obstacle, you may exhaust this card instead of resolving the effects of overlapping that obstacle.</p><p>When you overlap a ship, you may exhaust this card to deal 1 fewer damage card to your ship.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="subjugator-159" data-name="subjugator" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/subjugator-title-nexus.webp" alt="Subjugator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Subjugator <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After you deploy, you must replace 1 of your defense tokens with a <span class="icon-font">2</span> defense token.</p><p>When you resolve the <span class="icon-font">2</span> effect, you may redirect damage to 1 of your auxiliary hull zones, even if it is not adjacent to the defending hull zone.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="vanity-price-scum-160" data-name="vanity price {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/vanity-price-title-scum-nexus.webp" alt="Vanity Price {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Vanity Price {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Your printed anti-squadron armament is increased by 1 black die.</p><p>While attacking a squadron, you may spend 1 die with a <span class="icon-font">T</span> icon to toggle it&#39;s activation slider to the activated side.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="venture-nr-161" data-name="venture {nr}" data-factions="neutral" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/venture-title-new-republic-nexus.webp" alt="Venture {NR}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Venture {NR} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>During the Reveal Command Dial step, you may exhaust this card. If you do, when you spend only a <span class="icon-font">8</span> command token to resolve the <span class="icon-font">8</span> command, you may resolve that command as if you had spent a dial and token instead.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="vuuntun-palaa-162" data-name="vuuntun palaa" data-factions="separatist" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/vuutun-palaa-title-nexus.webp" alt="Vuuntun Palaa" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Vuuntun Palaa <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p><span class="icon-font">8</span> Squadron you activate may reroll 1 die while attacking.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="wild-karrde-scum-163" data-name="wild karrde {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/wild-karrde-title-scum-nexus.webp" alt="Wild Karrde {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Wild Karrde {Scum} <span class="icon-font"> A</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Your printed battery armament for your front hull zone is increased by 1 blue die.</p></div></div>
+</div></div>
+  
+</article></div>
+      
+    </div>
+    
+    <script>
+(function () {
+  var searchInput = document.getElementById('karm-search-input');
+  var filtersContainer = document.getElementById('karm-faction-filters');
+  var noResults = document.getElementById('karm-no-results');
+  var resultCount = document.getElementById('karm-result-count');
+  if (!searchInput || !filtersContainer) return;
+
+  var factionBtns = filtersContainer.querySelectorAll('.faction-btn[data-faction]');
+  var allBtn = filtersContainer.querySelector('.faction-btn[data-faction="all"]');
+  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral'];
+  var activeFactions = new Set(factionKeys);
+
+  function syncAllBtn() {
+    if (allBtn) {
+      if (activeFactions.size === factionKeys.length) {
+        allBtn.classList.add('active');
+      } else {
+        allBtn.classList.remove('active');
+      }
+    }
+  }
+
+  function applyFilters() {
+    var query = (searchInput.value || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('.karm-card');
+    var dividers = document.querySelectorAll('.card-divider');
+    var visibleCount = 0;
+    var lastHeaderIdx = -1;
+    var cardsAfterHeader = 0;
+    var headerElements = [];
+    var allFactions = activeFactions.size === factionKeys.length;
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var isHeader = card.getAttribute('data-category') === 'header';
+
+      if (isHeader) {
+        if (lastHeaderIdx >= 0) {
+          cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+        }
+        lastHeaderIdx = i;
+        cardsAfterHeader = 0;
+        continue;
+      }
+
+      var name = card.getAttribute('data-name') || '';
+      var factions = (card.getAttribute('data-factions') || '').split(',').filter(Boolean);
+
+      var matchesSearch = !query || name.indexOf(query) !== -1;
+      var matchesFaction = allFactions || factions.length === 0 || factions.some(function (f) { return activeFactions.has(f.toLowerCase()); });
+      var visible = matchesSearch && matchesFaction;
+
+      card.classList.toggle('filtered-out', !visible);
+      if (visible) {
+        visibleCount++;
+        cardsAfterHeader++;
+      }
+    }
+
+    if (lastHeaderIdx >= 0) {
+      cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+    }
+
+    for (var d = 0; d < dividers.length; d++) {
+      var hr = dividers[d];
+      var prev = hr.previousElementSibling;
+      var next = hr.nextElementSibling;
+      var hideDivider = (!prev || prev.classList.contains('filtered-out')) ||
+                        (!next || next.classList.contains('filtered-out'));
+      hr.classList.toggle('filtered-out', hideDivider);
+    }
+
+    if (noResults) {
+      noResults.classList.toggle('visible', visibleCount === 0 && (query || !allFactions));
+    }
+    if (resultCount) {
+      if (query || !allFactions) {
+        resultCount.textContent = visibleCount + ' card' + (visibleCount !== 1 ? 's' : '') + ' found';
+        resultCount.style.display = '';
+      } else {
+        resultCount.textContent = '';
+        resultCount.style.display = 'none';
+      }
+    }
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  filtersContainer.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faction-btn');
+    if (!btn) return;
+    var faction = btn.getAttribute('data-faction');
+
+    if (faction === 'all') {
+      if (activeFactions.size === factionKeys.length) {
+        activeFactions.clear();
+        factionBtns.forEach(function (b) { b.classList.remove('active'); });
+      } else {
+        factionKeys.forEach(function (f) { activeFactions.add(f); });
+        factionBtns.forEach(function (b) { b.classList.add('active'); });
+      }
+    } else {
+      if (activeFactions.has(faction)) {
+        activeFactions.delete(faction);
+        btn.classList.remove('active');
+      } else {
+        activeFactions.add(faction);
+        btn.classList.add('active');
+      }
+    }
+    syncAllBtn();
+    applyFilters();
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      applyFilters();
+    }
+  });
+})();
+</script>
+    <!-- Generated cards: 163 -->
+  </body>
+</html>

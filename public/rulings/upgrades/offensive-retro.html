@@ -1,0 +1,1802 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <style>
+      :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
+      
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-italic.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-bold.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeutonFett';
+  src: url('/rulings/fonts/TeutonFett.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RevengerLite';
+  src: url('/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaIcons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+      :root {
+  --page-width: 2194px;
+  --page-height: 2820px;
+  --page-scale: 1;
+  --page-padding-y: 120px;
+  --page-padding-x: 129px;
+  --page-gap: 24px;
+  --ink: #221e1d;
+  --accent: #24408f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  background: #444;
+}
+
+.toc-fab {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hamburger > span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.toc-open .toc-drawer {
+  transform: translateX(0);
+}
+
+.toc-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.toc-link {
+  display: block;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.toc-link:hover {
+  color: #24408f;
+}
+
+.toc-link.toc-sub {
+  padding-left: 16px;
+  font-size: 17px;
+}
+
+.toc-section-label {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  padding: 12px 4px 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Search FAB ── */
+
+.search-fab {
+  position: fixed;
+  right: 10px;
+  top: calc(50% + 70px);
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-fab svg {
+  display: block;
+}
+
+/* ── Search drawer ── */
+
+.search-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.search-open .search-drawer {
+  transform: translateX(0);
+}
+
+.search-drawer-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 16px;
+}
+
+.search-input {
+  width: 100%;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 2px solid rgba(36, 64, 143, 0.35);
+  background: transparent;
+  outline: none;
+  color: #221e1d;
+  margin-bottom: 18px;
+}
+
+.search-input:focus {
+  border-bottom-color: #24408f;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+/* ── Faction filter buttons ── */
+
+.faction-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.faction-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid #ccc;
+  background: #e8e5de;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  padding: 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.faction-btn .icon-font {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.faction-btn[data-faction="all"] {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.faction-btn.active {
+  border-color: #24408f;
+  background: #24408f;
+  color: #fff;
+}
+
+.faction-btn.faction-rebel.active {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.faction-btn.faction-empire.active {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.faction-btn.faction-republic.active {
+  background: #b8860b;
+  border-color: #b8860b;
+}
+
+.faction-btn.faction-separatist.active {
+  background: #1565c0;
+  border-color: #1565c0;
+}
+
+.faction-btn.faction-neutral.active {
+  background: #666;
+  border-color: #666;
+}
+
+.search-result-count {
+  font-size: 14px;
+  color: #666;
+  padding: 4px 0;
+}
+
+/* ── Filtered-out cards and dividers ── */
+
+.karm-card.filtered-out,
+.card-divider.filtered-out {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 18px;
+  color: #666;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  display: none;
+}
+
+.no-results.visible {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .toc-fab {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+  }
+
+  .search-fab {
+    top: auto;
+    bottom: 80px;
+    right: 14px;
+    transform: none;
+  }
+}
+
+@page {
+  size: 2194px 2820px;
+  margin: 0;
+}
+
+.karm-book {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+.karm-page-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--page-height) * var(--page-scale));
+  overflow: hidden;
+}
+
+.karm-page {
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  gap: var(--page-gap);
+  transform: scale(var(--page-scale));
+  transform-origin: top center;
+}
+
+.karm-static-page {
+  width: 100%;
+  height: 100%;
+}
+
+.page-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.page-number {
+  position: absolute;
+  right: 88px;
+  bottom: 76px;
+  color: var(--accent);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "RevengerLite", Impact, sans-serif;
+}
+
+.karm-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.card-top {
+  display: flex;
+  gap: 25px;
+  min-height: 500px;
+}
+
+.card-image-wrap {
+  width: 350px;
+  min-width: 350px;
+}
+
+.card-image {
+  width: 350px;
+  height: 498px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #d9d9d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.card-image.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-style: italic;
+}
+
+.card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-family: "TeutonFett", "Teuton Fett", "AeroMaticsDisplay", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  font-variant: small-caps;
+  text-transform: none;
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 29px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-faction-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.card-body,
+.card-keywords,
+.card-rulings {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+}
+
+.card-keywords {
+  font-size: 27px;
+}
+
+.card-keyword-label {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.squadron-keywords .squadron-keyword-values,
+.squadron-keywords .squadron-keyword-token {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+}
+
+.squadron-keywords .squadron-keyword-token {
+  letter-spacing: 0.01em;
+}
+
+.card-bottom {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.top-summary-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-summary-label {
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: capitalize;
+}
+
+.top-summary-text {
+  font-size: 29px;
+  line-height: 1.22;
+  font-weight: 400;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.top-summary-text p {
+  margin: 0;
+}
+
+.ruling-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ruling-heading {
+  margin: 0 0 2px;
+  font-size: 46px;
+  line-height: 1.1;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  color: #202020;
+}
+
+.ruling-content {
+  margin: 0;
+}
+
+.ruling-content p {
+  margin: 0 0 6px;
+  font-weight: 400;
+}
+
+.ruling-content ul {
+  margin: 0;
+  padding-left: 32px;
+}
+
+.ruling-content li,
+.ruling-content li p,
+.card-text-content,
+.card-text-content p {
+  font-weight: 400;
+}
+
+.footnote-ref {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  transform: translateY(-0.38em);
+  margin-left: 0.12em;
+}
+
+.card-text-content p {
+  margin: 0 0 8px;
+}
+
+.icon-font {
+  font-family: "Icons", "ArmadaIcons", "RevengerLite", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+.ruling-footnotes {
+  margin-top: 14px;
+  border-top: 1px solid rgba(36, 64, 143, 0.3);
+  padding-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.karm-header-card {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header-title {
+  font-size: 116px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+}
+
+.ruling-content blockquote {
+  margin: 8px 0;
+  padding: 6px 0 6px 18px;
+  border-left: 5px solid rgba(36, 64, 143, 0.4);
+  font-style: italic;
+}
+
+.ruling-content code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.keyword-name {
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ── Continuous responsive web layout ── */
+
+body.karm-web {
+  background: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-position: center top -60px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+body.karm-web .karm-book {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  gap: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+body.karm-web .karm-page-shell,
+body.karm-web .karm-page {
+  display: none;
+}
+
+body.karm-web .karm-continuous {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+body.karm-web .page-number {
+  display: none;
+}
+
+/* ── Card layout ── */
+
+body.karm-web .karm-card {
+  max-width: 100%;
+}
+
+body.karm-web .card-top {
+  min-height: auto;
+  gap: 20px;
+}
+
+body.karm-web .card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+body.karm-web .card-image-wrap {
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+body.karm-web .card-image {
+  width: 220px;
+  height: 312px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ── Typography ── */
+
+body.karm-web .card-title {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+body.karm-web .card-meta {
+  font-size: 16px;
+  gap: 8px;
+}
+
+body.karm-web .card-body,
+body.karm-web .card-keywords,
+body.karm-web .card-rulings,
+body.karm-web .card-bottom {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body.karm-web .card-keywords {
+  font-size: 15px;
+}
+
+body.karm-web .top-summary-label {
+  font-size: 24px;
+}
+
+body.karm-web .top-summary-text {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.karm-web .ruling-heading {
+  font-size: 24px;
+}
+
+body.karm-web .ruling-content ul {
+  padding-left: 24px;
+}
+
+body.karm-web .ruling-footnotes {
+  font-size: 13px;
+}
+
+body.karm-web .section-header-title {
+  font-size: 48px;
+}
+
+body.karm-web .karm-header-card {
+  min-height: 120px;
+  padding: 24px 0;
+}
+
+body.karm-web .card-divider {
+  border: none;
+  border-top: 1px solid rgba(36, 64, 143, 0.2);
+  margin: 28px 0;
+}
+
+/* ── Tablet ── */
+
+@media (max-width: 768px) {
+  body.karm-web .karm-book {
+    padding: 24px 16px;
+  }
+
+  body.karm-web .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  body.karm-web .card-image-wrap {
+    width: auto;
+    min-width: unset;
+    flex-shrink: unset;
+  }
+
+  body.karm-web .card-image {
+    width: 180px;
+    height: 256px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 24px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 36px;
+  }
+
+  body.karm-web .karm-header-card {
+    min-height: 80px;
+    padding: 16px 0;
+  }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+  body.karm-web .karm-book {
+    padding: 16px 12px;
+  }
+
+  body.karm-web .card-top {
+    align-items: center;
+  }
+
+  body.karm-web .card-image {
+    width: 160px;
+    height: 228px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  body.karm-web .card-body,
+  body.karm-web .card-keywords,
+  body.karm-web .card-rulings,
+  body.karm-web .card-bottom {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  body.karm-web .top-summary-label {
+    font-size: 20px;
+  }
+
+  body.karm-web .ruling-heading {
+    font-size: 20px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 28px;
+  }
+
+  body.karm-web .card-divider {
+    margin: 20px 0;
+  }
+}
+
+@media print {
+  .toc-fab,
+  .toc-drawer,
+  .search-fab,
+  .search-drawer,
+  .no-results {
+    display: none !important;
+  }
+
+  :root {
+    --page-scale: 1;
+  }
+
+  html,
+  body {
+    background: transparent;
+  }
+
+  .karm-book {
+    gap: 0;
+    padding: 0;
+  }
+
+  .karm-page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .karm-page {
+    margin: 0;
+    transform: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .karm-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+
+    </style>
+  </head>
+  <body class="karm-web">
+    
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+  <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
+<aside class="toc-drawer" aria-label="Rulings navigation">
+  <div class="toc-title">Rulings</div>
+  <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
+<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
+<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
+<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>
+<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
+<div class="toc-section-label">Upgrade Types</div>
+<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
+<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
+<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
+<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
+<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>
+<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>
+<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>
+<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>
+<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>
+<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>
+<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>
+<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>
+<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
+<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
+<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<div class="toc-section-label">Nexus</div>
+<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
+<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
+</aside>
+<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+<aside class="search-drawer" aria-label="Search and filter">
+  <div class="search-drawer-title">Search &amp; Filter</div>
+  <input type="text" class="search-input" id="karm-search-input" placeholder="Search cards..." autocomplete="off" />
+  <div class="faction-filters" id="karm-faction-filters">
+    <button type="button" class="faction-btn active" data-faction="all" aria-label="All factions" title="All">All</button>
+    <button type="button" class="faction-btn faction-rebel active" data-faction="rebel" aria-label="Rebel Alliance" title="Rebel"><span class="icon-font">[</span></button>
+    <button type="button" class="faction-btn faction-empire active" data-faction="empire" aria-label="Galactic Empire" title="Empire"><span class="icon-font">\</span></button>
+    <button type="button" class="faction-btn faction-republic active" data-faction="republic" aria-label="Republic" title="Republic"><span class="icon-font">|</span></button>
+    <button type="button" class="faction-btn faction-separatist active" data-faction="separatist" aria-label="Separatist" title="Separatist"><span class="icon-font">}</span></button>
+    <button type="button" class="faction-btn faction-neutral active" data-faction="neutral" aria-label="Neutral" title="Neutral">&#9733;</button>
+  </div>
+  <div class="search-result-count" id="karm-result-count"></div>
+</aside>
+<div class="no-results" id="karm-no-results">No matching cards found.</div>
+    <div class="karm-book">
+      
+      <div class="karm-continuous">
+<article class="karm-card karm-header-card" id="offensive-retro-1" data-category="header">
+  <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+</article>
+
+<article class="karm-card" id="advanced-transponder-net-2" data-name="advanced transponder net" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/advanced-transponder-net.webp" alt="Advanced Transponder Net" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Advanced Transponder Net <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Modification.</p><p>Friendly heavy squadrons at distance 1-2 prevent engaged squadrons from attacking ships.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves during the &#39;Declare Target&#39; step of the Attack step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card does not interact with Instigator. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li>Tycho Celchu is not prevented from attacking a ship equipped with this Upgrade Card even if he is engaged by enemy Heavy squadrons. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="b2-rocket-troopers-3" data-name="b2 rocket troopers" data-factions="separatist" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/b2-rocket-troopers.webp" alt="B2 Rocket Troopers" /></div>
+    <div class="card-main">
+      <h2 class="card-title">B2 Rocket Troopers <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While performing a non-<span class="icon-font">6</span> attack against a ship at close-medium range, you may exhaust this card. If you do, the defender gains 1 raid token of your choice. While attacking a squadron, you may exhaust this card. If you do, add 1 die of a color already in your attack pool to your attack pool.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves during the &#39;Resolve Attack Effects&#39; step of the Attack step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>If a ship equipped with B2 Rocket Troopers performs an attack at long range against a ship, it may not use B2 Rocket Troopers even if the entire ship is at close-medium range. <span class="footnote-ref">[1]</span></li><li>B2 Rocket Troopers may be exhausted at any time during the &#39;Resolve Attack Effects&#39; step of an attack to assign a raid token to a ship being attacked. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="boosted-comms-4" data-name="boosted comms" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boosted-comms.webp" alt="Boosted Comms" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Boosted Comms <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span> : You can activate friendly squadrons at close-long range (instead of close-medium).</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card ability resolves when a ship resolves the squadron command.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A squadron can resolve its Relay keyword even if it could only be activated because of this Upgrade Card <span class="footnote-ref">[1]</span></li><li>Effects that reference a particular distance or range (such as Fighter Coordination Team or Triumphant) have no interaction with this card. However, effects that reference whether or not a squadron is at the appropriate range to be activated (such as Relay) would combine with the effects of this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="disposable-capacitors-5" data-name="disposable capacitors" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/disposable-capacitors.webp" alt="Disposable Capacitors" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Disposable Capacitors <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you activate, you may discard this card. If you do, the blue dice in your battery armament can be used while attacking ships at close-long range until the end of the round.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be discarded when a ship equipped with this card activates. This occurs before it reveals its command dial.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card does not affect attacks against squadrons. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>As this Upgrade Card&#39;s effect is applied while attacking ships, the blue dice in the battery armament of the equipped ship cannot be used to claim Fire Lanes objective tokens at long range on the round this Upgrade Card has been discarded. <span class="footnote-ref">[1]</span></li><li>As this Upgrade Card&#39;s effect is effective until the end of the round, blue dice of the equipped ship can be used when performing Salvo attacks after this Upgrade Card has been discarded. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card does not apply to Ignition attacks, as Ignition arcs have a &#39;special battery armament&#39; instead of a &#39;battery armament.&#39; In addition, the close-long range mentioned in the card text refers to the distance from the ship&#39;s firing arcs, not the range measured from the Ignition token for the purposes of gathering dice. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="dradis-6" data-name="dradis" data-factions="colonial" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dradis-bsg-legends.webp" alt="DRADIS" /></div>
+    <div class="card-main">
+      <h2 class="card-title">DRADIS <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="expanded-hangar-bay-7" data-name="expanded hangar bay" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/expanded-hangar-bay.webp" alt="Expanded Hangar Bay" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Expanded Hangar Bay <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Your squadron value is increased by 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card increases a Ship&#39;s &#39;Squadron Value&#39; by 1, unless this card is forced to be discarded by some other effect.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card has its &#39;Squadron Value&#39; increased by 1 when activating squadrons or otherwise referencing the equipped ship&#39;s squadron value (e.g. Hyperspace Rings, Boarding Troopers, etc). This increase remains unless the equipped ship is destroyed or forced to discard this Upgrade Card by some other effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="flag-bridge-8" data-name="flag bridge" data-factions="empire,rebel,republic,separatist,scum,new-republic,resistance,first-order,chiss,impwar" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/flag-bridge.webp" alt="Flag Bridge" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Flag Bridge <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Medium or large ship only.</p><p>Flagship only.</p><p>Modification</p><p>You gain 1 <span class="icon-font">M</span> icon in your upgrade bar.</p><p>You cannot spend a command token to resolve a <span class="icon-font">M</span> card&#39;s effect.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves during Fleet Building.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The restriction on discarding a command token to resolve a Fleet Command&#39;s effect may require you to discard that Fleet Command. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If this Upgrade Card is discarded by Darth Vader (Boarding Team) or Shriv Suurgav (Boarding Team), the equipped Fleet Command card granted by the title card ability remains. This Upgrade Card being discarded also removes the restriction of not being able to discard command tokens for the equipped Fleet Command. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="flak-guns-9" data-name="flak guns" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/flak-guns.webp" alt="Flak Guns" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Flak Guns <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Treat each die in your anti-squadron armament as black. While performing a <span class="icon-font">6</span> attack, the black dice in your battery armament can be used at medium range and the blue dice in your battery armament can be used at long range.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card triggers during the &#39;Gather Dice&#39; step of an attack.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The anti-squadron armament dice of a ship equipped with this Upgrade Card are treated as black dice. Therefore, a ship equipped with this Upgrade Card will be able to attack squadrons only at close range. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card does not change the printed anti-squadron armament. Therefore, when performing a Salvo attack against a squadron, a ship equipped with this Upgrade Card still uses its printed anti-squadron armament. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship equipped with Quad Laser Turrets and this Upgrade Card must replace the blue die from Counter 1 with a black die when performing Counter attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Agent Kallus and this Upgrade Card can add a die of any color (not only black) when performing attacks against a unique squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with General Draven (Officer) and this Upgrade Card can add a die of any color (not only black) when performing attacks against a squadron with Counter or Intel. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hardened-bulkheads-10" data-name="hardened bulkheads" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hardened-bulkheads.webp" alt="Hardened Bulkheads" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hardened Bulkheads <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Large ship only.</p><p>When you overlap a ship of a smaller size class (or are overlapped by a ship of a smaller size class), deal 1 fewer facedown damage card to your ship.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves after a ship executes a maneuver.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>The additional facedown damage card dealt from Structural Damage cannot be discarded by this Upgrade Card, as it was not the result of an overlap, but from that critical card&#39;s effect. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card and Amity would be dealt 1 damage card (instead of 2), if it chooses to resolve Amity&#39;s effect. <span class="footnote-ref">[1]</span></li><li>A ship equipped with this Upgrade Card would be dealt 1 faceup damage card when it is overlapped by a ship equipped with Garel&#39;s Honor. <span class="footnote-ref">[1]</span></li><li>A ship equipped with this Upgrade Card and Lira Wessex can turn the faceup damage card from Garel&#39;s Honor to a facedown damage card, but it cannot then trigger this Upgrade Card to not be dealt this facedown damage card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hyperspace-rings-11" data-name="hyperspace rings" data-factions="republic" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-rings.webp" alt="Hyperspace Rings" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hyperspace Rings <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before deploying fleets, you may choose a number of friendly, non-rogue squadrons up to your squadron value. Those squadrons gain scout.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved before deploying fleets.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>You can choose either Unique or non Unique squadrons to gain the Scout keyword. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card and Expanded Hangar Bay is able to choose an additional squadron to gain the Scout keyword. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hyperwave-signal-boost-12" data-name="hyperwave signal boost" data-factions="separatist" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperwave-signal-boost.webp" alt="Hyperwave Signal Boost" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hyperwave Signal Boost <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>During the Squadron Phase, when it is your fleet&#39;s turn to activate squadrons, you may exhaust this card to choose a number of unactivated, friendly squadrons at close-long range up to your squadron value. This turn, activate each of those squadrons. While attacking, each of those squadrons with <span class="keyword-name">Ai</span> are treated as if activated by a <span class="icon-font">8</span> command.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be exhausted and resolved in the Squadron Phase, when it is your turn to activate squadrons.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Squadrons cannot move and attack when they are chosen for the purpose of this Upgrade Card effect. The phrasing &#39;as if activated by a squadron command&#39; is a trigger for the <span class="keyword-name">Ai</span> keyword and not to the ability of a squadron to both move and attack. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s ability provides an alternative way to activate squadrons during the Squadron Phase, instead of the usual 2 Squadron activations when it is a player&#39;s turn to activate squadrons in this phase. <span class="footnote-ref">[1]</span></li><li>As the equipped ship owner can choose any number of squadrons up to your squadron value when you resolve this Upgrade Card effect, they can choose to exhaust this Upgrade Card&#39;s effect to activate 0 squadrons on their turn, essentially passing on their turn&#39;s activations. <span class="footnote-ref">[1]</span></li><li>Multiple copies of this Upgrade Card can each resolve their effect during your fleet&#39;s turn to activate squadrons. Each effect must be resolved separately. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card does not interact with the Flight Controllers, San Hill, or the Relay keyword in any way. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="long-range-salvo-13" data-name="long range salvo" data-factions="colonial" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/long-range-salvo-bsg-legends.webp" alt="Long Range Salvo" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Long Range Salvo <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="magnetic-launch-tubes-14" data-name="magnetic launch tubes" data-factions="colonial" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/magnetic-launch-tubes-bsg-legends.webp" alt="Magnetic Launch Tubes" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Magnetic Launch Tubes <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="phylon-q7-tractor-beams-15" data-name="phylon q7 tractor beams" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/phylon-q7-tractor-beams.webp" alt="Phylon Q7 Tractor Beams" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Phylon Q7 Tractor Beams <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><em>Modification</em>.</p><p>When you activate, you may exhaust this card to choose 1 enemy ship of your size class or smaller at distance 1-5. That ship must spend a <span class="icon-font">7</span> token or reduce its speed by 1 to a minimum of 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be exhausted and resolved when a ship equipped with this card activates. This occurs before it reveals its command dial.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>A ship affected by this ability must discard a Navigation token if it has one. Otherwise, it reduces its speed. <span class="footnote-ref">[1]</span></li><li>The size classes of ships are &#39;small&#39;, &#39;medium&#39;, &#39;large&#39;, and &#39;huge&#39;. A Flotilla is not its own distinct size class and may use this Upgrade Card to target ships of the same size class or smaller. <span class="footnote-ref">[1]</span></li><li>The damage from Thruster Fissure will resolve if a ship is forced to change its speed as a result of this Upgrade Card. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>The Grand Inquisitor can resolve from this Upgrade Card being used on an enemy ship, if the owner of the ship is forced to change the speed on its speed dial. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="plasma-lance-16" data-name="plasma lance" data-factions="covenant" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plasma-lance-halo-legends.webp" alt="Plasma Lance" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Plasma Lance <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="point-defense-reroute-17" data-name="point-defense reroute" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/point-defense-reroute.webp" alt="Point-Defense Reroute" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Point-Defense Reroute <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While attacking a squadron at close range, you may reroll your <span class="icon-font">T</span> icons</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be used during the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card may only be used once during the &#39;Resolve Attack Effects&#39; step. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="proximity-mines-18" data-name="proximity mines" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/proximity-mines.webp" alt="Proximity Mines" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Proximity Mines <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before deploying fleets, you may discard this card to place a number of proximity mine tokens equal to half your engineering value, rounded down. You may place these mines anywhere in the play area beyond distance 5 of enemy ships (and distance 1 of each other).</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be discarded and resolved after obstacles are placed and before fleets are deployed.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When Proximity Mine Tokens are placed, they must be placed beyond distance 1 of any other Proximity Mine Tokens. <span class="footnote-ref">[1]</span></li><li>When a ship ends a movement at distance 1 of a Proximity Mine Token, remove that token from the play area and roll two blue dice. That ship is dealt one facedown damage card for each hit or critical icon rolled. <span class="footnote-ref">[1]</span></li><li>When a ship performs an attack, it can declare one Proximity Mine Token as a target instead of attacking a ship or squadrons. The defending Proximity Mine Token is treated as a squadron with one hull point that is not friendly to any ship or squadron and has no keywords or defense tokens. If that token suffers at least one point of damage, remove that token from the play area. <span class="footnote-ref">[1]</span></li><li>Squadrons cannot attack Proximity Mine Tokens. <span class="footnote-ref">[1]</span></li><li>Ships that attack Proximity Mine Tokens cannot attack squadrons in the same arc with the same attack. <span class="footnote-ref">[1]</span></li><li>A ship may only attack 1 proximity mine in arc during its anti-squadron attack. <span class="footnote-ref">[1]</span></li><li>Proximity Mine Tokens are not considered &#39;friendly&#39; to any ship or squadron. <span class="footnote-ref">[1]</span></li><li>Proximity Mine Tokens cannot be moved by the &#39;Strategic&#39; keyword, as they are not objective tokens. <span class="footnote-ref">[1]</span></li><li>Proximity Mines Tokens can be placed on obstacles. If an obstacle with a Proximity Mines Token on it moves, the Proximity Mines Token moves with that obstacle. If that obstacle is rotated or flipped, that Proximity Mines Token should be placed as close to its original position as possible as determined by an opponent that did not move that obstacle. <span class="footnote-ref">[1]</span></li><li>An attack against a Proximity Mine token can be obstructed. <span class="footnote-ref">[1]</span></li><li>A ship can deploy near or on a Proximity Mines Token. The Proximity Mine token will not trigger until a ship executes a maneuver and ends its movement at distance 1 of it. <span class="footnote-ref">[1]</span></li><li>If a ship is overlapping a Proximity Mines Token, it cannot attack that token. <span class="footnote-ref">[1]</span></li><li>Proximity Mines Tokens cannot normally resolve against Armed or Unarmed Station as they do not move. <span class="footnote-ref">[1]</span></li><li>If a ship with 1 hull overlaps another ship and would be destroyed, it still resolves any Proximity Mines Tokens it ends its maneuver near. <span class="footnote-ref">[1]</span></li><li>When an obstacle with a Proximity Mines token on it is removed from the play area (such as on an Exogorth) the Proximity mine token remains in its last location before the obstacle was removed. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>This Upgrade Card and Admiral Raddus share the same timing, so proximity mine tokens can be placed before choosing an Admiral Raddus ship to set aside. <span class="footnote-ref">[1]</span></li><li>Ruthless Strategists cannot be triggered when attacking a Proximity Mine Token. <span class="footnote-ref">[1]</span></li><li>Linked Turbolaser Towers added die effect can be used on a Proximity Mine Token. <span class="footnote-ref">[1]</span></li><li>Heavy Fire Zone may be used against Proximity Mines Tokens. <span class="footnote-ref">[1]</span></li><li>A ship deployed by Raddus or Hyperspace Assault ship can be deployed on or near Proximity Mine Tokens without triggering them. <span class="footnote-ref">[1]</span></li><li>Impetuous is able to attack a Proximity Mines Token. <span class="footnote-ref">[1]</span></li><li>Ordnance Pods can use its attack to target a single Proximity Mines token but no other squadrons. <span class="footnote-ref">[1]</span></li><li>Wide-Area Barrage cannot choose a Proximity Mines Token to suffer damage, as it is not a ship or squadron. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li>Volatile Deposits special rule cannot choose a Proximity Mines Token to suffer damage, as it is not a ship or squadron. <span class="footnote-ref">[1]</span></li><li>In Doomed Station, when an obstacle with a Proximity Mines Token on it is moved and touches the Gravity Rift in its final position and is to be removed from the play area, the Proximity Mines Token remains in its last location before the obstacle is removed. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="quad-laser-turrets-19" data-name="quad laser turrets" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/quad-laser-turrets.webp" alt="Quad Laser Turrets" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Quad Laser Turrets <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending at distance 1, if the attacker is a squadron, you have Counter 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card grants a ship Counter 1 after being attacked by a squadron at distance 1.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>A ship with this Upgrade card equipped rolls 1 blue die when performing a counter attack. It does not use its anti-squadron armament. <span class="footnote-ref">[1]</span></li><li>When a ship with this Upgrade Card equipped performs a Counter attack, the ship&#39;s owner chooses which hull zone the attack is performed from. <span class="footnote-ref">[1]</span></li><li>A ship equipped with this Upgrade Card can perform a Counter attack even if it has been destroyed. <span class="footnote-ref">[1]</span></li><li>If the Counter attack target is obstructed, the ship equipped with this Upgrade Card is unable to roll the initial attack pool, unless otherwise granted by some other card ability. <span class="footnote-ref">[1]</span></li><li>The faceup damage card Point-defense Failure would prevent a ship equipped with this Upgrade Card from attacking as no dice could be gathered. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If a ship has not yet resolved the Concentrate Fire command this round, it may use a Concentrate Fire token on this attack. But it then cannot use the Concentrate Fire command for the rest of the round. <span class="footnote-ref">[1]</span></li><li>If a ship equipped with this Upgrade card is the first player Advanced Gunnery objective ship and performs a Counter attack using this Upgrade card&#39;s effect, the hull zone that performed the Counter attack can no longer target that squadron that round. <span class="footnote-ref">[1]</span></li><li>Ruthless Strategists can trigger from this Upgrade Card&#39;s attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Heavy Fire Zone and this Upgrade Card can replace the blue die from Counter 1 with a red die when performing Counter attacks, if the target is not engaged with a friendly squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Flak Guns and this Upgrade Card must replace the blue die from Counter 1 with a black die when performing Counter attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Agent Kallus and this Upgrade Card can add a die when performing Counter attacks against a unique squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with General Draven (Officer) and this Upgrade Card can add a die when performing Counter attacks against a squadron with Counter or Intel. <span class="footnote-ref">[1]</span></li><li>Linked Turbolaser Towers&#39; dice add effect cannot be used on this Upgrade Card&#39;s Counter attacks as they do not occur during that ship&#39;s activation. <span class="footnote-ref">[1]</span></li><li>If an unactivated ship equipped with Slaved Turrets and this Upgrade Card chooses to perform a Counter attack, that ship cannot perform further Counter attacks, nor can it attack when that ship is activated. If the ship had activated and had attacked, it cannot perform any Counter attack. <span class="footnote-ref">[1]</span></li><li>If a ship equipped with this Upgrade Card has declared Admiral Ackbar&#39;s ability, then that ship can only resolve attacks from either its left or right hullzones, and cannot attack from its front or rear. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="rapid-launch-bays-20" data-name="rapid launch bays" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rapid-launch-bays.webp" alt="Rapid Launch Bays" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Rapid Launch Bays <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Before deploying fleets, you may set aside a number of friendly squadrons up to your squadron value next to your ship card. When you reveal a command, you may discard this card. If you do, place each squadron set aside with this card within distance 1-2 of you. Those squadrons cannot move during your activation.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card sets aside squadrons before deploying fleets. Then a Ship may place those squadrons by discarding this Upgrade Card when it reveals a command.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>Squadrons that are placed by this Upgrade Card are placed with their slider toggled on the unactivated side. <span class="footnote-ref">[1]</span></li><li>Squadrons that are placed by this Upgrade Card may be activated by a Squadron Command during the equipped ship&#39;s activation, but will only be able to attack as they cannot move until the end of that ship&#39;s activation. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>A ship equipped with Fighter Coordination Team and this Upgrade Card cannot choose to move any squadrons on the round placed by this Upgrade Card on the round they are placed. <span class="footnote-ref">[1]</span></li><li>If this Upgrade Card is discarded by another card ability such as Darth Vader (Boarding Team) then any squadrons currently set aside that have not been placed are considered destroyed. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="reserve-hangar-deck-21" data-name="reserve hangar deck" data-factions="" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/reserve-hangar-deck.webp" alt="Reserve Hangar Deck" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Reserve Hangar Deck <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly non-unique squadron with swarm at distance 1-5 is destroyed, you may discard this card. If you do, you may set that squadron&#39;s hull points to &quot;2&quot; and place that squadron unengaged at distance 1 with its activation slider toggled to the activated side.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be discarded when a friendly non-unique squadron with Swarm is destroyed.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>When a squadron is destroyed and replaced in the play area by this Upgrade card, the opponent does not score points for that squadron. A squadron is only counted as destroyed and scored for points when it is removed from the play area. <span class="footnote-ref">[1]</span></li><li>When resolving this Upgrade Card, the squadron must be placed unengaged if possible. If this is not possible, then the squadron may be placed engaged with as few enemy squadrons as possible. <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li>If a squadron gains Swarm during its activation, such as from Nevoota Bee effect, and is destroyed during its activation, it can be chosen to trigger this Upgrade Card. <span class="footnote-ref">[1]</span></li><li>A squadron that is chosen to trigger this Upgrade Card still counts as having been destroyed for triggering the effect of General Grievous. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="spha-t-22" data-name="spha-t" data-factions="republic" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/spha-t.webp" alt="SPHA-T" /></div>
+    <div class="card-main">
+      <h2 class="card-title">SPHA-T <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><em>Modification</em>.</p><p>Decrease your squadron value by 2.</p><p>Ignition (Close)</p><p>Each of your front, left, or right firing arcs is also a special firing arc. You have a special battery armament of 5 blue dice and 1 black die.</p><p>After you place your targeting token, exhaust this card. While this card is exhausted, you cannot place targeting tokens.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect is permanent unless discarded.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li>For a ship equipped with this Upgrade Card, each hull zone listed (the front, left, and right zones) is considered to be a special firing arc capable of performing an Ignition attack. <span class="footnote-ref">[1]</span></li><li>If a targeting token is not within a hull zone&#39;s special firing arc (for example if it has been moved on the line between two hull zones or to the equipped ship rear hull zone), no Ignition attack may be performed. <span class="footnote-ref">[1]</span></li><li>You must conduct an Ignition attack from the hull zone that the targeting token is currently located within, as determined by its special firing arc, if able. This means if the targeting token had been moved from its left hull zone to its front hull zone, the Ignition attack would be conducted from the front hull zone. <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="suppression-barrage-23" data-name="suppression barrage" data-factions="colonial" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/suppression-barrage-bsg-legends.webp" alt="Suppression Barrage" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Suppression Barrage <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="system-reset-24" data-name="system reset" data-factions="colonial" data-category="upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/system-reset-bsg-legends.webp" alt="System Reset" /></div>
+    <div class="card-main">
+      <h2 class="card-title">System Reset <span class="icon-font"> G</span></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>placeholder</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card karm-header-card" id="nexus-upgrades-25" data-category="header">
+  <div class="section-header-title">Nexus Upgrades </div>
+</article>
+
+<article class="karm-card karm-header-card" id="offensive-retro-26" data-category="header">
+  <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+</article>
+
+<article class="karm-card" id="ambush-scum-27" data-name="ambush {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ambush-scum-nexus.webp" alt="Ambush {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ambush {Scum} <span class="icon-font"> G</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>While deploying fleets, you may deploy a number of your friendly squadrons up to your squadron value within distance 1 of obstacles. Squadrons must be placed beyond distance 1-5 of all enemy ships and squadrons, and beyond distance 1-5 of the opponent&#39;s board edge.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="boarding-pods-scum-28" data-name="boarding pods {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boarding-pods-scum-nexus.webp" alt="Boarding Pods {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Boarding Pods {Scum} <span class="icon-font"> G</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p><em>Small or medium only.</em></p><p>Any <span class="icon-font">:weapons-team-offensive-retro:</span> upgrade you equip may be used at close-medium range.</p><p>Gain 1 <span class="icon-font">G</span> icon in your upgrade bar.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="external-droid-storage-29" data-name="external droid storage" data-factions="separatist" data-category="nexus-upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/external-droid-storage-nexus.webp" alt="External Droid Storage" /></div>
+    <div class="card-main">
+      <h2 class="card-title">External Droid Storage <span class="icon-font"> G</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>Before a friendly squadron at distance 1-3 with <span class="keyword-name">Ai</span> would suffer damage, you may place a <span class="icon-font">8</span> token on this card. If you do, reduce the damage total by 1. If the number of tokens on this card is greater than your squadron value, discard this card.</p><p>Unique squadrons may not be affected by more than 1 &#39;External Droid Storage&#39; card per attack.</p></div></div>
+</div></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="shield-leecher-scum-30" data-name="shield leecher {scum}" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/shield-leecher-scum-nexus.webp" alt="Shield Leecher {Scum}" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Shield Leecher {Scum} <span class="icon-font"> G</span></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>After attacking, if the defender suffered at least 1 damage to shields, you may exhaust this card to gain 1 <span class="icon-font">9</span> or <span class="icon-font">0</span> token (if able).</p></div></div>
+</div></div>
+  
+</article></div>
+      
+    </div>
+    
+    <script>
+(function () {
+  var searchInput = document.getElementById('karm-search-input');
+  var filtersContainer = document.getElementById('karm-faction-filters');
+  var noResults = document.getElementById('karm-no-results');
+  var resultCount = document.getElementById('karm-result-count');
+  if (!searchInput || !filtersContainer) return;
+
+  var factionBtns = filtersContainer.querySelectorAll('.faction-btn[data-faction]');
+  var allBtn = filtersContainer.querySelector('.faction-btn[data-faction="all"]');
+  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral'];
+  var activeFactions = new Set(factionKeys);
+
+  function syncAllBtn() {
+    if (allBtn) {
+      if (activeFactions.size === factionKeys.length) {
+        allBtn.classList.add('active');
+      } else {
+        allBtn.classList.remove('active');
+      }
+    }
+  }
+
+  function applyFilters() {
+    var query = (searchInput.value || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('.karm-card');
+    var dividers = document.querySelectorAll('.card-divider');
+    var visibleCount = 0;
+    var lastHeaderIdx = -1;
+    var cardsAfterHeader = 0;
+    var headerElements = [];
+    var allFactions = activeFactions.size === factionKeys.length;
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var isHeader = card.getAttribute('data-category') === 'header';
+
+      if (isHeader) {
+        if (lastHeaderIdx >= 0) {
+          cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+        }
+        lastHeaderIdx = i;
+        cardsAfterHeader = 0;
+        continue;
+      }
+
+      var name = card.getAttribute('data-name') || '';
+      var factions = (card.getAttribute('data-factions') || '').split(',').filter(Boolean);
+
+      var matchesSearch = !query || name.indexOf(query) !== -1;
+      var matchesFaction = allFactions || factions.length === 0 || factions.some(function (f) { return activeFactions.has(f.toLowerCase()); });
+      var visible = matchesSearch && matchesFaction;
+
+      card.classList.toggle('filtered-out', !visible);
+      if (visible) {
+        visibleCount++;
+        cardsAfterHeader++;
+      }
+    }
+
+    if (lastHeaderIdx >= 0) {
+      cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+    }
+
+    for (var d = 0; d < dividers.length; d++) {
+      var hr = dividers[d];
+      var prev = hr.previousElementSibling;
+      var next = hr.nextElementSibling;
+      var hideDivider = (!prev || prev.classList.contains('filtered-out')) ||
+                        (!next || next.classList.contains('filtered-out'));
+      hr.classList.toggle('filtered-out', hideDivider);
+    }
+
+    if (noResults) {
+      noResults.classList.toggle('visible', visibleCount === 0 && (query || !allFactions));
+    }
+    if (resultCount) {
+      if (query || !allFactions) {
+        resultCount.textContent = visibleCount + ' card' + (visibleCount !== 1 ? 's' : '') + ' found';
+        resultCount.style.display = '';
+      } else {
+        resultCount.textContent = '';
+        resultCount.style.display = 'none';
+      }
+    }
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  filtersContainer.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faction-btn');
+    if (!btn) return;
+    var faction = btn.getAttribute('data-faction');
+
+    if (faction === 'all') {
+      if (activeFactions.size === factionKeys.length) {
+        activeFactions.clear();
+        factionBtns.forEach(function (b) { b.classList.remove('active'); });
+      } else {
+        factionKeys.forEach(function (f) { activeFactions.add(f); });
+        factionBtns.forEach(function (b) { b.classList.add('active'); });
+      }
+    } else {
+      if (activeFactions.has(faction)) {
+        activeFactions.delete(faction);
+        btn.classList.remove('active');
+      } else {
+        activeFactions.add(faction);
+        btn.classList.add('active');
+      }
+    }
+    syncAllBtn();
+    applyFilters();
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      applyFilters();
+    }
+  });
+})();
+</script>
+    <!-- Generated cards: 30 -->
+  </body>
+</html>

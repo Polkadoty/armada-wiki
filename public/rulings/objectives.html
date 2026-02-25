@@ -1,0 +1,1850 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <style>
+      :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
+      
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-italic.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OptimaCustom';
+  src: url('/rulings/fonts/optima-bold.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMaticsDisplay';
+  src: url('/rulings/fonts/fighter-keyword.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeutonFett';
+  src: url('/rulings/fonts/TeutonFett.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RevengerLite';
+  src: url('/rulings/fonts/RevengerLiteBB.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaIcons';
+  src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+      :root {
+  --page-width: 2194px;
+  --page-height: 2820px;
+  --page-scale: 1;
+  --page-padding-y: 120px;
+  --page-padding-x: 129px;
+  --page-gap: 24px;
+  --ink: #221e1d;
+  --accent: #24408f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  background: #444;
+}
+
+.toc-fab {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hamburger > span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toc-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.toc-open .toc-drawer {
+  transform: translateX(0);
+}
+
+.toc-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.toc-link {
+  display: block;
+  color: #1f1f1f;
+  text-decoration: none;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.toc-link:hover {
+  color: #24408f;
+}
+
+.toc-link.toc-sub {
+  padding-left: 16px;
+  font-size: 17px;
+}
+
+.toc-section-label {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  padding: 12px 4px 4px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Search FAB ── */
+
+.search-fab {
+  position: fixed;
+  right: 10px;
+  top: calc(50% + 70px);
+  transform: translateY(-50%);
+  z-index: 30;
+  border: 0;
+  border-radius: 999px;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-fab svg {
+  display: block;
+}
+
+/* ── Search drawer ── */
+
+.search-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(380px, 88vw);
+  height: 100vh;
+  z-index: 29;
+  background: rgba(245, 242, 235, 0.98);
+  border-left: 1px solid rgba(36, 64, 143, 0.25);
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
+  padding: 18px 16px 24px;
+  overflow: auto;
+  transform: translateX(104%);
+  transition: transform 180ms ease;
+}
+
+body.search-open .search-drawer {
+  transform: translateX(0);
+}
+
+.search-drawer-title {
+  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
+  font-size: 36px;
+  margin: 0 0 16px;
+}
+
+.search-input {
+  width: 100%;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 2px solid rgba(36, 64, 143, 0.35);
+  background: transparent;
+  outline: none;
+  color: #221e1d;
+  margin-bottom: 18px;
+}
+
+.search-input:focus {
+  border-bottom-color: #24408f;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+/* ── Faction filter buttons ── */
+
+.faction-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.faction-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 2px solid #ccc;
+  background: #e8e5de;
+  color: #999;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 120ms, border-color 120ms, color 120ms;
+  padding: 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.faction-btn .icon-font {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.faction-btn[data-faction="all"] {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.faction-btn.active {
+  border-color: #24408f;
+  background: #24408f;
+  color: #fff;
+}
+
+.faction-btn.faction-rebel.active {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+.faction-btn.faction-empire.active {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.faction-btn.faction-republic.active {
+  background: #b8860b;
+  border-color: #b8860b;
+}
+
+.faction-btn.faction-separatist.active {
+  background: #1565c0;
+  border-color: #1565c0;
+}
+
+.faction-btn.faction-neutral.active {
+  background: #666;
+  border-color: #666;
+}
+
+.search-result-count {
+  font-size: 14px;
+  color: #666;
+  padding: 4px 0;
+}
+
+/* ── Filtered-out cards and dividers ── */
+
+.karm-card.filtered-out,
+.card-divider.filtered-out {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: 18px;
+  color: #666;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  display: none;
+}
+
+.no-results.visible {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .toc-fab {
+    top: auto;
+    bottom: 14px;
+    right: 14px;
+    transform: none;
+  }
+
+  .search-fab {
+    top: auto;
+    bottom: 80px;
+    right: 14px;
+    transform: none;
+  }
+}
+
+@page {
+  size: 2194px 2820px;
+  margin: 0;
+}
+
+.karm-book {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+.karm-page-shell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--page-height) * var(--page-scale));
+  overflow: hidden;
+}
+
+.karm-page {
+  width: var(--page-width);
+  height: var(--page-height);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: var(--page-padding-y) var(--page-padding-x);
+  gap: var(--page-gap);
+  transform: scale(var(--page-scale));
+  transform-origin: top center;
+}
+
+.karm-static-page {
+  width: 100%;
+  height: 100%;
+}
+
+.page-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.page-number {
+  position: absolute;
+  right: 88px;
+  bottom: 76px;
+  color: var(--accent);
+  font-size: 54px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: "RevengerLite", Impact, sans-serif;
+}
+
+.karm-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.card-top {
+  display: flex;
+  gap: 25px;
+  min-height: 500px;
+}
+
+.card-image-wrap {
+  width: 350px;
+  min-width: 350px;
+}
+
+.card-image {
+  width: 350px;
+  height: 498px;
+  border-radius: 14px;
+  object-fit: cover;
+  background: #d9d9d9;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.card-image.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-style: italic;
+}
+
+.card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-title {
+  font-family: "TeutonFett", "Teuton Fett", "AeroMaticsDisplay", "Arial Narrow", sans-serif;
+  font-size: 52px;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  font-variant: small-caps;
+  text-transform: none;
+  margin: 0;
+}
+
+.card-meta {
+  font-size: 29px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-faction-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+.card-body,
+.card-keywords,
+.card-rulings {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+}
+
+.card-keywords {
+  font-size: 27px;
+}
+
+.card-keyword-label {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.squadron-keywords .squadron-keyword-values,
+.squadron-keywords .squadron-keyword-token {
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-weight: 700;
+}
+
+.squadron-keywords .squadron-keyword-token {
+  letter-spacing: 0.01em;
+}
+
+.card-bottom {
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 35px;
+  letter-spacing: 0.006em;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.top-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 6px;
+}
+
+.top-summary-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.top-summary-label {
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: capitalize;
+}
+
+.top-summary-text {
+  font-size: 29px;
+  line-height: 1.22;
+  font-weight: 400;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.top-summary-text p {
+  margin: 0;
+}
+
+.ruling-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.ruling-heading {
+  margin: 0 0 2px;
+  font-size: 46px;
+  line-height: 1.1;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-weight: 700;
+  color: #202020;
+}
+
+.ruling-content {
+  margin: 0;
+}
+
+.ruling-content p {
+  margin: 0 0 6px;
+  font-weight: 400;
+}
+
+.ruling-content ul {
+  margin: 0;
+  padding-left: 32px;
+}
+
+.ruling-content li,
+.ruling-content li p,
+.card-text-content,
+.card-text-content p {
+  font-weight: 400;
+}
+
+.footnote-ref {
+  display: inline-block;
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: baseline;
+  transform: translateY(-0.38em);
+  margin-left: 0.12em;
+}
+
+.card-text-content p {
+  margin: 0 0 8px;
+}
+
+.icon-font {
+  font-family: "Icons", "ArmadaIcons", "RevengerLite", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  speak: never;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+}
+
+.ruling-footnotes {
+  margin-top: 14px;
+  border-top: 1px solid rgba(36, 64, 143, 0.3);
+  padding-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.karm-header-card {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header-title {
+  font-size: 116px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+}
+
+.ruling-content blockquote {
+  margin: 8px 0;
+  padding: 6px 0 6px 18px;
+  border-left: 5px solid rgba(36, 64, 143, 0.4);
+  font-style: italic;
+}
+
+.ruling-content code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+.keyword-name {
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ── Continuous responsive web layout ── */
+
+body.karm-web {
+  background: #f5f2eb;
+  background-image: var(--page-background);
+  background-size: cover;
+  background-position: center top -60px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+}
+
+body.karm-web .karm-book {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px;
+  gap: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+body.karm-web .karm-page-shell,
+body.karm-web .karm-page {
+  display: none;
+}
+
+body.karm-web .karm-continuous {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+body.karm-web .page-number {
+  display: none;
+}
+
+/* ── Card layout ── */
+
+body.karm-web .karm-card {
+  max-width: 100%;
+}
+
+body.karm-web .card-top {
+  min-height: auto;
+  gap: 20px;
+}
+
+body.karm-web .card-main {
+  min-width: 0;
+  flex: 1;
+}
+
+body.karm-web .card-image-wrap {
+  width: 220px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+body.karm-web .card-image {
+  width: 220px;
+  height: 312px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ── Typography ── */
+
+body.karm-web .card-title {
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+body.karm-web .card-meta {
+  font-size: 16px;
+  gap: 8px;
+}
+
+body.karm-web .card-body,
+body.karm-web .card-keywords,
+body.karm-web .card-rulings,
+body.karm-web .card-bottom {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body.karm-web .card-keywords {
+  font-size: 15px;
+}
+
+body.karm-web .top-summary-label {
+  font-size: 24px;
+}
+
+body.karm-web .top-summary-text {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+body.karm-web .ruling-heading {
+  font-size: 24px;
+}
+
+body.karm-web .ruling-content ul {
+  padding-left: 24px;
+}
+
+body.karm-web .ruling-footnotes {
+  font-size: 13px;
+}
+
+body.karm-web .section-header-title {
+  font-size: 48px;
+}
+
+body.karm-web .karm-header-card {
+  min-height: 120px;
+  padding: 24px 0;
+}
+
+body.karm-web .card-divider {
+  border: none;
+  border-top: 1px solid rgba(36, 64, 143, 0.2);
+  margin: 28px 0;
+}
+
+/* ── Tablet ── */
+
+@media (max-width: 768px) {
+  body.karm-web .karm-book {
+    padding: 24px 16px;
+  }
+
+  body.karm-web .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  body.karm-web .card-image-wrap {
+    width: auto;
+    min-width: unset;
+    flex-shrink: unset;
+  }
+
+  body.karm-web .card-image {
+    width: 180px;
+    height: 256px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 24px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 36px;
+  }
+
+  body.karm-web .karm-header-card {
+    min-height: 80px;
+    padding: 16px 0;
+  }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 480px) {
+  body.karm-web .karm-book {
+    padding: 16px 12px;
+  }
+
+  body.karm-web .card-top {
+    align-items: center;
+  }
+
+  body.karm-web .card-image {
+    width: 160px;
+    height: 228px;
+  }
+
+  body.karm-web .card-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  body.karm-web .card-body,
+  body.karm-web .card-keywords,
+  body.karm-web .card-rulings,
+  body.karm-web .card-bottom {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  body.karm-web .top-summary-label {
+    font-size: 20px;
+  }
+
+  body.karm-web .ruling-heading {
+    font-size: 20px;
+  }
+
+  body.karm-web .section-header-title {
+    font-size: 28px;
+  }
+
+  body.karm-web .card-divider {
+    margin: 20px 0;
+  }
+}
+
+@media print {
+  .toc-fab,
+  .toc-drawer,
+  .search-fab,
+  .search-drawer,
+  .no-results {
+    display: none !important;
+  }
+
+  :root {
+    --page-scale: 1;
+  }
+
+  html,
+  body {
+    background: transparent;
+  }
+
+  .karm-book {
+    gap: 0;
+    padding: 0;
+  }
+
+  .karm-page-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .karm-page {
+    margin: 0;
+    transform: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .karm-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+
+    </style>
+  </head>
+  <body class="karm-web">
+    
+<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+  <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+</button>
+<aside class="toc-drawer" aria-label="Rulings navigation">
+  <div class="toc-title">Rulings</div>
+  <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
+<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
+<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
+<a href="/rulings/upgrades.html" class="toc-link">Upgrades</a>
+<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
+<div class="toc-section-label">Upgrade Types</div>
+<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
+<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
+<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
+<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
+<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>
+<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>
+<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>
+<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>
+<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>
+<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>
+<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>
+<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>
+<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
+<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
+<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<div class="toc-section-label">Nexus</div>
+<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
+<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
+</aside>
+<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</button>
+<aside class="search-drawer" aria-label="Search and filter">
+  <div class="search-drawer-title">Search &amp; Filter</div>
+  <input type="text" class="search-input" id="karm-search-input" placeholder="Search cards..." autocomplete="off" />
+  <div class="faction-filters" id="karm-faction-filters">
+    <button type="button" class="faction-btn active" data-faction="all" aria-label="All factions" title="All">All</button>
+    <button type="button" class="faction-btn faction-rebel active" data-faction="rebel" aria-label="Rebel Alliance" title="Rebel"><span class="icon-font">[</span></button>
+    <button type="button" class="faction-btn faction-empire active" data-faction="empire" aria-label="Galactic Empire" title="Empire"><span class="icon-font">\</span></button>
+    <button type="button" class="faction-btn faction-republic active" data-faction="republic" aria-label="Republic" title="Republic"><span class="icon-font">|</span></button>
+    <button type="button" class="faction-btn faction-separatist active" data-faction="separatist" aria-label="Separatist" title="Separatist"><span class="icon-font">}</span></button>
+    <button type="button" class="faction-btn faction-neutral active" data-faction="neutral" aria-label="Neutral" title="Neutral">&#9733;</button>
+  </div>
+  <div class="search-result-count" id="karm-result-count"></div>
+</aside>
+<div class="no-results" id="karm-no-results">No matching cards found.</div>
+    <div class="karm-book">
+      
+      <div class="karm-continuous">
+<article class="karm-card" id="advanced-gunnery-1" data-name="advanced gunnery" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/advanced-gunnery.webp" alt="Advanced Gunnery" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Advanced Gunnery </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, each player chooses 1 of his ships to be an objective ship, starting with the first player.</p><p><strong>Special Rule:</strong> The first player&#39;s objective ship may perform each of its attacks from the same hull zone. It cannot target the same hull zone or squadron more than once each round with that hull zone.</p><p>The second player&#39;s objective ship may perform each of its attacks from the same hull zone, and it may do so against the same targets.</p><p><strong>End of Game:</strong> The fleet point cost of a destroyed objective ship is doubled. Do not double the cost of its upgrade cards.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="blockade-run-2" data-name="blockade run" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/blockade-run.webp" alt="Blockade Run" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Blockade Run </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The 3&#39; edges of the play area become the player edges. Each player&#39;s deployment zone is within 2 range ruler lengths of his edge. The second player places all obstacles. Obstacles must be placed beyond 2 range ruler lengths of both player edges, and beyond distance 1 of other obstacles.</p><p><strong>Special Rule:</strong> The second player assigns 1 objective token to each of his ships.</p><p>When a ship with an objective token is destroyed, the first player gains 1 victory token.</p><p><strong>End of Game:</strong> The second player gains 1 victory token for each ship with an objective token within the first player&#39;s deployment zone.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="close-range-intel-scan-3" data-name="close-range intel scan" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/close-range-intel-scan.webp" alt="Close-Range Intel Scan" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Close-Range Intel Scan </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles, adding the 2 dust fields, as normal.</p><p><strong>Special Rule:</strong> While one of the second player&#39;s ships is attacking a ship, the attacker may spend 1 die with an <span class="icon-font">U</span> icon. If it does, the attacker&#39;s owner gains 1 victory token.</p><p>While one of the first player&#39;s ships is attacking a ship, the attacker may spend 2 dice with <span class="icon-font">U</span> icons. If it does, the attacker&#39;s owner gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="ion-storm-4" data-name="ion storm" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-storm.webp" alt="Ion Storm" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ion Storm </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places all obstacles, excluding the station, beyond distance 5 of both players&#39; edges.</p><p><strong>Special Rule:</strong> When a ship that does not have an objective token ends its movement beyond distance 2 of any obstacles (or beyond distance 1 if that ship belongs to the first player), assign 1 objective token to that ship. When a ship resolves a <span class="icon-font">0</span> command, it may discard its objective token.</p><p>Each ship has the following critical effect:</p><p><span class="icon-font">T</span>: If the defender has an objective token, the attacking ship&#39;s owner gains 1 victory token. Then choose and discard 1 command token from the defender. If the defender does not have any command tokens, the defending hull zone loses 1 shield instead.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="marked-for-destruction-5" data-name="marked for destruction" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/marked-for-destruction.webp" alt="Marked for Destruction" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Marked for Destruction </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, adding the 2 dust fields and excluding the station and asteroid fields. Then the second player places the 2 purrgil in the setup area. Each purrgil must be placed beyond distance 1 of all obstacles and beyond 5 of both player&#39;s edges.</p><p><strong>Special Rule:</strong> Each ship has the following critical effect:</p><p><span class="icon-font">T</span>: If this attack is at close-medium range, remove all objective tokens from enemy ships. Then assign an objective token to the defender.</p><p>After a player moves a purrgil, if that purrgil is at distance 1 of a ship with an objective token, that player may choose and discard 1 objective token. Then that ship suffers 1 facedown damage and the opposing fleet&#39;s owner gains 1 victory token.</p><p><strong>End of Game:</strong> The fleet point cost of a destroyed objective ship is doubled. Do not double the cost of its upgrade cards.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="most-wanted-6" data-name="most wanted" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/most-wanted.webp" alt="Most Wanted" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Most Wanted </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, the second player chooses 1 of his ships and 1 of the first player&#39;s ships to be objective ships.</p><p><strong>Special Rule:</strong> While a ship is attacking an objective ship, it may add 1 die of any color that is already in its attack pool to its attack pool.</p><p><strong>End of Game:</strong> The fleet point cost of a destroyed objective ship is doubled. Do not double the cost of its upgrade cards.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="opening-salvo-7" data-name="opening salvo" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/opening-salvo.webp" alt="Opening Salvo" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Opening Salvo </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, assign 1 objective token to each ship.</p><p><strong>Special Rule:</strong> The first time a ship performs an attack against another ship, discard the attacker&#39;s objective token. If the attacker belongs to the first player, he adds 2 red dice to the attack pool. If the attacker belongs to the second player, he adds 2 dice, each of any color, to the attack pool.</p><p><strong>End of Game:</strong> Each player increases his final score by half the fleet point cost of each enemy ship in the play area that has at least 1 damage card, rounded up.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="precision-strike-8" data-name="precision strike" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/precision-strike.webp" alt="Precision Strike" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Precision Strike </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, each of the second player&#39;s ships gains a <span class="icon-font">9</span> token.</p><p><strong>Special Rule:</strong> When a squadron with <span class="keyword-name">Bomber</span> or a ship is attacking, it may spend 1 die with a <span class="icon-font">S</span> icon to flip 1 random face-down damage card on the defender faceup.</p><p>After a squadron with <span class="keyword-name">Bomber</span> or a ship performs an attack, its owner gains 1 victory token for each damage card that was dealt faceup or flipped faceup during that attack.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="rift-assault-9" data-name="rift assault" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rift-assault.webp" alt="Rift Assault" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Rift Assault </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, adding the gravity rift and excluding the station</p><p><strong>Special Rule:</strong> While a ship is attacking a ship, if the defender is beyond distance 1 of any obstacles and the defender does not have an objective token, the attacker can spend 1 die with any icon to assign an objective token to the defender.</p><p>While a ship with an objective token is defending, during the Resolve Attack Effects step, the attacker can discard that objective token to change 1 die to a face with an <span class="icon-font">U</span> icon or 1 <span class="icon-font">S</span> icon and no other icons. If the attacker belongs to the second player, it can change 1 die to a face with any icon. Then the attacker&#39;s owner gains 1 victory token</p><p><strong>End of Round:</strong> Each ship at distance 1-2 of the gravity rift that is at speed 1 or lower suffers 1 facedown damage card</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="station-assault-10" data-name="station assault" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/station-assault.webp" alt="Station Assault" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Station Assault </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. Then the second player places 2 stations in the setup area. Each station must be placed beyond distance 1 of all obstacles and beyond distance 3 of both players&#39; edges. Both stations are Unarmed Stations; place both Unarmed Station cards near the second player&#39;s ship cards.</p><p><strong>Special Rule:</strong> The first player&#39;s ships and squadrons cannot resolve an unarmed station&#39;s effect to discard damage cards or recover hull points when they overlap it.</p><p><strong>End of Game:</strong> The second player gains 1 victory token for each unarmed station that is not destroyed. The first player gains 1 victory token for each unarmed station that is destroyed.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="surprise-attack-11" data-name="surprise attack" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/surprise-attack.webp" alt="Surprise Attack" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Surprise Attack </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places the station at distance 1-5 of the first player&#39;s edge. Then place the remaining obstacles as normal.</p><p>While deploying fleets, the first player must deploy their flagship before deploying any other ships. Their flagship must overlap the station, even if the flagship extends beyond their deployment zone. The first player cannot deploy any ship at a speed greater than half of that ships maximum speed (rounded up).</p><p>After deploying fleets, the second player places 3 facedown command dials in a stack on this card</p><p><strong>Special Rule:</strong> At the start of the Ship Phase during the first, second, and third rounds, the second player reveals the top command dial on this card, and each of the first player&#39;s ships gains a raid token matching that dial</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="targeting-beacons-12" data-name="targeting beacons" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/targeting-beacons.webp" alt="Targeting Beacons" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Targeting Beacons </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the players alternate placing a total of 4 objective tokens in the setup area, starting with the second player.</p><p><strong>Special Rule:</strong> While one of the second player&#39;s ships is attacking a ship that is at distance 1-2 of an objective token, the attacker may reroll up to 2 attack dice in the attack pool.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="abandoned-mining-facility-13" data-name="abandoned mining facility" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/abandoned-mining-facility.webp" alt="Abandoned Mining Facility" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Abandoned Mining Facility </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places the station in the center of the setup area. Then, starting with the second player, the players alternate placing the remaining obstacles, adding 2 purrgil and 2 dust fields and excluding the asteroid fields, at distance 2-5 of the station.</p><p>After deploying fleets, each of the second player&#39;s ships gains a <span class="icon-font">0</span> token.</p><p><strong>Special Rule:</strong> Each ship can resolve the following effect:</p><p><span class="icon-font">0</span>: You may spend engineering points to gain victory tokens from 1 station or dust field at distance 1. If that obstacle is a station, gain 1 token for each 3 points you spend. If that obstacle is a dust field, gain 1 token for each 2 points you spend. Then, if that obstacle is a dust field and you gained more than 1 victory token, remove that obstacle from the play area.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="asteroid-tactics-14" data-name="asteroid tactics" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/asteroid-tactics.webp" alt="Asteroid Tactics" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Asteroid Tactics </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places all obstacles, excluding the station.</p><p><strong>Special Rule:</strong> When one fo the first player&#39;s ships or unique squadrons overlaps an astroid field, it may recover 1 of its non-<span class="icon-font">1</span> defense tokens. That token must be exhausted.</p><p>When one of the second player&#39;s ships or unique squadrons overlaps an asteroid field, that obstacle has no effect and that ship or squadron may recover 1 of its non-<span class="icon-font">1</span> defense tokens or may ready 1 of its defense tokens.</p><p>After the start of each squadron phase (after exogorths perform attacks), remove each exogorth obstacle from the play area.</p><p><strong>End of Round:</strong> The second player places the 2 exogorth obstacles, each touching a different obstacle.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="capture-the-vip-15" data-name="capture the vip" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/capture-the-vip.webp" alt="Capture the VIP" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Capture the VIP </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the second player places 1 objective token at distance 1 of any obstacle and beyond distance 5 of all edges of the setup area.</p><p><strong>Special Rule:</strong> When a ship at distance 1 of the objective token reveals a command dial, the ship&#39;s owner may remove that objective token from the play area and place it on that ship&#39;s card.</p><p>When a ship with the objective token on its ship card is destroyed, the opposing player places the objective token in the play area touching the destroyed ship&#39;s base.</p><p><strong>End of Game:</strong> If a player&#39;s ship has the objective token, that player gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="contested-outpost-16" data-name="contested outpost" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/contested-outpost.webp" alt="Contested Outpost" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Contested Outpost </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. Then the second player places the station in the setup area beyond distance 1 of all obstacles and beyond distance 5 of both players&#39; edges.</p><p><strong>Special Rule:</strong> The station does not obstruct attacks and does not have the ability to discard damage cards or recover hull points.</p><p><strong>End of Round:</strong> Each player sums the command values of his ships at distance 1 of the station. The player with the highest total gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="fighter-ambush-17" data-name="fighter ambush" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fighter-ambush.webp" alt="Fighter Ambush" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Fighter Ambush </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Before deploying fleets, the second player sets aside all of his squadrons.</p><p>After deploying fleets, the second player deploys all of his squadrons. Each of his squadrons can be placed as normal or at distance 1 of an obstacle, but all his squadrons must be beyond distance 5 of the first player&#39;s edge.</p><p><strong>Special Rule:</strong> After a squadron performs an attack against a ship, if the defender was dealt at least 1 damage card, the squadron&#39;s owner gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="fire-lanes-18" data-name="fire lanes" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fire-lanes.webp" alt="Fire Lanes" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Fire Lanes </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the second player places 3 objective tokens in the setup area beyond distance 4 of both players&#39; edges. Then the first player may move each objective token to within distance 1-2 of its current position.</p><p><strong>End of Round:</strong> Each player gains 1 victory token for each objective token he controls. To determine control of each token, players measure attack range and line of sight from each of their ships&#39; hull zones as if performing attacks with battery armament targeting that objective token. The player with the highest total number of dice in his combined attack pools controls that token. If a player&#39;s ship or squadron overlaps an objective token, his opponent controls that token; if both players&#39; ships or squadrons overlap the same token, neither player controls it.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="fleet-ambush-19" data-name="fleet ambush" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fleet-ambush.webp" alt="Fleet Ambush" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Fleet Ambush </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The portion of the setup area that is beyond distance 5 of any edge of the setup area is the AMBUSH ZONE. Players mark the corners of the ambush zone with objective tokens.</p><p>Players take turns deploying fleets as normal, but must deploy all ships before deploying any squadrons. The first player must deploy ships within the ambush zone on his odd-numbered deployment turns, starting with his first turn. He cannot deploy ships or squadrons overlapping obstacles in the ambush zone. After setup is complete, he removes all objective tokens from the play area.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="fleet-in-being-20" data-name="fleet in being" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fleet-in-being.webp" alt="Fleet in Being" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Fleet in Being </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, the first player assigns each of their ships 1 objective token. Then the second player assigns each of their ships a number of objective tokens equal to that ships command value.</p><p><strong>Special Rule:</strong> When a ship with an objective token is declared as the target of an attack, it may discard 1 objective token to ready 1 of its exhausted defense tokens.</p><p><strong>End of Round:</strong> If a ship is at distance 1-5 of 1 of the 3&#39; edges of the play area, or at distance 1-3 of a player edge, remove 1 objective token from that ship.</p><p><strong>End of Game:</strong> Each player gains 1 victory token for each enemy ship in the play area that does not have an objective token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hyperspace-assault-21" data-name="hyperspace assault" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-assault.webp" alt="Hyperspace Assault" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hyperspace Assault </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Before deploying fleets, the second player sets aside 1 of his small or medium ships and up to 3 of his squadrons, he does not deploy them during setup. Then he places 3 objective tokens in the play area beyond distance 3 of both players&#39; edges.</p><p><strong>Special Rule:</strong> At the start of any round after the first round, the second player can deploy the ship and squadron tokens that he set aside at distance 1 of 1 objective token. Then remove all objective tokens. The ship can be deployed overlapping squadrons; the first player places those squadrons as though the ship had overlapped them while executing a maneuver.</p><p>If the second player does not deploy, he may move each objective token to within distance 1 of its current position.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="jamming-barrier-22" data-name="jamming barrier" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jamming-barrier.webp" alt="Jamming Barrier" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Jamming Barrier </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station and replacing the 2 debris fields with the 2 dust fields.</p><p>After deploying fleets, the second player places 2 objective tokens in the setup area at distance 1-5 of each other.</p><p><strong>Special Rule:</strong> While attacking, if line of sight is traced across the line between the two objective tokens, the attacker must choose and remove half of the dice from the attack pool rounded down, before rolling.</p><p><strong>Errata:</strong> While attacking, if neither the attacker or defender are overlapping an objective token and line of sight is traced across an objective token or the line between the two objective tokens, the attacker must choose and remove half of the dice from the attack pool, rounded down, before rolling.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="planetary-ion-cannon-23" data-name="planetary ion cannon" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/planetary-ion-cannon.webp" alt="Planetary Ion Cannon" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Planetary Ion Cannon </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the second player places 3 objective tokens in the play area beyond distance 5 of both players&#39; edges.</p><p><strong>Special Rule:</strong> At the end of the Command Phase, the second player may choose 1 enemy ship at distance 1-3 of an objective token and remove that token from the play area to perform an attack against that ship. The attacker is treated as if it is a ship with a battery armament of 4 blue dice, but is not friendly to any ship or squadron. The attack is treated as being at medium range, cannot be obstructed, can target any of the defender&#39;s hull zones, and has the following critical effect:</p><p>Blue <span class="icon-font">T</span>: The defender must choose and exhaust 1 of his defense tokens.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="rift-ambush-24" data-name="rift ambush" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rift-ambush.webp" alt="Rift Ambush" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Rift Ambush </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places all obstacles, adding the gravity rift and 2 dust fields and excluding the station. The gravity rift must be placed beyond distance 5 of both players&#39; edges.</p><p>After deploying fleets, the second player may choose 1 enemy ship. That ship must execute a speed-1 maneuver with a yaw of &#39;-&#39;. Then the second player may increase or decrease that ship&#39;s speed by 1, to a minimum speed of 0.</p><p><strong>Special Rule:</strong> Once per activation, after a ship executes a maneuver, if it is at distance 1-2 of the gravity rift, it must execute a speed-1 maneuver with a yaw of &#39;-&#39;. If that ship belongs to the second player, it may use its speed-1 yaw value. The gravity rift does not have the ability to temporarily reduce that ship&#39;s speed during this maneuver.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="dangerous-territory-25" data-name="dangerous territory" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dangerous-territory.webp" alt="Dangerous Territory" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Dangerous Territory </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Obstacles must be placed in the setup area beyond distance 5 of both players&#39; edges. After placing obstacles, place 1 objective token on each obstacle.</p><p><strong>Special Rule:</strong> When a ship overlaps an obstacle, the ship&#39;s owner may remove the obstacle token on that obstacle to gain 1 victory token.</p><p>When one of the second player&#39;s ships overlaps an asteroid field or debris field, that obstacle has no effect.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="doomed-station-26" data-name="doomed station" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/doomed-station.webp" alt="Doomed Station" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Doomed Station </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places the gravity rift in the center of the setup area. Then, starting with the first player, the players alternate placing the remaining obstacles, excluding the station. Then the second player places the station in the setup area beyond distance 1 of all obstacles and beyond distance 5 of both player&#39;s edges.</p><p><strong>Special Rule:</strong> Starting with the second player and alternating, each player chooses 1 obstacle that does not have an objective token on it and moves it to within distance 1-2 of its current location toward the gravity rift (which cannot be chosen). Then that player places an objective token on that obstacle. When an obstacle touches the gravity rift, that obstacle is removed from the play area.</p><p>After all obstacles are moved, each player sums the command values of their ships at distance 1 of the station. The player with the highest total gains 1 victory token. Then remove all objectives tokens from the play area.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hyperspace-migration-27" data-name="hyperspace migration" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-migration.webp" alt="Hyperspace Migration" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hyperspace Migration </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. Then the second player places 1 objective token in the play area at distance 1 of a 3&#39; edge and another objective token at distance 1 of the opposite 3&#39; edge.</p><p><strong>Special Rule:</strong> At the start of the Ship Phase of the first and third rounds, the second player places 1 purrgil not in the play area at distance 1 of 1 objective token (the objective token must be the same during both rounds).</p><p>When a purrgil moves, it must move toward the objective token at the opposite 3&#39; edge. When a purrgil touches that objective token, that purrgil is removed from the play area.</p><p><strong>End of Round:</strong> If a ship has 1 objective token on it, remove the token and that ship&#39;s owner gains 1 victory token. If a ship is at distance 1 from a purrgil and has no objective tokens on it, place 1 objective token on the ship.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="infested-fields-28" data-name="infested fields" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/infested-fields.webp" alt="Infested Fields" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Infested Fields </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. After placing obstacles, place 1 objective token on each obstacle. Then the second player places 2 exogorth obstacles, each touching a different obstacle.</p><p><strong>Special Rule:</strong> When a ship or squadron overlaps an obstacle, that ship or squadron&#39;s owner may remove the objective token on the obstacle to gain 1 victory token.</p><p>After the start of each squadrons phase (after exogorths perform attacks), remove each exogorth from the play area. Then the second player moves the obstacle each exogorth was touching to within distance 1-2 of its current location.</p><p><strong>End of Round:</strong> For each exogorth obstacle not in the play area, the second player chooses an obstacle and place 1 exogorth touching that obstacle.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="intel-sweep-29" data-name="intel sweep" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intel-sweep.webp" alt="Intel Sweep" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Intel Sweep </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the players alternate placing a total of 5 objective tokens in the setup area, starting with the second player. Each token must be placed in the play area beyond distance 5 of both players&#39; edges and beyond distance 3 of all other objective tokens. Then each player chooses one of his ships to be an objective ship, starting with the first player.</p><p><strong>Special Rule:</strong> When a player&#39;s objective ship reveals a command dial, that player may choose 1 objective token at distance 1 of that ship and remove it from the play area to gain 1 victory token.</p><p><strong>End of Game:</strong> If a player has more victory tokens than his opponent, increase his final score by 75.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="minefields-30" data-name="minefields" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/minefields.webp" alt="Minefields" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Minefields </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places all obstacles. He can place them anywhere in the setup area (even in deployment zones) and must place them beyond distance 5 of each other. Then he places 6 objective tokens. Each objective token must be placed at distance 1 of an obstacle and beyond distance 1 of all other objective tokens.</p><p><strong>Special Rule:</strong> If a ship ends its movement at distance 1 of an objective token, remove that objective token from the play area and roll 2 blue dice. That ship is dealt 1 facedown damage card for each <span class="icon-font">S</span> or <span class="icon-font">T</span> icon rolled. If there is at least 1 <span class="icon-font">T</span> icon, deal the first damage card faceup.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="navigational-hazards-31" data-name="navigational hazards" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/navigational-hazards.webp" alt="Navigational Hazards" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Navigational Hazards </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. Then the second player places the station in the setup area beyond distance 1 of all obstacles and beyond distance 5 of both players&#39; edges of the play area.</p><p><strong>Special Rule:</strong> When a ship overlaps an obstacle and suffers 1 or more damage or is dealt 1 or more damage cards, the opposing fleet&#39;s owner gains 1 victory token.</p><p><strong>End of Round:</strong> Starting with the second player and alternating, each player chooses 1 asteroid or debris field that does not have an objective token on it, and moves it to within distance 1-2 of its current location. Then, he places an objective token on that obstacle. An obstacle cannot be moved so that it overlaps a ship, squadron, or other obstacle. At the start of the next round, remove all objective tokens from the play area.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="salvage-run-32" data-name="salvage run" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/salvage-run.webp" alt="Salvage Run" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Salvage Run </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places the station in the center of the play area. Then, starting with the second player, the players alternate placing the remaining obstacles, adding the 2 dust field obstacles, at distance 1-5 of the station.</p><p>After placing obstacles, the second player places a total of 4 objective tokens in the setup area. Each token must be at distance 1 of the station and beyond distance 1 of all other objective tokens.</p><p>After deploying fleets, each of the second player&#39;s ships gain a <span class="icon-font">7</span> token.</p><p><strong>Special Rule:</strong> When a player&#39;s ship reveals a command dial, that player may chose 1 objective token at distance 1 of that ship and remove it from the play area to gain 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="sensor-net-33" data-name="sensor net" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sensor-net.webp" alt="Sensor Net" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Sensor Net </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the players alternate placing a total of 4 objective tokens in the setup area, starting with the first player. Each token must be placed in the setup area beyond distance 5 of both players&#39; edges and beyond distance 3 of all other objective tokens.</p><p><strong>Special Rule:</strong> When a ship reveals a command dial, if it is at distance 1 of at least 1 objective token, its owner gains 1 victory token.</p><p>Then its owner chooses 1 of those objective tokens. The opposing player must move that token so it is at distance 1-2 of its current location. If he is the second player, he moves it so it is at distance 1-4 of its current location.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="solar-corona-34" data-name="solar corona" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/solar-corona.webp" alt="Solar Corona" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Solar Corona </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The first player must deploy all of his ships and squadrons before the second player. After the second player deploys ships and squadrons, the second player must choose 1 of the 3&#39; edges of the play area to be the corona.</p><p><strong>Special Rule:</strong> While a ship is attacking, before resolving any attack effects, if any portion of the corona is inside the attacking hull zone&#39;s firing arc, the attacker must discard 1 die with a Icon Dice Accuracy icon from the attack pool, if able.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="superior-positions-35" data-name="superior positions" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/superior-positions.webp" alt="Superior Positions" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Superior Positions </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The first player must deploy all of his ships and squadrons before the second player.</p><p><strong>Special Rule:</strong> After a ship or squadron performs an attack against the rear hull zone of another ship, if the defender suffered at least 1 damage, the attacker&#39;s owner gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="volatile-deposits-36" data-name="volatile deposits" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/volatile-deposits.webp" alt="Volatile Deposits" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Volatile Deposits </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, adding 2 dust fields and excluding the station</p><p><strong>Special Rule:</strong> While a ship is attacking a ship, the attacker can choose 1 obstacle at distance 1 of the defender, then resolve the following critical effect:</p><p>Blue <span class="icon-font">T</span>: Each ship or squadron at distance 1 of the chosen obstacle suffers damage equal to half of the total number of <span class="icon-font">T</span> icons in your attack pool, rounded up.</p><p>If the defender is one of the first player&#39;s ships, the attacker can resolve this effect with any <span class="icon-font">T</span> icon.</p><p><strong>End of Round:</strong> For each asteroid field, each player sums the command values of their ships at distance 1. Then for each astroid field, the player with the highest total gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="chance-encounter-37" data-name="chance encounter" data-factions="neutral" data-category="objectives" data-type="skirmish">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/chance-encounter-fighter-group.webp" alt="Chance Encounter" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Chance Encounter </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. After deploying fleets, assign 1 objective token to each squadron.</p><p><strong>Special Rule:</strong> The first time a squadron performs an attack against another squadron, discard the attacker&#39;s objective token. If the attacker belongs to the first player, they add 1 blue die to the attack pool. If the attacker belongs to the second player, they add 1 die of any color to the attack pool.</p><p>While a squadron with an objective token is defending, if the defender belongs to the second player, during the Spend Defense Tokens step, the defender may discard that objective token to reduce the total damage by 1.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="distress-call-38" data-name="distress call" data-factions="neutral" data-category="objectives" data-type="skirmish">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/distress-call-fighter-group.webp" alt="Distress Call" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Distress Call </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the second player places 1 Disabled Vessel in the setup area beyond distance 5 of both players&#39; edges and beyond distance 1 of all obstacles.</p><p><strong>End of Game:</strong> If the Disabled Vessel is destroyed, the second player gains 1 victory token. If the Disabled Vessel has 4 or more hull remaining, the first player gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="prospector-s-gambit-39" data-name="prospector&#39;s gambit" data-factions="neutral" data-category="objectives" data-type="skirmish">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/prospectors-gambit-fighter-group.webp" alt="Prospector&#39;s Gambit" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Prospector&#39;s Gambit </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places the station in the center of the setup area, then places all remaining obstacles at distance 2 of the station and beyond distance 1 of all obstacles. After placing obstacles, that player places 1 objective token on each obstacle.</p><p><strong>Special Rule:</strong> If a squadron ends its movement at distance 1 of 1 or more objective tokens, that squadron&#39;s owner rolls 1 blue die.</p><p>If that squadron belongs to the first player, that player removes 1 of the objective tokens if a <span class="icon-font">T</span> icon is rolled.</p><p>If that squadron belongs to the second player, that player removes 1 of the objective tokens if a <span class="icon-font">S</span> icon is rolled.</p><p>If a player removed an objective token, they gain 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="supply-convoy-40" data-name="supply convoy" data-factions="neutral" data-category="objectives" data-type="skirmish">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/supply-convoy-fighter-group.webp" alt="Supply Convoy" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Supply Convoy </h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The second player places the station in the center of the setup area. Then place the remaining obstacles as normal.</p><p>After deploying fleets, the second player chooses 1 of their non-unique squadrons to be the objective squadron.</p><p><strong>Special Rule:</strong> When the objective squadron activates at distance 1 of the station, the second player gains 1 victory token.</p><p>When the objective squadron is destroyed, the first player gains 1 victory token.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article></div>
+      
+    </div>
+    
+    <script>
+(function () {
+  var searchInput = document.getElementById('karm-search-input');
+  var filtersContainer = document.getElementById('karm-faction-filters');
+  var noResults = document.getElementById('karm-no-results');
+  var resultCount = document.getElementById('karm-result-count');
+  if (!searchInput || !filtersContainer) return;
+
+  var factionBtns = filtersContainer.querySelectorAll('.faction-btn[data-faction]');
+  var allBtn = filtersContainer.querySelector('.faction-btn[data-faction="all"]');
+  var factionKeys = ['rebel', 'empire', 'republic', 'separatist', 'neutral'];
+  var activeFactions = new Set(factionKeys);
+
+  function syncAllBtn() {
+    if (allBtn) {
+      if (activeFactions.size === factionKeys.length) {
+        allBtn.classList.add('active');
+      } else {
+        allBtn.classList.remove('active');
+      }
+    }
+  }
+
+  function applyFilters() {
+    var query = (searchInput.value || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('.karm-card');
+    var dividers = document.querySelectorAll('.card-divider');
+    var visibleCount = 0;
+    var lastHeaderIdx = -1;
+    var cardsAfterHeader = 0;
+    var headerElements = [];
+    var allFactions = activeFactions.size === factionKeys.length;
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var isHeader = card.getAttribute('data-category') === 'header';
+
+      if (isHeader) {
+        if (lastHeaderIdx >= 0) {
+          cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+        }
+        lastHeaderIdx = i;
+        cardsAfterHeader = 0;
+        continue;
+      }
+
+      var name = card.getAttribute('data-name') || '';
+      var factions = (card.getAttribute('data-factions') || '').split(',').filter(Boolean);
+
+      var matchesSearch = !query || name.indexOf(query) !== -1;
+      var matchesFaction = allFactions || factions.length === 0 || factions.some(function (f) { return activeFactions.has(f.toLowerCase()); });
+      var visible = matchesSearch && matchesFaction;
+
+      card.classList.toggle('filtered-out', !visible);
+      if (visible) {
+        visibleCount++;
+        cardsAfterHeader++;
+      }
+    }
+
+    if (lastHeaderIdx >= 0) {
+      cards[lastHeaderIdx].classList.toggle('filtered-out', cardsAfterHeader === 0);
+    }
+
+    for (var d = 0; d < dividers.length; d++) {
+      var hr = dividers[d];
+      var prev = hr.previousElementSibling;
+      var next = hr.nextElementSibling;
+      var hideDivider = (!prev || prev.classList.contains('filtered-out')) ||
+                        (!next || next.classList.contains('filtered-out'));
+      hr.classList.toggle('filtered-out', hideDivider);
+    }
+
+    if (noResults) {
+      noResults.classList.toggle('visible', visibleCount === 0 && (query || !allFactions));
+    }
+    if (resultCount) {
+      if (query || !allFactions) {
+        resultCount.textContent = visibleCount + ' card' + (visibleCount !== 1 ? 's' : '') + ' found';
+        resultCount.style.display = '';
+      } else {
+        resultCount.textContent = '';
+        resultCount.style.display = 'none';
+      }
+    }
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  filtersContainer.addEventListener('click', function (e) {
+    var btn = e.target.closest('.faction-btn');
+    if (!btn) return;
+    var faction = btn.getAttribute('data-faction');
+
+    if (faction === 'all') {
+      if (activeFactions.size === factionKeys.length) {
+        activeFactions.clear();
+        factionBtns.forEach(function (b) { b.classList.remove('active'); });
+      } else {
+        factionKeys.forEach(function (f) { activeFactions.add(f); });
+        factionBtns.forEach(function (b) { b.classList.add('active'); });
+      }
+    } else {
+      if (activeFactions.has(faction)) {
+        activeFactions.delete(faction);
+        btn.classList.remove('active');
+      } else {
+        activeFactions.add(faction);
+        btn.classList.add('active');
+      }
+    }
+    syncAllBtn();
+    applyFilters();
+  });
+
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      applyFilters();
+    }
+  });
+})();
+</script>
+    <!-- Generated cards: 40 -->
+  </body>
+</html>
