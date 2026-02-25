@@ -17,10 +17,10 @@
     "optimaRegular": "public/rulings/fonts/optima.woff",
     "optimaItalic": "public/rulings/fonts/optima-italic.woff",
     "optimaBold": "public/rulings/fonts/optima-bold.woff",
-    "aeroMaticsBold": "public/rulings/fonts/fighter-keyword.ttf",
-    "aeroMaticsRegular": "public/rulings/fonts/fighter-keyword.ttf",
-    "teutonFett": "public/rulings/fonts/TeutonFett.otf",
-    "revengerLite": "public/rulings/fonts/RevengerLiteBB.ttf",
-    "iconFont": "public/rulings/fonts/icons.ttf"
+    "aeroMaticsBold": "public/rulings/fonts/fighter-keyword.woff",
+    "aeroMaticsRegular": "public/rulings/fonts/fighter-keyword.woff",
+    "teutonFett": "public/rulings/fonts/TeutonFett.woff",
+    "revengerLite": "public/rulings/fonts/RevengerLiteBB.woff",
+    "iconFont": "public/rulings/fonts/icons.woff"
   }
 }

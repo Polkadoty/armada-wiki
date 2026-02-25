@@ -20,11 +20,11 @@ const listBuilderFontsRoot = '/Users/andrew/Documents/GitHub/armada-list-builder
 const targetFontsRoot = path.resolve(repoRoot, 'public/rulings/fonts');
 const targetAssetsRoot = path.resolve(repoRoot, 'public/rulings/assets');
 const fontCopies = [
-  ['icons.ttf', 'icons.ttf'],
+  ['icons.woff', 'icons.woff'],
   ['optima.woff', 'optima.woff'],
-  ['TeutonFett.otf', 'TeutonFett.otf'],
-  ['RevengerLiteBB.ttf', 'RevengerLiteBB.ttf'],
-  ['fighter-keyword.ttf', 'fighter-keyword.ttf'],
+  ['TeutonFett.woff', 'TeutonFett.woff'],
+  ['RevengerLiteBB.woff', 'RevengerLiteBB.woff'],
+  ['fighter-keyword.woff', 'fighter-keyword.woff'],
   ['optima-bold.woff', 'optima-bold.woff'],
   ['optima-italic.woff', 'optima-italic.woff'],
 ];

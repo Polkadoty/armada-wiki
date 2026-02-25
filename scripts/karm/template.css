@@ -428,6 +428,8 @@ body.karm-web .karm-book {
   margin: 0 auto;
   padding: 32px 24px;
   gap: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 body.karm-web .karm-page-shell,
@@ -443,6 +445,10 @@ body.karm-web .karm-continuous {
 
 body.karm-web .card-top {
   min-height: auto;
+}
+
+body.karm-web .card-main {
+  min-width: 0;
 }
 
 body.karm-web .card-image-wrap {
