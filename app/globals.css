@@ -2,27 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Font Face Declarations ── */
+@font-face {
+  font-family: 'Optima';
+  src: url('/fonts/optima.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('/fonts/optima-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('/fonts/optima-italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeutonFett';
+  src: url('/fonts/TeutonFett.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RevengerLiteBB';
+  src: url('/fonts/RevengerLiteBB.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 189 94% 43%;
+    --background: 36 33% 95%;
+    --foreground: 20 10% 13%;
+    --card: 36 33% 97%;
+    --card-foreground: 20 10% 13%;
+    --popover: 36 33% 97%;
+    --popover-foreground: 20 10% 13%;
+    --primary: 224 59% 35%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 189 94% 43%;
+    --secondary: 36 20% 90%;
+    --secondary-foreground: 20 10% 15%;
+    --muted: 36 15% 90%;
+    --muted-foreground: 20 5% 45%;
+    --accent: 224 59% 35%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 189 94% 43%;
+    --border: 224 15% 82%;
+    --input: 224 15% 82%;
+    --ring: 224 59% 35%;
     --radius: 0.5rem;
 
     /* Faction colors */
@@ -35,25 +76,25 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 189 94% 53%;
-    --primary-foreground: 240 10% 3.9%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 189 94% 53%;
-    --accent-foreground: 240 10% 3.9%;
+    --background: 270 15% 6%;
+    --foreground: 270 10% 95%;
+    --card: 270 12% 9%;
+    --card-foreground: 270 10% 95%;
+    --popover: 270 12% 9%;
+    --popover-foreground: 270 10% 95%;
+    --primary: 285 70% 65%;
+    --primary-foreground: 285 70% 10%;
+    --secondary: 270 10% 15%;
+    --secondary-foreground: 270 10% 95%;
+    --muted: 270 10% 15%;
+    --muted-foreground: 270 8% 60%;
+    --accent: 285 50% 20%;
+    --accent-foreground: 285 70% 90%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 189 94% 53%;
+    --border: 270 10% 18%;
+    --input: 270 10% 18%;
+    --ring: 285 70% 65%;
 
     /* Faction colors - slightly brighter for dark mode */
     --faction-rebel: 4 72% 55%;
@@ -70,19 +111,26 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-body), "Segoe UI", sans-serif;
+    font-family: 'Optima', 'Segoe UI', sans-serif;
     background-image:
-      radial-gradient(circle at 10% 20%, hsl(var(--primary) / 0.08), transparent 35%),
-      radial-gradient(circle at 90% 10%, hsl(var(--faction-separatist) / 0.1), transparent 28%),
-      radial-gradient(circle at 50% 100%, hsl(var(--faction-rebel) / 0.08), transparent 36%);
+      radial-gradient(circle at 10% 20%, hsl(224 59% 35% / 0.06), transparent 35%),
+      radial-gradient(circle at 90% 10%, hsl(36 33% 80% / 0.15), transparent 28%),
+      radial-gradient(circle at 50% 100%, hsl(224 59% 35% / 0.04), transparent 36%);
     background-attachment: fixed;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(circle at 10% 20%, hsl(285 70% 65% / 0.08), transparent 35%),
+      radial-gradient(circle at 90% 10%, hsl(270 40% 30% / 0.15), transparent 28%),
+      radial-gradient(circle at 50% 100%, hsl(285 50% 40% / 0.06), transparent 36%);
   }
 
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-heading), var(--font-body), sans-serif;
+    font-family: 'TeutonFett', sans-serif;
     letter-spacing: 0.02em;
   }
 
@@ -94,7 +142,14 @@
 
 /* Glass morphism effect */
 .glass {
-  @apply bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-white/20 dark:border-zinc-700/20;
+  @apply backdrop-blur-md border;
+  background: hsl(36 33% 97% / 0.8);
+  border-color: hsl(36 33% 90% / 0.3);
+}
+
+.dark .glass {
+  background: hsl(270 12% 9% / 0.8);
+  border-color: hsl(270 10% 25% / 0.3);
 }
 
 /* Content grid for card display */

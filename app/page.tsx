@@ -116,11 +116,11 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-faction-empire/10" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-faction-rebel/20 via-transparent to-transparent" />
-        <div className="absolute -top-24 right-6 h-72 w-72 rounded-full bg-[hsl(var(--faction-separatist)/0.2)] blur-3xl" />
-        <div className="absolute top-16 -left-20 h-64 w-64 rounded-full bg-[hsl(var(--faction-rebel)/0.2)] blur-3xl" />
+        {/* Background gradient - warm parchment light / purple nebula dark */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-[hsl(36,33%,88%)]/30 dark:from-[hsl(285,70%,65%)]/10 dark:via-background dark:to-[hsl(270,40%,15%)]/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[hsl(224,59%,35%)]/15 via-transparent to-transparent dark:from-[hsl(285,70%,65%)]/20 dark:via-transparent dark:to-transparent" />
+        <div className="absolute -top-24 right-6 h-72 w-72 rounded-full bg-[hsl(224,59%,35%,0.12)] dark:bg-[hsl(285,70%,65%,0.15)] blur-3xl" />
+        <div className="absolute top-16 -left-20 h-64 w-64 rounded-full bg-[hsl(36,33%,80%,0.3)] dark:bg-[hsl(270,50%,40%,0.2)] blur-3xl" />
 
         {/* Stars effect */}
         <div className="absolute inset-0 opacity-30">
@@ -132,12 +132,12 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-28">
           <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/10 text-primary text-sm font-medium">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/10 text-primary text-sm font-medium font-body">
               <Sparkles className="w-4 h-4" />
               Community-Driven Database
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight uppercase">
+            <h1 className="text-5xl md:text-7xl font-heading font-extrabold tracking-tight uppercase">
               <span className="bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text">
                 Armada Wiki
               </span>

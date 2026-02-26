@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-sm">Armada Wiki</h3>
+            <h3 className="font-heading font-semibold text-sm">Armada Wiki</h3>
             <p className="text-xs text-muted-foreground">
               A community-driven reference for Star Wars: Armada and Armada Legacy.
             </p>
@@ -16,7 +16,7 @@ export function Footer() {
 
           {/* Browse */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-sm">Browse</h3>
+            <h3 className="font-heading font-semibold text-sm">Browse</h3>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/ships" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -43,7 +43,7 @@ export function Footer() {
 
           {/* Resources */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-sm">Resources</h3>
+            <h3 className="font-heading font-semibold text-sm">Resources</h3>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -65,7 +65,7 @@ export function Footer() {
 
           {/* Tools */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-sm">Tools</h3>
+            <h3 className="font-heading font-semibold text-sm">Tools</h3>
             <ul className="space-y-2 text-xs">
               <li>
                 <Link href="/compare" className="text-muted-foreground hover:text-foreground transition-colors">

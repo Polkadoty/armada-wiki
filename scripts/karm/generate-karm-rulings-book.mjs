@@ -28,6 +28,8 @@ const nexusOnly = args.has('--nexus-only');
 const splitUpgradesDirArg = [...args].find((arg) => arg.startsWith('--split-upgrades-dir=')) || '';
 const outputHtmlArg = [...args].find((arg) => arg.startsWith('--output-html=')) || '';
 const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) || '';
+const writeCardIndexArg = [...args].find((arg) => arg.startsWith('--write-card-index=')) || '';
+const loadCardIndexArg = [...args].find((arg) => arg.startsWith('--load-card-index=')) || '';
 let ICON_MAP_RUNTIME = {};
 let ICON_FONT_ENABLED = true;
 let NR_LOGO_SVG = '';
@@ -35,6 +37,9 @@ let CARD_LINK_REGISTRY = new Map();  // lowercase name → [{anchorId, displayNa
 let CARD_LINK_REGEX = null;          // compiled regex, longest-first
 let CURRENT_RENDER_CARD = null;      // card being rendered (skip self-links)
 let CURRENT_WEB_MODE = false;
+let LINK_ALIASES = {};
+let DISPLAY_NAME_OVERRIDES = {};
+let GLOBAL_CARD_INDEX = null;
 
 const FACTION_TAG_RE = /\s*\{([^}]+)\}/g;
 const FACTION_TAG_MAP = {
@@ -197,6 +202,11 @@ async function main() {
   }
   CURRENT_WEB_MODE = isWebOutput(config);
   ICON_FONT_ENABLED = Boolean(String(config.fonts?.iconFont || '').trim());
+  LINK_ALIASES = await loadLinkAliases();
+  DISPLAY_NAME_OVERRIDES = await loadDisplayNameOverrides();
+  if (loadCardIndexArg) {
+    GLOBAL_CARD_INDEX = await loadCardIndex(loadCardIndexArg.split('=')[1]);
+  }
   const iconMap = await loadIconMap(config.iconsMapSource, config.iconsMapSourceExternal);
   const arcPointsOnlyNames = await loadArcPointsOnlyList(config);
 
@@ -236,6 +246,10 @@ async function main() {
   const splitUpgradesDir = splitUpgradesDirArg ? splitUpgradesDirArg.split('=')[1] : '';
   if (splitUpgradesDir && webMode) {
     await generateSplitUpgradeFiles(cards, config, iconMap, splitUpgradesDir);
+  }
+
+  if (writeCardIndexArg && webMode) {
+    await writeCardIndex(cards, writeCardIndexArg.split('=')[1]);
   }
 
   if (dryRun) {
@@ -470,7 +484,9 @@ function normalizeCandidateCollection(value) {
   if (!value) return [];
   if (Array.isArray(value)) return value.filter((v) => v && typeof v === 'object');
   if (typeof value === 'object') {
-    return Object.values(value).filter((v) => v && typeof v === 'object');
+    return Object.entries(value)
+      .filter(([, v]) => v && typeof v === 'object')
+      .map(([key, v]) => ({ ...v, _apiKey: key }));
   }
   return [];
 }
@@ -752,18 +768,19 @@ function buildUpgradeCard(item, source, iconMap) {
 
   const rawName = stringValue(item.name, 'Unknown Upgrade');
   const { cleanName, derivedFactions } = stripFactionTags(rawName);
+  const displayName = (item._apiKey && DISPLAY_NAME_OVERRIDES[item._apiKey]) || cleanName;
 
   if (derivedFactions.length > 0) {
     factions = derivedFactions;
   }
 
-  const isHondo = cleanName.toLowerCase().includes('hondo ohnaka');
+  const isHondo = displayName.toLowerCase().includes('hondo ohnaka');
   const factionIconHtml = isHondo ? '' : buildFactionIconHtml(factions, iconMap);
 
   return {
     category: isNexusSource(source) ? 'nexus-upgrades' : 'upgrades',
     source,
-    name: cleanName,
+    name: displayName,
     image: stringValue(item.cardimage, ''),
     factions,
     cardText: stringValue(item.ability, ''),
@@ -788,10 +805,13 @@ function buildObjectiveCard(item, source) {
   if (item.end_of_game) summaryParts.push(`**End of Game:** ${stringValue(item.end_of_game, '')}`);
   if (item.errata) summaryParts.push(`**Errata:** ${stringValue(item.errata, '')}`);
 
+  const rawName = stringValue(item.name, 'Unknown Objective');
+  const displayName = (item._apiKey && DISPLAY_NAME_OVERRIDES[item._apiKey]) || rawName;
+
   return {
     category: 'objectives',
     source,
-    name: stringValue(item.name, 'Unknown Objective'),
+    name: displayName,
     image: stringValue(item.cardimage, ''),
     factions: ['neutral'],
     cardText: summaryParts.join('\n\n'),
@@ -826,17 +846,18 @@ function buildAceSquadronCard(item, source, iconMap, logLines) {
 
   const rawName = stringValue(item['ace-name'] || item.name, 'Unknown Ace');
   const { cleanName, derivedFactions } = stripFactionTags(rawName);
+  const displayName = (item._apiKey && DISPLAY_NAME_OVERRIDES[item._apiKey]) || cleanName;
   let factions = derivedFactions.length > 0
     ? derivedFactions
     : [stringValue(item.faction, 'neutral')];
 
-  const isHondo = cleanName.toLowerCase().includes('hondo ohnaka');
+  const isHondo = displayName.toLowerCase().includes('hondo ohnaka');
   const factionIconHtml = isHondo ? '' : buildFactionIconHtml(factions, iconMap);
 
   return {
     category: isNexusSource(source) ? 'nexus-ace-squadrons' : 'ace-squadrons',
     source,
-    name: cleanName,
+    name: displayName,
     image: stringValue(item.cardimage, ''),
     factions,
     cardText: stringValue(item.ability, ''),
@@ -852,11 +873,13 @@ function buildAceSquadronCard(item, source, iconMap, logLines) {
 
 function buildDamageCard(item, source) {
   const rules = normalizeRules(item.rules, item.rulings || item.clarification || item.clarifications);
+  const rawName = stringValue(item.name || item.title, 'Unknown Damage Card');
+  const displayName = (item._apiKey && DISPLAY_NAME_OVERRIDES[item._apiKey]) || rawName;
 
   return {
     category: 'damage-cards',
     source,
-    name: stringValue(item.name || item.title, 'Unknown Damage Card'),
+    name: displayName,
     image: stringValue(item.cardimage || item.image, ''),
     factions: ['neutral'],
     cardText: stringValue(item.card_text || item.text || item.ability, ''),
@@ -1813,7 +1836,10 @@ function applyCardLinks(html) {
       if (matched[0] !== matched[0].toUpperCase()) return matched;
       // Skip self-references
       if (CURRENT_RENDER_CARD && entry.card === CURRENT_RENDER_CARD) return matched;
-      return `<a class="card-ref" href="#${escapeAttribute(entry.anchorId)}"><em>${matched}</em></a>`;
+      const href = entry.pageUrl
+        ? `${entry.pageUrl}#${escapeAttribute(entry.anchorId)}`
+        : `#${escapeAttribute(entry.anchorId)}`;
+      return `<a class="card-ref" href="${href}"><em>${matched}</em></a>`;
     });
   });
 
@@ -1997,6 +2023,109 @@ async function loadArcPointsOnlyList(config) {
   }
 }
 
+async function loadLinkAliases() {
+  const aliasPath = path.resolve(__dirname, 'link-aliases.json');
+  try {
+    await access(aliasPath);
+    const raw = await readFile(aliasPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      if (verbose) log(`Loaded ${Object.keys(parsed).length} link alias(es)`);
+      return parsed;
+    }
+    return {};
+  } catch {
+    if (verbose) log('link-aliases.json not found, feature disabled.');
+    return {};
+  }
+}
+
+async function loadDisplayNameOverrides() {
+  const overridesPath = path.resolve(__dirname, 'display-name-overrides.json');
+  try {
+    await access(overridesPath);
+    const raw = await readFile(overridesPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      if (verbose) log(`Loaded ${Object.keys(parsed).length} display name override(s)`);
+      return parsed;
+    }
+    return {};
+  } catch {
+    if (verbose) log('display-name-overrides.json not found, feature disabled.');
+    return {};
+  }
+}
+
+async function loadCardIndex(filePath) {
+  const resolved = path.resolve(repoRoot, filePath);
+  try {
+    await access(resolved);
+    const raw = await readFile(resolved, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      if (verbose) log(`Loaded card index with ${Object.keys(parsed).length} entries from ${resolved}`);
+      return parsed;
+    }
+    return null;
+  } catch {
+    if (verbose) log(`Card index not found at ${resolved}, cross-file linking disabled.`);
+    return null;
+  }
+}
+
+async function writeCardIndex(cards, outputPath) {
+  const index = {};
+  const nonHeaders = cards.filter((c) => c.category !== 'header');
+
+  for (const card of nonHeaders) {
+    const pageUrl = categoryToPageUrl(card);
+    if (!pageUrl) continue;
+    const key = escapeHtml(card.name).toLowerCase();
+    if (!index[key]) {
+      index[key] = {
+        anchorId: card.anchorId,
+        displayName: card.name,
+        pageUrl,
+      };
+    }
+
+    // Also register disambiguated form, unless name already contains type label
+    const typeLabel = cardTypeLabelStandalone(card);
+    if (typeLabel) {
+      const suffix = ` (${typeLabel})`;
+      if (!card.name.endsWith(suffix)) {
+        const disambig = `${card.name}${suffix}`;
+        const disambigKey = escapeHtml(disambig).toLowerCase();
+        if (!index[disambigKey]) {
+          index[disambigKey] = {
+            anchorId: card.anchorId,
+            displayName: disambig,
+            pageUrl,
+          };
+        }
+      }
+    }
+  }
+
+  // Write alias entries so cross-page alias links work
+  for (const [alias, canonical] of Object.entries(LINK_ALIASES)) {
+    const canonicalKey = escapeHtml(canonical).toLowerCase();
+    const canonicalEntry = index[canonicalKey];
+    if (canonicalEntry) {
+      const aliasKey = escapeHtml(alias).toLowerCase();
+      if (!index[aliasKey]) {
+        index[aliasKey] = { ...canonicalEntry };
+      }
+    }
+  }
+
+  const resolved = path.resolve(repoRoot, outputPath);
+  await mkdir(path.dirname(resolved), { recursive: true });
+  await writeFile(resolved, JSON.stringify(index, null, 2), 'utf8');
+  log(`Wrote card index (${Object.keys(index).length} entries) to ${resolved}`);
+}
+
 function mergeArcPointsOnlyCards(cards, arcPointsOnlyNames, logLines) {
   if (arcPointsOnlyNames.size === 0) return;
 
@@ -2094,6 +2223,34 @@ function upgradeTypeLabel(type) {
     .join(' ') || 'Unknown';
 }
 
+function cardTypeLabelStandalone(card) {
+  if (card.category === 'upgrades' || card.category === 'nexus-upgrades') {
+    return upgradeTypeLabel(card.upgradeType);
+  }
+  if (card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons') {
+    return 'Squadron';
+  }
+  if (card.category === 'objectives') return 'Objective';
+  if (card.category === 'damage-cards') return 'Damage';
+  return '';
+}
+
+function categoryToPageUrl(card) {
+  if (card.category === 'objectives') {
+    return normalizeObjectiveType(card.type) === 'campaign'
+      ? '/rulings/campaign.html' : '/rulings/objectives.html';
+  }
+  if (card.category === 'damage-cards') return '/rulings/damage-cards.html';
+  if (card.category === 'upgrades') {
+    const type = normalizeUpgradeType(card.upgradeType);
+    return `/rulings/upgrades/${type}.html`;
+  }
+  if (card.category === 'nexus-upgrades') return '/rulings/nexus-upgrades.html';
+  if (card.category === 'ace-squadrons') return '/rulings/squadrons.html';
+  if (card.category === 'nexus-ace-squadrons') return '/rulings/nexus-squadrons.html';
+  return null;
+}
+
 function buildCardLinkRegistry(cards) {
   CARD_LINK_REGISTRY = new Map();
   CARD_LINK_REGEX = null;
@@ -2108,19 +2265,6 @@ function buildCardLinkRegistry(cards) {
     const key = card.name.toLowerCase();
     if (!byName.has(key)) byName.set(key, []);
     byName.get(key).push(card);
-  }
-
-  // Helper to get a readable type label for any card
-  function cardTypeLabel(card) {
-    if (card.category === 'upgrades' || card.category === 'nexus-upgrades') {
-      return upgradeTypeLabel(card.upgradeType);
-    }
-    if (card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons') {
-      return 'Squadron';
-    }
-    if (card.category === 'objectives') return 'Objective';
-    if (card.category === 'damage-cards') return 'Damage';
-    return '';
   }
 
   for (const [lowerName, group] of byName) {
@@ -2140,11 +2284,14 @@ function buildCardLinkRegistry(cards) {
       CARD_LINK_REGISTRY.set(escapeHtml(group[0].name).toLowerCase(), allEntries);
     }
 
-    // Always register disambiguated forms: "Name (Type)" for every card
+    // Register disambiguated forms: "Name (Type)" for every card,
+    // unless the name already ends with the type label in parentheses.
     for (const card of group) {
-      const typeLabel = cardTypeLabel(card);
+      const typeLabel = cardTypeLabelStandalone(card);
       if (typeLabel) {
-        const disambig = `${card.name} (${typeLabel})`;
+        const suffix = ` (${typeLabel})`;
+        if (card.name.endsWith(suffix)) continue;
+        const disambig = `${card.name}${suffix}`;
         CARD_LINK_REGISTRY.set(escapeHtml(disambig).toLowerCase(), [
           { anchorId: card.anchorId, displayName: disambig, card },
         ]);
@@ -2152,11 +2299,40 @@ function buildCardLinkRegistry(cards) {
     }
   }
 
-  // Build regex: all registered names, longest first, word-bounded
+  // Apply link aliases: register alternate names pointing to canonical entries
+  for (const [alias, canonical] of Object.entries(LINK_ALIASES)) {
+    const canonicalKey = escapeHtml(canonical).toLowerCase();
+    const canonicalEntries = CARD_LINK_REGISTRY.get(canonicalKey);
+    if (canonicalEntries) {
+      const aliasKey = escapeHtml(alias).toLowerCase();
+      if (!CARD_LINK_REGISTRY.has(aliasKey)) {
+        CARD_LINK_REGISTRY.set(aliasKey, canonicalEntries);
+      }
+    }
+  }
+
+  // Merge global card index: add cross-page entries for cards not on this page
+  if (GLOBAL_CARD_INDEX) {
+    for (const [indexKey, indexEntry] of Object.entries(GLOBAL_CARD_INDEX)) {
+      if (!CARD_LINK_REGISTRY.has(indexKey)) {
+        CARD_LINK_REGISTRY.set(indexKey, [{
+          anchorId: indexEntry.anchorId,
+          displayName: indexEntry.displayName,
+          pageUrl: indexEntry.pageUrl,
+          card: null,
+        }]);
+      }
+    }
+  }
+
+  // Build regex: all registered names, longest first.
+  // Use \b at start (card names begin with word characters) and (?!\w) at
+  // end so names ending with non-word characters like ")" or "!" still match
+  // when followed by spaces, punctuation, or end-of-string.
   const names = [...CARD_LINK_REGISTRY.keys()].sort((a, b) => b.length - a.length);
   if (names.length === 0) return;
   const escaped = names.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-  CARD_LINK_REGEX = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
+  CARD_LINK_REGEX = new RegExp(`\\b(${escaped.join('|')})(?!\\w)`, 'gi');
 }
 
 function slugify(value) {

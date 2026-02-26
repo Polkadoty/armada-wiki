@@ -666,6 +666,8 @@ body.search-open .search-drawer {
   width: 0.85em;
   height: 0.85em;
   vertical-align: middle;
+  position: relative;
+  top: -2px;
 }
 
 .faction-icon-nr svg {
@@ -1948,7 +1950,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li>If this Squadron is deployed through an effect such as Fleet Ambush or Fighter Ambush, if it is deployed beyond distance 2 of all friendly ships, it must suffer 2 damage. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>If this Squadron is deployed through an effect such as <a class="card-ref" href="/rulings/objectives.html#fleet-ambush-objective"><em>Fleet Ambush</em></a> or <a class="card-ref" href="/rulings/objectives.html#fighter-ambush-objective"><em>Fighter Ambush</em></a>, if it is deployed beyond distance 2 of all friendly ships, it must suffer 2 damage. <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] Legacy | 2025-07-17 | FAQ 1.1</div></div>
 </article>
@@ -1995,7 +1997,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>Spending a defense token using this Squadron&#39;s ability does not resolve Luminara Unduli (Commander)&#39;s effect as this squadron is not the defending squadron. <span class="footnote-ref">[1]</span></li><li>Emperor Palpatine will not resolve against this Squadron&#39;s ability, as this squadron is spending a defense token outside of the “Spend Defense Tokens” step. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>Spending a defense token using this Squadron&#39;s ability does not resolve <a class="card-ref" href="#luminara-unduli-squadron"><em>Luminara Unduli</em></a> (Commander)&#39;s effect as this squadron is not the defending squadron. <span class="footnote-ref">[1]</span></li><li><a class="card-ref" href="/rulings/upgrades.html#emperor-palpatine-commander"><em>Emperor Palpatine</em></a> will not resolve against this Squadron&#39;s ability, as this squadron is spending a defense token outside of the “Spend Defense Tokens” step. <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] Legacy | 2025-07-17 | FAQ 1.1</div></div>
 </article>
@@ -2037,26 +2039,9 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="luminara-unduli-squadron" data-name="luminara unduli" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-delta-7-aethersprite-squadron.webp" alt="Luminara Unduli" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-delta-7-aethersprite-squadron.webp" alt="Luminara Unduli" data-base-image="https://images.swarmada.wiki/images/luminara-unduli-delta-7-aethersprite-squadron.webp" data-arc-image="https://images.swarmada.wiki/images/luminara-unduli-delta-7-aethersprite-squadron-errata-arc.webp" /></div>
     <div class="card-main">
-      <h2 class="card-title">Luminara Unduli <span class="icon-font">|</span></h2>
-      <div class="card-keywords squadron-keywords"><span class="card-keyword-label">Keywords:</span><span class="squadron-keyword-values"><span class="squadron-keyword-token">adept 1</span>, <span class="squadron-keyword-token">counter 2</span></span></div><div class="top-summary">
-<div class="top-summary-block">
-  <div class="top-summary-label">Card Text</div>
-  <div class="top-summary-text"><p>While an enemy squadron at distance 1 is attacking an non-unique, friendly squadron, the attack is treated as obstructed.</p></div>
-</div></div>
-    </div>
-  </div>
-  <div class="card-bottom card-rulings"></div>
-  
-</article>
-<hr class="card-divider" />
-
-<article class="karm-card" id="luminara-unduli-squadron-2" data-name="luminara unduli" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
-  <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-delta-7-aethersprite-squadron-errata-arc.webp" alt="Luminara Unduli" /></div>
-    <div class="card-main">
-      <h2 class="card-title">Luminara Unduli <span class="icon-font">|</span></h2>
+      <h2 class="card-title">Luminara Unduli <span class="icon-font">|</span> <button class="arc-points-toggle" data-card-id="luminara-unduli-squadron" title="Toggle ARC points image" aria-label="Toggle ARC points image">ARC</button></h2>
       <div class="card-keywords squadron-keywords"><span class="card-keyword-label">Keywords:</span><span class="squadron-keyword-values"><span class="squadron-keyword-token">adept 1</span>, <span class="squadron-keyword-token">counter 2</span></span></div><div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2105,26 +2090,9 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="plo-koon-squadron" data-name="plo koon" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-delta-7-aethersprite-squadron.webp" alt="Plo Koon" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-delta-7-aethersprite-squadron.webp" alt="Plo Koon" data-base-image="https://images.swarmada.wiki/images/plo-koon-delta-7-aethersprite-squadron.webp" data-arc-image="https://images.swarmada.wiki/images/plo-koon-delta-7-aethersprite-squadron-errata-arc.webp" /></div>
     <div class="card-main">
-      <h2 class="card-title">Plo Koon <span class="icon-font">|</span></h2>
-      <div class="card-keywords squadron-keywords"><span class="card-keyword-label">Keywords:</span><span class="squadron-keyword-values"><span class="squadron-keyword-token">adept 2</span>, <span class="squadron-keyword-token">counter 2</span></span></div><div class="top-summary">
-<div class="top-summary-block">
-  <div class="top-summary-label">Card Text</div>
-  <div class="top-summary-text"><p>Non-unique, friendly squadrons without counter at distance 1 gain counter 1.</p></div>
-</div></div>
-    </div>
-  </div>
-  <div class="card-bottom card-rulings"></div>
-  
-</article>
-<hr class="card-divider" />
-
-<article class="karm-card" id="plo-koon-squadron-2" data-name="plo koon" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
-  <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-delta-7-aethersprite-squadron-errata-arc.webp" alt="Plo Koon" /></div>
-    <div class="card-main">
-      <h2 class="card-title">Plo Koon <span class="icon-font">|</span></h2>
+      <h2 class="card-title">Plo Koon <span class="icon-font">|</span> <button class="arc-points-toggle" data-card-id="plo-koon-squadron" title="Toggle ARC points image" aria-label="Toggle ARC points image">ARC</button></h2>
       <div class="card-keywords squadron-keywords"><span class="card-keyword-label">Keywords:</span><span class="squadron-keyword-values"><span class="squadron-keyword-token">adept 2</span>, <span class="squadron-keyword-token">counter 2</span></span></div><div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2203,7 +2171,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>If this Squadron is the target of Flechette Torpedoes and its activation slider is toggled to the activated side, then this Squadron&#39;s ability would switch from granting <span class="keyword-name">Dodge</span> 1 to <span class="keyword-name">Adept</span> 1. <span class="footnote-ref">[1]</span></li><li>If this Squadron is selected by 7I-99 to perform a <span class="keyword-name">Counter</span> attack, as the activation slider is toggled after the <span class="keyword-name">Counter</span> attack is completed, this Squadron&#39;s effect would still grant <span class="keyword-name">Dodge</span> 1, and not <span class="keyword-name">Adept</span> 1 until after the activation slider is toggled to the activated side. <span class="footnote-ref">[1]</span></li><li>If this Squadron is activated before the start of the Squadron Phase, all friendly squadrons without <span class="keyword-name">Ai</span> at distance 1 will have <span class="keyword-name">Adept</span>, and therefore may resolve the first effect of Hot Landing to gain <span class="keyword-name">Grit</span>. If a friendly squadron without <span class="keyword-name">Ai</span> were to lose this Squadron&#39;s effect, as an example by moving out of range or this Squadron being destroyed, then it does not have <span class="keyword-name">Adept</span> to resolve Hot Landing&#39;s second effect. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>If this Squadron is the target of <a class="card-ref" href="/rulings/upgrades.html#flechette-torpedoes-ordnance"><em>Flechette Torpedoes</em></a> and its activation slider is toggled to the activated side, then this Squadron&#39;s ability would switch from granting <span class="keyword-name">Dodge</span> 1 to <span class="keyword-name">Adept</span> 1. <span class="footnote-ref">[1]</span></li><li>If this Squadron is selected by 7I-99 to perform a <span class="keyword-name">Counter</span> attack, as the activation slider is toggled after the <span class="keyword-name">Counter</span> attack is completed, this Squadron&#39;s effect would still grant <span class="keyword-name">Dodge</span> 1, and not <span class="keyword-name">Adept</span> 1 until after the activation slider is toggled to the activated side. <span class="footnote-ref">[1]</span></li><li>If this Squadron is activated before the start of the Squadron Phase, all friendly squadrons without <span class="keyword-name">Ai</span> at distance 1 will have <span class="keyword-name">Adept</span>, and therefore may resolve the first effect of <a class="card-ref" href="/rulings/upgrades.html#hot-landing-fleet-command"><em>Hot Landing</em></a> to gain <span class="keyword-name">Grit</span>. If a friendly squadron without <span class="keyword-name">Ai</span> were to lose this Squadron&#39;s effect, as an example by moving out of range or this Squadron being destroyed, then it does not have <span class="keyword-name">Adept</span> to resolve <a class="card-ref" href="/rulings/upgrades.html#hot-landing-fleet-command"><em>Hot Landing</em></a>&#39;s second effect. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2243,7 +2211,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>If this Squadron is activated through TI-99 and gains <span class="keyword-name">Counter</span>, if it is engaged with at least 2 enemy squadrons it may resolve the <span class="keyword-name">Adept</span> keyword for that <span class="keyword-name">Counter</span> attack. <span class="footnote-ref">[1]</span></li><li>As this squadron has <span class="keyword-name">Adept</span> gained as a keyword when the engagement condition is met, both effects of the Hot Landing upgrade card apply to this squadron while the condition is active. In addition, if this squadron were to lose the engagement condition, therefore losing <span class="keyword-name">Adept</span>, and it is destroyed, it will not resolve the second effect of Hot Landing as it no longer has that keyword. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>If this Squadron is activated through TI-99 and gains <span class="keyword-name">Counter</span>, if it is engaged with at least 2 enemy squadrons it may resolve the <span class="keyword-name">Adept</span> keyword for that <span class="keyword-name">Counter</span> attack. <span class="footnote-ref">[1]</span></li><li>As this squadron has <span class="keyword-name">Adept</span> gained as a keyword when the engagement condition is met, both effects of the <a class="card-ref" href="/rulings/upgrades.html#hot-landing-fleet-command"><em>Hot Landing</em></a> upgrade card apply to this squadron while the condition is active. In addition, if this squadron were to lose the engagement condition, therefore losing <span class="keyword-name">Adept</span>, and it is destroyed, it will not resolve the second effect of <a class="card-ref" href="/rulings/upgrades.html#hot-landing-fleet-command"><em>Hot Landing</em></a> as it no longer has that keyword. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2312,7 +2280,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>If a ship would gain <span class="keyword-name">Counter</span> through an effect such as Quad Laser Turrets, when resolving this Squadron&#39;s ability against that ship, the ship may perform a <span class="keyword-name">Counter</span> attack targeting this Squadron. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>If a ship would gain <span class="keyword-name">Counter</span> through an effect such as <a class="card-ref" href="/rulings/upgrades.html#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a>, when resolving this Squadron&#39;s ability against that ship, the ship may perform a <span class="keyword-name">Counter</span> attack targeting this Squadron. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -3293,6 +3261,6 @@ body.karm-web .card-divider {
   });
 })();
 </script>
-    <!-- Generated cards: 117 -->
+    <!-- Generated cards: 115 -->
   </body>
 </html>

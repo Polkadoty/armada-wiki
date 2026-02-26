@@ -74,15 +74,17 @@ if (!copiedBackground) {
   process.stdout.write('[karm-web] Background image not found; rulings pages will use solid background.\n');
 }
 
+const cardIndexPath = 'public/rulings/card-index.json';
+
 const jobs = [
-  { label: 'all', out: 'public/rulings/index.html', log: 'public/rulings/compile.log', categories: '' },
-  { label: 'objectives', out: 'public/rulings/objectives.html', log: 'public/rulings/objectives.log', categories: 'objectives', objectiveTypes: 'assault,defense,navigation,skirmish' },
-  { label: 'campaign', out: 'public/rulings/campaign.html', log: 'public/rulings/campaign.log', categories: 'objectives', objectiveTypes: 'campaign' },
-  { label: 'damage-cards', out: 'public/rulings/damage-cards.html', log: 'public/rulings/damage-cards.log', categories: 'damage-cards' },
-  { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades', splitUpgradesDir: 'public/rulings/upgrades' },
-  { label: 'squadrons', out: 'public/rulings/squadrons.html', log: 'public/rulings/squadrons.log', categories: 'ace-squadrons' },
-  { label: 'nexus-upgrades', out: 'public/rulings/nexus-upgrades.html', log: 'public/rulings/nexus-upgrades.log', categories: 'upgrades', nexusOnly: true },
-  { label: 'nexus-squadrons', out: 'public/rulings/nexus-squadrons.html', log: 'public/rulings/nexus-squadrons.log', categories: 'ace-squadrons', nexusOnly: true },
+  { label: 'all', out: 'public/rulings/index.html', log: 'public/rulings/compile.log', categories: '', writeCardIndex: cardIndexPath },
+  { label: 'objectives', out: 'public/rulings/objectives.html', log: 'public/rulings/objectives.log', categories: 'objectives', objectiveTypes: 'assault,defense,navigation,skirmish', loadCardIndex: cardIndexPath },
+  { label: 'campaign', out: 'public/rulings/campaign.html', log: 'public/rulings/campaign.log', categories: 'objectives', objectiveTypes: 'campaign', loadCardIndex: cardIndexPath },
+  { label: 'damage-cards', out: 'public/rulings/damage-cards.html', log: 'public/rulings/damage-cards.log', categories: 'damage-cards', loadCardIndex: cardIndexPath },
+  { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades', splitUpgradesDir: 'public/rulings/upgrades', loadCardIndex: cardIndexPath },
+  { label: 'squadrons', out: 'public/rulings/squadrons.html', log: 'public/rulings/squadrons.log', categories: 'ace-squadrons', loadCardIndex: cardIndexPath },
+  { label: 'nexus-upgrades', out: 'public/rulings/nexus-upgrades.html', log: 'public/rulings/nexus-upgrades.log', categories: 'upgrades', nexusOnly: true, loadCardIndex: cardIndexPath },
+  { label: 'nexus-squadrons', out: 'public/rulings/nexus-squadrons.html', log: 'public/rulings/nexus-squadrons.log', categories: 'ace-squadrons', nexusOnly: true, loadCardIndex: cardIndexPath },
 ];
 
 for (const job of jobs) {
@@ -105,6 +107,8 @@ async function runGenerator(job) {
   if (job.objectiveTypes) args.push(`--include-objective-types=${job.objectiveTypes}`);
   if (job.nexusOnly) args.push('--nexus-only');
   if (job.splitUpgradesDir) args.push(`--split-upgrades-dir=${job.splitUpgradesDir}`);
+  if (job.writeCardIndex) args.push(`--write-card-index=${job.writeCardIndex}`);
+  if (job.loadCardIndex) args.push(`--load-card-index=${job.loadCardIndex}`);
 
   await new Promise((resolve, reject) => {
     const child = spawn(cmd, args, { stdio: 'inherit' });

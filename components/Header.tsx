@@ -58,14 +58,14 @@ export function Header({ onSearchClick }: HeaderProps) {
           <div className="flex items-center gap-6">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 font-semibold text-sm">
-              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-primary via-faction-separatist to-faction-rebel flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-primary/25">
+              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-[hsl(224,59%,35%)] to-[hsl(224,59%,25%)] dark:from-[hsl(285,70%,65%)] dark:to-[hsl(270,50%,40%)] flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-primary/25">
                 SW
               </div>
-              <span className="hidden sm:inline text-sm tracking-[0.14em] uppercase">Armada Wiki</span>
+              <span className="hidden sm:inline font-heading text-sm tracking-[0.14em] uppercase">Armada Wiki</span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-1 rounded-full border border-border/70 bg-card/50 px-2 py-1">
+            <nav className="hidden md:flex items-center gap-1 rounded-full border border-border/70 bg-card/60 dark:bg-[hsl(270,12%,12%)]/60 px-2 py-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (

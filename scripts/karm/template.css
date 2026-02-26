@@ -580,6 +580,8 @@ body.search-open .search-drawer {
   width: 0.85em;
   height: 0.85em;
   vertical-align: middle;
+  position: relative;
+  top: -2px;
 }
 
 .faction-icon-nr svg {

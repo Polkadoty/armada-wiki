@@ -10,6 +10,11 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			body: ['Optima', 'Segoe UI', 'sans-serif'],
+  			heading: ['TeutonFett', 'sans-serif'],
+  			display: ['RevengerLiteBB', 'Impact', 'sans-serif'],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
