@@ -34,6 +34,7 @@ let NR_LOGO_SVG = '';
 let CARD_LINK_REGISTRY = new Map();  // lowercase name → [{anchorId, displayName}]
 let CARD_LINK_REGEX = null;          // compiled regex, longest-first
 let CURRENT_RENDER_CARD = null;      // card being rendered (skip self-links)
+let CURRENT_WEB_MODE = false;
 
 const FACTION_TAG_RE = /\s*\{([^}]+)\}/g;
 const FACTION_TAG_MAP = {
@@ -194,8 +195,10 @@ async function main() {
   if (compileLogArg) {
     config.compileLog = compileLogArg.split('=')[1];
   }
+  CURRENT_WEB_MODE = isWebOutput(config);
   ICON_FONT_ENABLED = Boolean(String(config.fonts?.iconFont || '').trim());
   const iconMap = await loadIconMap(config.iconsMapSource, config.iconsMapSourceExternal);
+  const arcPointsOnlyNames = await loadArcPointsOnlyList(config);
 
   try {
     const nrSvgPath = path.resolve(__dirname, 'assets', 'nr-logo.svg');
@@ -210,7 +213,7 @@ async function main() {
   } catch { /* NR SVG not available */ }
 
   const data = await fetchAllData(config);
-  const buildResult = buildCards(data, config, iconMap);
+  const buildResult = buildCards(data, config, iconMap, arcPointsOnlyNames);
   let cards = buildResult.cards;
   if (cards.length === 0) {
     log('No qualifying cards were found from live APIs. Emitting a placeholder page.');
@@ -472,7 +475,7 @@ function normalizeCandidateCollection(value) {
   return [];
 }
 
-function buildCards(data, config, iconMap) {
+function buildCards(data, config, iconMap, arcPointsOnlyNames) {
   const cards = [];
   const logLines = [];
 
@@ -541,6 +544,10 @@ function buildCards(data, config, iconMap) {
         cards.splice(i, 1);
       }
     }
+  }
+
+  if (arcPointsOnlyNames && arcPointsOnlyNames.size > 0) {
+    mergeArcPointsOnlyCards(cards, arcPointsOnlyNames, logLines);
   }
 
   const deduped = dedupeCards(cards);
@@ -1244,6 +1251,38 @@ async function renderHtml({ pages, cards, config }) {
 </script>`
     : '';
 
+  const arcToggleScript = webMode
+    ? `<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.arc-points-toggle');
+    if (!btn) return;
+    var cardId = btn.getAttribute('data-card-id');
+    if (!cardId) return;
+    var article = document.getElementById(cardId);
+    if (!article) return;
+    var img = article.querySelector('img.card-image[data-arc-image]');
+    if (!img) return;
+    var baseImage = img.getAttribute('data-base-image');
+    var arcImage = img.getAttribute('data-arc-image');
+    if (!baseImage || !arcImage) return;
+    var isArc = btn.classList.contains('arc-active');
+    if (isArc) {
+      img.src = baseImage;
+      btn.classList.remove('arc-active');
+      btn.setAttribute('title', 'Toggle ARC points image');
+      btn.setAttribute('aria-label', 'Toggle ARC points image');
+    } else {
+      img.src = arcImage;
+      btn.classList.add('arc-active');
+      btn.setAttribute('title', 'Showing ARC points — click to revert');
+      btn.setAttribute('aria-label', 'Showing ARC points — click to revert');
+    }
+  });
+})();
+</script>`
+    : '';
+
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -1266,6 +1305,7 @@ async function renderHtml({ pages, cards, config }) {
     </div>
     ${scaleScript}
     ${filterScript}
+    ${arcToggleScript}
     <!-- Generated cards: ${cards.length} -->
   </body>
 </html>`;
@@ -1474,9 +1514,16 @@ function renderCard(card) {
     ? `${keywordHtml}${topSummary}`
     : `${topSummary}${keywordHtml}`;
 
+  const hasArcToggle = card.arcImage && CURRENT_WEB_MODE;
   const imageHtml = card.image
-    ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
+    ? hasArcToggle
+      ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" data-base-image="${escapeAttribute(card.image)}" data-arc-image="${escapeAttribute(card.arcImage)}" />`
+      : `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
     : `<div class="card-image fallback">No image</div>`;
+
+  const arcToggleHtml = hasArcToggle
+    ? ` <button class="arc-points-toggle" data-card-id="${escapeAttribute(card.anchorId || '')}" title="Toggle ARC points image" aria-label="Toggle ARC points image">ARC</button>`
+    : '';
 
   const factionAttr = (card.factions || []).join(',');
   const typeAttr = card.upgradeType || card.type || '';
@@ -1486,7 +1533,7 @@ function renderCard(card) {
   <div class="card-top">
     <div class="card-image-wrap">${imageHtml}</div>
     <div class="card-main">
-      <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}</h2>
+      <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}${arcToggleHtml}</h2>
       ${topBody}
     </div>
   </div>
@@ -1924,6 +1971,81 @@ async function generateSplitUpgradeFiles(allCards, config, iconMap, splitDir) {
 function isWebOutput(config) {
   const outputHtml = String(config?.outputHtml || '');
   return outputHtml === 'public/rulings/index.html' || outputHtml.startsWith('public/');
+}
+
+async function loadArcPointsOnlyList(config) {
+  const listPath = path.resolve(repoRoot, config.arcPointsOnlyList || 'scripts/karm/arc-points-only.json');
+  try {
+    await access(listPath);
+    const raw = await readFile(listPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    const names = new Set();
+    if (Array.isArray(parsed.cards)) {
+      for (const name of parsed.cards) {
+        if (typeof name === 'string' && name.trim()) {
+          names.add(name.trim().toLowerCase());
+        }
+      }
+    }
+    if (names.size > 0 && verbose) {
+      log(`Loaded ${names.size} ARC points-only card name(s)`);
+    }
+    return names;
+  } catch {
+    if (verbose) log('arc-points-only.json not found or invalid, feature disabled.');
+    return new Set();
+  }
+}
+
+function mergeArcPointsOnlyCards(cards, arcPointsOnlyNames, logLines) {
+  if (arcPointsOnlyNames.size === 0) return;
+
+  const CATEGORY_FAMILIES = {
+    upgrades: 'upgrades',
+    'nexus-upgrades': 'upgrades',
+    'ace-squadrons': 'squadrons',
+    'nexus-ace-squadrons': 'squadrons',
+  };
+
+  for (const whitelistedName of arcPointsOnlyNames) {
+    // Group candidates by category family
+    const byFamily = new Map();
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+      if (card.name.toLowerCase() !== whitelistedName) continue;
+      const family = CATEGORY_FAMILIES[card.category];
+      if (!family) continue;
+      if (!byFamily.has(family)) byFamily.set(family, []);
+      byFamily.get(family).push({ card, index: i });
+    }
+
+    for (const [family, entries] of byFamily) {
+      const arcEntries = entries.filter((e) => e.card.source === 'arc');
+      const baseEntries = entries.filter((e) => e.card.source !== 'arc');
+
+      if (arcEntries.length === 0 && baseEntries.length > 0) {
+        logLines.push(`[arc-merge] skip "${whitelistedName}" (${family}): no ARC card found, base only`);
+        continue;
+      }
+
+      if (arcEntries.length > 0 && baseEntries.length === 0) {
+        logLines.push(`[arc-merge] warn "${whitelistedName}" (${family}): ARC card exists but no base card, keeping as standalone`);
+        continue;
+      }
+
+      // Merge: copy ARC image to base card, remove ARC card
+      const baseCard = baseEntries[0].card;
+      const arcCard = arcEntries[0].card;
+      baseCard.arcImage = arcCard.image;
+      logLines.push(`[arc-merge] merged "${whitelistedName}" (${family}): ARC image attached to base card`);
+
+      // Remove ARC entries from cards array (iterate backwards to preserve indices)
+      const indicesToRemove = arcEntries.map((e) => e.index).sort((a, b) => b - a);
+      for (const idx of indicesToRemove) {
+        cards.splice(idx, 1);
+      }
+    }
+  }
 }
 
 function withAssetVersion(url, config) {

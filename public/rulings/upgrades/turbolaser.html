@@ -740,6 +740,28 @@ body.search-open .search-drawer {
   font-style: italic;
 }
 
+/* ── ARC points-only toggle ── */
+
+.arc-points-toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid rgba(36, 64, 143, 0.4);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--accent);
+  font-family: "AeroMaticsDisplay", "RevengerLite", sans-serif;
+  font-size: 0.38em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px 2px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background 120ms, color 120ms;
+}
+.arc-points-toggle:hover { background: rgba(36, 64, 143, 0.08); }
+.arc-points-toggle.arc-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -860,6 +882,8 @@ body.karm-web .karm-header-card {
   padding: 24px 0;
 }
 
+body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
+
 body.karm-web .card-divider {
   border: none;
   border-top: 1px solid rgba(36, 64, 143, 0.2);
@@ -951,6 +975,8 @@ body.karm-web .card-divider {
 }
 
 @media print {
+  .arc-points-toggle { display: none !important; }
+
   .toc-fab,
   .toc-drawer,
   .search-fab,
@@ -1655,6 +1681,35 @@ body.karm-web .card-divider {
     if (e.key === 'Escape') {
       searchInput.value = '';
       applyFilters();
+    }
+  });
+})();
+</script>
+    <script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.arc-points-toggle');
+    if (!btn) return;
+    var cardId = btn.getAttribute('data-card-id');
+    if (!cardId) return;
+    var article = document.getElementById(cardId);
+    if (!article) return;
+    var img = article.querySelector('img.card-image[data-arc-image]');
+    if (!img) return;
+    var baseImage = img.getAttribute('data-base-image');
+    var arcImage = img.getAttribute('data-arc-image');
+    if (!baseImage || !arcImage) return;
+    var isArc = btn.classList.contains('arc-active');
+    if (isArc) {
+      img.src = baseImage;
+      btn.classList.remove('arc-active');
+      btn.setAttribute('title', 'Toggle ARC points image');
+      btn.setAttribute('aria-label', 'Toggle ARC points image');
+    } else {
+      img.src = arcImage;
+      btn.classList.add('arc-active');
+      btn.setAttribute('title', 'Showing ARC points — click to revert');
+      btn.setAttribute('aria-label', 'Showing ARC points — click to revert');
     }
   });
 })();
