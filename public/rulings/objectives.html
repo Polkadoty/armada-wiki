@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,7 +1052,7 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card" id="advanced-gunnery-1" data-name="advanced gunnery" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="advanced-gunnery-objective" data-name="advanced gunnery" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/advanced-gunnery.webp" alt="Advanced Gunnery" /></div>
     <div class="card-main">
@@ -1049,7 +1070,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="blockade-run-2" data-name="blockade run" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="blockade-run-objective" data-name="blockade run" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/blockade-run.webp" alt="Blockade Run" /></div>
     <div class="card-main">
@@ -1067,7 +1088,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="close-range-intel-scan-3" data-name="close-range intel scan" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="close-range-intel-scan-objective" data-name="close-range intel scan" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/close-range-intel-scan.webp" alt="Close-Range Intel Scan" /></div>
     <div class="card-main">
@@ -1085,7 +1106,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ion-storm-4" data-name="ion storm" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="ion-storm-objective" data-name="ion storm" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-storm.webp" alt="Ion Storm" /></div>
     <div class="card-main">
@@ -1103,7 +1124,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="marked-for-destruction-5" data-name="marked for destruction" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="marked-for-destruction-objective" data-name="marked for destruction" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/marked-for-destruction.webp" alt="Marked for Destruction" /></div>
     <div class="card-main">
@@ -1121,7 +1142,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="most-wanted-6" data-name="most wanted" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="most-wanted-objective" data-name="most wanted" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/most-wanted.webp" alt="Most Wanted" /></div>
     <div class="card-main">
@@ -1139,7 +1160,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="opening-salvo-7" data-name="opening salvo" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="opening-salvo-objective" data-name="opening salvo" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/opening-salvo.webp" alt="Opening Salvo" /></div>
     <div class="card-main">
@@ -1157,7 +1178,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="precision-strike-8" data-name="precision strike" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="precision-strike-objective" data-name="precision strike" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/precision-strike.webp" alt="Precision Strike" /></div>
     <div class="card-main">
@@ -1175,7 +1196,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="rift-assault-9" data-name="rift assault" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="rift-assault-objective" data-name="rift assault" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rift-assault.webp" alt="Rift Assault" /></div>
     <div class="card-main">
@@ -1193,7 +1214,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="station-assault-10" data-name="station assault" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="station-assault-objective" data-name="station assault" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/station-assault.webp" alt="Station Assault" /></div>
     <div class="card-main">
@@ -1211,7 +1232,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="surprise-attack-11" data-name="surprise attack" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="surprise-attack-objective" data-name="surprise attack" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/surprise-attack.webp" alt="Surprise Attack" /></div>
     <div class="card-main">
@@ -1229,7 +1250,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="targeting-beacons-12" data-name="targeting beacons" data-factions="neutral" data-category="objectives" data-type="assault">
+<article class="karm-card" id="targeting-beacons-objective" data-name="targeting beacons" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/targeting-beacons.webp" alt="Targeting Beacons" /></div>
     <div class="card-main">
@@ -1247,7 +1268,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="abandoned-mining-facility-13" data-name="abandoned mining facility" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="abandoned-mining-facility-objective" data-name="abandoned mining facility" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/abandoned-mining-facility.webp" alt="Abandoned Mining Facility" /></div>
     <div class="card-main">
@@ -1265,7 +1286,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="asteroid-tactics-14" data-name="asteroid tactics" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="asteroid-tactics-objective" data-name="asteroid tactics" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/asteroid-tactics.webp" alt="Asteroid Tactics" /></div>
     <div class="card-main">
@@ -1283,7 +1304,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="capture-the-vip-15" data-name="capture the vip" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="capture-the-vip-objective" data-name="capture the vip" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/capture-the-vip.webp" alt="Capture the VIP" /></div>
     <div class="card-main">
@@ -1301,7 +1322,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="contested-outpost-16" data-name="contested outpost" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="contested-outpost-objective" data-name="contested outpost" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/contested-outpost.webp" alt="Contested Outpost" /></div>
     <div class="card-main">
@@ -1319,7 +1340,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="fighter-ambush-17" data-name="fighter ambush" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="fighter-ambush-objective" data-name="fighter ambush" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fighter-ambush.webp" alt="Fighter Ambush" /></div>
     <div class="card-main">
@@ -1337,7 +1358,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="fire-lanes-18" data-name="fire lanes" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="fire-lanes-objective" data-name="fire lanes" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fire-lanes.webp" alt="Fire Lanes" /></div>
     <div class="card-main">
@@ -1355,7 +1376,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="fleet-ambush-19" data-name="fleet ambush" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="fleet-ambush-objective" data-name="fleet ambush" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fleet-ambush.webp" alt="Fleet Ambush" /></div>
     <div class="card-main">
@@ -1373,7 +1394,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="fleet-in-being-20" data-name="fleet in being" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="fleet-in-being-objective" data-name="fleet in being" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fleet-in-being.webp" alt="Fleet in Being" /></div>
     <div class="card-main">
@@ -1391,7 +1412,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hyperspace-assault-21" data-name="hyperspace assault" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="hyperspace-assault-objective" data-name="hyperspace assault" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-assault.webp" alt="Hyperspace Assault" /></div>
     <div class="card-main">
@@ -1409,7 +1430,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jamming-barrier-22" data-name="jamming barrier" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="jamming-barrier-objective" data-name="jamming barrier" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jamming-barrier.webp" alt="Jamming Barrier" /></div>
     <div class="card-main">
@@ -1427,7 +1448,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="planetary-ion-cannon-23" data-name="planetary ion cannon" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="planetary-ion-cannon-objective" data-name="planetary ion cannon" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/planetary-ion-cannon.webp" alt="Planetary Ion Cannon" /></div>
     <div class="card-main">
@@ -1445,7 +1466,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="rift-ambush-24" data-name="rift ambush" data-factions="neutral" data-category="objectives" data-type="defense">
+<article class="karm-card" id="rift-ambush-objective" data-name="rift ambush" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rift-ambush.webp" alt="Rift Ambush" /></div>
     <div class="card-main">
@@ -1463,7 +1484,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dangerous-territory-25" data-name="dangerous territory" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="dangerous-territory-objective" data-name="dangerous territory" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dangerous-territory.webp" alt="Dangerous Territory" /></div>
     <div class="card-main">
@@ -1481,7 +1502,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="doomed-station-26" data-name="doomed station" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="doomed-station-objective" data-name="doomed station" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/doomed-station.webp" alt="Doomed Station" /></div>
     <div class="card-main">
@@ -1499,7 +1520,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hyperspace-migration-27" data-name="hyperspace migration" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="hyperspace-migration-objective" data-name="hyperspace migration" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-migration.webp" alt="Hyperspace Migration" /></div>
     <div class="card-main">
@@ -1517,7 +1538,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="infested-fields-28" data-name="infested fields" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="infested-fields-objective" data-name="infested fields" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/infested-fields.webp" alt="Infested Fields" /></div>
     <div class="card-main">
@@ -1535,7 +1556,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="intel-sweep-29" data-name="intel sweep" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="intel-sweep-objective" data-name="intel sweep" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intel-sweep.webp" alt="Intel Sweep" /></div>
     <div class="card-main">
@@ -1553,7 +1574,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="minefields-30" data-name="minefields" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="minefields-objective" data-name="minefields" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/minefields.webp" alt="Minefields" /></div>
     <div class="card-main">
@@ -1571,7 +1592,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="navigational-hazards-31" data-name="navigational hazards" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="navigational-hazards-objective" data-name="navigational hazards" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/navigational-hazards.webp" alt="Navigational Hazards" /></div>
     <div class="card-main">
@@ -1589,7 +1610,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="salvage-run-32" data-name="salvage run" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="salvage-run-objective" data-name="salvage run" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/salvage-run.webp" alt="Salvage Run" /></div>
     <div class="card-main">
@@ -1607,7 +1628,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="sensor-net-33" data-name="sensor net" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="sensor-net-objective" data-name="sensor net" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sensor-net.webp" alt="Sensor Net" /></div>
     <div class="card-main">
@@ -1625,7 +1646,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="solar-corona-34" data-name="solar corona" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="solar-corona-objective" data-name="solar corona" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/solar-corona.webp" alt="Solar Corona" /></div>
     <div class="card-main">
@@ -1643,7 +1664,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="superior-positions-35" data-name="superior positions" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="superior-positions-objective" data-name="superior positions" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/superior-positions.webp" alt="Superior Positions" /></div>
     <div class="card-main">
@@ -1661,7 +1682,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="volatile-deposits-36" data-name="volatile deposits" data-factions="neutral" data-category="objectives" data-type="navigation">
+<article class="karm-card" id="volatile-deposits-objective" data-name="volatile deposits" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/volatile-deposits.webp" alt="Volatile Deposits" /></div>
     <div class="card-main">
@@ -1679,7 +1700,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="chance-encounter-37" data-name="chance encounter" data-factions="neutral" data-category="objectives" data-type="skirmish">
+<article class="karm-card" id="chance-encounter-objective" data-name="chance encounter" data-factions="neutral" data-category="objectives" data-type="skirmish">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/chance-encounter-fighter-group.webp" alt="Chance Encounter" /></div>
     <div class="card-main">
@@ -1697,7 +1718,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="distress-call-38" data-name="distress call" data-factions="neutral" data-category="objectives" data-type="skirmish">
+<article class="karm-card" id="distress-call-objective" data-name="distress call" data-factions="neutral" data-category="objectives" data-type="skirmish">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/distress-call-fighter-group.webp" alt="Distress Call" /></div>
     <div class="card-main">
@@ -1715,7 +1736,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="prospector-s-gambit-39" data-name="prospector&#39;s gambit" data-factions="neutral" data-category="objectives" data-type="skirmish">
+<article class="karm-card" id="prospector-s-gambit-objective" data-name="prospector&#39;s gambit" data-factions="neutral" data-category="objectives" data-type="skirmish">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/prospectors-gambit-fighter-group.webp" alt="Prospector&#39;s Gambit" /></div>
     <div class="card-main">
@@ -1733,7 +1754,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="supply-convoy-40" data-name="supply convoy" data-factions="neutral" data-category="objectives" data-type="skirmish">
+<article class="karm-card" id="supply-convoy-objective" data-name="supply convoy" data-factions="neutral" data-category="objectives" data-type="skirmish">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/supply-convoy-fighter-group.webp" alt="Supply Convoy" /></div>
     <div class="card-main">

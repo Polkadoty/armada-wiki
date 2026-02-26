@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="ion-cannon-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-ion-cannon" data-category="header">
   <div class="section-header-title">Ion Cannon <span class="icon-font">E</span></div>
 </article>
 
-<article class="karm-card" id="heavy-ion-emplacements-2" data-name="heavy ion emplacements" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="heavy-ion-emplacements-ion-cannon" data-name="heavy ion emplacements" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/heavy-ion-emplacements.webp" alt="Heavy Ion Emplacements" /></div>
     <div class="card-main">
@@ -1065,7 +1086,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="high-capacity-ion-turbines-3" data-name="high-capacity ion turbines" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="high-capacity-ion-turbines-ion-cannon" data-name="high-capacity ion turbines" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/high-capacity-ion-turbines.webp" alt="High-Capacity Ion Turbines" /></div>
     <div class="card-main">
@@ -1095,7 +1116,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ion-cannon-batteries-4" data-name="ion cannon batteries" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="ion-cannon-batteries-ion-cannon" data-name="ion cannon batteries" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-cannon-batteries.webp" alt="Ion Cannon Batteries" /></div>
     <div class="card-main">
@@ -1125,7 +1146,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="leading-shots-5" data-name="leading shots" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="leading-shots-ion-cannon" data-name="leading shots" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leading-shots.webp" alt="Leading Shots" /></div>
     <div class="card-main">
@@ -1150,7 +1171,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ms-1-ion-cannons-6" data-name="ms-1 ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="ms-1-ion-cannons-ion-cannon" data-name="ms-1 ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ms-1-ion-cannons.webp" alt="MS-1 Ion Cannons" /></div>
     <div class="card-main">
@@ -1175,7 +1196,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="nk-7-ion-cannons-7" data-name="nk-7 ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="nk-7-ion-cannons-ion-cannon" data-name="nk-7 ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nk-7-ion-cannons.webp" alt="NK-7 Ion Cannons" /></div>
     <div class="card-main">
@@ -1205,7 +1226,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="overload-pulse-8" data-name="overload pulse" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="overload-pulse-ion-cannon" data-name="overload pulse" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/overload-pulse.webp" alt="Overload Pulse" /></div>
     <div class="card-main">
@@ -1230,7 +1251,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="point-defense-ion-cannons-9" data-name="point defense ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="point-defense-ion-cannons-ion-cannon" data-name="point defense ion cannons" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/point-defense-ion-cannons.webp" alt="Point Defense Ion Cannons" /></div>
     <div class="card-main">
@@ -1251,7 +1272,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="sw-7-ion-batteries-10" data-name="sw-7 ion batteries" data-factions="" data-category="upgrades" data-type="ion-cannon">
+<article class="karm-card" id="sw-7-ion-batteries-ion-cannon" data-name="sw-7 ion batteries" data-factions="" data-category="upgrades" data-type="ion-cannon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sw-7-ion-batteries.webp" alt="SW-7 Ion Batteries" /></div>
     <div class="card-main">

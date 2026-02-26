@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="defensive-retro-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-defensive-retro" data-category="header">
   <div class="section-header-title">Defensive Retro <span class="icon-font">H</span></div>
 </article>
 
-<article class="karm-card" id="advanced-projectors-2" data-name="advanced projectors" data-factions="" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="advanced-projectors-defensive-retro" data-name="advanced projectors" data-factions="" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/advanced-projectors.webp" alt="Advanced Projectors" /></div>
     <div class="card-main">
@@ -1065,7 +1086,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="cluster-bombs-3" data-name="cluster bombs" data-factions="" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="cluster-bombs-defensive-retro" data-name="cluster bombs" data-factions="" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/cluster-bombs.webp" alt="Cluster Bombs" /></div>
     <div class="card-main">
@@ -1090,7 +1111,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="early-warning-system-4" data-name="early warning system" data-factions="" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="early-warning-system-defensive-retro" data-name="early warning system" data-factions="" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/early-warning-system.webp" alt="Early Warning System" /></div>
     <div class="card-main">
@@ -1120,7 +1141,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="electronic-countermeasures-5" data-name="electronic countermeasures" data-factions="" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="electronic-countermeasures-defensive-retro" data-name="electronic countermeasures" data-factions="" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/electronic-countermeasures.webp" alt="Electronic Countermeasures" /></div>
     <div class="card-main">
@@ -1150,7 +1171,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="reactive-gunnery-6" data-name="reactive gunnery" data-factions="" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="reactive-gunnery-defensive-retro" data-name="reactive gunnery" data-factions="" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/reactive-gunnery.webp" alt="Reactive Gunnery" /></div>
     <div class="card-main">
@@ -1180,7 +1201,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="redundant-shields-7" data-name="redundant shields" data-factions="" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="redundant-shields-defensive-retro" data-name="redundant shields" data-factions="" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/redundant-shields.webp" alt="Redundant Shields" /></div>
     <div class="card-main">
@@ -1205,7 +1226,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="reinforced-blast-doors-8" data-name="reinforced blast doors" data-factions="" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="reinforced-blast-doors-defensive-retro" data-name="reinforced blast doors" data-factions="" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/reinforced-blast-doors.webp" alt="Reinforced Blast Doors" /></div>
     <div class="card-main">
@@ -1230,7 +1251,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="thermal-shields-9" data-name="thermal shields" data-factions="republic,separatist" data-category="upgrades" data-type="defensive-retro">
+<article class="karm-card" id="thermal-shields-defensive-retro" data-name="thermal shields" data-factions="republic,separatist" data-category="upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/thermal-shields.webp" alt="Thermal Shields" /></div>
     <div class="card-main">
@@ -1265,15 +1286,15 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-10" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="defensive-retro-11" data-category="header">
+<article class="karm-card karm-header-card" id="header-defensive-retro-2" data-category="header">
   <div class="section-header-title">Defensive Retro <span class="icon-font">H</span></div>
 </article>
 
-<article class="karm-card" id="smuggler-s-cache-12" data-name="smuggler&#39;s cache" data-factions="scum" data-category="nexus-upgrades" data-type="defensive-retro">
+<article class="karm-card" id="smuggler-s-cache-defensive-retro" data-name="smuggler&#39;s cache" data-factions="scum" data-category="nexus-upgrades" data-type="defensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/smugglers-cache-scum-nexus.webp" alt="Smuggler&#39;s Cache" /></div>
     <div class="card-main">

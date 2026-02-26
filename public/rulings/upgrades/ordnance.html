@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="ordnance-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-ordnance" data-category="header">
   <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
 </article>
 
-<article class="karm-card" id="assault-concussion-missiles-2" data-name="assault concussion missiles" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="assault-concussion-missiles-ordnance" data-name="assault concussion missiles" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/assault-concussion-missiles.webp" alt="Assault Concussion Missiles" /></div>
     <div class="card-main">
@@ -1065,7 +1086,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="assault-proton-torpedoes-3" data-name="assault proton torpedoes" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="assault-proton-torpedoes-ordnance" data-name="assault proton torpedoes" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/assault-proton-torpedoes.webp" alt="Assault Proton Torpedoes" /></div>
     <div class="card-main">
@@ -1095,7 +1116,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="expanded-launchers-4" data-name="expanded launchers" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="expanded-launchers-ordnance" data-name="expanded launchers" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/expanded-launchers.webp" alt="Expanded Launchers" /></div>
     <div class="card-main">
@@ -1120,7 +1141,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="external-racks-5" data-name="external racks" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="external-racks-ordnance" data-name="external racks" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/external-racks.webp" alt="External Racks" /></div>
     <div class="card-main">
@@ -1145,7 +1166,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="flechette-torpedoes-6" data-name="flechette torpedoes" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="flechette-torpedoes-ordnance" data-name="flechette torpedoes" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/flechette-torpedoes.webp" alt="Flechette Torpedoes" /></div>
     <div class="card-main">
@@ -1175,7 +1196,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ordnance-pods-7" data-name="ordnance pods" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="ordnance-pods-ordnance" data-name="ordnance pods" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ordnance-pods.webp" alt="Ordnance Pods" /></div>
     <div class="card-main">
@@ -1205,7 +1226,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="rapid-reload-8" data-name="rapid reload" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="rapid-reload-ordnance" data-name="rapid reload" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rapid-reload.webp" alt="Rapid Reload" /></div>
     <div class="card-main">
@@ -1230,7 +1251,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="wide-area-barrage-9" data-name="wide-area barrage" data-factions="" data-category="upgrades" data-type="ordnance">
+<article class="karm-card" id="wide-area-barrage-ordnance" data-name="wide-area barrage" data-factions="" data-category="upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/wide-area-barrage.webp" alt="Wide-Area Barrage" /></div>
     <div class="card-main">
@@ -1260,15 +1281,15 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-10" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="ordnance-11" data-category="header">
+<article class="karm-card karm-header-card" id="header-ordnance-2" data-category="header">
   <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
 </article>
 
-<article class="karm-card" id="counter-battery-retrofit-12" data-name="counter-battery retrofit" data-factions="new-republic" data-category="nexus-upgrades" data-type="ordnance">
+<article class="karm-card" id="counter-battery-retrofit-ordnance" data-name="counter-battery retrofit" data-factions="new-republic" data-category="nexus-upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/counter-battery-retrofit-new-republic-nexus.webp" alt="Counter-battery Retrofit" /></div>
     <div class="card-main">
@@ -1285,7 +1306,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="super-heavy-concussion-missiles-13" data-name="super-heavy concussion missiles" data-factions="scum" data-category="nexus-upgrades" data-type="ordnance">
+<article class="karm-card" id="super-heavy-concussion-missiles-ordnance" data-name="super-heavy concussion missiles" data-factions="scum" data-category="nexus-upgrades" data-type="ordnance">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/super-heavy-concussion-missiles-scum-nexus.webp" alt="Super-Heavy Concussion Missiles" /></div>
     <div class="card-main">

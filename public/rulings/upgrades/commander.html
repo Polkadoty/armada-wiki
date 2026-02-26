@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="commander-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-commander" data-category="header">
   <div class="section-header-title">Commander <span class="icon-font">B</span></div>
 </article>
 
-<article class="karm-card" id="admiral-konstantine-2" data-name="admiral konstantine" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-konstantine-commander" data-name="admiral konstantine" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-konstantine-commander.webp" alt="Admiral Konstantine" /></div>
     <div class="card-main">
@@ -1070,7 +1091,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-motti-3" data-name="admiral motti" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-motti-commander" data-name="admiral motti" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-motti-commander.webp" alt="Admiral Motti" /></div>
     <div class="card-main">
@@ -1100,7 +1121,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-motti-4" data-name="admiral motti" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-motti-commander-2" data-name="admiral motti" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-motti-commander-errata-arc.webp" alt="Admiral Motti" /></div>
     <div class="card-main">
@@ -1117,7 +1138,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-ozzel-5" data-name="admiral ozzel" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-ozzel-commander" data-name="admiral ozzel" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-ozzel-commander.webp" alt="Admiral Ozzel" /></div>
     <div class="card-main">
@@ -1142,7 +1163,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-piett-6" data-name="admiral piett" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-piett-commander" data-name="admiral piett" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-piett-commander.webp" alt="Admiral Piett" /></div>
     <div class="card-main">
@@ -1172,7 +1193,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-screed-7" data-name="admiral screed" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-screed-commander" data-name="admiral screed" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-screed-commander.webp" alt="Admiral Screed" /></div>
     <div class="card-main">
@@ -1197,7 +1218,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-screed-8" data-name="admiral screed" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-screed-commander-2" data-name="admiral screed" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-screed-commander-errata-arc.webp" alt="Admiral Screed" /></div>
     <div class="card-main">
@@ -1214,7 +1235,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-sloane-9" data-name="admiral sloane" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-sloane-commander" data-name="admiral sloane" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-sloane-commander.webp" alt="Admiral Sloane" /></div>
     <div class="card-main">
@@ -1244,7 +1265,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="darth-vader-10" data-name="darth vader" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="darth-vader-commander" data-name="darth vader" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-vader-commander.webp" alt="Darth Vader" /></div>
     <div class="card-main">
@@ -1274,7 +1295,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="darth-vader-11" data-name="darth vader" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="darth-vader-commander-2" data-name="darth vader" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-vader-commander-errata-arc.webp" alt="Darth Vader" /></div>
     <div class="card-main">
@@ -1291,7 +1312,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="emperor-palpatine-12" data-name="emperor palpatine" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="emperor-palpatine-commander" data-name="emperor palpatine" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/emperor-palpatine-commander.webp" alt="Emperor Palpatine" /></div>
     <div class="card-main">
@@ -1321,7 +1342,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="emperor-palpatine-13" data-name="emperor palpatine" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="emperor-palpatine-commander-2" data-name="emperor palpatine" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/emperor-palpatine-commander-errata-arc.webp" alt="Emperor Palpatine" /></div>
     <div class="card-main">
@@ -1338,7 +1359,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-romodi-14" data-name="general romodi" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-romodi-commander" data-name="general romodi" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-romodi-commander.webp" alt="General Romodi" /></div>
     <div class="card-main">
@@ -1373,7 +1394,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-tagge-15" data-name="general tagge" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-tagge-commander" data-name="general tagge" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-tagge-commander.webp" alt="General Tagge" /></div>
     <div class="card-main">
@@ -1403,7 +1424,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="grand-admiral-thrawn-16" data-name="grand admiral thrawn" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="grand-admiral-thrawn-commander" data-name="grand admiral thrawn" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/grand-admiral-thrawn-commander.webp" alt="Grand Admiral Thrawn" /></div>
     <div class="card-main">
@@ -1438,7 +1459,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="grand-moff-tarkin-17" data-name="grand moff tarkin" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="grand-moff-tarkin-commander" data-name="grand moff tarkin" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/grand-moff-tarkin-commander.webp" alt="Grand Moff Tarkin" /></div>
     <div class="card-main">
@@ -1463,7 +1484,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="moff-jerjerrod-18" data-name="moff jerjerrod" data-factions="empire" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="moff-jerjerrod-commander" data-name="moff jerjerrod" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/moff-jerjerrod-commander.webp" alt="Moff Jerjerrod" /></div>
     <div class="card-main">
@@ -1482,7 +1503,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li>When a ship is determining its course with the maneuver tool, before the maneuver tool is locked in it may suffer 1 damage to any selected hull zone. This changes the first yaw value of the ship&#39;s current speed to &#39;II&#39; until the end of its activation. &#39;Current Speed&#39; refers to the numeric value that is currently displayed on the ship&#39;s speed dial, not the speed of any maneuver granted by another effect, such as Engine Techs or Rift Ambush. <span class="footnote-ref">[1]</span></li><li>If the ship&#39;s &#39;current speed&#39; is speed 1, then Moff Jerjerrod&#39;s effect would last until the end of that ship&#39;s activation and affect movement from Engine Techs, Admiral Ozzel (Officer) or Rift Ambush (see below). <span class="footnote-ref">[1]</span></li><li>When a ship suffers damage from this Upgrade Card&#39;s ability, that damage must be taken on a selected hull zone. That hull zone would suffer damage to shields in that zone first. If no shields are present, then that damage would be taken to the ship&#39;s hull as a facedown damage card. You cannot bypass shields to take a facedown damage card. <span class="footnote-ref">[1]</span></li><li>A first yaw value of &#39;II&#39; does not require you to use both clicks. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card can be used to add a yaw back to a yaw joint after Thrust Control Malfunction reduction if a ships speed dial is set to 1. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>When a ship is determining its course with the maneuver tool, before the maneuver tool is locked in it may suffer 1 damage to any selected hull zone. This changes the first yaw value of the ship&#39;s current speed to &#39;II&#39; until the end of its activation. &#39;Current Speed&#39; refers to the numeric value that is currently displayed on the ship&#39;s speed dial, not the speed of any maneuver granted by another effect, such as Engine Techs or Rift Ambush. <span class="footnote-ref">[1]</span></li><li>If the ship&#39;s &#39;current speed&#39; is speed 1, then Moff Jerjerrod&#39;s effect would last until the end of that ship&#39;s activation and affect movement from Engine Techs, <a class="card-ref" href="#admiral-ozzel-commander"><em>Admiral Ozzel</em></a> (Officer) or Rift Ambush (see below). <span class="footnote-ref">[1]</span></li><li>When a ship suffers damage from this Upgrade Card&#39;s ability, that damage must be taken on a selected hull zone. That hull zone would suffer damage to shields in that zone first. If no shields are present, then that damage would be taken to the ship&#39;s hull as a facedown damage card. You cannot bypass shields to take a facedown damage card. <span class="footnote-ref">[1]</span></li><li>A first yaw value of &#39;II&#39; does not require you to use both clicks. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card can be used to add a yaw back to a yaw joint after Thrust Control Malfunction reduction if a ships speed dial is set to 1. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1498,7 +1519,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-ackbar-19" data-name="admiral ackbar" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-ackbar-commander" data-name="admiral ackbar" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-ackbar-commander.webp" alt="Admiral Ackbar" /></div>
     <div class="card-main">
@@ -1533,7 +1554,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-raddus-20" data-name="admiral raddus" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-raddus-commander" data-name="admiral raddus" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-raddus-commander.webp" alt="Admiral Raddus" /></div>
     <div class="card-main">
@@ -1568,7 +1589,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="commander-sato-21" data-name="commander sato" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="commander-sato-commander" data-name="commander sato" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commander-sato-commander.webp" alt="Commander Sato" /></div>
     <div class="card-main">
@@ -1598,7 +1619,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="commander-sato-22" data-name="commander sato" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="commander-sato-commander-2" data-name="commander sato" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commander-sato-commander-errata-arc.webp" alt="Commander Sato" /></div>
     <div class="card-main">
@@ -1615,7 +1636,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="garm-bel-iblis-23" data-name="garm bel iblis" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="garm-bel-iblis-commander" data-name="garm bel iblis" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/garm-bel-iblis-commander.webp" alt="Garm Bel Iblis" /></div>
     <div class="card-main">
@@ -1645,7 +1666,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-cracken-24" data-name="general cracken" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-cracken-commander" data-name="general cracken" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-cracken-commander.webp" alt="General Cracken" /></div>
     <div class="card-main">
@@ -1669,7 +1690,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>Attacks made by a ship equipped with Jaina&#39;s Light ignore this Upgrade Card&#39;s effect as those attacks cannot be obstructed. <span class="footnote-ref">[1]</span></li><li>If an attacking ship is using General Romodi&#39;s effect, and the defending ship is using this Upgrade Card&#39;s effect, the attack does not benefit from General Romodi&#39;s effect unless line of sight is traced over an obstacle or another ship. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>Attacks made by a ship equipped with Jaina&#39;s Light ignore this Upgrade Card&#39;s effect as those attacks cannot be obstructed. <span class="footnote-ref">[1]</span></li><li>If an attacking ship is using <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>&#39;s effect, and the defending ship is using this Upgrade Card&#39;s effect, the attack does not benefit from <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>&#39;s effect unless line of sight is traced over an obstacle or another ship. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1680,7 +1701,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-dodonna-25" data-name="general dodonna" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-dodonna-commander" data-name="general dodonna" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-dodonna-commander.webp" alt="General Dodonna" /></div>
     <div class="card-main">
@@ -1710,7 +1731,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-draven-26" data-name="general draven" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-draven-commander" data-name="general draven" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-draven-commander.webp" alt="General Draven" /></div>
     <div class="card-main">
@@ -1735,7 +1756,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-draven-27" data-name="general draven" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-draven-commander-2" data-name="general draven" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-draven-commander-errata-arc.webp" alt="General Draven" /></div>
     <div class="card-main">
@@ -1752,7 +1773,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-madine-28" data-name="general madine" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-madine-commander" data-name="general madine" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-madine-commander.webp" alt="General Madine" /></div>
     <div class="card-main">
@@ -1782,7 +1803,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-rieekan-29" data-name="general rieekan" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-rieekan-commander" data-name="general rieekan" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-rieekan-commander.webp" alt="General Rieekan" /></div>
     <div class="card-main">
@@ -1822,7 +1843,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kyrsta-agate-30" data-name="kyrsta agate" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="kyrsta-agate-commander" data-name="kyrsta agate" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyrsta-agate-commander.webp" alt="Kyrsta Agate" /></div>
     <div class="card-main">
@@ -1857,7 +1878,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="leia-organa-31" data-name="leia organa" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="leia-organa-commander" data-name="leia organa" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leia-organa-commander.webp" alt="Leia Organa" /></div>
     <div class="card-main">
@@ -1887,7 +1908,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="leia-organa-32" data-name="leia organa" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="leia-organa-commander-2" data-name="leia organa" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leia-organa-commander-errata-arc.webp" alt="Leia Organa" /></div>
     <div class="card-main">
@@ -1904,7 +1925,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mon-mothma-33" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="mon-mothma-commander" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-mothma-commander.webp" alt="Mon Mothma" /></div>
     <div class="card-main">
@@ -1934,7 +1955,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mon-mothma-34" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="mon-mothma-commander-2" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-mothma-commander-errata-arc.webp" alt="Mon Mothma" /></div>
     <div class="card-main">
@@ -1951,7 +1972,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-coburn-35" data-name="admiral coburn" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-coburn-commander" data-name="admiral coburn" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-coburn-commander-legacy.webp" alt="Admiral Coburn" /></div>
     <div class="card-main">
@@ -1970,13 +1991,13 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li>If a friendly ship does not have any native &#39;-&#39; yaw values in its navigation chart, it cannot resolve this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>If a ship&#39;s yaw effect is reduced by a card effect or damage card during the Determine Course step, this Upgrade Card&#39;s effect cannot be used to increase the yaw value in that timestep. This is different from General Madine, who resolves during the Determine Course step, not before the Determine Course step. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect may apply to any maneuvers executed during a ship&#39;s activation, including a second maneuver, such as one granted by Engine Techs or Rift Assault. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>If a friendly ship does not have any native &#39;-&#39; yaw values in its navigation chart, it cannot resolve this Upgrade Card&#39;s effect. <span class="footnote-ref">[1]</span></li><li>If a ship&#39;s yaw effect is reduced by a card effect or damage card during the Determine Course step, this Upgrade Card&#39;s effect cannot be used to increase the yaw value in that timestep. This is different from <a class="card-ref" href="#general-madine-commander"><em>General Madine</em></a>, who resolves during the Determine Course step, not before the Determine Course step. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card&#39;s effect may apply to any maneuvers executed during a ship&#39;s activation, including a second maneuver, such as one granted by Engine Techs or Rift Assault. <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-tarkin-36" data-name="admiral tarkin" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-tarkin-commander" data-name="admiral tarkin" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-tarkin-commander.webp" alt="Admiral Tarkin" /></div>
     <div class="card-main">
@@ -2006,7 +2027,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-yularen-37" data-name="admiral yularen" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-yularen-commander" data-name="admiral yularen" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-yularen-commander.webp" alt="Admiral Yularen" /></div>
     <div class="card-main">
@@ -2031,7 +2052,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="anakin-skywalker-38" data-name="anakin skywalker" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="anakin-skywalker-commander" data-name="anakin skywalker" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/anakin-skywalker-commander.webp" alt="Anakin Skywalker" /></div>
     <div class="card-main">
@@ -2056,7 +2077,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="bail-organa-39" data-name="bail organa" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="bail-organa-commander" data-name="bail organa" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bail-organa-commander.webp" alt="Bail Organa" /></div>
     <div class="card-main">
@@ -2086,7 +2107,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ki-adi-mundi-40" data-name="ki-adi-mundi" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="ki-adi-mundi-commander" data-name="ki-adi-mundi" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ki-adi-mundi-commander-legacy.webp" alt="Ki-Adi-Mundi" /></div>
     <div class="card-main">
@@ -2131,7 +2152,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="luminara-unduli-41" data-name="luminara unduli" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="luminara-unduli-commander" data-name="luminara unduli" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-commander.webp" alt="Luminara Unduli" /></div>
     <div class="card-main">
@@ -2150,7 +2171,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li>This Upgrade Card can resolve with any defending friendly ship or unique squadron owned by that player, even if the defending ship or unique squadron has no defense tokens. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card effect is able to be resolved if 0 defense tokens are spent by a defending ship or unique squadron. <span class="footnote-ref">[1]</span></li><li>A &#39;readied&#39; defense token which was spent to be &#39;exhausted&#39; by an attacker (for example, using Admiral Sloane&#39;s ability), can be chosen by the defender with this Upgrade Card&#39;s effect to &#39;ready&#39; and return it to its &#39;readied&#39; side. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card may be used in conjunction with Unarmed Stations. They are treated as a ship that spent 0 defense tokens and are friendly to the second player. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>This Upgrade Card can resolve with any defending friendly ship or unique squadron owned by that player, even if the defending ship or unique squadron has no defense tokens. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card effect is able to be resolved if 0 defense tokens are spent by a defending ship or unique squadron. <span class="footnote-ref">[1]</span></li><li>A &#39;readied&#39; defense token which was spent to be &#39;exhausted&#39; by an attacker (for example, using <a class="card-ref" href="#admiral-sloane-commander"><em>Admiral Sloane</em></a>&#39;s ability), can be chosen by the defender with this Upgrade Card&#39;s effect to &#39;ready&#39; and return it to its &#39;readied&#39; side. <span class="footnote-ref">[1]</span></li><li>This Upgrade Card may be used in conjunction with Unarmed Stations. They are treated as a ship that spent 0 defense tokens and are friendly to the second player. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2166,7 +2187,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="obi-wan-kenobi-42" data-name="obi-wan kenobi" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="obi-wan-kenobi-commander" data-name="obi-wan kenobi" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/obi-wan-kenobi-commander.webp" alt="Obi-Wan Kenobi" /></div>
     <div class="card-main">
@@ -2196,7 +2217,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="plo-koon-43" data-name="plo koon" data-factions="republic" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="plo-koon-commander" data-name="plo koon" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-commander.webp" alt="Plo Koon" /></div>
     <div class="card-main">
@@ -2221,7 +2242,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-trench-44" data-name="admiral trench" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="admiral-trench-commander" data-name="admiral trench" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-trench-commander.webp" alt="Admiral Trench" /></div>
     <div class="card-main">
@@ -2246,7 +2267,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="count-dooku-45" data-name="count dooku" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="count-dooku-commander" data-name="count dooku" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/count-dooku-commander.webp" alt="Count Dooku" /></div>
     <div class="card-main">
@@ -2271,7 +2292,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="daultay-dofine-46" data-name="daultay dofine" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="daultay-dofine-commander" data-name="daultay dofine" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/daultay-dofine-commander-legacy.webp" alt="Daultay Dofine" /></div>
     <div class="card-main">
@@ -2306,7 +2327,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-grievous-47" data-name="general grievous" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="general-grievous-commander" data-name="general grievous" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-grievous-commander.webp" alt="General Grievous" /></div>
     <div class="card-main">
@@ -2331,7 +2352,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kraken-48" data-name="kraken" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="kraken-commander" data-name="kraken" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kraken-commander.webp" alt="Kraken" /></div>
     <div class="card-main">
@@ -2361,7 +2382,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kraken-49" data-name="kraken" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="kraken-commander-2" data-name="kraken" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kraken-commander-errata-arc.webp" alt="Kraken" /></div>
     <div class="card-main">
@@ -2391,7 +2412,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mar-tuuk-50" data-name="mar tuuk" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="mar-tuuk-commander" data-name="mar tuuk" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mar-tuuk-commander.webp" alt="Mar Tuuk" /></div>
     <div class="card-main">
@@ -2416,7 +2437,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="poggle-the-lesser-51" data-name="poggle the lesser" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="poggle-the-lesser-commander" data-name="poggle the lesser" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/poggle-the-lesser-commander-legacy.webp" alt="Poggle the Lesser" /></div>
     <div class="card-main">
@@ -2446,7 +2467,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="tf-1726-52" data-name="tf-1726" data-factions="separatist" data-category="upgrades" data-type="commander">
+<article class="karm-card" id="tf-1726-commander" data-name="tf-1726" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tf-1726-commander.webp" alt="TF-1726" /></div>
     <div class="card-main">
@@ -2471,15 +2492,15 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-53" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="commander-54" data-category="header">
+<article class="karm-card karm-header-card" id="header-commander-2" data-category="header">
   <div class="section-header-title">Commander <span class="icon-font">B</span></div>
 </article>
 
-<article class="karm-card" id="admiral-ackbar-55" data-name="admiral ackbar" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="admiral-ackbar-commander-2" data-name="admiral ackbar" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-ackbar-commander-new-republic-nexus.webp" alt="Admiral Ackbar" /></div>
     <div class="card-main">
@@ -2496,7 +2517,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="etahn-a-baht-56" data-name="etahn a&#39;baht" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="etahn-a-baht-commander" data-name="etahn a&#39;baht" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/etahn-abaht-commander-new-republic-nexus.webp" alt="Etahn A&#39;baht" /></div>
     <div class="card-main">
@@ -2513,7 +2534,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="garm-bel-iblis-57" data-name="garm bel iblis" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="garm-bel-iblis-commander-2" data-name="garm bel iblis" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/garm-bel-iblis-commander-new-republic-nexus.webp" alt="Garm Bel Iblis" /></div>
     <div class="card-main">
@@ -2530,7 +2551,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-cracken-58" data-name="general cracken" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="general-cracken-commander-2" data-name="general cracken" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-cracken-commander-new-republic-nexus.webp" alt="General Cracken" /></div>
     <div class="card-main">
@@ -2547,7 +2568,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="traest-kre-fey-59" data-name="traest kre&#39;fey" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="traest-kre-fey-commander" data-name="traest kre&#39;fey" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/traest-krefey-commander-new-republic-nexus.webp" alt="Traest Kre&#39;fey" /></div>
     <div class="card-main">
@@ -2564,7 +2585,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="wedge-antilles-60" data-name="wedge antilles" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="wedge-antilles-commander" data-name="wedge antilles" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/wedge-antilles-commander-new-republic-nexus.webp" alt="Wedge Antilles" /></div>
     <div class="card-main">
@@ -2581,7 +2602,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hera-syndulla-61" data-name="hera syndulla" data-factions="rebel" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="hera-syndulla-commander" data-name="hera syndulla" data-factions="rebel" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hera-syndulla-commander-nexus.webp" alt="Hera Syndulla" /></div>
     <div class="card-main">
@@ -2594,7 +2615,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="admiral-kilian-62" data-name="admiral kilian" data-factions="republic" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="admiral-kilian-commander" data-name="admiral kilian" data-factions="republic" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-kilian-commander-nexus.webp" alt="Admiral Kilian" /></div>
     <div class="card-main">
@@ -2611,7 +2632,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hondo-ohnaka-63" data-name="hondo ohnaka" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="hondo-ohnaka-commander" data-name="hondo ohnaka" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hondo-ohnaka-commander-scum-nexus.webp" alt="Hondo Ohnaka" /></div>
     <div class="card-main">
@@ -2628,7 +2649,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jerid-sykes-64" data-name="jerid sykes" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="jerid-sykes-commander" data-name="jerid sykes" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jerid-sykes-commander-scum-nexus.webp" alt="Jerid Sykes" /></div>
     <div class="card-main">
@@ -2645,7 +2666,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="maul-65" data-name="maul" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="maul-commander" data-name="maul" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/maul-commander-scum-nexus.webp" alt="Maul" /></div>
     <div class="card-main">
@@ -2662,7 +2683,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="pre-vizsla-66" data-name="pre vizsla" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="pre-vizsla-commander" data-name="pre vizsla" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/pre-vizsla-commander-scum-nexus.webp" alt="Pre Vizsla" /></div>
     <div class="card-main">
@@ -2679,7 +2700,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="prince-xizor-67" data-name="prince xizor" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="prince-xizor-commander" data-name="prince xizor" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/prince-xizor-commander-scum-nexus.webp" alt="Prince Xizor" /></div>
     <div class="card-main">
@@ -2696,7 +2717,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="tyber-zann-68" data-name="tyber zann" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="tyber-zann-commander" data-name="tyber zann" data-factions="scum" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tyber-zann-commander-scum-nexus.webp" alt="Tyber Zann" /></div>
     <div class="card-main">
@@ -2713,7 +2734,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="linwodo-69" data-name="linwodo" data-factions="separatist" data-category="nexus-upgrades" data-type="commander">
+<article class="karm-card" id="linwodo-commander" data-name="linwodo" data-factions="separatist" data-category="nexus-upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/linwodo-commander-nexus.webp" alt="Linwodo" /></div>
     <div class="card-main">

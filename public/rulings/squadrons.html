@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,7 +1052,7 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card" id="boba-fett-1" data-name="boba fett" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="boba-fett-squadron" data-name="boba fett" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boba-fett-slave-i.webp" alt="Boba Fett" /></div>
     <div class="card-main">
@@ -1048,7 +1069,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="bossk-2" data-name="bossk" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="bossk-squadron" data-name="bossk" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bossk-hounds-tooth.webp" alt="Bossk" /></div>
     <div class="card-main">
@@ -1065,7 +1086,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="captain-jonus-3" data-name="captain jonus" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="captain-jonus-squadron" data-name="captain jonus" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/captain-jonus-tie-bomber-squadron.webp" alt="Captain Jonus" /></div>
     <div class="card-main">
@@ -1082,7 +1103,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ciena-ree-4" data-name="ciena ree" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="ciena-ree-squadron" data-name="ciena ree" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ciena-ree-tie-interceptor-squadron.webp" alt="Ciena Ree" /></div>
     <div class="card-main">
@@ -1099,7 +1120,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="colonel-jendon-5" data-name="colonel jendon" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="colonel-jendon-squadron" data-name="colonel jendon" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/colonel-jendon-lambda-class-shuttle.webp" alt="Colonel Jendon" /></div>
     <div class="card-main">
@@ -1116,7 +1137,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="darth-vader-6" data-name="darth vader" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="darth-vader-squadron" data-name="darth vader" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-vader-tie-advanced-squadron.webp" alt="Darth Vader" /></div>
     <div class="card-main">
@@ -1133,7 +1154,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="darth-vader-7" data-name="darth vader" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="darth-vader-squadron-2" data-name="darth vader" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-vader-tie-advanced-squadron-errata-arc.webp" alt="Darth Vader" /></div>
     <div class="card-main">
@@ -1150,7 +1171,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dengar-8" data-name="dengar" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dengar-squadron" data-name="dengar" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dengar-punishing-one.webp" alt="Dengar" /></div>
     <div class="card-main">
@@ -1167,7 +1188,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="gar-saxon-9" data-name="gar saxon" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="gar-saxon-squadron" data-name="gar saxon" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gar-saxon-mandalorian-gauntlet-fighter.webp" alt="Gar Saxon" /></div>
     <div class="card-main">
@@ -1184,7 +1205,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hondo-ohnaka-10" data-name="hondo ohnaka" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="hondo-ohnaka-squadron" data-name="hondo ohnaka" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hondo-ohnaka-slave-i.webp" alt="Hondo Ohnaka" /></div>
     <div class="card-main">
@@ -1201,7 +1222,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="howlrunner-11" data-name="howlrunner" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="howlrunner-squadron" data-name="howlrunner" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/howlrunner-tie-fighter-squadron.webp" alt="Howlrunner" /></div>
     <div class="card-main">
@@ -1218,7 +1239,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ig-88-12" data-name="ig-88" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="ig-88-squadron" data-name="ig-88" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ig-88-ig-2000.webp" alt="IG-88" /></div>
     <div class="card-main">
@@ -1235,7 +1256,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ig-88b-13" data-name="ig-88b" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="ig-88b-squadron" data-name="ig-88b" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ig-88b-ig-2000b.webp" alt="IG-88B" /></div>
     <div class="card-main">
@@ -1252,7 +1273,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="maarek-stele-14" data-name="maarek stele" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="maarek-stele-squadron" data-name="maarek stele" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/maarek-stele-tie-defender-squadron.webp" alt="Maarek Stele" /></div>
     <div class="card-main">
@@ -1269,7 +1290,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="major-rhymer-15" data-name="major rhymer" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="major-rhymer-squadron" data-name="major rhymer" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/major-rhymer-tie-bomber-squadron.webp" alt="Major Rhymer" /></div>
     <div class="card-main">
@@ -1286,7 +1307,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mauler-mithel-16" data-name="mauler mithel" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="mauler-mithel-squadron" data-name="mauler mithel" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mauler-mithel-tie-fighter-squadron.webp" alt="Mauler Mithel" /></div>
     <div class="card-main">
@@ -1303,7 +1324,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="moralo-eval-17" data-name="moralo eval" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="moralo-eval-squadron" data-name="moralo eval" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/moralo-eval-yv-666.webp" alt="Moralo Eval" /></div>
     <div class="card-main">
@@ -1320,7 +1341,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="morna-kee-18" data-name="morna kee" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="morna-kee-squadron" data-name="morna kee" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/morna-kee-vt-49-decimator.webp" alt="Morna Kee" /></div>
     <div class="card-main">
@@ -1337,7 +1358,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="soontir-fel-19" data-name="soontir fel" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="soontir-fel-squadron" data-name="soontir fel" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/soontir-fel-tie-interceptor-squadron.webp" alt="Soontir Fel" /></div>
     <div class="card-main">
@@ -1354,7 +1375,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="tel-trevura-20" data-name="tel trevura" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="tel-trevura-squadron" data-name="tel trevura" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tel-trevura-jumpmaster-5000.webp" alt="Tel Trevura" /></div>
     <div class="card-main">
@@ -1371,7 +1392,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="valen-rudor-21" data-name="valen rudor" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="valen-rudor-squadron" data-name="valen rudor" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/valen-rudor-tie-fighter-squadron.webp" alt="Valen Rudor" /></div>
     <div class="card-main">
@@ -1388,7 +1409,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="vult-skerris-22" data-name="vult skerris" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="vult-skerris-squadron" data-name="vult skerris" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/vult-skerris-tie-interceptor-squadron.webp" alt="Vult Skerris" /></div>
     <div class="card-main">
@@ -1405,7 +1426,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="whisper-23" data-name="whisper" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="whisper-squadron" data-name="whisper" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/whisper-tie-phantom-squadron.webp" alt="Whisper" /></div>
     <div class="card-main">
@@ -1422,7 +1443,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="zertik-strom-24" data-name="zertik strom" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="zertik-strom-squadron" data-name="zertik strom" data-factions="empire" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/zertik-strom-tie-advanced-squadron.webp" alt="Zertik Strom" /></div>
     <div class="card-main">
@@ -1439,7 +1460,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="biggs-darklighter-25" data-name="biggs darklighter" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="biggs-darklighter-squadron" data-name="biggs darklighter" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/biggs-darklighter-x-wing-squadron.webp" alt="Biggs Darklighter" /></div>
     <div class="card-main">
@@ -1456,7 +1477,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="corran-horn-26" data-name="corran horn" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="corran-horn-squadron" data-name="corran horn" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/corran-horn-e-wing-squadron.webp" alt="Corran Horn" /></div>
     <div class="card-main">
@@ -1469,7 +1490,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dash-rendar-27" data-name="dash rendar" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dash-rendar-squadron" data-name="dash rendar" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dash-rendar-outrider.webp" alt="Dash Rendar" /></div>
     <div class="card-main">
@@ -1486,7 +1507,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dutch-vander-28" data-name="dutch vander" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dutch-vander-squadron" data-name="dutch vander" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dutch-vander-y-wing-squadron.webp" alt="Dutch Vander" /></div>
     <div class="card-main">
@@ -1503,7 +1524,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="fenn-rau-29" data-name="fenn rau" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="fenn-rau-squadron" data-name="fenn rau" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fenn-rau-mandalorian-gauntlet-fighter.webp" alt="Fenn Rau" /></div>
     <div class="card-main">
@@ -1520,7 +1541,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="han-solo-30" data-name="han solo" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="han-solo-squadron" data-name="han solo" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/han-solo-millennium-falcon.webp" alt="Han Solo" /></div>
     <div class="card-main">
@@ -1537,7 +1558,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="han-solo-31" data-name="han solo" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="han-solo-squadron-2" data-name="han solo" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/han-solo-millennium-falcon-errata-arc.webp" alt="Han Solo" /></div>
     <div class="card-main">
@@ -1554,7 +1575,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hera-syndulla-32" data-name="hera syndulla" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="hera-syndulla-squadron" data-name="hera syndulla" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hera-syndulla-ghost.webp" alt="Hera Syndulla" /></div>
     <div class="card-main">
@@ -1571,7 +1592,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jan-ors-33" data-name="jan ors" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="jan-ors-squadron" data-name="jan ors" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jan-ors-moldy-crow.webp" alt="Jan Ors" /></div>
     <div class="card-main">
@@ -1588,7 +1609,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kanan-jarrus-34" data-name="kanan jarrus" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="kanan-jarrus-squadron" data-name="kanan jarrus" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kanan-jarrus-hwk-290.webp" alt="Kanan Jarrus" /></div>
     <div class="card-main">
@@ -1605,7 +1626,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ketsu-onyo-35" data-name="ketsu onyo" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="ketsu-onyo-squadron" data-name="ketsu onyo" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ketsu-onyo-shadow-caster.webp" alt="Ketsu Onyo" /></div>
     <div class="card-main">
@@ -1622,7 +1643,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="keyan-farlander-36" data-name="keyan farlander" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="keyan-farlander-squadron" data-name="keyan farlander" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/keyan-farlander-b-wing-squadron.webp" alt="Keyan Farlander" /></div>
     <div class="card-main">
@@ -1639,7 +1660,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="lando-calrissian-37" data-name="lando calrissian" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="lando-calrissian-squadron" data-name="lando calrissian" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lando-calrissian-millennium-falcon.webp" alt="Lando Calrissian" /></div>
     <div class="card-main">
@@ -1656,7 +1677,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="lieutenant-blount-38" data-name="lieutenant blount" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="lieutenant-blount-squadron" data-name="lieutenant blount" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lieutenant-blount-z-95-headhunter-squadron.webp" alt="Lieutenant Blount" /></div>
     <div class="card-main">
@@ -1673,7 +1694,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="luke-skywalker-39" data-name="luke skywalker" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="luke-skywalker-squadron" data-name="luke skywalker" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luke-skywalker-x-wing-squadron.webp" alt="Luke Skywalker" /></div>
     <div class="card-main">
@@ -1690,7 +1711,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="luke-skywalker-40" data-name="luke skywalker" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="luke-skywalker-squadron-2" data-name="luke skywalker" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luke-skywalker-x-wing-squadron-errata-arc.webp" alt="Luke Skywalker" /></div>
     <div class="card-main">
@@ -1707,7 +1728,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="malee-hurra-41" data-name="malee hurra" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="malee-hurra-squadron" data-name="malee hurra" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/malee-hurra-scurrg-h-6-bomber.webp" alt="Malee Hurra" /></div>
     <div class="card-main">
@@ -1724,7 +1745,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mart-mattin-42" data-name="mart mattin" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="mart-mattin-squadron" data-name="mart mattin" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mart-mattin-satos-hammer.webp" alt="Mart Mattin" /></div>
     <div class="card-main">
@@ -1741,7 +1762,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="norra-wexley-43" data-name="norra wexley" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="norra-wexley-squadron" data-name="norra wexley" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/norra-wexley-y-wing-squadron.webp" alt="Norra Wexley" /></div>
     <div class="card-main">
@@ -1758,7 +1779,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="nym-44" data-name="nym" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="nym-squadron" data-name="nym" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nym-havoc.webp" alt="Nym" /></div>
     <div class="card-main">
@@ -1775,7 +1796,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="shara-bey-45" data-name="shara bey" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="shara-bey-squadron" data-name="shara bey" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/shara-bey-a-wing-squadron.webp" alt="Shara Bey" /></div>
     <div class="card-main">
@@ -1792,7 +1813,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ten-numb-46" data-name="ten numb" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="ten-numb-squadron" data-name="ten numb" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ten-numb-b-wing-squadron.webp" alt="Ten Numb" /></div>
     <div class="card-main">
@@ -1809,7 +1830,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="tycho-celchu-47" data-name="tycho celchu" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="tycho-celchu-squadron" data-name="tycho celchu" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tycho-celchu-a-wing-squadron.webp" alt="Tycho Celchu" /></div>
     <div class="card-main">
@@ -1826,7 +1847,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="wedge-antilles-48" data-name="wedge antilles" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="wedge-antilles-squadron" data-name="wedge antilles" data-factions="rebel" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/wedge-antilles-x-wing-squadron.webp" alt="Wedge Antilles" /></div>
     <div class="card-main">
@@ -1843,7 +1864,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ahsoka-tano-49" data-name="ahsoka tano" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="ahsoka-tano-squadron" data-name="ahsoka tano" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ahsoka-tano-delta-7-aethersprite-squadron.webp" alt="Ahsoka Tano" /></div>
     <div class="card-main">
@@ -1860,7 +1881,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="anakin-skywalker-50" data-name="anakin skywalker" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="anakin-skywalker-squadron" data-name="anakin skywalker" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/anakin-skywalker-btl-b-y-wing-squadron.webp" alt="Anakin Skywalker" /></div>
     <div class="card-main">
@@ -1877,7 +1898,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="anakin-skywalker-51" data-name="anakin skywalker" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="anakin-skywalker-squadron-2" data-name="anakin skywalker" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/anakin-skywalker-twilight-legacy.webp" alt="Anakin Skywalker" /></div>
     <div class="card-main">
@@ -1907,7 +1928,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="axe-52" data-name="axe" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="axe-squadron" data-name="axe" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/axe-v-19-torrent-squadron.webp" alt="Axe" /></div>
     <div class="card-main">
@@ -1924,7 +1945,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="five-seven-53" data-name="five-seven" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="five-seven-squadron" data-name="five-seven" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/five-seven-laat-i-gunship-legacy.webp" alt="Five-Seven" /></div>
     <div class="card-main">
@@ -1954,7 +1975,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kickback-54" data-name="kickback" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="kickback-squadron" data-name="kickback" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kickback-v-19-torrent-squadron.webp" alt="Kickback" /></div>
     <div class="card-main">
@@ -1971,7 +1992,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kit-fisto-55" data-name="kit fisto" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="kit-fisto-squadron" data-name="kit fisto" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kit-fisto-delta-7-aethersprite-squadron.webp" alt="Kit Fisto" /></div>
     <div class="card-main">
@@ -1988,7 +2009,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="luminara-unduli-56" data-name="luminara unduli" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="luminara-unduli-squadron" data-name="luminara unduli" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-delta-7-aethersprite-squadron.webp" alt="Luminara Unduli" /></div>
     <div class="card-main">
@@ -2005,7 +2026,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="luminara-unduli-57" data-name="luminara unduli" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="luminara-unduli-squadron-2" data-name="luminara unduli" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-delta-7-aethersprite-squadron-errata-arc.webp" alt="Luminara Unduli" /></div>
     <div class="card-main">
@@ -2022,7 +2043,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="matchstick-58" data-name="matchstick" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="matchstick-squadron" data-name="matchstick" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/matchstick-btl-b-y-wing-squadron.webp" alt="Matchstick" /></div>
     <div class="card-main">
@@ -2039,7 +2060,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="odd-ball-59" data-name="odd ball" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="odd-ball-squadron" data-name="odd ball" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/odd-ball-arc-170-starfighter-squadron.webp" alt="Odd Ball" /></div>
     <div class="card-main">
@@ -2056,7 +2077,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="plo-koon-60" data-name="plo koon" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="plo-koon-squadron" data-name="plo koon" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-delta-7-aethersprite-squadron.webp" alt="Plo Koon" /></div>
     <div class="card-main">
@@ -2073,7 +2094,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="plo-koon-61" data-name="plo koon" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="plo-koon-squadron-2" data-name="plo koon" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-delta-7-aethersprite-squadron-errata-arc.webp" alt="Plo Koon" /></div>
     <div class="card-main">
@@ -2090,7 +2111,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="r2-d2-62" data-name="r2-d2" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="r2-d2-squadron" data-name="r2-d2" data-factions="republic" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/r2-d2-twilight-legacy.webp" alt="R2-D2" /></div>
     <div class="card-main">
@@ -2115,7 +2136,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="baktoid-prototypes-63" data-name="baktoid prototypes" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="baktoid-prototypes-squadron" data-name="baktoid prototypes" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/baktoid-prototypes-hyena-class-droid-bomber-squadron.webp" alt="Baktoid Prototypes" /></div>
     <div class="card-main">
@@ -2132,7 +2153,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="count-dooku-64" data-name="count dooku" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="count-dooku-squadron" data-name="count dooku" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/count-dooku-scimitar-legacy.webp" alt="Count Dooku" /></div>
     <div class="card-main">
@@ -2161,7 +2182,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Squadron Interactions</h3>
-  <div class="ruling-content"><ul><li>If Hondo Ohnaka (Slave I) activates this Squadron using its ability, then this Squadron switches from granting <span class="keyword-name">Dodge</span> 1 to <span class="keyword-name">Adept</span> 1. <span class="footnote-ref">[1]</span></li><li>When this Squadron defends against an attack from Dutch Vander, if it is unactivated before the attack, it has <span class="keyword-name">Dodge</span> 1 and may resolve the <span class="keyword-name">Dodge</span> keyword on dice from Dutch Vander&#39;s attack. If this Squadron were to suffer damage to resolve Dutch&#39;s ability, and it may perform a <span class="keyword-name">Counter</span> attack, then it would have <span class="keyword-name">Adept</span> for that <span class="keyword-name">Counter</span> attack as Dutch&#39;s ability resolves during the Resolve Damage step, and <span class="keyword-name">Counter</span> attacks happen after the Resolve Damage step. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>If Hondo Ohnaka (Slave I) activates this Squadron using its ability, then this Squadron switches from granting <span class="keyword-name">Dodge</span> 1 to <span class="keyword-name">Adept</span> 1. <span class="footnote-ref">[1]</span></li><li>When this Squadron defends against an attack from <a class="card-ref" href="#dutch-vander-squadron"><em>Dutch Vander</em></a>, if it is unactivated before the attack, it has <span class="keyword-name">Dodge</span> 1 and may resolve the <span class="keyword-name">Dodge</span> keyword on dice from <a class="card-ref" href="#dutch-vander-squadron"><em>Dutch Vander</em></a>&#39;s attack. If this Squadron were to suffer damage to resolve Dutch&#39;s ability, and it may perform a <span class="keyword-name">Counter</span> attack, then it would have <span class="keyword-name">Adept</span> for that <span class="keyword-name">Counter</span> attack as Dutch&#39;s ability resolves during the Resolve Damage step, and <span class="keyword-name">Counter</span> attacks happen after the Resolve Damage step. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2172,7 +2193,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="darth-maul-65" data-name="darth maul" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="darth-maul-squadron" data-name="darth maul" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-maul-scimitar-legacy.webp" alt="Darth Maul" /></div>
     <div class="card-main">
@@ -2191,7 +2212,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li>This Squadron&#39;s ability applies to all attacks initiated by this squadron. For example, if this Squadron is engaged with 2 or more <span class="keyword-name">Heavy</span> squadrons and performs an anti-ship attack, the engagement condition is met to activate this Squadron&#39;s ability, and therefore it has the <span class="keyword-name">Adept</span> and may resolve it for that attack. <span class="footnote-ref">[1]</span></li><li>Additional effects that key off of the <span class="keyword-name">Adept</span> keyword apply to this Squadron when it meets the condition of its ability. <span class="footnote-ref">[1]</span></li><li>Additional instances of the <span class="keyword-name">Adept</span> keyword will stack with this Squadron&#39;s ability. For example, if Count Dooku (Squadron) gives this Squadron <span class="keyword-name">Adept</span> 1, and this squadron is already engaged with 2 squadrons, it will increase its <span class="keyword-name">Adept</span> by 1 to <span class="keyword-name">Adept</span> 2. <span class="footnote-ref">[1]</span></li><li>As this Squadron&#39;s ability specifies that the squadron gains <span class="keyword-name">Adept</span> when under the engagement condition, <span class="keyword-name">Counter</span> attacks made when the engagement condition is met may resolve <span class="keyword-name">Adept</span>. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>This Squadron&#39;s ability applies to all attacks initiated by this squadron. For example, if this Squadron is engaged with 2 or more <span class="keyword-name">Heavy</span> squadrons and performs an anti-ship attack, the engagement condition is met to activate this Squadron&#39;s ability, and therefore it has the <span class="keyword-name">Adept</span> and may resolve it for that attack. <span class="footnote-ref">[1]</span></li><li>Additional effects that key off of the <span class="keyword-name">Adept</span> keyword apply to this Squadron when it meets the condition of its ability. <span class="footnote-ref">[1]</span></li><li>Additional instances of the <span class="keyword-name">Adept</span> keyword will stack with this Squadron&#39;s ability. For example, if <a class="card-ref" href="#count-dooku-squadron"><em>Count Dooku</em></a> (Squadron) gives this Squadron <span class="keyword-name">Adept</span> 1, and this squadron is already engaged with 2 squadrons, it will increase its <span class="keyword-name">Adept</span> by 1 to <span class="keyword-name">Adept</span> 2. <span class="footnote-ref">[1]</span></li><li>As this Squadron&#39;s ability specifies that the squadron gains <span class="keyword-name">Adept</span> when under the engagement condition, <span class="keyword-name">Counter</span> attacks made when the engagement condition is met may resolve <span class="keyword-name">Adept</span>. <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2207,7 +2228,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dbs-404-66" data-name="dbs-404" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dbs-404-squadron" data-name="dbs-404" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dbs-404-hyena-class-droid-bomber-squadron.webp" alt="DBS-404" /></div>
     <div class="card-main">
@@ -2224,7 +2245,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dfs-311-67" data-name="dfs-311" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dfs-311-squadron" data-name="dfs-311" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dfs-311-vulture-class-droid-fighter-squadron.webp" alt="DFS-311" /></div>
     <div class="card-main">
@@ -2241,7 +2262,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dgs-047-68" data-name="dgs-047" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dgs-047-squadron" data-name="dgs-047" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dgs-047-hmp-droid-gunship-legacy.webp" alt="DGS-047" /></div>
     <div class="card-main">
@@ -2281,7 +2302,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dis-t81-69" data-name="dis-t81" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dis-t81-squadron" data-name="dis-t81" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dis-t81-droid-tri-fighter-squadron.webp" alt="DIS-T81" /></div>
     <div class="card-main">
@@ -2298,7 +2319,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="general-grievous-70" data-name="general grievous" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="general-grievous-squadron" data-name="general grievous" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-grievous-belbullab-22-starfighter-squadron.webp" alt="General Grievous" /></div>
     <div class="card-main">
@@ -2315,7 +2336,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="haor-chall-prototypes-71" data-name="haor chall prototypes" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="haor-chall-prototypes-squadron" data-name="haor chall prototypes" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/haor-chall-prototypes-vulture-class-droid-fighter-squadron.webp" alt="Haor Chall Prototypes" /></div>
     <div class="card-main">
@@ -2332,7 +2353,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jango-fett-72" data-name="jango fett" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="jango-fett-squadron" data-name="jango fett" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jango-fett-slave-i.webp" alt="Jango Fett" /></div>
     <div class="card-main">
@@ -2349,7 +2370,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="phlac-arphocc-prototypes-73" data-name="phlac-arphocc prototypes" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="phlac-arphocc-prototypes-squadron" data-name="phlac-arphocc prototypes" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/phlac-arphocc-prototypes-droid-tri-fighter-squadron.webp" alt="Phlac-Arphocc Prototypes" /></div>
     <div class="card-main">
@@ -2366,7 +2387,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="wat-tambor-74" data-name="wat tambor" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="wat-tambor-squadron" data-name="wat tambor" data-factions="separatist" data-category="ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/wat-tambor-belbullab-22-starfighter-squadron.webp" alt="Wat Tambor" /></div>
     <div class="card-main">
@@ -2379,11 +2400,11 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-ace-squadrons-75" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-ace-squadrons" data-category="header">
   <div class="section-header-title">Nexus Ace Squadrons <span class="icon-font">8</span></div>
 </article>
 
-<article class="karm-card" id="lieutenant-karsabi-76" data-name="lieutenant karsabi" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="lieutenant-karsabi-squadron" data-name="lieutenant karsabi" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/karsabi-alpha-class-star-wing-squadron-nexus.webp" alt="Lieutenant Karsabi" /></div>
     <div class="card-main">
@@ -2400,7 +2421,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="rho-squadron-77" data-name="rho squadron" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="rho-squadron-squadron" data-name="rho squadron" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rho-squadron-alpha-class-star-wing-squadron-nexus.webp" alt="Rho Squadron" /></div>
     <div class="card-main">
@@ -2417,7 +2438,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="seventh-sister-78" data-name="seventh sister" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="seventh-sister-squadron" data-name="seventh sister" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/seventh-sister-tie-advanced-v1-nexus.webp" alt="Seventh Sister" /></div>
     <div class="card-main">
@@ -2434,7 +2455,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="the-grand-inquisitor-79" data-name="the grand inquisitor" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="the-grand-inquisitor-squadron" data-name="the grand inquisitor" data-factions="empire" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/the-grand-inquisitor-tie-advanced-v1-nexus.webp" alt="The Grand Inquisitor" /></div>
     <div class="card-main">
@@ -2451,7 +2472,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="corran-horn-80" data-name="corran horn" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="corran-horn-squadron-2" data-name="corran horn" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/corran-horn-e-wing-squadron-new-republic-nexus.webp" alt="Corran Horn" /></div>
     <div class="card-main">
@@ -2468,7 +2489,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="gavin-darklighter-81" data-name="gavin darklighter" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="gavin-darklighter-squadron" data-name="gavin darklighter" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gavin-darklighter-e-wing-squadron-new-republic-nexus.webp" alt="Gavin Darklighter" /></div>
     <div class="card-main">
@@ -2485,7 +2506,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="keyan-farlander-82" data-name="keyan farlander" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="keyan-farlander-squadron-2" data-name="keyan farlander" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/keyan-farlander-b-wing-squadron-new-republic-nexus.webp" alt="Keyan Farlander" /></div>
     <div class="card-main">
@@ -2502,7 +2523,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="luke-skywalker-83" data-name="luke skywalker" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="luke-skywalker-squadron-3" data-name="luke skywalker" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luke-skywalker-e-wing-squadron-new-republic-nexus.webp" alt="Luke Skywalker" /></div>
     <div class="card-main">
@@ -2519,7 +2540,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mara-jade-84" data-name="mara jade" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="mara-jade-squadron" data-name="mara jade" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mara-jade-defender-starfighter-squadron-new-republic-nexus.webp" alt="Mara Jade" /></div>
     <div class="card-main">
@@ -2536,7 +2557,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="miranda-doni-85" data-name="miranda doni" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="miranda-doni-squadron" data-name="miranda doni" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/miranda-doni-k-wing-squadron-new-republic-nexus.webp" alt="Miranda Doni" /></div>
     <div class="card-main">
@@ -2553,7 +2574,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="pash-cracken-86" data-name="pash cracken" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="pash-cracken-squadron" data-name="pash cracken" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/pash-cracken-a-wing-squadron-new-republic-nexus.webp" alt="Pash Cracken" /></div>
     <div class="card-main">
@@ -2570,7 +2591,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="tycho-celchu-87" data-name="tycho celchu" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="tycho-celchu-squadron-2" data-name="tycho celchu" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tycho-celchu-x-wing-squadron-new-republic-nexus.webp" alt="Tycho Celchu" /></div>
     <div class="card-main">
@@ -2587,7 +2608,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="wedge-antilles-88" data-name="wedge antilles" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="wedge-antilles-squadron-2" data-name="wedge antilles" data-factions="new-republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/wedge-antilles-x-wing-squadron-new-republic-nexus.webp" alt="Wedge Antilles" /></div>
     <div class="card-main">
@@ -2604,7 +2625,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="cassian-andor-89" data-name="cassian andor" data-factions="rebel" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="cassian-andor-squadron" data-name="cassian andor" data-factions="rebel" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/cassian-andor-u-wing-nexus.webp" alt="Cassian Andor" /></div>
     <div class="card-main">
@@ -2621,7 +2642,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="delta-squad-90" data-name="delta squad" data-factions="republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="delta-squad-squadron" data-name="delta squad" data-factions="republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/delta-squad-nu-class-transport-shuttle-nexus.webp" alt="Delta Squad" /></div>
     <div class="card-main">
@@ -2638,7 +2659,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="klick-91" data-name="klick" data-factions="republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="klick-squadron" data-name="klick" data-factions="republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/klick-v-wing-squadron-nexus.webp" alt="Klick" /></div>
     <div class="card-main">
@@ -2655,7 +2676,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="quinlan-vos-92" data-name="quinlan vos" data-factions="republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="quinlan-vos-squadron" data-name="quinlan vos" data-factions="republic" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/quinlan-vos-g9-rigger-class-freighter-nexus.webp" alt="Quinlan Vos" /></div>
     <div class="card-main">
@@ -2672,7 +2693,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="bo-katan-kryze-93" data-name="bo-katan kryze" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="bo-katan-kryze-squadron" data-name="bo-katan kryze" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bo-katan-kryze-mandalorian-gauntlet-fighter-scum-nexus.webp" alt="Bo-Katan Kryze" /></div>
     <div class="card-main">
@@ -2689,7 +2710,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="boba-fett-94" data-name="boba fett" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="boba-fett-squadron-2" data-name="boba fett" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boba-fett-slave-i-scum-nexus.webp" alt="Boba Fett" /></div>
     <div class="card-main">
@@ -2706,7 +2727,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="bossk-95" data-name="bossk" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="bossk-squadron-2" data-name="bossk" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bossk-hounds-tooth-scum-nexus.webp" alt="Bossk" /></div>
     <div class="card-main">
@@ -2723,7 +2744,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="captain-jostero-96" data-name="captain jostero" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="captain-jostero-squadron" data-name="captain jostero" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/captain-jostero-kihraxz-fighter-squadron-scum-nexus.webp" alt="Captain Jostero" /></div>
     <div class="card-main">
@@ -2736,7 +2757,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dash-rendar-97" data-name="dash rendar" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dash-rendar-squadron-2" data-name="dash rendar" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dash-rendar-outrider-scum-nexus.webp" alt="Dash Rendar" /></div>
     <div class="card-main">
@@ -2753,7 +2774,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="dengar-98" data-name="dengar" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="dengar-squadron-2" data-name="dengar" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dengar-punishing-one-scum-nexus.webp" alt="Dengar" /></div>
     <div class="card-main">
@@ -2770,7 +2791,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="din-djarin-99" data-name="din djarin" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="din-djarin-squadron" data-name="din djarin" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/din-djarin-razor-crest-scum-nexus.webp" alt="Din Djarin" /></div>
     <div class="card-main">
@@ -2787,7 +2808,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="fenn-rau-100" data-name="fenn rau" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="fenn-rau-squadron-2" data-name="fenn rau" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fenn-rau-mandalorian-fang-fighter-squadron-scum-nexus.webp" alt="Fenn Rau" /></div>
     <div class="card-main">
@@ -2804,7 +2825,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="gar-saxon-101" data-name="gar saxon" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="gar-saxon-squadron-2" data-name="gar saxon" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gar-saxon-mandalorian-fang-fighter-squadron-scum-nexus.webp" alt="Gar Saxon" /></div>
     <div class="card-main">
@@ -2821,7 +2842,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="greedo-102" data-name="greedo" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="greedo-squadron" data-name="greedo" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/greedo-manka-hunter-scum-nexus.webp" alt="Greedo" /></div>
     <div class="card-main">
@@ -2838,7 +2859,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="guri-103" data-name="guri" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="guri-squadron" data-name="guri" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/guri-virago-scum-nexus.webp" alt="Guri" /></div>
     <div class="card-main">
@@ -2855,7 +2876,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="han-solo-104" data-name="han solo" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="han-solo-squadron-3" data-name="han solo" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/han-solo-millennium-falcon-scum-nexus.webp" alt="Han Solo" /></div>
     <div class="card-main">
@@ -2872,7 +2893,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hondo-ohnaka-105" data-name="hondo ohnaka" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="hondo-ohnaka-squadron-2" data-name="hondo ohnaka" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hondo-ohnaka-slave-i-scum-nexus.webp" alt="Hondo Ohnaka" /></div>
     <div class="card-main">
@@ -2889,7 +2910,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kad-solus-106" data-name="kad solus" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="kad-solus-squadron" data-name="kad solus" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kad-solus-mandalorian-fang-fighter-squadron-scum-nexus.webp" alt="Kad Solus" /></div>
     <div class="card-main">
@@ -2906,7 +2927,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kavil-107" data-name="kavil" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="kavil-squadron" data-name="kavil" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kavil-ugly-squadrons-scum-nexus.webp" alt="Kavil" /></div>
     <div class="card-main">
@@ -2923,7 +2944,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="lando-calrissian-108" data-name="lando calrissian" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="lando-calrissian-squadron-2" data-name="lando calrissian" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lando-calrissian-millennium-falcon-scum-nexus.webp" alt="Lando Calrissian" /></div>
     <div class="card-main">
@@ -2940,7 +2961,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="maul-109" data-name="maul" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="maul-squadron" data-name="maul" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/maul-nightbrother-scum-nexus.webp" alt="Maul" /></div>
     <div class="card-main">
@@ -2957,7 +2978,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mezine-hinett-110" data-name="mezine hinett" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="mezine-hinett-squadron" data-name="mezine hinett" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mezine-hinett-silent-debt-scum-nexus.webp" alt="Mezine Hinett" /></div>
     <div class="card-main">
@@ -2974,7 +2995,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="miktiss-111" data-name="miktiss" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="miktiss-squadron" data-name="miktiss" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/miktiss-gat-12-skipray-blastboat-scum-nexus.webp" alt="Miktiss" /></div>
     <div class="card-main">
@@ -2991,7 +3012,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="nym-112" data-name="nym" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="nym-squadron-2" data-name="nym" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nym-havoc-scum-nexus.webp" alt="Nym" /></div>
     <div class="card-main">
@@ -3008,7 +3029,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="talonbane-cobra-113" data-name="talonbane cobra" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="talonbane-cobra-squadron" data-name="talonbane cobra" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/talonbane-cobra-rihkxyrk-assault-squadron-scum-nexus.webp" alt="Talonbane Cobra" /></div>
     <div class="card-main">
@@ -3025,7 +3046,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="the-armorer-114" data-name="the armorer" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="the-armorer-squadron" data-name="the armorer" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/the-armorer-mandalorian-gauntlet-fighter-scum-nexus.webp" alt="The Armorer" /></div>
     <div class="card-main">
@@ -3042,7 +3063,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="tyber-zann-115" data-name="tyber zann" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="tyber-zann-squadron" data-name="tyber zann" data-factions="scum" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tyber-zann-twilek-dancer-scum-nexus.webp" alt="Tyber Zann" /></div>
     <div class="card-main">
@@ -3059,7 +3080,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="cad-bane-116" data-name="cad bane" data-factions="separatist" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="cad-bane-squadron" data-name="cad bane" data-factions="separatist" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/cad-bane-xanadu-blood-nexus.webp" alt="Cad Bane" /></div>
     <div class="card-main">
@@ -3076,7 +3097,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kalani-117" data-name="kalani" data-factions="separatist" data-category="nexus-ace-squadrons" data-type="ace-squadron">
+<article class="karm-card" id="kalani-squadron" data-name="kalani" data-factions="separatist" data-category="nexus-ace-squadrons" data-type="ace-squadron">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kalani-sheathipede-class-shuttle-nexus.webp" alt="Kalani" /></div>
     <div class="card-main">

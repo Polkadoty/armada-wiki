@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="offensive-retro-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-offensive-retro" data-category="header">
   <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
 </article>
 
-<article class="karm-card" id="advanced-transponder-net-2" data-name="advanced transponder net" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="advanced-transponder-net-offensive-retro" data-name="advanced transponder net" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/advanced-transponder-net.webp" alt="Advanced Transponder Net" /></div>
     <div class="card-main">
@@ -1065,7 +1086,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="b2-rocket-troopers-3" data-name="b2 rocket troopers" data-factions="separatist" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="b2-rocket-troopers-offensive-retro" data-name="b2 rocket troopers" data-factions="separatist" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/b2-rocket-troopers.webp" alt="B2 Rocket Troopers" /></div>
     <div class="card-main">
@@ -1090,7 +1111,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="boosted-comms-4" data-name="boosted comms" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="boosted-comms-offensive-retro" data-name="boosted comms" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boosted-comms.webp" alt="Boosted Comms" /></div>
     <div class="card-main">
@@ -1115,7 +1136,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="disposable-capacitors-5" data-name="disposable capacitors" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="disposable-capacitors-offensive-retro" data-name="disposable capacitors" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/disposable-capacitors.webp" alt="Disposable Capacitors" /></div>
     <div class="card-main">
@@ -1145,7 +1166,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="expanded-hangar-bay-6" data-name="expanded hangar bay" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="expanded-hangar-bay-offensive-retro" data-name="expanded hangar bay" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/expanded-hangar-bay.webp" alt="Expanded Hangar Bay" /></div>
     <div class="card-main">
@@ -1164,13 +1185,13 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card has its &#39;Squadron Value&#39; increased by 1 when activating squadrons or otherwise referencing the equipped ship&#39;s squadron value (e.g. Hyperspace Rings, Boarding Troopers, etc). This increase remains unless the equipped ship is destroyed or forced to discard this Upgrade Card by some other effect. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card has its &#39;Squadron Value&#39; increased by 1 when activating squadrons or otherwise referencing the equipped ship&#39;s squadron value (e.g. <a class="card-ref" href="#hyperspace-rings-offensive-retro"><em>Hyperspace Rings</em></a>, Boarding Troopers, etc). This increase remains unless the equipped ship is destroyed or forced to discard this Upgrade Card by some other effect. <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="flag-bridge-7" data-name="flag bridge" data-factions="empire,rebel,republic,separatist,scum,new-republic,resistance,first-order,chiss,impwar" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="flag-bridge-offensive-retro" data-name="flag bridge" data-factions="empire,rebel,republic,separatist,scum,new-republic,resistance,first-order,chiss,impwar" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/flag-bridge.webp" alt="Flag Bridge" /></div>
     <div class="card-main">
@@ -1200,7 +1221,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="flak-guns-8" data-name="flak guns" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="flak-guns-offensive-retro" data-name="flak guns" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/flak-guns.webp" alt="Flak Guns" /></div>
     <div class="card-main">
@@ -1224,13 +1245,13 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>A ship equipped with Quad Laser Turrets and this Upgrade Card must replace the blue die from Counter 1 with a black die when performing Counter attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Agent Kallus and this Upgrade Card can add a die of any color (not only black) when performing attacks against a unique squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with General Draven (Officer) and this Upgrade Card can add a die of any color (not only black) when performing attacks against a squadron with Counter or Intel. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>A ship equipped with <a class="card-ref" href="#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a> and this Upgrade Card must replace the blue die from Counter 1 with a black die when performing Counter attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Agent Kallus and this Upgrade Card can add a die of any color (not only black) when performing attacks against a unique squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with General Draven (Officer) and this Upgrade Card can add a die of any color (not only black) when performing attacks against a squadron with Counter or Intel. <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hardened-bulkheads-9" data-name="hardened bulkheads" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="hardened-bulkheads-offensive-retro" data-name="hardened bulkheads" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hardened-bulkheads.webp" alt="Hardened Bulkheads" /></div>
     <div class="card-main">
@@ -1260,7 +1281,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hyperspace-rings-10" data-name="hyperspace rings" data-factions="republic" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="hyperspace-rings-offensive-retro" data-name="hyperspace rings" data-factions="republic" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-rings.webp" alt="Hyperspace Rings" /></div>
     <div class="card-main">
@@ -1284,13 +1305,13 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card and Expanded Hangar Bay is able to choose an additional squadron to gain the Scout keyword. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>A ship equipped with this Upgrade Card and <a class="card-ref" href="#expanded-hangar-bay-offensive-retro"><em>Expanded Hangar Bay</em></a> is able to choose an additional squadron to gain the Scout keyword. <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hyperwave-signal-boost-11" data-name="hyperwave signal boost" data-factions="separatist" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="hyperwave-signal-boost-offensive-retro" data-name="hyperwave signal boost" data-factions="separatist" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperwave-signal-boost.webp" alt="Hyperwave Signal Boost" /></div>
     <div class="card-main">
@@ -1320,7 +1341,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="phylon-q7-tractor-beams-12" data-name="phylon q7 tractor beams" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="phylon-q7-tractor-beams-offensive-retro" data-name="phylon q7 tractor beams" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/phylon-q7-tractor-beams.webp" alt="Phylon Q7 Tractor Beams" /></div>
     <div class="card-main">
@@ -1350,7 +1371,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="point-defense-reroute-13" data-name="point-defense reroute" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="point-defense-reroute-offensive-retro" data-name="point-defense reroute" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/point-defense-reroute.webp" alt="Point-Defense Reroute" /></div>
     <div class="card-main">
@@ -1375,7 +1396,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="proximity-mines-14" data-name="proximity mines" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="proximity-mines-offensive-retro" data-name="proximity mines" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/proximity-mines.webp" alt="Proximity Mines" /></div>
     <div class="card-main">
@@ -1410,7 +1431,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="quad-laser-turrets-15" data-name="quad laser turrets" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="quad-laser-turrets-offensive-retro" data-name="quad laser turrets" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/quad-laser-turrets.webp" alt="Quad Laser Turrets" /></div>
     <div class="card-main">
@@ -1434,13 +1455,13 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li>If a ship has not yet resolved the Concentrate Fire command this round, it may use a Concentrate Fire token on this attack. But it then cannot use the Concentrate Fire command for the rest of the round. <span class="footnote-ref">[1]</span></li><li>If a ship equipped with this Upgrade card is the first player Advanced Gunnery objective ship and performs a Counter attack using this Upgrade card&#39;s effect, the hull zone that performed the Counter attack can no longer target that squadron that round. <span class="footnote-ref">[1]</span></li><li>Ruthless Strategists can trigger from this Upgrade Card&#39;s attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Heavy Fire Zone and this Upgrade Card can replace the blue die from Counter 1 with a red die when performing Counter attacks, if the target is not engaged with a friendly squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Flak Guns and this Upgrade Card must replace the blue die from Counter 1 with a black die when performing Counter attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Agent Kallus and this Upgrade Card can add a die when performing Counter attacks against a unique squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with General Draven (Officer) and this Upgrade Card can add a die when performing Counter attacks against a squadron with Counter or Intel. <span class="footnote-ref">[1]</span></li><li>Linked Turbolaser Towers&#39; dice add effect cannot be used on this Upgrade Card&#39;s Counter attacks as they do not occur during that ship&#39;s activation. <span class="footnote-ref">[1]</span></li><li>If an unactivated ship equipped with Slaved Turrets and this Upgrade Card chooses to perform a Counter attack, that ship cannot perform further Counter attacks, nor can it attack when that ship is activated. If the ship had activated and had attacked, it cannot perform any Counter attack. <span class="footnote-ref">[1]</span></li><li>If a ship equipped with this Upgrade Card has declared Admiral Ackbar&#39;s ability, then that ship can only resolve attacks from either its left or right hullzones, and cannot attack from its front or rear. <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li>If a ship has not yet resolved the Concentrate Fire command this round, it may use a Concentrate Fire token on this attack. But it then cannot use the Concentrate Fire command for the rest of the round. <span class="footnote-ref">[1]</span></li><li>If a ship equipped with this Upgrade card is the first player Advanced Gunnery objective ship and performs a Counter attack using this Upgrade card&#39;s effect, the hull zone that performed the Counter attack can no longer target that squadron that round. <span class="footnote-ref">[1]</span></li><li>Ruthless Strategists can trigger from this Upgrade Card&#39;s attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Heavy Fire Zone and this Upgrade Card can replace the blue die from Counter 1 with a red die when performing Counter attacks, if the target is not engaged with a friendly squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with <a class="card-ref" href="#flak-guns-offensive-retro"><em>Flak Guns</em></a> and this Upgrade Card must replace the blue die from Counter 1 with a black die when performing Counter attacks. <span class="footnote-ref">[1]</span></li><li>A ship equipped with Agent Kallus and this Upgrade Card can add a die when performing Counter attacks against a unique squadron. <span class="footnote-ref">[1]</span></li><li>A ship equipped with General Draven (Officer) and this Upgrade Card can add a die when performing Counter attacks against a squadron with Counter or Intel. <span class="footnote-ref">[1]</span></li><li>Linked Turbolaser Towers&#39; dice add effect cannot be used on this Upgrade Card&#39;s Counter attacks as they do not occur during that ship&#39;s activation. <span class="footnote-ref">[1]</span></li><li>If an unactivated ship equipped with Slaved Turrets and this Upgrade Card chooses to perform a Counter attack, that ship cannot perform further Counter attacks, nor can it attack when that ship is activated. If the ship had activated and had attacked, it cannot perform any Counter attack. <span class="footnote-ref">[1]</span></li><li>If a ship equipped with this Upgrade Card has declared Admiral Ackbar&#39;s ability, then that ship can only resolve attacks from either its left or right hullzones, and cannot attack from its front or rear. <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="rapid-launch-bays-16" data-name="rapid launch bays" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="rapid-launch-bays-offensive-retro" data-name="rapid launch bays" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rapid-launch-bays.webp" alt="Rapid Launch Bays" /></div>
     <div class="card-main">
@@ -1470,7 +1491,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="reserve-hangar-deck-17" data-name="reserve hangar deck" data-factions="" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="reserve-hangar-deck-offensive-retro" data-name="reserve hangar deck" data-factions="" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/reserve-hangar-deck.webp" alt="Reserve Hangar Deck" /></div>
     <div class="card-main">
@@ -1500,7 +1521,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="spha-t-18" data-name="spha-t" data-factions="republic" data-category="upgrades" data-type="offensive-retro">
+<article class="karm-card" id="spha-t-offensive-retro" data-name="spha-t" data-factions="republic" data-category="upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/spha-t.webp" alt="SPHA-T" /></div>
     <div class="card-main">
@@ -1525,15 +1546,15 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-19" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="offensive-retro-20" data-category="header">
+<article class="karm-card karm-header-card" id="header-offensive-retro-2" data-category="header">
   <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
 </article>
 
-<article class="karm-card" id="ambush-21" data-name="ambush" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
+<article class="karm-card" id="ambush-offensive-retro" data-name="ambush" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ambush-scum-nexus.webp" alt="Ambush" /></div>
     <div class="card-main">
@@ -1550,7 +1571,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="boarding-pods-22" data-name="boarding pods" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
+<article class="karm-card" id="boarding-pods-offensive-retro" data-name="boarding pods" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boarding-pods-scum-nexus.webp" alt="Boarding Pods" /></div>
     <div class="card-main">
@@ -1567,7 +1588,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="external-droid-storage-23" data-name="external droid storage" data-factions="separatist" data-category="nexus-upgrades" data-type="offensive-retro">
+<article class="karm-card" id="external-droid-storage-offensive-retro" data-name="external droid storage" data-factions="separatist" data-category="nexus-upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/external-droid-storage-nexus.webp" alt="External Droid Storage" /></div>
     <div class="card-main">
@@ -1584,7 +1605,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="shield-leecher-24" data-name="shield leecher" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
+<article class="karm-card" id="shield-leecher-offensive-retro" data-name="shield leecher" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/shield-leecher-scum-nexus.webp" alt="Shield Leecher" /></div>
     <div class="card-main">

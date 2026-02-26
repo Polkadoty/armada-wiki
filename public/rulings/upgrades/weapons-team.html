@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="weapons-team-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-weapons-team" data-category="header">
   <div class="section-header-title">Weapons Team <span class="icon-font">I</span></div>
 </article>
 
-<article class="karm-card" id="caitken-and-shollan-2" data-name="caitken and shollan" data-factions="rebel" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="caitken-and-shollan-weapons-team" data-name="caitken and shollan" data-factions="rebel" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/caitken-and-shollan.webp" alt="Caitken and Shollan" /></div>
     <div class="card-main">
@@ -1060,7 +1081,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="clone-gunners-3" data-name="clone gunners" data-factions="republic" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="clone-gunners-weapons-team" data-name="clone gunners" data-factions="republic" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/clone-gunners.webp" alt="Clone Gunners" /></div>
     <div class="card-main">
@@ -1090,7 +1111,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="fire-control-team-4" data-name="fire-control team" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="fire-control-team-weapons-team" data-name="fire-control team" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fire-control-team.webp" alt="Fire-Control Team" /></div>
     <div class="card-main">
@@ -1120,7 +1141,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="flight-controllers-5" data-name="flight controllers" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="flight-controllers-weapons-team" data-name="flight controllers" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/flight-controllers.webp" alt="Flight Controllers" /></div>
     <div class="card-main">
@@ -1155,7 +1176,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="gunnery-chief-varnillian-6" data-name="gunnery chief varnillian" data-factions="empire" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="gunnery-chief-varnillian-weapons-team" data-name="gunnery chief varnillian" data-factions="empire" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gunnery-chief-varnillian.webp" alt="Gunnery Chief Varnillian" /></div>
     <div class="card-main">
@@ -1185,7 +1206,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="gunnery-team-7" data-name="gunnery team" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="gunnery-team-weapons-team" data-name="gunnery team" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gunnery-team.webp" alt="Gunnery Team" /></div>
     <div class="card-main">
@@ -1220,7 +1241,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="local-fire-control-8" data-name="local fire control" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="local-fire-control-weapons-team" data-name="local fire control" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/local-fire-control.webp" alt="Local Fire Control" /></div>
     <div class="card-main">
@@ -1250,7 +1271,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ordnance-experts-9" data-name="ordnance experts" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="ordnance-experts-weapons-team" data-name="ordnance experts" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ordnance-experts.webp" alt="Ordnance Experts" /></div>
     <div class="card-main">
@@ -1275,7 +1296,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ruthless-strategists-10" data-name="ruthless strategists" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="ruthless-strategists-weapons-team" data-name="ruthless strategists" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ruthless-strategists.webp" alt="Ruthless Strategists" /></div>
     <div class="card-main">
@@ -1310,7 +1331,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="sensor-team-11" data-name="sensor team" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="sensor-team-weapons-team" data-name="sensor team" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sensor-team.webp" alt="Sensor Team" /></div>
     <div class="card-main">
@@ -1335,7 +1356,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="veteran-gunners-12" data-name="veteran gunners" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="veteran-gunners-weapons-team" data-name="veteran gunners" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/veteran-gunners.webp" alt="Veteran Gunners" /></div>
     <div class="card-main">
@@ -1360,7 +1381,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="weapons-battery-techs-13" data-name="weapons battery techs" data-factions="" data-category="upgrades" data-type="weapons-team">
+<article class="karm-card" id="weapons-battery-techs-weapons-team" data-name="weapons battery techs" data-factions="" data-category="upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/weapons-battery-techs.webp" alt="Weapons Battery Techs" /></div>
     <div class="card-main">
@@ -1385,15 +1406,15 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-14" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="weapons-team-15" data-category="header">
+<article class="karm-card karm-header-card" id="header-weapons-team-2" data-category="header">
   <div class="section-header-title">Weapons Team <span class="icon-font">I</span></div>
 </article>
 
-<article class="karm-card" id="gun-captains-16" data-name="gun captains" data-factions="scum" data-category="nexus-upgrades" data-type="weapons-team">
+<article class="karm-card" id="gun-captains-weapons-team" data-name="gun captains" data-factions="scum" data-category="nexus-upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/gun-captains-scum-nexus.webp" alt="Gun Captains" /></div>
     <div class="card-main">
@@ -1410,7 +1431,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="magistrate-oro-17" data-name="magistrate oro" data-factions="scum" data-category="nexus-upgrades" data-type="weapons-team">
+<article class="karm-card" id="magistrate-oro-weapons-team" data-name="magistrate oro" data-factions="scum" data-category="nexus-upgrades" data-type="weapons-team">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/magistrate-oro-scum-nexus.webp" alt="Magistrate Oro" /></div>
     <div class="card-main">

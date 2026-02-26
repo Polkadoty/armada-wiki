@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="leader-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-leader" data-category="header">
   <div class="section-header-title">Leader </div>
 </article>
 
-<article class="karm-card" id="brother-in-arms-leader-2" data-name="brother in arms - leader" data-factions="republic" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="brother-in-arms-leader-leader" data-name="brother in arms - leader" data-factions="republic" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/brother-in-arms-fighter-group.webp" alt="Brother in Arms - Leader" /></div>
     <div class="card-main">
@@ -1052,7 +1073,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="buzz-droids-leader-3" data-name="buzz droids - leader" data-factions="separatist" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="buzz-droids-leader-leader" data-name="buzz droids - leader" data-factions="separatist" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/buzz-droids-fighter-group.webp" alt="Buzz Droids - Leader" /></div>
     <div class="card-main">
@@ -1069,7 +1090,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="callous-tactician-leader-4" data-name="callous tactician - leader" data-factions="empire" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="callous-tactician-leader-leader" data-name="callous tactician - leader" data-factions="empire" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/callous-tactician-fighter-group.webp" alt="Callous Tactician - Leader" /></div>
     <div class="card-main">
@@ -1086,7 +1107,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="inspiring-leader-leader-5" data-name="inspiring leader - leader" data-factions="rebel" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="inspiring-leader-leader-leader" data-name="inspiring leader - leader" data-factions="rebel" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/inspiring-leader-fighter-group.webp" alt="Inspiring Leader - Leader" /></div>
     <div class="card-main">
@@ -1103,7 +1124,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jedi-master-leader-6" data-name="jedi master - leader" data-factions="republic" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="jedi-master-leader-leader" data-name="jedi master - leader" data-factions="republic" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jedi-master-fighter-group.webp" alt="Jedi Master - Leader" /></div>
     <div class="card-main">
@@ -1120,7 +1141,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="linked-neural-network-leader-7" data-name="linked neural network - leader" data-factions="separatist" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="linked-neural-network-leader-leader" data-name="linked neural network - leader" data-factions="separatist" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/linked-neural-network-fighter-group.webp" alt="Linked Neural Network - Leader" /></div>
     <div class="card-main">
@@ -1137,7 +1158,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="skilled-bombardier-leader-8" data-name="skilled bombardier - leader" data-factions="rebel" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="skilled-bombardier-leader-leader" data-name="skilled bombardier - leader" data-factions="rebel" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/skilled-bombardier-fighter-group.webp" alt="Skilled Bombardier - Leader" /></div>
     <div class="card-main">
@@ -1154,7 +1175,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="weapons-system-expert-leader-9" data-name="weapons system expert - leader" data-factions="empire" data-category="upgrades" data-type="leader">
+<article class="karm-card" id="weapons-system-expert-leader-leader" data-name="weapons system expert - leader" data-factions="empire" data-category="upgrades" data-type="leader">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/weapons-system-expert-fighter-group.webp" alt="Weapons System Expert - Leader" /></div>
     <div class="card-main">

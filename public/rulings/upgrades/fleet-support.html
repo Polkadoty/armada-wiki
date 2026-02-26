@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="fleet-support-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-fleet-support" data-category="header">
   <div class="section-header-title">Fleet Support <span class="icon-font">K</span></div>
 </article>
 
-<article class="karm-card" id="bomber-command-center-2" data-name="bomber command center" data-factions="" data-category="upgrades" data-type="fleet-support">
+<article class="karm-card" id="bomber-command-center-fleet-support" data-name="bomber command center" data-factions="" data-category="upgrades" data-type="fleet-support">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bomber-command-center.webp" alt="Bomber Command Center" /></div>
     <div class="card-main">
@@ -1060,7 +1081,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="comms-net-3" data-name="comms net" data-factions="" data-category="upgrades" data-type="fleet-support">
+<article class="karm-card" id="comms-net-fleet-support" data-name="comms net" data-factions="" data-category="upgrades" data-type="fleet-support">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/comms-net.webp" alt="Comms Net" /></div>
     <div class="card-main">
@@ -1090,7 +1111,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jamming-field-4" data-name="jamming field" data-factions="" data-category="upgrades" data-type="fleet-support">
+<article class="karm-card" id="jamming-field-fleet-support" data-name="jamming field" data-factions="" data-category="upgrades" data-type="fleet-support">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jamming-field.webp" alt="Jamming Field" /></div>
     <div class="card-main">
@@ -1120,7 +1141,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="munitions-resupply-5" data-name="munitions resupply" data-factions="" data-category="upgrades" data-type="fleet-support">
+<article class="karm-card" id="munitions-resupply-fleet-support" data-name="munitions resupply" data-factions="" data-category="upgrades" data-type="fleet-support">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/munitions-resupply.webp" alt="Munitions Resupply" /></div>
     <div class="card-main">
@@ -1150,7 +1171,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="parts-resupply-6" data-name="parts resupply" data-factions="" data-category="upgrades" data-type="fleet-support">
+<article class="karm-card" id="parts-resupply-fleet-support" data-name="parts resupply" data-factions="" data-category="upgrades" data-type="fleet-support">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/parts-resupply.webp" alt="Parts Resupply" /></div>
     <div class="card-main">
@@ -1180,7 +1201,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="repair-crews-7" data-name="repair crews" data-factions="" data-category="upgrades" data-type="fleet-support">
+<article class="karm-card" id="repair-crews-fleet-support" data-name="repair crews" data-factions="" data-category="upgrades" data-type="fleet-support">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/repair-crews.webp" alt="Repair Crews" /></div>
     <div class="card-main">
@@ -1205,7 +1226,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="slicer-tools-8" data-name="slicer tools" data-factions="" data-category="upgrades" data-type="fleet-support">
+<article class="karm-card" id="slicer-tools-fleet-support" data-name="slicer tools" data-factions="" data-category="upgrades" data-type="fleet-support">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/slicer-tools.webp" alt="Slicer Tools" /></div>
     <div class="card-main">

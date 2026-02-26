@@ -31,6 +31,9 @@ const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) 
 let ICON_MAP_RUNTIME = {};
 let ICON_FONT_ENABLED = true;
 let NR_LOGO_SVG = '';
+let CARD_LINK_REGISTRY = new Map();  // lowercase name → [{anchorId, displayName}]
+let CARD_LINK_REGEX = null;          // compiled regex, longest-first
+let CURRENT_RENDER_CARD = null;      // card being rendered (skip self-links)
 
 const FACTION_TAG_RE = /\s*\{([^}]+)\}/g;
 const FACTION_TAG_MAP = {
@@ -544,6 +547,12 @@ function buildCards(data, config, iconMap) {
   deduped.sort((a, b) => sortCard(a, b));
   const withHeaders = insertDynamicHeaderCards(deduped, iconMap);
   const withAnchors = assignAnchorIds(withHeaders);
+  if (isWebOutput(config)) {
+    buildCardLinkRegistry(withAnchors);
+  } else {
+    CARD_LINK_REGISTRY = new Map();
+    CARD_LINK_REGEX = null;
+  }
   return { cards: withAnchors, logLines };
 }
 
@@ -1441,6 +1450,7 @@ function buildFontFaceCss(fonts, config) {
 }
 
 function renderCard(card) {
+  CURRENT_RENDER_CARD = card;
   const titleSuffixIcon = ICON_FONT_ENABLED && card.titleSuffix
     ? `<span class="icon-font">${escapeHtml(card.titleSuffix)}</span>`
     : '';
@@ -1471,7 +1481,7 @@ function renderCard(card) {
   const factionAttr = (card.factions || []).join(',');
   const typeAttr = card.upgradeType || card.type || '';
 
-  return `
+  const html = `
 <article class="karm-card" id="${escapeAttribute(card.anchorId || '')}" data-name="${escapeAttribute(card.name.toLowerCase())}" data-factions="${escapeAttribute(factionAttr)}" data-category="${escapeAttribute(card.category)}" data-type="${escapeAttribute(typeAttr)}">
   <div class="card-top">
     <div class="card-image-wrap">${imageHtml}</div>
@@ -1483,6 +1493,8 @@ function renderCard(card) {
   <div class="card-bottom card-rulings">${rulesHtml}</div>
   ${footnotesHtml}
 </article>`;
+  CURRENT_RENDER_CARD = null;
+  return html;
 }
 
 function renderHeaderCard(card) {
@@ -1714,7 +1726,51 @@ function inlineMarkup(line) {
   safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
   safe = safe.replace(/:([a-z0-9_-]+):/gi, (_, token) => `<span class="icon-font">${escapeHtml(iconGlyphForToken(token))}</span>`);
   safe = safe.replace(KEYWORD_REGEX, formatKeyword);
+  safe = applyCardLinks(safe);
   return safe;
+}
+
+function applyCardLinks(html) {
+  if (!CARD_LINK_REGEX) return html;
+
+  // Split on HTML tags to avoid matching inside tags
+  const TAG_RE = /<[^>]*>/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+  while ((match = TAG_RE.exec(html)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', value: html.slice(lastIndex, match.index) });
+    }
+    parts.push({ type: 'tag', value: match[0] });
+    lastIndex = TAG_RE.lastIndex;
+  }
+  if (lastIndex < html.length) {
+    parts.push({ type: 'text', value: html.slice(lastIndex) });
+  }
+
+  const processed = parts.map((part) => {
+    if (part.type === 'tag') return part.value;
+
+    // Replace card names in text segments
+    return part.value.replace(CARD_LINK_REGEX, (matched) => {
+      const entries = CARD_LINK_REGISTRY.get(matched.toLowerCase());
+      if (!entries || entries.length !== 1) return matched; // ambiguous or missing
+      const entry = entries[0];
+      // Skip single-word names — too likely to match common English words
+      // (e.g., "Resolve", "Ambush", "Defiance"). Disambiguated forms like
+      // "Resolve (Title)" still work. Multi-word names are specific enough.
+      if (!entry.displayName.includes(' ')) return matched;
+      // Require capitalized first letter to distinguish card names from
+      // generic terms (e.g., "Proximity Mines" card vs "proximity mines" tokens)
+      if (matched[0] !== matched[0].toUpperCase()) return matched;
+      // Skip self-references
+      if (CURRENT_RENDER_CARD && entry.card === CURRENT_RENDER_CARD) return matched;
+      return `<a class="card-ref" href="#${escapeAttribute(entry.anchorId)}"><em>${matched}</em></a>`;
+    });
+  });
+
+  return processed.join('');
 }
 
 function applyEmojiShortcodes(text) {
@@ -1855,6 +1911,9 @@ async function generateSplitUpgradeFiles(allCards, config, iconMap, splitDir) {
     const sorted = [...typeCards].sort((a, b) => sortCard(a, b));
     const withHeaders = insertDynamicHeaderCards(sorted, iconMap);
     const withAnchors = assignAnchorIds(withHeaders);
+    if (isWebOutput(config)) {
+      buildCardLinkRegistry(withAnchors);
+    }
     const html = await renderHtml({ pages: null, cards: withAnchors, config });
     const outPath = path.join(resolvedDir, `${type}.html`);
     await writeFile(outPath, html, 'utf8');
@@ -1879,14 +1938,103 @@ function clampDpi(value) {
 }
 
 function assignAnchorIds(cards) {
-  const seen = new Set();
-  return cards.map((card, idx) => {
+  const seen = new Map(); // candidate → count
+  return cards.map((card) => {
     const base = slugify(card.name || card.category || 'entry');
-    let candidate = `${base}-${idx + 1}`;
-    while (seen.has(candidate)) candidate = `${candidate}-x`;
-    seen.add(candidate);
+    let candidate;
+    if (card.category === 'header') {
+      candidate = `header-${base}`;
+    } else if (card.category === 'upgrades' || card.category === 'nexus-upgrades') {
+      candidate = `${base}-${slugify(card.upgradeType || 'upgrade')}`;
+    } else if (card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons') {
+      candidate = `${base}-squadron`;
+    } else if (card.category === 'objectives') {
+      candidate = `${base}-objective`;
+    } else if (card.category === 'damage-cards') {
+      candidate = `${base}-damage`;
+    } else {
+      candidate = base;
+    }
+    const count = seen.get(candidate) || 0;
+    seen.set(candidate, count + 1);
+    if (count > 0) candidate = `${candidate}-${count + 1}`;
     return { ...card, anchorId: candidate };
   });
+}
+
+function upgradeTypeLabel(type) {
+  const normalized = String(type || 'unknown');
+  if (normalized === 'weapons-team-offensive-retro') return 'Boarding Team';
+  return normalized
+    .split('-')
+    .filter(Boolean)
+    .map((token) => token.charAt(0).toUpperCase() + token.slice(1))
+    .join(' ') || 'Unknown';
+}
+
+function buildCardLinkRegistry(cards) {
+  CARD_LINK_REGISTRY = new Map();
+  CARD_LINK_REGEX = null;
+
+  // Collect non-header cards
+  const nonHeaders = cards.filter((c) => c.category !== 'header');
+  if (nonHeaders.length === 0) return;
+
+  // Group by lowercase name
+  const byName = new Map();
+  for (const card of nonHeaders) {
+    const key = card.name.toLowerCase();
+    if (!byName.has(key)) byName.set(key, []);
+    byName.get(key).push(card);
+  }
+
+  // Helper to get a readable type label for any card
+  function cardTypeLabel(card) {
+    if (card.category === 'upgrades' || card.category === 'nexus-upgrades') {
+      return upgradeTypeLabel(card.upgradeType);
+    }
+    if (card.category === 'ace-squadrons' || card.category === 'nexus-ace-squadrons') {
+      return 'Squadron';
+    }
+    if (card.category === 'objectives') return 'Objective';
+    if (card.category === 'damage-cards') return 'Damage';
+    return '';
+  }
+
+  for (const [lowerName, group] of byName) {
+    if (group.length === 1) {
+      // Unique name — register plain name
+      const card = group[0];
+      CARD_LINK_REGISTRY.set(escapeHtml(card.name).toLowerCase(), [
+        { anchorId: card.anchorId, displayName: card.name, card },
+      ]);
+    } else {
+      // Ambiguous — register plain name pointing to all (won't auto-link)
+      const allEntries = group.map((card) => ({
+        anchorId: card.anchorId,
+        displayName: card.name,
+        card,
+      }));
+      CARD_LINK_REGISTRY.set(escapeHtml(group[0].name).toLowerCase(), allEntries);
+    }
+
+    // Always register disambiguated forms: "Name (Type)" for every card
+    for (const card of group) {
+      const typeLabel = cardTypeLabel(card);
+      if (typeLabel) {
+        const disambig = `${card.name} (${typeLabel})`;
+        CARD_LINK_REGISTRY.set(escapeHtml(disambig).toLowerCase(), [
+          { anchorId: card.anchorId, displayName: disambig, card },
+        ]);
+      }
+    }
+  }
+
+  // Build regex: all registered names, longest first, word-bounded
+  const names = [...CARD_LINK_REGISTRY.keys()].sort((a, b) => b.length - a.length);
+  if (names.length === 0) return;
+  const escaped = names.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  CARD_LINK_REGEX = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
 }
 
 function slugify(value) {

@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="super-weapon-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-super-weapon" data-category="header">
   <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
 </article>
 
-<article class="karm-card" id="magnite-crystal-tractor-beam-array-2" data-name="magnite crystal tractor beam array" data-factions="rebel" data-category="upgrades" data-type="super-weapon">
+<article class="karm-card" id="magnite-crystal-tractor-beam-array-super-weapon" data-name="magnite crystal tractor beam array" data-factions="rebel" data-category="upgrades" data-type="super-weapon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/magnite-crystal-tractor-beam-array.webp" alt="Magnite Crystal Tractor Beam Array" /></div>
     <div class="card-main">
@@ -1060,7 +1081,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="orbital-bombardment-particle-cannons-3" data-name="orbital bombardment particle cannons" data-factions="empire" data-category="upgrades" data-type="super-weapon">
+<article class="karm-card" id="orbital-bombardment-particle-cannons-super-weapon" data-name="orbital bombardment particle cannons" data-factions="empire" data-category="upgrades" data-type="super-weapon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/orbital-bombardment-particle-cannons.webp" alt="Orbital Bombardment Particle Cannons" /></div>
     <div class="card-main">
@@ -1090,7 +1111,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="superheavy-composite-beam-turbolasers-4" data-name="superheavy composite beam turbolasers" data-factions="empire" data-category="upgrades" data-type="super-weapon">
+<article class="karm-card" id="superheavy-composite-beam-turbolasers-super-weapon" data-name="superheavy composite beam turbolasers" data-factions="empire" data-category="upgrades" data-type="super-weapon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/superheavy-composite-beam-turbolasers.webp" alt="Superheavy Composite Beam Turbolasers" /></div>
     <div class="card-main">
@@ -1120,15 +1141,15 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-5" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="super-weapon-6" data-category="header">
+<article class="karm-card karm-header-card" id="header-super-weapon-2" data-category="header">
   <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
 </article>
 
-<article class="karm-card" id="ion-pulse-emitter-7" data-name="ion pulse emitter" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
+<article class="karm-card" id="ion-pulse-emitter-super-weapon" data-name="ion pulse emitter" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-pulse-emitter-nexus.webp" alt="Ion Pulse Emitter" /></div>
     <div class="card-main">
@@ -1145,7 +1166,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="ionic-plasma-rotors-8" data-name="ionic plasma rotors" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
+<article class="karm-card" id="ionic-plasma-rotors-super-weapon" data-name="ionic plasma rotors" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ionic-plasma-rotors-nexus.webp" alt="Ionic Plasma Rotors" /></div>
     <div class="card-main">
@@ -1162,7 +1183,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kyber-beam-cannon-9" data-name="kyber beam cannon" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
+<article class="karm-card" id="kyber-beam-cannon-super-weapon" data-name="kyber beam cannon" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-cannon-nexus.webp" alt="Kyber Beam Cannon" /></div>
     <div class="card-main">
@@ -1179,7 +1200,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="kyber-beam-plasma-refit-10" data-name="kyber beam plasma refit" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
+<article class="karm-card" id="kyber-beam-plasma-refit-super-weapon" data-name="kyber beam plasma refit" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-plasma-refit-nexus.webp" alt="Kyber Beam Plasma Refit" /></div>
     <div class="card-main">

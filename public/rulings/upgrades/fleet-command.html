@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="fleet-command-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-fleet-command" data-category="header">
   <div class="section-header-title">Fleet Command <span class="icon-font">M</span></div>
 </article>
 
-<article class="karm-card" id="all-fighters-follow-me-2" data-name="all fighters, follow me!" data-factions="" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="all-fighters-follow-me-fleet-command" data-name="all fighters, follow me!" data-factions="" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/all-fighters-follow-me.webp" alt="All Fighters, Follow Me!" /></div>
     <div class="card-main">
@@ -1065,7 +1086,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="entrapment-formation-3" data-name="entrapment formation!" data-factions="" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="entrapment-formation-fleet-command" data-name="entrapment formation!" data-factions="" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/entrapment-formation.webp" alt="Entrapment Formation!" /></div>
     <div class="card-main">
@@ -1095,7 +1116,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="hot-landing-4" data-name="hot landing" data-factions="republic,separatist" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="hot-landing-fleet-command" data-name="hot landing" data-factions="republic,separatist" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hot-landing.webp" alt="Hot Landing" /></div>
     <div class="card-main">
@@ -1120,7 +1141,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="intensify-firepower-5" data-name="intensify firepower!" data-factions="" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="intensify-firepower-fleet-command" data-name="intensify firepower!" data-factions="" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intensify-firepower.webp" alt="Intensify Firepower!" /></div>
     <div class="card-main">
@@ -1150,7 +1171,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jedi-hostage-6" data-name="jedi hostage" data-factions="separatist" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="jedi-hostage-fleet-command" data-name="jedi hostage" data-factions="separatist" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jedi-hostage.webp" alt="Jedi Hostage" /></div>
     <div class="card-main">
@@ -1175,7 +1196,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="mercy-mission-7" data-name="mercy mission" data-factions="republic" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="mercy-mission-fleet-command" data-name="mercy mission" data-factions="republic" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mercy-mission.webp" alt="Mercy Mission" /></div>
     <div class="card-main">
@@ -1205,7 +1226,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="shields-to-maximum-8" data-name="shields to maximum!" data-factions="" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="shields-to-maximum-fleet-command" data-name="shields to maximum!" data-factions="" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/shields-to-maximum.webp" alt="Shields to Maximum!" /></div>
     <div class="card-main">
@@ -1235,7 +1256,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="take-evasive-action-9" data-name="take evasive action!" data-factions="" data-category="upgrades" data-type="fleet-command">
+<article class="karm-card" id="take-evasive-action-fleet-command" data-name="take evasive action!" data-factions="" data-category="upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/take-evasive-action.webp" alt="Take Evasive Action!" /></div>
     <div class="card-main">
@@ -1270,15 +1291,15 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-10" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="fleet-command-11" data-category="header">
+<article class="karm-card karm-header-card" id="header-fleet-command-2" data-category="header">
   <div class="section-header-title">Fleet Command <span class="icon-font">M</span></div>
 </article>
 
-<article class="karm-card" id="nova-flare-12" data-name="nova flare" data-factions="new-republic" data-category="nexus-upgrades" data-type="fleet-command">
+<article class="karm-card" id="nova-flare-fleet-command" data-name="nova flare" data-factions="new-republic" data-category="nexus-upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nova-flare-new-republic-nexus.webp" alt="Nova Flare" /></div>
     <div class="card-main">
@@ -1295,7 +1316,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="peace-accords-13" data-name="peace accords" data-factions="new-republic" data-category="nexus-upgrades" data-type="fleet-command">
+<article class="karm-card" id="peace-accords-fleet-command" data-name="peace accords" data-factions="new-republic" data-category="nexus-upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/peace-accords-new-republic-nexus.webp" alt="Peace Accords" /></div>
     <div class="card-main">
@@ -1312,7 +1333,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="the-big-score-14" data-name="the big score" data-factions="scum" data-category="nexus-upgrades" data-type="fleet-command">
+<article class="karm-card" id="the-big-score-fleet-command" data-name="the big score" data-factions="scum" data-category="nexus-upgrades" data-type="fleet-command">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/the-big-score-scum-nexus.webp" alt="The Big Score" /></div>
     <div class="card-main">

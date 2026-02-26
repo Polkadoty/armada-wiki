@@ -724,6 +724,22 @@ body.search-open .search-drawer {
   font-style: normal;
 }
 
+.card-ref {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: border-color 0.15s;
+}
+
+.card-ref:hover {
+  border-bottom-style: solid;
+  color: #1565c0;
+}
+
+.card-ref em {
+  font-style: italic;
+}
+
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
@@ -943,6 +959,11 @@ body.karm-web .card-divider {
     display: none !important;
   }
 
+  .card-ref {
+    border-bottom: none;
+    color: inherit;
+  }
+
   :root {
     --page-scale: 1;
   }
@@ -1031,11 +1052,11 @@ body.karm-web .card-divider {
     <div class="karm-book">
       
       <div class="karm-continuous">
-<article class="karm-card karm-header-card" id="boarding-teams-1" data-category="header">
+<article class="karm-card karm-header-card" id="header-boarding-teams" data-category="header">
   <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
 </article>
 
-<article class="karm-card" id="boarding-engineers-2" data-name="boarding engineers" data-factions="" data-category="upgrades" data-type="weapons-team-offensive-retro">
+<article class="karm-card" id="boarding-engineers-weapons-team-offensive-retro" data-name="boarding engineers" data-factions="" data-category="upgrades" data-type="weapons-team-offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boarding-engineers-boarding-team.webp" alt="Boarding Engineers" /></div>
     <div class="card-main">
@@ -1060,7 +1081,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="boarding-troopers-3" data-name="boarding troopers" data-factions="" data-category="upgrades" data-type="weapons-team-offensive-retro">
+<article class="karm-card" id="boarding-troopers-weapons-team-offensive-retro" data-name="boarding troopers" data-factions="" data-category="upgrades" data-type="weapons-team-offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/boarding-troopers-boarding-team.webp" alt="Boarding Troopers" /></div>
     <div class="card-main">
@@ -1085,7 +1106,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="cham-syndulla-4" data-name="cham syndulla" data-factions="rebel" data-category="upgrades" data-type="weapons-team-offensive-retro">
+<article class="karm-card" id="cham-syndulla-weapons-team-offensive-retro" data-name="cham syndulla" data-factions="rebel" data-category="upgrades" data-type="weapons-team-offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/cham-syndulla-boarding-team.webp" alt="Cham Syndulla" /></div>
     <div class="card-main">
@@ -1110,7 +1131,7 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="jyn-erso-5" data-name="jyn erso" data-factions="rebel" data-category="upgrades" data-type="weapons-team-offensive-retro">
+<article class="karm-card" id="jyn-erso-weapons-team-offensive-retro" data-name="jyn erso" data-factions="rebel" data-category="upgrades" data-type="weapons-team-offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jyn-erso-boarding-team.webp" alt="Jyn Erso" /></div>
     <div class="card-main">
@@ -1138,7 +1159,7 @@ Intel Sweep, Hyperspace Migration. <span class="footnote-ref">[1]</span></li></u
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="shriv-surgaav-6" data-name="shriv surgaav" data-factions="rebel" data-category="upgrades" data-type="weapons-team-offensive-retro">
+<article class="karm-card" id="shriv-surgaav-weapons-team-offensive-retro" data-name="shriv surgaav" data-factions="rebel" data-category="upgrades" data-type="weapons-team-offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/shriv-surgaav-boarding-team.webp" alt="Shriv Surgaav" /></div>
     <div class="card-main">
@@ -1168,15 +1189,15 @@ Intel Sweep, Hyperspace Migration. <span class="footnote-ref">[1]</span></li></u
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card karm-header-card" id="nexus-upgrades-7" data-category="header">
+<article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
   <div class="section-header-title">Nexus Upgrades </div>
 </article>
 
-<article class="karm-card karm-header-card" id="boarding-teams-8" data-category="header">
+<article class="karm-card karm-header-card" id="header-boarding-teams-2" data-category="header">
   <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
 </article>
 
-<article class="karm-card" id="new-republic-infiltrators-9" data-name="new republic infiltrators" data-factions="new-republic" data-category="nexus-upgrades" data-type="weapons-team-offensive-retro">
+<article class="karm-card" id="new-republic-infiltrators-weapons-team-offensive-retro" data-name="new republic infiltrators" data-factions="new-republic" data-category="nexus-upgrades" data-type="weapons-team-offensive-retro">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/new-republic-infiltrators-new-republic-nexus.webp" alt="New Republic Infiltrators" /></div>
     <div class="card-main">
