@@ -81,8 +81,10 @@ const RULE_SECTION_LABELS = {
   squadron_interactions: 'Squadron Interactions',
   objective_interactions: 'Objective Interactions',
   counter_and_salvo_interactions: 'Counter and Salvo Interactions',
+  damage_card_interactions: 'Damage Card Interactions',
   obstacle_interactions: 'Obstacle Interactions',
   deployment_interactions: 'Deployment Interactions',
+  play_area_interactions: 'Play Area Interactions',
   campaign_interactions: 'Campaign Interactions',
 };
 
@@ -104,9 +106,15 @@ const RULE_SECTION_ALIASES = {
   counter: 'counter_and_salvo_interactions',
   salvo: 'counter_and_salvo_interactions',
   counter_and_salvo: 'counter_and_salvo_interactions',
+  counter_salvo: 'counter_and_salvo_interactions',
+  damage: 'damage_card_interactions',
+  damage_card: 'damage_card_interactions',
+  damage_card_interaction: 'damage_card_interactions',
   obstacle: 'obstacle_interactions',
   obstacles: 'obstacle_interactions',
   deployment: 'deployment_interactions',
+  play_area: 'play_area_interactions',
+  play_area_interaction: 'play_area_interactions',
   campaign: 'campaign_interactions',
   card_text: 'card_text',
 };
@@ -119,8 +127,10 @@ const SECTION_ORDER = [
   'squadron_interactions',
   'objective_interactions',
   'counter_and_salvo_interactions',
+  'damage_card_interactions',
   'obstacle_interactions',
   'deployment_interactions',
+  'play_area_interactions',
   'campaign_interactions',
 ];
 
