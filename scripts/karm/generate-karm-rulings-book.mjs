@@ -1342,6 +1342,7 @@ function buildPreloadLinks(config) {
     fonts.optimaBold,
     fonts.revengerLite,
     fonts.teutonFett,
+    fonts.aeroMaticsRegular,
     fonts.iconFont,
   ].filter(Boolean);
 

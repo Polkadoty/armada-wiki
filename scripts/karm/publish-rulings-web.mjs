@@ -28,6 +28,7 @@ const fontFiles = [
   'fighter-keyword.woff',
   'optima-bold.woff',
   'optima-italic.woff',
+  'aero-matics-display-regular.woff',
 ];
 
 await mkdir(targetFontsRoot, { recursive: true });
