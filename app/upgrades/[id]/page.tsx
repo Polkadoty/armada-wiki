@@ -218,7 +218,7 @@ export default function UpgradeDetailPage({
                   <h3 className="font-semibold mb-3">Rulings</h3>
                   <div className="space-y-3">
                     {upgrade.rules.map((rule, index) => (
-                      <div key={index} className="text-sm">
+                      <div key={index} className={`text-sm ${rule.defunct ? 'opacity-60' : ''}`}>
                         <div className="flex gap-2 flex-wrap mb-1">
                           <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs font-medium">
                             {rule.source}
@@ -234,10 +234,20 @@ export default function UpgradeDetailPage({
                           <span className="px-2 py-0.5 bg-accent/50 rounded text-xs capitalize">
                             {normalizeType(rule.type).replace(/_/g, ' ')}
                           </span>
+                          {rule.defunct && (
+                            <span className="px-2 py-0.5 bg-destructive/15 text-destructive rounded text-xs font-medium">
+                              Defunct
+                            </span>
+                          )}
                         </div>
-                        <p className="text-sm whitespace-pre-wrap leading-relaxed">
+                        <p className={`text-sm whitespace-pre-wrap leading-relaxed ${rule.defunct ? 'line-through decoration-muted-foreground/50' : ''}`}>
                           {rule.text}
                         </p>
+                        {rule.defunct && rule.explanation && (
+                          <p className="text-xs text-muted-foreground mt-1 italic">
+                            {rule.explanation}
+                          </p>
+                        )}
                       </div>
                     ))}
                   </div>

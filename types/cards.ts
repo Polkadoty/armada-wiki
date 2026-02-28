@@ -63,6 +63,17 @@ export interface ShipModel {
   source?: string;
 }
 
+// Rule type shared across card types
+export interface Rule {
+  type: string;
+  source: string;
+  date: string;
+  version: string;
+  text: string;
+  defunct?: boolean;
+  explanation?: string;
+}
+
 // Squadron Types
 export interface Squadron {
   UID: string;
@@ -113,6 +124,7 @@ export interface Squadron {
   cardimage?: string;
   source?: string;
   rulings?: string;
+  rules?: Rule[];
 }
 
 // Upgrade Types
@@ -148,13 +160,7 @@ export interface Upgrade {
   cardimage?: string;
   source?: string;
   rulings?: string;
-  rules?: Array<{
-    type: string;
-    source: string;
-    date: string;
-    version: string;
-    text: string;
-  }>;
+  rules?: Rule[];
 }
 
 // Objective Types
@@ -180,6 +186,7 @@ export interface Objective {
   artwork?: string;
   cardimage?: string;
   source?: string;
+  rules?: Rule[];
 }
 
 // API Response Types

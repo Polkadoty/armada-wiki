@@ -7,6 +7,7 @@ import { Comments } from '@/components/Comments';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
 import { formatDice, getSquadronDisplayName, getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
+const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'unknown');
 
 export default function SquadronDetailPage({
   params,
@@ -186,8 +187,50 @@ export default function SquadronDetailPage({
                 </div>
               )}
 
-              {/* Rulings */}
-              {squadron.rulings && (
+              {/* Rulings - Structured rules with source and date */}
+              {squadron.rules && squadron.rules.length > 0 && (
+                <div className="p-4 border border-border/70 bg-muted/40 rounded-xl">
+                  <h3 className="font-semibold mb-3">Rulings</h3>
+                  <div className="space-y-3">
+                    {squadron.rules.map((rule, index) => (
+                      <div key={index} className={`text-sm ${rule.defunct ? 'opacity-60' : ''}`}>
+                        <div className="flex gap-2 flex-wrap mb-1">
+                          <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs font-medium">
+                            {rule.source}
+                          </span>
+                          <span className="px-2 py-0.5 bg-secondary rounded text-xs">
+                            {rule.date}
+                          </span>
+                          {rule.version && (
+                            <span className="px-2 py-0.5 bg-secondary rounded text-xs">
+                              {rule.version}
+                            </span>
+                          )}
+                          <span className="px-2 py-0.5 bg-accent/50 rounded text-xs capitalize">
+                            {normalizeType(rule.type).replace(/_/g, ' ')}
+                          </span>
+                          {rule.defunct && (
+                            <span className="px-2 py-0.5 bg-destructive/15 text-destructive rounded text-xs font-medium">
+                              Defunct
+                            </span>
+                          )}
+                        </div>
+                        <p className={`text-sm whitespace-pre-wrap leading-relaxed ${rule.defunct ? 'line-through decoration-muted-foreground/50' : ''}`}>
+                          {rule.text}
+                        </p>
+                        {rule.defunct && rule.explanation && (
+                          <p className="text-xs text-muted-foreground mt-1 italic">
+                            {rule.explanation}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Legacy Rulings - Plain text fallback */}
+              {!squadron.rules && squadron.rulings && (
                 <div className="p-4 border border-border/70 bg-muted/40 rounded-xl">
                   <h3 className="font-semibold mb-2">Rulings</h3>
                   <p className="text-sm whitespace-pre-wrap">{squadron.rulings}</p>
