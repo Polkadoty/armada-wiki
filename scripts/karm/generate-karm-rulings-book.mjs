@@ -932,8 +932,11 @@ function collectRuleEntries(input, headingHint = 'Clarifications') {
     const version = stringValue(obj.version, '');
     const collected = [];
 
+    const defunct = !!obj.defunct;
+    const explanation = stringValue(obj.explanation, '');
+
     if (directText) {
-      collected.push({ section, text: directText, source, date, version });
+      collected.push({ section, text: directText, source, date, version, defunct, explanation });
     }
 
     for (const [key, value] of Object.entries(obj)) {
@@ -949,6 +952,8 @@ function collectRuleEntries(input, headingHint = 'Clarifications') {
         'source',
         'date',
         'version',
+        'defunct',
+        'explanation',
         'uid',
         'id',
         '_id',
@@ -976,6 +981,8 @@ function mergeRulesBySection(rules) {
       source: rule.source || '',
       date: rule.date || '',
       version: rule.version || '',
+      defunct: !!rule.defunct,
+      explanation: rule.explanation || '',
     });
   }
 
@@ -992,6 +999,8 @@ function mergeRulesBySection(rules) {
         source: row.source,
         date: row.date,
         version: row.version,
+        defunct: row.defunct,
+        explanation: row.explanation,
       });
     }
   }
@@ -1612,6 +1621,8 @@ function buildSectionBundle(card) {
     sections.get(sectionKey).push({
       text: rule.text,
       footnote: footnoteIndex,
+      defunct: !!rule.defunct,
+      explanation: rule.explanation || '',
     });
   }
 
@@ -1638,7 +1649,11 @@ function buildSectionBundle(card) {
         : `<ul>${entries
             .map((entry) => {
               const suffix = entry.footnote ? ` <span class="footnote-ref">[${entry.footnote}]</span>` : '';
-              return `<li>${markdownishToHtmlInline(entry.text)}${suffix}</li>`;
+              const defunctClass = entry.defunct ? ' class="defunct"' : '';
+              const explanationHtml = entry.defunct && entry.explanation
+                ? `<div class="defunct-explanation">${escapeHtml(entry.explanation)}</div>`
+                : '';
+              return `<li${defunctClass}><span class="ruling-text">${markdownishToHtmlInline(entry.text)}</span>${suffix}${explanationHtml}</li>`;
             })
             .join('')}</ul>`;
     sectionHtmlParts.push(`

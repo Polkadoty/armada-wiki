@@ -542,6 +542,22 @@ body.search-open .search-drawer {
   padding-left: 32px;
 }
 
+.ruling-content li.defunct {
+  opacity: 0.55;
+}
+
+.ruling-content li.defunct .ruling-text {
+  text-decoration: line-through;
+}
+
+.defunct-explanation {
+  font-size: 0.82em;
+  font-style: italic;
+  opacity: 0.85;
+  margin-top: 2px;
+  text-decoration: none;
+}
+
 .ruling-content li,
 .ruling-content li p,
 .card-text-content,
