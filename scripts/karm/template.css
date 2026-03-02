@@ -699,11 +699,17 @@ body.search-open .search-drawer {
 body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
-  background-size: cover;
+  background-size: 180%;
   background-position: center top -60px;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
+}
+
+@media (min-width: 1400px) {
+  body.karm-web {
+    background-size: cover;
+  }
 }
 
 body.karm-web .karm-book {
