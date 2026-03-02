@@ -88,7 +88,9 @@ const jobs = [
   { label: 'nexus-squadrons', out: 'public/rulings/nexus-squadrons.html', log: 'public/rulings/nexus-squadrons.log', categories: 'ace-squadrons', nexusOnly: true, loadCardIndex: cardIndexPath },
 ];
 
-for (const job of jobs) {
+for (let i = 0; i < jobs.length; i++) {
+  const job = jobs[i];
+  if (i > 0) await new Promise((r) => setTimeout(r, 1500));
   process.stdout.write(`[karm-web] Generating ${job.label} -> ${job.out}\n`);
   await runGenerator(job);
 }

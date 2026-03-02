@@ -2375,21 +2375,31 @@ function splitCsv(value) {
     .filter(Boolean);
 }
 
-async function tryFetchJson(url) {
-  try {
-    const response = await fetch(url, { signal: AbortSignal.timeout(7000) });
-    if (!response.ok) {
-      if (verbose) log(`Fetch failed ${response.status} ${response.statusText}: ${url}`);
+async function tryFetchJson(url, retries = 2) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      if (attempt > 0) {
+        const delay = 1000 * attempt;
+        if (verbose) log(`Retry ${attempt}/${retries} for ${url} after ${delay}ms`);
+        await new Promise((r) => setTimeout(r, delay));
+      }
+      const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
+      if (!response.ok) {
+        if (verbose) log(`Fetch failed ${response.status} ${response.statusText}: ${url}`);
+        if (response.status >= 500 && attempt < retries) continue;
+        return null;
+      }
+      return await response.json();
+    } catch (error) {
+      if (verbose) {
+        const message = error instanceof Error ? error.message : String(error);
+        log(`Fetch error: ${url} -> ${message}`);
+      }
+      if (attempt < retries) continue;
       return null;
     }
-    return await response.json();
-  } catch (error) {
-    if (verbose) {
-      const message = error instanceof Error ? error.message : String(error);
-      log(`Fetch error: ${url} -> ${message}`);
-    }
-    return null;
   }
+  return null;
 }
 
 function stringValue(value, fallback = '') {
