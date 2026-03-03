@@ -759,6 +759,61 @@ body.search-open .search-drawer {
   font-style: italic;
 }
 
+/* ── Copy-link button ── */
+
+.copy-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: rgba(36, 64, 143, 0.4);
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  transition: color 120ms, background 120ms;
+}
+
+.copy-link-btn:hover {
+  color: var(--accent);
+  background: rgba(36, 64, 143, 0.08);
+}
+
+.copy-link-btn svg {
+  display: block;
+}
+
+/* ── Copy toast ── */
+
+.copy-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  animation: toast-in 150ms ease, toast-out 300ms ease 1.2s forwards;
+  pointer-events: none;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 /* ── ARC points-only toggle ── */
 
 .arc-points-toggle {
@@ -1000,7 +1055,9 @@ body.karm-web .card-divider {
 }
 
 @media print {
-  .arc-points-toggle { display: none !important; }
+  .arc-points-toggle,
+  .copy-link-btn,
+  .copy-toast { display: none !important; }
 
   .toc-fab,
   .toc-drawer,
@@ -1111,7 +1168,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/brother-in-arms-fighter-group.webp" alt="Brother in Arms - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Brother in Arms - Leader <span class="icon-font">|</span></h2>
+      <h2 class="card-title">Brother in Arms - Leader <span class="icon-font">|</span> <button class="copy-link-btn" data-anchor="brother-in-arms-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1128,7 +1185,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/buzz-droids-fighter-group.webp" alt="Buzz Droids - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Buzz Droids - Leader <span class="icon-font">}</span></h2>
+      <h2 class="card-title">Buzz Droids - Leader <span class="icon-font">}</span> <button class="copy-link-btn" data-anchor="buzz-droids-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1145,7 +1202,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/callous-tactician-fighter-group.webp" alt="Callous Tactician - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Callous Tactician - Leader <span class="icon-font">\</span></h2>
+      <h2 class="card-title">Callous Tactician - Leader <span class="icon-font">\</span> <button class="copy-link-btn" data-anchor="callous-tactician-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1162,7 +1219,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/inspiring-leader-fighter-group.webp" alt="Inspiring Leader - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Inspiring Leader - Leader <span class="icon-font">[</span></h2>
+      <h2 class="card-title">Inspiring Leader - Leader <span class="icon-font">[</span> <button class="copy-link-btn" data-anchor="inspiring-leader-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1179,7 +1236,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jedi-master-fighter-group.webp" alt="Jedi Master - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Jedi Master - Leader <span class="icon-font">|</span></h2>
+      <h2 class="card-title">Jedi Master - Leader <span class="icon-font">|</span> <button class="copy-link-btn" data-anchor="jedi-master-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1196,7 +1253,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/linked-neural-network-fighter-group.webp" alt="Linked Neural Network - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Linked Neural Network - Leader <span class="icon-font">}</span></h2>
+      <h2 class="card-title">Linked Neural Network - Leader <span class="icon-font">}</span> <button class="copy-link-btn" data-anchor="linked-neural-network-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1213,7 +1270,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/skilled-bombardier-fighter-group.webp" alt="Skilled Bombardier - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Skilled Bombardier - Leader <span class="icon-font">[</span></h2>
+      <h2 class="card-title">Skilled Bombardier - Leader <span class="icon-font">[</span> <button class="copy-link-btn" data-anchor="skilled-bombardier-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1230,7 +1287,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/weapons-system-expert-fighter-group.webp" alt="Weapons System Expert - Leader" /></div>
     <div class="card-main">
-      <h2 class="card-title">Weapons System Expert - Leader <span class="icon-font">\</span></h2>
+      <h2 class="card-title">Weapons System Expert - Leader <span class="icon-font">\</span> <button class="copy-link-btn" data-anchor="weapons-system-expert-leader-leader" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1393,6 +1450,26 @@ body.karm-web .card-divider {
       btn.setAttribute('title', 'Showing ARC points — click to revert');
       btn.setAttribute('aria-label', 'Showing ARC points — click to revert');
     }
+  });
+})();
+</script>
+    <script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-link-btn');
+    if (!btn) return;
+    var anchor = btn.getAttribute('data-anchor');
+    if (!anchor) return;
+    var url = location.origin + location.pathname + '#' + anchor;
+    navigator.clipboard.writeText(url).then(function () {
+      var existing = document.querySelector('.copy-toast');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.textContent = 'Link copied';
+      document.body.appendChild(toast);
+      setTimeout(function () { toast.remove(); }, 1500);
+    });
   });
 })();
 </script>

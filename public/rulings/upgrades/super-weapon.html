@@ -759,6 +759,61 @@ body.search-open .search-drawer {
   font-style: italic;
 }
 
+/* ── Copy-link button ── */
+
+.copy-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: rgba(36, 64, 143, 0.4);
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  transition: color 120ms, background 120ms;
+}
+
+.copy-link-btn:hover {
+  color: var(--accent);
+  background: rgba(36, 64, 143, 0.08);
+}
+
+.copy-link-btn svg {
+  display: block;
+}
+
+/* ── Copy toast ── */
+
+.copy-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  animation: toast-in 150ms ease, toast-out 300ms ease 1.2s forwards;
+  pointer-events: none;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 /* ── ARC points-only toggle ── */
 
 .arc-points-toggle {
@@ -1000,7 +1055,9 @@ body.karm-web .card-divider {
 }
 
 @media print {
-  .arc-points-toggle { display: none !important; }
+  .arc-points-toggle,
+  .copy-link-btn,
+  .copy-toast { display: none !important; }
 
   .toc-fab,
   .toc-drawer,
@@ -1111,7 +1168,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/magnite-crystal-tractor-beam-array.webp" alt="Magnite Crystal Tractor Beam Array" /></div>
     <div class="card-main">
-      <h2 class="card-title">Magnite Crystal Tractor Beam Array <span class="icon-font">[</span> <span class="icon-font"> N</span></h2>
+      <h2 class="card-title">Magnite Crystal Tractor Beam Array <span class="icon-font">[</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="magnite-crystal-tractor-beam-array-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1136,7 +1193,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/orbital-bombardment-particle-cannons.webp" alt="Orbital Bombardment Particle Cannons" /></div>
     <div class="card-main">
-      <h2 class="card-title">Orbital Bombardment Particle Cannons <span class="icon-font">\</span> <span class="icon-font"> N</span></h2>
+      <h2 class="card-title">Orbital Bombardment Particle Cannons <span class="icon-font">\</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="orbital-bombardment-particle-cannons-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1166,7 +1223,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/superheavy-composite-beam-turbolasers.webp" alt="Superheavy Composite Beam Turbolasers" /></div>
     <div class="card-main">
-      <h2 class="card-title">Superheavy Composite Beam Turbolasers <span class="icon-font">\</span> <span class="icon-font"> N</span></h2>
+      <h2 class="card-title">Superheavy Composite Beam Turbolasers <span class="icon-font">\</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="superheavy-composite-beam-turbolasers-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1204,7 +1261,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-pulse-emitter-nexus.webp" alt="Ion Pulse Emitter" /></div>
     <div class="card-main">
-      <h2 class="card-title">Ion Pulse Emitter <span class="icon-font">}</span> <span class="icon-font"> N</span></h2>
+      <h2 class="card-title">Ion Pulse Emitter <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="ion-pulse-emitter-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1221,7 +1278,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ionic-plasma-rotors-nexus.webp" alt="Ionic Plasma Rotors" /></div>
     <div class="card-main">
-      <h2 class="card-title">Ionic Plasma Rotors <span class="icon-font">}</span> <span class="icon-font"> N</span></h2>
+      <h2 class="card-title">Ionic Plasma Rotors <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="ionic-plasma-rotors-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1238,7 +1295,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-cannon-nexus.webp" alt="Kyber Beam Cannon" /></div>
     <div class="card-main">
-      <h2 class="card-title">Kyber Beam Cannon <span class="icon-font">}</span> <span class="icon-font"> N</span></h2>
+      <h2 class="card-title">Kyber Beam Cannon <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="kyber-beam-cannon-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1255,7 +1312,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-plasma-refit-nexus.webp" alt="Kyber Beam Plasma Refit" /></div>
     <div class="card-main">
-      <h2 class="card-title">Kyber Beam Plasma Refit <span class="icon-font">}</span> <span class="icon-font"> N</span></h2>
+      <h2 class="card-title">Kyber Beam Plasma Refit <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="kyber-beam-plasma-refit-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1418,6 +1475,26 @@ body.karm-web .card-divider {
       btn.setAttribute('title', 'Showing ARC points — click to revert');
       btn.setAttribute('aria-label', 'Showing ARC points — click to revert');
     }
+  });
+})();
+</script>
+    <script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-link-btn');
+    if (!btn) return;
+    var anchor = btn.getAttribute('data-anchor');
+    if (!anchor) return;
+    var url = location.origin + location.pathname + '#' + anchor;
+    navigator.clipboard.writeText(url).then(function () {
+      var existing = document.querySelector('.copy-toast');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.textContent = 'Link copied';
+      document.body.appendChild(toast);
+      setTimeout(function () { toast.remove(); }, 1500);
+    });
   });
 })();
 </script>

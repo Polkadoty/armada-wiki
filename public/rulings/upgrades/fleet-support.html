@@ -759,6 +759,61 @@ body.search-open .search-drawer {
   font-style: italic;
 }
 
+/* ── Copy-link button ── */
+
+.copy-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: rgba(36, 64, 143, 0.4);
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  transition: color 120ms, background 120ms;
+}
+
+.copy-link-btn:hover {
+  color: var(--accent);
+  background: rgba(36, 64, 143, 0.08);
+}
+
+.copy-link-btn svg {
+  display: block;
+}
+
+/* ── Copy toast ── */
+
+.copy-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  animation: toast-in 150ms ease, toast-out 300ms ease 1.2s forwards;
+  pointer-events: none;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 /* ── ARC points-only toggle ── */
 
 .arc-points-toggle {
@@ -1000,7 +1055,9 @@ body.karm-web .card-divider {
 }
 
 @media print {
-  .arc-points-toggle { display: none !important; }
+  .arc-points-toggle,
+  .copy-link-btn,
+  .copy-toast { display: none !important; }
 
   .toc-fab,
   .toc-drawer,
@@ -1111,7 +1168,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/bomber-command-center.webp" alt="Bomber Command Center" /></div>
     <div class="card-main">
-      <h2 class="card-title">Bomber Command Center <span class="icon-font"> K</span></h2>
+      <h2 class="card-title">Bomber Command Center <span class="icon-font"> K</span> <button class="copy-link-btn" data-anchor="bomber-command-center-fleet-support" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1136,7 +1193,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/comms-net.webp" alt="Comms Net" /></div>
     <div class="card-main">
-      <h2 class="card-title">Comms Net <span class="icon-font"> K</span></h2>
+      <h2 class="card-title">Comms Net <span class="icon-font"> K</span> <button class="copy-link-btn" data-anchor="comms-net-fleet-support" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1166,7 +1223,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jamming-field.webp" alt="Jamming Field" /></div>
     <div class="card-main">
-      <h2 class="card-title">Jamming Field <span class="icon-font"> K</span></h2>
+      <h2 class="card-title">Jamming Field <span class="icon-font"> K</span> <button class="copy-link-btn" data-anchor="jamming-field-fleet-support" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1196,7 +1253,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/munitions-resupply.webp" alt="Munitions Resupply" /></div>
     <div class="card-main">
-      <h2 class="card-title">Munitions Resupply <span class="icon-font"> K</span></h2>
+      <h2 class="card-title">Munitions Resupply <span class="icon-font"> K</span> <button class="copy-link-btn" data-anchor="munitions-resupply-fleet-support" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1231,7 +1288,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/parts-resupply.webp" alt="Parts Resupply" /></div>
     <div class="card-main">
-      <h2 class="card-title">Parts Resupply <span class="icon-font"> K</span></h2>
+      <h2 class="card-title">Parts Resupply <span class="icon-font"> K</span> <button class="copy-link-btn" data-anchor="parts-resupply-fleet-support" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1266,7 +1323,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/repair-crews.webp" alt="Repair Crews" /></div>
     <div class="card-main">
-      <h2 class="card-title">Repair Crews <span class="icon-font"> K</span></h2>
+      <h2 class="card-title">Repair Crews <span class="icon-font"> K</span> <button class="copy-link-btn" data-anchor="repair-crews-fleet-support" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1291,7 +1348,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/slicer-tools.webp" alt="Slicer Tools" /></div>
     <div class="card-main">
-      <h2 class="card-title">Slicer Tools <span class="icon-font"> K</span></h2>
+      <h2 class="card-title">Slicer Tools <span class="icon-font"> K</span> <button class="copy-link-btn" data-anchor="slicer-tools-fleet-support" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1467,6 +1524,26 @@ body.karm-web .card-divider {
       btn.setAttribute('title', 'Showing ARC points — click to revert');
       btn.setAttribute('aria-label', 'Showing ARC points — click to revert');
     }
+  });
+})();
+</script>
+    <script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-link-btn');
+    if (!btn) return;
+    var anchor = btn.getAttribute('data-anchor');
+    if (!anchor) return;
+    var url = location.origin + location.pathname + '#' + anchor;
+    navigator.clipboard.writeText(url).then(function () {
+      var existing = document.querySelector('.copy-toast');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.textContent = 'Link copied';
+      document.body.appendChild(toast);
+      setTimeout(function () { toast.remove(); }, 1500);
+    });
   });
 })();
 </script>

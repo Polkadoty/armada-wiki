@@ -759,6 +759,61 @@ body.search-open .search-drawer {
   font-style: italic;
 }
 
+/* ── Copy-link button ── */
+
+.copy-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: rgba(36, 64, 143, 0.4);
+  cursor: pointer;
+  padding: 2px 4px;
+  margin-left: 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  transition: color 120ms, background 120ms;
+}
+
+.copy-link-btn:hover {
+  color: var(--accent);
+  background: rgba(36, 64, 143, 0.08);
+}
+
+.copy-link-btn svg {
+  display: block;
+}
+
+/* ── Copy toast ── */
+
+.copy-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #24408f;
+  color: #fff;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  animation: toast-in 150ms ease, toast-out 300ms ease 1.2s forwards;
+  pointer-events: none;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 /* ── ARC points-only toggle ── */
 
 .arc-points-toggle {
@@ -1000,7 +1055,9 @@ body.karm-web .card-divider {
 }
 
 @media print {
-  .arc-points-toggle { display: none !important; }
+  .arc-points-toggle,
+  .copy-link-btn,
+  .copy-toast { display: none !important; }
 
   .toc-fab,
   .toc-drawer,
@@ -1111,7 +1168,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/heavy-ion-emplacements.webp" alt="Heavy Ion Emplacements" /></div>
     <div class="card-main">
-      <h2 class="card-title">Heavy Ion Emplacements <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">Heavy Ion Emplacements <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="heavy-ion-emplacements-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1141,7 +1198,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/high-capacity-ion-turbines.webp" alt="High-Capacity Ion Turbines" /></div>
     <div class="card-main">
-      <h2 class="card-title">High-Capacity Ion Turbines <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">High-Capacity Ion Turbines <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="high-capacity-ion-turbines-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1171,7 +1228,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-cannon-batteries.webp" alt="Ion Cannon Batteries" /></div>
     <div class="card-main">
-      <h2 class="card-title">Ion Cannon Batteries <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">Ion Cannon Batteries <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="ion-cannon-batteries-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1201,7 +1258,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leading-shots.webp" alt="Leading Shots" /></div>
     <div class="card-main">
-      <h2 class="card-title">Leading Shots <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">Leading Shots <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="leading-shots-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1226,7 +1283,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ms-1-ion-cannons.webp" alt="MS-1 Ion Cannons" /></div>
     <div class="card-main">
-      <h2 class="card-title">MS-1 Ion Cannons <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">MS-1 Ion Cannons <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="ms-1-ion-cannons-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1251,7 +1308,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nk-7-ion-cannons.webp" alt="NK-7 Ion Cannons" /></div>
     <div class="card-main">
-      <h2 class="card-title">NK-7 Ion Cannons <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">NK-7 Ion Cannons <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="nk-7-ion-cannons-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1286,7 +1343,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/overload-pulse.webp" alt="Overload Pulse" /></div>
     <div class="card-main">
-      <h2 class="card-title">Overload Pulse <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">Overload Pulse <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="overload-pulse-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1311,7 +1368,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/point-defense-ion-cannons.webp" alt="Point Defense Ion Cannons" /></div>
     <div class="card-main">
-      <h2 class="card-title">Point Defense Ion Cannons <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">Point Defense Ion Cannons <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="point-defense-ion-cannons-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1332,7 +1389,7 @@ body.karm-web .card-divider {
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sw-7-ion-batteries.webp" alt="SW-7 Ion Batteries" /></div>
     <div class="card-main">
-      <h2 class="card-title">SW-7 Ion Batteries <span class="icon-font"> E</span></h2>
+      <h2 class="card-title">SW-7 Ion Batteries <span class="icon-font"> E</span> <button class="copy-link-btn" data-anchor="sw-7-ion-batteries-ion-cannon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1503,6 +1560,26 @@ body.karm-web .card-divider {
       btn.setAttribute('title', 'Showing ARC points — click to revert');
       btn.setAttribute('aria-label', 'Showing ARC points — click to revert');
     }
+  });
+})();
+</script>
+    <script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-link-btn');
+    if (!btn) return;
+    var anchor = btn.getAttribute('data-anchor');
+    if (!anchor) return;
+    var url = location.origin + location.pathname + '#' + anchor;
+    navigator.clipboard.writeText(url).then(function () {
+      var existing = document.querySelector('.copy-toast');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.textContent = 'Link copied';
+      document.body.appendChild(toast);
+      setTimeout(function () { toast.remove(); }, 1500);
+    });
   });
 })();
 </script>

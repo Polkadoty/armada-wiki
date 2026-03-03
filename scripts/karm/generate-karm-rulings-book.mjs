@@ -1325,6 +1325,29 @@ async function renderHtml({ pages, cards, config }) {
 </script>`
     : '';
 
+  const copyLinkScript = webMode
+    ? `<script>
+(function () {
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-link-btn');
+    if (!btn) return;
+    var anchor = btn.getAttribute('data-anchor');
+    if (!anchor) return;
+    var url = location.origin + location.pathname + '#' + anchor;
+    navigator.clipboard.writeText(url).then(function () {
+      var existing = document.querySelector('.copy-toast');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.textContent = 'Link copied';
+      document.body.appendChild(toast);
+      setTimeout(function () { toast.remove(); }, 1500);
+    });
+  });
+})();
+</script>`
+    : '';
+
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -1348,6 +1371,7 @@ async function renderHtml({ pages, cards, config }) {
     ${scaleScript}
     ${filterScript}
     ${arcToggleScript}
+    ${copyLinkScript}
     <!-- Generated cards: ${cards.length} -->
   </body>
 </html>`;
@@ -1568,6 +1592,10 @@ function renderCard(card) {
     ? ` <button class="arc-points-toggle" data-card-id="${escapeAttribute(card.anchorId || '')}" title="Toggle ARC points image" aria-label="Toggle ARC points image">ARC</button>`
     : '';
 
+  const copyLinkHtml = CURRENT_WEB_MODE && card.anchorId
+    ? ` <button class="copy-link-btn" data-anchor="${escapeAttribute(card.anchorId)}" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button>`
+    : '';
+
   const factionAttr = (card.factions || []).join(',');
   const typeAttr = card.upgradeType || card.type || '';
 
@@ -1576,7 +1604,7 @@ function renderCard(card) {
   <div class="card-top">
     <div class="card-image-wrap">${imageHtml}</div>
     <div class="card-main">
-      <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}${arcToggleHtml}</h2>
+      <h2 class="card-title">${escapeHtml(card.name)} ${titleIcons}${arcToggleHtml}${copyLinkHtml}</h2>
       ${topBody}
     </div>
   </div>
@@ -1801,6 +1829,7 @@ const KEYWORD_SINGLE = [
   'ADEPT', 'AI', 'ASSAULT', 'BOMBER', 'CLOAK', 'COUNTER', 'DODGE',
   'ESCORT', 'GRIT', 'HEAVY', 'INTEL', 'RELAY', 'ROGUE', 'SCOUT',
   'SCREEN', 'SNIPE', 'STRATEGIC', 'SWARM', 'BOOST', 'HUNT',
+  'SHIP', 'CREW',
 ];
 // Match compound keywords first (longer matches), then single words
 const KEYWORD_REGEX = new RegExp(
