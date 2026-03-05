@@ -30,7 +30,9 @@ const outputHtmlArg = [...args].find((arg) => arg.startsWith('--output-html=')) 
 const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) || '';
 const writeCardIndexArg = [...args].find((arg) => arg.startsWith('--write-card-index=')) || '';
 const loadCardIndexArg = [...args].find((arg) => arg.startsWith('--load-card-index=')) || '';
+const indexOnly = args.has('--index-only');
 let ICON_MAP_RUNTIME = {};
+let HEADER_CONTENT = {};
 let ICON_FONT_ENABLED = true;
 let NR_LOGO_SVG = '';
 let CARD_LINK_REGISTRY = new Map();  // lowercase name → [{anchorId, displayName}]
@@ -212,6 +214,9 @@ async function main() {
   }
   CURRENT_WEB_MODE = isWebOutput(config);
   ICON_FONT_ENABLED = Boolean(String(config.fonts?.iconFont || '').trim());
+  try {
+    HEADER_CONTENT = JSON.parse(await readFile(path.resolve(__dirname, 'header-content.json'), 'utf8'));
+  } catch { /* file optional */ }
   LINK_ALIASES = await loadLinkAliases();
   DISPLAY_NAME_OVERRIDES = await loadDisplayNameOverrides();
   if (loadCardIndexArg) {
@@ -219,6 +224,15 @@ async function main() {
   }
   const iconMap = await loadIconMap(config.iconsMapSource, config.iconsMapSourceExternal);
   const arcPointsOnlyNames = await loadArcPointsOnlyList(config);
+
+  if (indexOnly) {
+    const html = await buildIndexHtml(config);
+    const outputHtmlPath = path.resolve(repoRoot, config.outputHtml);
+    await mkdir(path.dirname(outputHtmlPath), { recursive: true });
+    await writeFile(outputHtmlPath, html, 'utf8');
+    log(`Index page written to ${outputHtmlPath}`);
+    return;
+  }
 
   try {
     const nrSvgPath = path.resolve(__dirname, 'assets', 'nr-logo.svg');
@@ -727,18 +741,21 @@ function insertDynamicHeaderCards(cards, iconMap) {
   const insertedUpgradeTypeHeaders = new Set();
   for (const card of cards) {
     if ((card.category === 'nexus-upgrades' || card.category === 'nexus-ace-squadrons') && !insertedCategoryHeaders.has(card.category)) {
+      const headerType = card.category;
+      const headerData = HEADER_CONTENT[headerType] || {};
       output.push({
         category: 'header',
         source: '',
         name: categoryHeaderTitleForNexus(card.category),
         image: '',
         factions: [],
-        cardText: '',
+        cardText: headerData.cardText || '',
         details: '',
         keywords: [],
-        rules: [],
+        rules: headerData.rules || [],
         sections: [],
         headerIcon: card.category === 'nexus-upgrades' ? (iconMap.nexus || '') : (iconMap.squadron || ''),
+        headerType,
       });
       insertedCategoryHeaders.add(card.category);
     }
@@ -748,18 +765,20 @@ function insertDynamicHeaderCards(cards, iconMap) {
       if (!insertedUpgradeTypeHeaders.has(key)) {
         const typeTitle = upgradeTypeToHeaderTitle(card.upgradeType);
         const typeIcon = iconMap[upgradeTypeToIconKey(card.upgradeType)] || '';
+        const headerData = HEADER_CONTENT[card.upgradeType] || {};
         output.push({
           category: 'header',
           source: '',
           name: typeTitle,
           image: '',
           factions: [],
-          cardText: '',
+          cardText: headerData.cardText || '',
           details: '',
           keywords: [],
-          rules: [],
+          rules: headerData.rules || [],
           sections: [],
           headerIcon: typeIcon,
+          headerType: card.upgradeType,
         });
         insertedUpgradeTypeHeaders.add(key);
       }
@@ -1387,6 +1406,7 @@ function buildPreloadLinks(config) {
     fonts.teutonFett,
     fonts.aeroMaticsRegular,
     fonts.iconFont,
+    fonts.logoFont,
   ].filter(Boolean);
 
   return entries
@@ -1460,6 +1480,66 @@ function renderWebNav() {
   <div class="search-result-count" id="karm-result-count"></div>
 </aside>
 <div class="no-results" id="karm-no-results">No matching cards found.</div>`;
+}
+
+async function buildIndexHtml(config) {
+  const cssPath = path.resolve(repoRoot, config.templateCss);
+  const css = await readFile(cssPath, 'utf8');
+  const fontFaces = buildFontFaceCss(config.fonts, config);
+  const preloadLinks = buildPreloadLinks(config);
+  const pageBackground = config.pageBackgroundImage
+    ? `url('${withAssetVersion(toAssetUrl(path.resolve(repoRoot, config.pageBackgroundImage), config), config)}')`
+    : 'none';
+
+  const links = [];
+  links.push(`<li><a href="/rulings/objectives.html">Objectives</a></li>`);
+  links.push(`<li><a href="/rulings/campaign.html">Campaign Objectives</a></li>`);
+  links.push(`<li><a href="/rulings/damage-cards.html">Damage Cards</a></li>`);
+  links.push(`<li><a href="/rulings/squadrons.html">Ace Squadrons</a></li>`);
+  links.push(`<li class="index-section-label">Upgrades</li>`);
+  links.push(`<li><a href="/rulings/upgrades.html">All Upgrades</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/commander.html">Commander</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/officer.html">Officer</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/weapons-team-offensive-retro.html">Boarding Teams</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/weapons-team.html">Weapons Team</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/offensive-retro.html">Offensive Retrofit</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/defensive-retro.html">Defensive Retrofit</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/turbolaser.html">Turbolaser</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/ion-cannon.html">Ion Cannon</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/ordnance.html">Ordnance</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/fleet-support.html">Fleet Support</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/support-team.html">Support Team</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/experimental-retro.html">Experimental Retrofit</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/fleet-command.html">Fleet Command</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/title.html">Title</a></li>`);
+  links.push(`<li><a href="/rulings/upgrades/super-weapon.html">Superweapon</a></li>`);
+  links.push(`<li class="index-section-label">Nexus</li>`);
+  links.push(`<li><a href="/rulings/nexus-upgrades.html">Nexus Upgrades</a></li>`);
+  links.push(`<li><a href="/rulings/nexus-squadrons.html">Nexus Squadrons</a></li>`);
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KARM Rulings Book</title>
+    ${preloadLinks}
+    <style>
+      :root { --page-background: ${pageBackground}; }
+      ${fontFaces}
+      ${css}
+    </style>
+  </head>
+  <body class="karm-web">
+    <div class="index-page">
+      <h1 class="index-title">KARM Rulings Book</h1>
+      <p class="index-subtitle">Comprehensive rulings and clarifications for Star Wars: Armada</p>
+      <ul class="index-links">
+        ${links.join('\n        ')}
+      </ul>
+    </div>
+  </body>
+</html>`;
 }
 
 async function readStaticPages(files) {
@@ -1553,6 +1633,7 @@ function buildFontFaceCss(fonts, config) {
   pushFace('RevengerLite', fonts?.revengerLite, '400', 'normal');
   pushFace('Icons', fonts?.iconFont, '400', 'normal');
   pushFace('ArmadaIcons', fonts?.iconFont, '400', 'normal');
+  pushFace('LogoFont', fonts?.logoFont, '700', 'normal');
   return rules.join('\n');
 }
 
@@ -1619,9 +1700,26 @@ function renderHeaderCard(card) {
   const iconHtml = ICON_FONT_ENABLED && card.headerIcon
     ? `<span class="icon-font">${escapeHtml(card.headerIcon)}</span>`
     : '';
+
+  let contentHtml = '';
+  if (card.cardText || (card.rules && card.rules.length)) {
+    CURRENT_RENDER_CARD = card;
+    const bundle = buildSectionBundle(card);
+    const parts = [];
+    if (bundle.sectionsHtml) parts.push(bundle.sectionsHtml);
+    if (bundle.footnotesHtml) parts.push(bundle.footnotesHtml);
+    contentHtml = parts.join('\n');
+    CURRENT_RENDER_CARD = null;
+  }
+
   return `
 <article class="karm-card karm-header-card" id="${escapeAttribute(card.anchorId || '')}" data-category="header">
-  <div class="section-header-title">${escapeHtml(card.name)} ${iconHtml}</div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">${escapeHtml(card.name)} ${iconHtml}</div>
+    <hr class="header-bar" />
+  </div>
+  ${contentHtml ? `<div class="header-content card-rulings">${contentHtml}</div>` : ''}
 </article>`;
 }
 
@@ -1633,6 +1731,8 @@ function buildSectionBundle(card) {
 
   const footnotes = [];
   const footnoteKeyToIndex = new Map();
+  const letterNotes = [];
+  const letterNoteKeyToIndex = new Map();
 
   for (const rule of card.rules || []) {
     const sectionKey = resolveSectionKey(rule.section);
@@ -1646,11 +1746,23 @@ function buildSectionBundle(card) {
       }
       footnoteIndex = footnoteKeyToIndex.get(footnoteLabel);
     }
+    // Non-defunct rules with an explanation get a lettered endnote
+    let letterIndex = null;
+    const explanation = rule.explanation || '';
+    if (!rule.defunct && explanation) {
+      const noteKey = explanation;
+      if (!letterNoteKeyToIndex.has(noteKey)) {
+        letterNotes.push(explanation);
+        letterNoteKeyToIndex.set(noteKey, letterNotes.length);
+      }
+      letterIndex = letterNoteKeyToIndex.get(noteKey);
+    }
     sections.get(sectionKey).push({
       text: rule.text,
       footnote: footnoteIndex,
       defunct: !!rule.defunct,
-      explanation: rule.explanation || '',
+      explanation,
+      letterNote: letterIndex,
     });
   }
 
@@ -1676,7 +1788,9 @@ function buildSectionBundle(card) {
             .join('')
         : `<ul>${entries
             .map((entry) => {
-              const suffix = entry.footnote ? ` <span class="footnote-ref">[${entry.footnote}]</span>` : '';
+              const numSuffix = entry.footnote ? ` <span class="footnote-ref">[${entry.footnote}]</span>` : '';
+              const letterSuffix = entry.letterNote ? ` <span class="footnote-ref">[${String.fromCharCode(96 + entry.letterNote)}]</span>` : '';
+              const suffix = numSuffix + letterSuffix;
               const defunctClass = entry.defunct ? ' class="defunct"' : '';
               const explanationHtml = entry.defunct && entry.explanation
                 ? `<div class="defunct-explanation">${escapeHtml(entry.explanation)}</div>`
@@ -1691,8 +1805,20 @@ function buildSectionBundle(card) {
 </div>`);
   }
 
-  const footnotesHtml = footnotes.length
-    ? `<div class="ruling-footnotes">${footnotes.map((note, idx) => `<div>[${idx + 1}] ${escapeHtml(note)}</div>`).join('')}</div>`
+  const allFootnoteParts = [];
+  if (footnotes.length) {
+    for (let i = 0; i < footnotes.length; i++) {
+      allFootnoteParts.push(`<div>[${i + 1}] ${escapeHtml(footnotes[i])}</div>`);
+    }
+  }
+  if (letterNotes.length) {
+    for (let i = 0; i < letterNotes.length; i++) {
+      const letter = String.fromCharCode(97 + i);
+      allFootnoteParts.push(`<div>[${letter}] ${markdownishToHtmlInline(letterNotes[i])}</div>`);
+    }
+  }
+  const footnotesHtml = allFootnoteParts.length
+    ? `<div class="ruling-footnotes">${allFootnoteParts.join('')}</div>`
     : '';
 
   return {
@@ -1847,9 +1973,10 @@ function inlineMarkup(line) {
   let safe = escapeHtml(line);
   safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   safe = safe.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  // Icon shortcodes before underscore-italic so :weapons_team: isn't broken
+  safe = safe.replace(/:([a-z0-9_-]+):/gi, (_, token) => `<span class="icon-font">${escapeHtml(iconGlyphForToken(token))}</span>`);
   safe = safe.replace(/_([^_]+)_/g, '<em>$1</em>');
   safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
-  safe = safe.replace(/:([a-z0-9_-]+):/gi, (_, token) => `<span class="icon-font">${escapeHtml(iconGlyphForToken(token))}</span>`);
   safe = safe.replace(KEYWORD_REGEX, formatKeyword);
   safe = applyCardLinks(safe);
   return safe;

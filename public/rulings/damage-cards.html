@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1385,7 +1492,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship with this damage card would prevent using <a class="card-ref" href="/rulings/upgrades/officer.html#darth-vader-officer"><em>Darth Vader</em></a>&#39;s (commander) effect to spend a defense token and would prevent <a class="card-ref" href="/rulings/upgrades/commander.html#emperor-palpatine-commander"><em>Emperor Palpatine</em></a> (Officer) from forcing an attacking ship to spend a defense token if the attacker only had exhausted defense tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/defensive-retro.html#electronic-countermeasures-defensive-retro"><em>Electronic Countermeasures</em></a> does not ignore this faceup damage card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with <a class="card-ref" href="/rulings/upgrades/weapons-team-offensive-retro.html#boarding-troopers-weapons-team-offensive-retro"><em>Boarding Troopers</em></a> has this damage card, it cannot spend and discard an enemy ship&#39;s exhausted defense tokens; it may only spend an enemy ship&#39;s readied defense tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with <a class="card-ref" href="/rulings/upgrades/turbolaser.html#turbolaser-reroute-circuits-turbolaser"><em>Turbolaser Reroute Circuits</em></a> has this faceup damage card, it cannot spend exhausted Evade defense tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This faceup damage card does not prevent a defending ship from discarding an exhausted defense token due to effects such as <a class="card-ref" href="/rulings/upgrades/ion-cannon.html#nk-7-ion-cannons-ion-cannon"><em>NK-7 Ion Cannons</em></a> or critical effects such as <a class="card-ref" href="#injured-crew-damage"><em>Injured Crew</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a defending ship has this damage card, an attacking ship or squadron with the capability to spend the defender&#39;s defense tokens can still do so since it is the attacker spending the exhausted defense token and not the defending ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship with this damage card would prevent using <a class="card-ref" href="/rulings/upgrades/officer.html#darth-vader-officer"><em>Darth Vader</em></a>&#39;s (commander) effect to spend a defense token and would prevent <a class="card-ref" href="/rulings/upgrades/commander.html#emperor-palpatine-commander"><em>Emperor Palpatine</em></a> (Officer) from forcing an attacking ship to spend a defense token if the attacker only had exhausted defense tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/defensive-retro.html#electronic-countermeasures-defensive-retro"><em>Electronic Countermeasures</em></a> does not ignore this faceup damage card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with <a class="card-ref" href="/rulings/upgrades/weapons-team-offensive-retro.html#boarding-troopers-weapons-team-offensive-retro"><em>Boarding Troopers</em></a> has this damage card, it cannot spend and discard an enemy ship&#39;s exhausted defense tokens; it may only spend an enemy ship&#39;s readied defense tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with <a class="card-ref" href="/rulings/upgrades/turbolaser.html#turbolaser-reroute-circuits-turbolaser"><em>Turbolaser Reroute Circuits</em></a> has this faceup damage card, it cannot spend exhausted <span class="icon-font">4</span> defense tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This faceup damage card does not prevent a defending ship from discarding an exhausted defense token due to effects such as <a class="card-ref" href="/rulings/upgrades/ion-cannon.html#nk-7-ion-cannons-ion-cannon"><em>NK-7 Ion Cannons</em></a> or critical effects such as <a class="card-ref" href="#injured-crew-damage"><em>Injured Crew</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a defending ship has this damage card, an attacking ship or squadron with the capability to spend the defender&#39;s defense tokens can still do so since it is the attacker spending the exhausted defense token and not the defending ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1469,7 +1576,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has two Power Failure damage cards, they are applied sequentially. For example, a ship with an engineering value of &#39;5&#39; would be reduced to &#39;2&#39; by the first Damage Card card and then reduced again to &#39;1&#39; from the second Damage Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This damage card does not prevent <a class="card-ref" href="/rulings/upgrades/fleet-support.html#repair-crews-fleet-support"><em>Repair Crews</em></a> from resolving.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This damage card does not affect upgrade cards that grant additional engineering points when resolving a <span class="icon-font">0</span> command (such as Redemption, <a class="card-ref" href="/rulings/upgrades/support-team.html#engineering-team-support-team"><em>Engineering Team</em></a>, and <a class="card-ref" href="/rulings/upgrades/title.html#mon-calamari-exodus-fleet-title"><em>Mon Calamari Exodus Fleet</em></a>). For example, a ship that has an engineering value of &#39;2&#39;, <a class="card-ref" href="/rulings/upgrades/support-team.html#engineering-team-support-team"><em>Engineering Team</em></a> equipped, and this damage card would have its engineering value reduced to &#39;1&#39; and then would be able to spend 2 engineering points upon resolving a <span class="icon-font">0</span> command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has two Power Failure damage cards, they are applied sequentially. For example, a ship with an engineering value of &#39;5&#39; would be reduced to &#39;2&#39; by the first Damage Card card and then reduced again to &#39;1&#39; from the second Damage Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This damage card does not prevent <a class="card-ref" href="/rulings/upgrades/fleet-support.html#repair-crews-fleet-support"><em>Repair Crews</em></a> from resolving.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This damage card does not affect upgrade cards that grant additional engineering points when resolving a <span class="icon-font">0</span> command (such as <a class="card-ref" href="/rulings/upgrades/title.html#redemption-title"><em>Redemption (Title)</em></a>, <a class="card-ref" href="/rulings/upgrades/support-team.html#engineering-team-support-team"><em>Engineering Team</em></a>, and <a class="card-ref" href="/rulings/upgrades/title.html#mon-calamari-exodus-fleet-title"><em>Mon Calamari Exodus Fleet</em></a>). For example, a ship that has an engineering value of &#39;2&#39;, <a class="card-ref" href="/rulings/upgrades/support-team.html#engineering-team-support-team"><em>Engineering Team</em></a> equipped, and this damage card would have its engineering value reduced to &#39;1&#39; and then would be able to spend 2 engineering points upon resolving a <span class="icon-font">0</span> command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>

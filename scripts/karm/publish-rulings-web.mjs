@@ -29,6 +29,7 @@ const fontFiles = [
   'optima-bold.woff',
   'optima-italic.woff',
   'aero-matics-display-regular.woff',
+  'logo.woff',
 ];
 
 await mkdir(targetFontsRoot, { recursive: true });
@@ -78,11 +79,11 @@ if (!copiedBackground) {
 const cardIndexPath = 'public/rulings/card-index.json';
 
 const jobs = [
-  { label: 'all', out: 'public/rulings/index.html', log: 'public/rulings/compile.log', categories: '', writeCardIndex: cardIndexPath },
+  { label: 'index', out: 'public/rulings/index.html', log: 'public/rulings/compile.log', indexOnly: true },
   { label: 'objectives', out: 'public/rulings/objectives.html', log: 'public/rulings/objectives.log', categories: 'objectives', objectiveTypes: 'assault,defense,navigation,skirmish', loadCardIndex: cardIndexPath },
   { label: 'campaign', out: 'public/rulings/campaign.html', log: 'public/rulings/campaign.log', categories: 'objectives', objectiveTypes: 'campaign', loadCardIndex: cardIndexPath },
   { label: 'damage-cards', out: 'public/rulings/damage-cards.html', log: 'public/rulings/damage-cards.log', categories: 'damage-cards', loadCardIndex: cardIndexPath },
-  { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades', splitUpgradesDir: 'public/rulings/upgrades', loadCardIndex: cardIndexPath },
+  { label: 'upgrades', out: 'public/rulings/upgrades.html', log: 'public/rulings/upgrades.log', categories: 'upgrades', splitUpgradesDir: 'public/rulings/upgrades', writeCardIndex: cardIndexPath },
   { label: 'squadrons', out: 'public/rulings/squadrons.html', log: 'public/rulings/squadrons.log', categories: 'ace-squadrons', loadCardIndex: cardIndexPath },
   { label: 'nexus-upgrades', out: 'public/rulings/nexus-upgrades.html', log: 'public/rulings/nexus-upgrades.log', categories: 'upgrades', nexusOnly: true, loadCardIndex: cardIndexPath },
   { label: 'nexus-squadrons', out: 'public/rulings/nexus-squadrons.html', log: 'public/rulings/nexus-squadrons.log', categories: 'ace-squadrons', nexusOnly: true, loadCardIndex: cardIndexPath },
@@ -105,6 +106,7 @@ async function runGenerator(job) {
     `--compile-log=${job.log}`,
   ];
 
+  if (job.indexOnly) args.push('--index-only');
   if (job.categories) args.push(`--include-categories=${job.categories}`);
   if (job.upgradeTypes) args.push(`--include-upgrade-types=${job.upgradeTypes}`);
   if (job.objectiveTypes) args.push(`--include-objective-types=${job.objectiveTypes}`);

@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,7 +1268,21 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-boarding-teams" data-category="header">
-  <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>For brevity and clarity, this document will refer to <span class="icon-font">I</span><span class="icon-font">G</span> upgrade cards as Boarding Team upgrade cards.</p><p><strong>Boarding Team</strong> <span class="icon-font">I</span><span class="icon-font">G</span> - is a special type of upgrade card with the <span class="icon-font">I</span><span class="icon-font">G</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>Some upgrade cards have more than one upgrade icon.</li><li>A Boarding Team can be equipped to any ship that has both a Weapons Team and an Offensive Retrofit upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same Boarding Team card.</li><li>A Boarding Team can be equipped to any ship that has the <span class="icon-font">I</span><span class="icon-font">G</span> upgrade icon(s) in its ship card.</li></ul></div></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">To resolve a Boarding Team you must discard a command dial or a command token (your choice), then also discard the upgrade.</span></li><li><span class="ruling-text">If a ship does not reveal a command dial during the Reveal Command Dial step, Boarding Teams cannot trigger because there is no command dial to discard.</span></li></ul></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="boarding-engineers-weapons-team-offensive-retro" data-name="boarding engineers" data-factions="" data-category="upgrades" data-type="weapons-team-offensive-retro">
@@ -1183,7 +1304,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">When damage cards are chosen using this Upgrade Card, they cannot be chosen again and any new damage cards dealtcannot be chosen.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You do not need to reveal to your opponent which facedown damage cards you did not choose.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When damage cards are flipped faceup by this Upgrade Card, they are not &#39;dealt&#39; to the target, so abilities such as <a class="card-ref" href="/rulings/upgrades/commander.html#general-dodonna-commander"><em>General Dodonna</em></a> and <a class="card-ref" href="/rulings/upgrades/officer.html#lira-wessex-officer"><em>Lira Wessex</em></a> cannot trigger.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When damage cards are chosen using this Upgrade Card, they cannot be chosen again and any new damage cards dealtcannot be chosen.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You do not need to reveal to your opponent which facedown damage cards you did not choose.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When damage cards are flipped faceup by this Upgrade Card, they are not &#39;dealt&#39; to the target, so abilities such as General Dodonna and Lira Wessex cannot trigger.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1213,7 +1334,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship equipped with this Upgrade Card also has the faceup damage card &#39;<a class="card-ref" href="/rulings/damage-cards.html#faulty-countermeasures-damage"><em>Faulty Countermeasures</em></a>&#39;, then &#39;exhausted&#39; defense tokens cannot be spent when resolving this Upgrade Card&#39;s effect, even those belonging to enemy ships.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship equipped with this Upgrade Card also has the faceup damage card &#39;Faulty Countermeasures&#39;, then &#39;exhausted&#39; defense tokens cannot be spent when resolving this Upgrade Card&#39;s effect, even those belonging to enemy ships.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1238,7 +1359,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card cannot target dials on <a class="card-ref" href="/rulings/upgrades/commander.html#grand-admiral-thrawn-commander"><em>Grand Admiral Thrawn</em></a>&#39;s card, since those dials are not equipped to a ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card cannot target dials on Grand Admiral Thrawn&#39;s card, since those dials are not equipped to a ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1263,7 +1384,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card were to discard Relentless, that ship would now need to set one additional command dial (according to its command value) in the next Command Phase.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#rapid-launch-bays-offensive-retro"><em>Rapid Launch Bays</em></a>, <a class="card-ref" href="/rulings/upgrades/title.html#invisible-hand-title"><em>Invisible Hand</em></a>, or Profundity were discarded by this Upgrade Card, then any squadrons or ships currently set aside that have not been placed are considered destroyed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard <a class="card-ref" href="/rulings/upgrades/officer.html#captain-needa-officer"><em>Captain Needa</em></a>, Endeavor, Vanguard, or other defense token granting upgrades after their respective timing windows, the defense token granted by these upgrades would remain.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If upgrades which restrict the use of command tokens to resolve fleet command effects, such as the Liberator title or <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#flag-bridge-offensive-retro"><em>Flag Bridge</em></a> upgrade, were discarded by this Upgrade Card, the fleet command upgrade could now resolve by spending a command token.</span> <span class="footnote-ref">[2]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#early-warning-system-defensive-retro"><em>Early Warning System</em></a>, the chaff token remains and continues to obstruct all attacks on that hull zone until the end of the Status Phase, when it is removed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard <a class="card-ref" href="/rulings/upgrades/turbolaser.html#swivel-mount-batteries-turbolaser"><em>Swivel-Mount Batteries</em></a>, the focus token remains but does not grant <a class="card-ref" href="/rulings/upgrades/turbolaser.html#swivel-mount-batteries-turbolaser"><em>Swivel-Mount Batteries</em></a>&#39;s effect to the ship. As the timing window to remove the focus token is &#39;when you ready this card&#39;, the token is not removed after the card is discarded.</span> <span class="footnote-ref">[2]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Chimaera, <a class="card-ref" href="/rulings/upgrades/officer.html#minister-tua-officer"><em>Minister Tua</em></a>, <a class="card-ref" href="/rulings/upgrades/title.html#phoenix-home-title"><em>Phoenix Home</em></a>, Vanguard, Harrow, <a class="card-ref" href="/rulings/upgrades/title.html#radiant-vii-title"><em>Radiant VII</em></a>, or other upgrade slot granting upgrades, the upgrade card (if one was equipped in the granted upgrade slot) would remain.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard upgrades that allow for shields to be equipped on a hull zone beyond its printed shield capacity, such as Aspiration, Auxiliary Shield Team, <a class="card-ref" href="/rulings/upgrades/title.html#gilded-aegis-title"><em>Gilded Aegis</em></a>, or Tranquility, any shields that exceed a hull zone&#39;s maximum shield value are immediately lost.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard a Fleet Command that was resolved by spending a command token at the start of the Ship Phase, that Fleet Command will continue to resolve until the end of the round.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card were to discard Relentless, that ship would now need to set one additional command dial (according to its command value) in the next Command Phase.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If Rapid Launch Bays, Invisible Hand, or Profundity were discarded by this Upgrade Card, then any squadrons or ships currently set aside that have not been placed are considered destroyed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Captain Needa, Endeavor, Vanguard, or other defense token granting upgrades after their respective timing windows, the defense token granted by these upgrades would remain.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If upgrades which restrict the use of command tokens to resolve fleet command effects, such as the Liberator title or Flag Bridge upgrade, were discarded by this Upgrade Card, the fleet command upgrade could now resolve by spending a command token.</span> <span class="footnote-ref">[2]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Early Warning System, the chaff token remains and continues to obstruct all attacks on that hull zone until the end of the Status Phase, when it is removed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Swivel-Mount Batteries, the focus token remains but does not grant Swivel-Mount Batteries&#39;s effect to the ship. As the timing window to remove the focus token is &#39;when you ready this card&#39;, the token is not removed after the card is discarded.</span> <span class="footnote-ref">[2]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Chimaera, Minister Tua, Phoenix Home, Vanguard, Harrow, Radiant VII, or other upgrade slot granting upgrades, the upgrade card (if one was equipped in the granted upgrade slot) would remain.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard upgrades that allow for shields to be equipped on a hull zone beyond its printed shield capacity, such as Aspiration, Auxiliary Shield Team, Gilded Aegis, or Tranquility, any shields that exceed a hull zone&#39;s maximum shield value are immediately lost.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard a Fleet Command that was resolved by spending a command token at the start of the Ship Phase, that Fleet Command will continue to resolve until the end of the round.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div><div>[2] Doty | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1289,9 +1410,9 @@ body.karm-web .card-divider {
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
   <div class="ruling-content"><ul><li><span class="ruling-text">If a victory token is gained, but the objective being played has no victory points associated with that victory token, then that victory token is worth 0 points.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Current Assault, Defensive, and Navigation objectives that relate to this Upgrade Card&#39;s effect:
-<a class="card-ref" href="/rulings/objectives.html#ion-storm-objective"><em>Ion Storm</em></a>, <a class="card-ref" href="/rulings/objectives.html#marked-for-destruction-objective"><em>Marked For Destruction</em></a>, <a class="card-ref" href="/rulings/objectives.html#rift-assault-objective"><em>Rift Assault</em></a>, <a class="card-ref" href="/rulings/objectives.html#blockade-run-objective"><em>Blockade Run</em></a> (as first player only)
-<a class="card-ref" href="/rulings/objectives.html#fleet-in-being-objective"><em>Fleet in Being</em></a>, <a class="card-ref" href="/rulings/objectives.html#capture-the-vip-objective"><em>Capture the VIP</em></a>
-<a class="card-ref" href="/rulings/objectives.html#intel-sweep-objective"><em>Intel Sweep</em></a>, <a class="card-ref" href="/rulings/objectives.html#hyperspace-migration-objective"><em>Hyperspace Migration</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+Ion Storm, Marked For Destruction, Rift Assault, Blockade Run (as first player only)
+Fleet in Being, Capture the VIP
+Intel Sweep, Hyperspace Migration.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1321,18 +1442,37 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#rapid-launch-bays-offensive-retro"><em>Rapid Launch Bays</em></a>, or an upgrade that allows for squadrons to be set aside and placed on the ugprade card, is discarded by this Upgrade Card, then any squadrons or ships currently set aside that have not been placed are considered destroyed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#flag-bridge-offensive-retro"><em>Flag Bridge</em></a>, the Fleet Command upgrade card that can be equipped could now resolve by spending a command token, as the restriction against using command tokens to power the Fleet Command would have been removed by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#early-warning-system-defensive-retro"><em>Early Warning System</em></a>, the chaff token remains and continues to obstruct all attacks on that hull zone until the end of the Status Phase, when it is removed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Auxiliary Shiled Team, or other upgrade that allows for shields to be equipped on a hull zone beyond its printed shield capacity, any shields that exceed a hull zone&#39;s maximum shield value are immediately lost.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If Rapid Launch Bays, or an upgrade that allows for squadrons to be set aside and placed on the ugprade card, is discarded by this Upgrade Card, then any squadrons or ships currently set aside that have not been placed are considered destroyed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Flag Bridge, the Fleet Command upgrade card that can be equipped could now resolve by spending a command token, as the restriction against using command tokens to power the Fleet Command would have been removed by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Early Warning System, the chaff token remains and continues to obstruct all attacks on that hull zone until the end of the Status Phase, when it is removed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to discard Auxiliary Shiled Team, or other upgrade that allows for shields to be equipped on a hull zone beyond its printed shield capacity, any shields that exceed a hull zone&#39;s maximum shield value are immediately lost.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
-  <div class="section-header-title">Nexus Upgrades </div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Nexus Upgrades </div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card karm-header-card" id="header-boarding-teams-2" data-category="header">
-  <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>For brevity and clarity, this document will refer to <span class="icon-font">I</span><span class="icon-font">G</span> upgrade cards as Boarding Team upgrade cards.</p><p><strong>Boarding Team</strong> <span class="icon-font">I</span><span class="icon-font">G</span> - is a special type of upgrade card with the <span class="icon-font">I</span><span class="icon-font">G</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>Some upgrade cards have more than one upgrade icon.</li><li>A Boarding Team can be equipped to any ship that has both a Weapons Team and an Offensive Retrofit upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same Boarding Team card.</li><li>A Boarding Team can be equipped to any ship that has the <span class="icon-font">I</span><span class="icon-font">G</span> upgrade icon(s) in its ship card.</li></ul></div></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">To resolve a Boarding Team you must discard a command dial or a command token (your choice), then also discard the upgrade.</span></li><li><span class="ruling-text">If a ship does not reveal a command dial during the Reveal Command Dial step, Boarding Teams cannot trigger because there is no command dial to discard.</span></li></ul></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="new-republic-infiltrators-weapons-team-offensive-retro" data-name="new republic infiltrators" data-factions="new-republic" data-category="nexus-upgrades" data-type="weapons-team-offensive-retro">

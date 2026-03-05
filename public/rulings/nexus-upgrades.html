@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,11 +1268,30 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
-  <div class="section-header-title">Nexus Upgrades </div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Nexus Upgrades </div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card karm-header-card" id="header-boarding-teams" data-category="header">
-  <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Boarding Teams <span class="icon-font">I</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>For brevity and clarity, this document will refer to <span class="icon-font">I</span><span class="icon-font">G</span> upgrade cards as Boarding Team upgrade cards.</p><p><strong>Boarding Team</strong> <span class="icon-font">I</span><span class="icon-font">G</span> - is a special type of upgrade card with the <span class="icon-font">I</span><span class="icon-font">G</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>Some upgrade cards have more than one upgrade icon.</li><li>A Boarding Team can be equipped to any ship that has both a Weapons Team and an Offensive Retrofit upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same Boarding Team card.</li><li>A Boarding Team can be equipped to any ship that has the <span class="icon-font">I</span><span class="icon-font">G</span> upgrade icon(s) in its ship card.</li></ul></div></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">To resolve a Boarding Team you must discard a command dial or a command token (your choice), then also discard the upgrade.</span></li><li><span class="ruling-text">If a ship does not reveal a command dial during the Reveal Command Dial step, Boarding Teams cannot trigger because there is no command dial to discard.</span></li></ul></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="new-republic-infiltrators-weapons-team-offensive-retro" data-name="new republic infiltrators" data-factions="new-republic" data-category="nexus-upgrades" data-type="weapons-team-offensive-retro">
@@ -1186,7 +1312,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-commander" data-category="header">
-  <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A is a special type of upgrade card with the <span class="icon-font">B</span> icon on its card back and no upgrade icon in the card front.</p><ul><li>A <span class="icon-font">B</span> can be equipped to any ship except Flotillas.</li><li>A fleet cannot have more than one <span class="icon-font">B</span>.</li><li>A ship with a <span class="icon-font">B</span> equipped is a flagship.</li><li>A <span class="icon-font">B</span> must be in the play area to be able to resolve. If this card has been set aside, then the <span class="icon-font">B</span> ability cannot resolve.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="admiral-ackbar-commander" data-name="admiral ackbar" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
@@ -1437,7 +1572,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-officer" data-category="header">
-  <div class="section-header-title">Officer <span class="icon-font">C</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Officer <span class="icon-font">C</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">C</span> is a special type of upgrade card with the <span class="icon-font">C</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">C</span> can be equipped to any ship that has the <span class="icon-font">C</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">C</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="dedra-meero-officer" data-name="dedra meero" data-factions="empire" data-category="nexus-upgrades" data-type="officer">
@@ -1764,7 +1908,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-weapons-team" data-category="header">
-  <div class="section-header-title">Weapons Team <span class="icon-font">I</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Weapons Team <span class="icon-font">I</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">I</span> is a special type of upgrade card with the <span class="icon-font">I</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">I</span> can be equipped to any ship that has the <span class="icon-font">I</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">I</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="gun-captains-weapons-team" data-name="gun captains" data-factions="scum" data-category="nexus-upgrades" data-type="weapons-team">
@@ -1802,7 +1955,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-offensive-retro" data-category="header">
-  <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">G</span> is a special type of upgrade card with the <span class="icon-font">G</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">G</span> can be equipped to any ship that has the <span class="icon-font">G</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">G</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="ambush-offensive-retro" data-name="ambush" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">
@@ -1874,7 +2036,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-defensive-retro" data-category="header">
-  <div class="section-header-title">Defensive Retro <span class="icon-font">H</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Defensive Retro <span class="icon-font">H</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">H</span> is a special type of upgrade card with the <span class="icon-font">H</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">H</span> can be equipped to any ship that has the <span class="icon-font">H</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">H</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="smuggler-s-cache-defensive-retro" data-name="smuggler&#39;s cache" data-factions="scum" data-category="nexus-upgrades" data-type="defensive-retro">
@@ -1895,7 +2066,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-turbolaser" data-category="header">
-  <div class="section-header-title">Turbolaser <span class="icon-font">D</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Turbolaser <span class="icon-font">D</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">D</span> is a special type of upgrade card with the <span class="icon-font">D</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">D</span> can be equipped to any ship that has the <span class="icon-font">D</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">D</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="ag-2g-quad-laser-cannons-turbolaser" data-name="ag-2g quad laser cannons" data-factions="" data-category="nexus-upgrades" data-type="turbolaser">
@@ -1950,7 +2130,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-ordnance" data-category="header">
-  <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">F</span> is a special type of upgrade card with the <span class="icon-font">F</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">F</span> can be equipped to any ship that has the <span class="icon-font">F</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">F</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="counter-battery-retrofit-ordnance" data-name="counter-battery retrofit" data-factions="new-republic" data-category="nexus-upgrades" data-type="ordnance">
@@ -1988,7 +2177,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-support-team" data-category="header">
-  <div class="section-header-title">Support Team <span class="icon-font">J</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Support Team <span class="icon-font">J</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">J</span> is a special type of upgrade card with the <span class="icon-font">J</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">J</span> can be equipped to any ship that has the <span class="icon-font">J</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">J</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="new-republic-fighter-techs-support-team" data-name="new republic fighter techs" data-factions="new-republic" data-category="nexus-upgrades" data-type="support-team">
@@ -2043,7 +2241,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-fleet-command" data-category="header">
-  <div class="section-header-title">Fleet Command <span class="icon-font">M</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Fleet Command <span class="icon-font">M</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">M</span> is a special type of upgrade card with the <span class="icon-font">M</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">M</span> can be equipped to any ship that has the <span class="icon-font">M</span> upgrade icon in its ship card.</li><li>Only one <span class="icon-font">M</span> card of the same type can be in play for that fleet (or allied fleets in team play), if this <span class="icon-font">M</span> is discarded during play, it cannot be equipped by any other ship in that fleet, such as Chimaera.</li><li>If a <span class="icon-font">M</span> has an effect that triggers at the start of a phase, that card&#39;s effect will persist until the end of the round, even if the ship that card is equipped to is destroyed, or if that card is discarded by some other effect.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="nova-flare-fleet-command" data-name="nova flare" data-factions="new-republic" data-category="nexus-upgrades" data-type="fleet-command">
@@ -2098,7 +2305,16 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-title" data-category="header">
-  <div class="section-header-title">Title <span class="icon-font">A</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Title <span class="icon-font">A</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">A</span> is a special type of upgrade card with the <span class="icon-font">A</span> icon on its card back and ship icon it equips too in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">A</span> can be equipped to the ship shown in the lower-left corner of the card front.</li><li>A ship cannot equip more than one <span class="icon-font">A</span> card.</li><li>Insert RRG: &quot;Name-Restricted Title Cards: Some Title upgrade cards in this expansion have an icon in the lower-left corner that does not match a specific ship icon. A ship can equip this upgrade card if that ship matches this card&#39;s faction affiliation and the ship&#39;s name matches this upgrade card&#39;s name-restriction trait.&quot;</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="a-den-title" data-name="a&#39;den" data-factions="scum" data-category="nexus-upgrades" data-type="title">
@@ -2884,7 +3100,12 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-super-weapon" data-category="header">
-  <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card" id="ion-pulse-emitter-super-weapon" data-name="ion pulse emitter" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">

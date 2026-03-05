@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,7 +1268,16 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-turbolaser" data-category="header">
-  <div class="section-header-title">Turbolaser <span class="icon-font">D</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Turbolaser <span class="icon-font">D</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">D</span> is a special type of upgrade card with the <span class="icon-font">D</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">D</span> can be equipped to any ship that has the <span class="icon-font">D</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">D</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="dby-827-heavy-turbolaser-turbolaser" data-name="dby-827 heavy turbolaser" data-factions="" data-category="upgrades" data-type="turbolaser">
@@ -1238,7 +1354,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">These added dice can be used to claim <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a> objective tokens, as they are considered part of the ship&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">These added dice can be used to claim Fire Lanes objective tokens, as they are considered part of the ship&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1293,7 +1409,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship with <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a> equipped and this Upgrade Card has an anti-squadron armament of 1 blue die during <span class="keyword-name">Counter</span> attacks and would be able to replace it with a red die.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Targets at distance 1 of Instigator may still be affected by this Upgrade Card, as they are not engaged with any friendly squadrons.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship with Quad Laser Turrets equipped and this Upgrade Card has an anti-squadron armament of 1 blue die during <span class="keyword-name">Counter</span> attacks and would be able to replace it with a red die.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Targets at distance 1 of Instigator may still be affected by this Upgrade Card, as they are not engaged with any friendly squadrons.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1323,7 +1439,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Effects such as Commander <a class="card-ref" href="/rulings/upgrades/commander.html#kyrsta-agate-commander"><em>Kyrsta Agate</em></a> or Admonition allow tokens to be discarded rather than spent. However this Upgrade Card states that a brace must be spent in order for the Brace effect to reduce damage by more than 1.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a Brace was spent and another token discarded via Agate, the full damage reduction from the Brace defense effect would apply - the defender spent a Brace defense token, and it was the only token spent during this attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If another token was spent and the Brace was discarded via Agate, then the Brace effect would only reduce damage by 1. The defender spent a defense token other than Brace, and so the Brace defense effect would be limited by this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Effects such as Commander Kyrsta Agate or Admonition allow tokens to be discarded rather than spent. However this Upgrade Card states that a brace must be spent in order for the Brace effect to reduce damage by more than 1.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a Brace was spent and another token discarded via Agate, the full damage reduction from the Brace defense effect would apply - the defender spent a Brace defense token, and it was the only token spent during this attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If another token was spent and the Brace was discarded via Agate, then the Brace effect would only reduce damage by 1. The defender spent a defense token other than Brace, and so the Brace defense effect would be limited by this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1348,12 +1464,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Both dice added must be of the same color.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The reroll effect may be resolved even when this Upgrade Card is exhausted.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card can resolve the &#39;add dice&#39; effect during any of its attacks but, because the card will exhaust, can only resolve it once during its activation. If the ship resolves this effect during an additional attack granted by another effect, such as the <a class="card-ref" href="/rulings/upgrades/ordnance.html#ordnance-pods-ordnance"><em>Ordnance Pods</em></a> upgrade card, it cannot declare additional squadron targets during that attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s add dice effect may be used on a proximity mine token as it is treated as a squadron during an attack.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Both dice added must be of the same color.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The reroll effect may be resolved even when this Upgrade Card is exhausted.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card can resolve the &#39;add dice&#39; effect during any of its attacks but, because the card will exhaust, can only resolve it once during its activation. If the ship resolves this effect during an additional attack granted by another effect, such as the Ordnance Pods upgrade card, it cannot declare additional squadron targets during that attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s add dice effect may be used on a proximity mine token as it is treated as a squadron during an attack.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If you attack a squadron using this Upgrade Card&#39;s add dice effect, and are also equipped with <a class="card-ref" href="/rulings/upgrades/weapons-team.html#gunnery-team-weapons-team"><em>Gunnery Team</em></a>, you may choose to conduct your second attack from the same hullzone at other squadrons in arc/range but not the first squadron (due to <a class="card-ref" href="/rulings/upgrades/weapons-team.html#gunnery-team-weapons-team"><em>Gunnery Team</em></a>&#39;s restriction on attacking the same target).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s add dice effect cannot be used on a <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a> or Salvo attack, as it is not &#39;your activation&#39; (that ship&#39;s activation). This is in addition to the prohibition against adding dice to a Salvo attack.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If you attack a squadron using this Upgrade Card&#39;s add dice effect, and are also equipped with Gunnery Team, you may choose to conduct your second attack from the same hullzone at other squadrons in arc/range but not the first squadron (due to Gunnery Team&#39;s restriction on attacking the same target).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s add dice effect cannot be used on a Quad Laser Turrets or Salvo attack, as it is not &#39;your activation&#39; (that ship&#39;s activation). This is in addition to the prohibition against adding dice to a Salvo attack.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1403,12 +1519,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This effect can trigger at any point during the &#39;Resolve Attack Effects&#39; step. If the initial attack pool roll does not have a red die with an accuracy, a red die can be modified with a card ability (such as <a class="card-ref" href="/rulings/upgrades/title.html#home-one-title"><em>Home One</em></a>) which will then allow this Upgrade Card&#39;s effect to trigger.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This effect can trigger at any point during the &#39;Resolve Attack Effects&#39; step. If the initial attack pool roll does not have a red die with an accuracy, a red die can be modified with a card ability (such as Home One) which will then allow this Upgrade Card&#39;s effect to trigger.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The objective <a class="card-ref" href="/rulings/objectives.html#solar-corona-objective"><em>Solar Corona</em></a> may remove the only red die showing an Accuracy icon in the pool. This would happen &#39;before resolving any attack effects&#39;, and thus this Upgrade Card would not be able to trigger.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The objective Solar Corona may remove the only red die showing an Accuracy icon in the pool. This would happen &#39;before resolving any attack effects&#39;, and thus this Upgrade Card would not be able to trigger.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1438,7 +1554,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The &#39;cannot attack more than once per round&#39; is absolute. A ship equipped with this Upgrade Card can still only attack once even if it is equipped with <a class="card-ref" href="/rulings/upgrades/weapons-team.html#gunnery-team-weapons-team"><em>Gunnery Team</em></a> or is the objective ship in <a class="card-ref" href="/rulings/objectives.html#advanced-gunnery-objective"><em>Advanced Gunnery</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><span class="keyword-name">Counter</span> and Salvo both count as an attack. A ship equipped with this Upgrade Card and <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a>, if it chooses to <span class="keyword-name">Counter</span> a squadron attack, would not be able to attack on its activation. If it attacked on its activation it would be unable to <span class="keyword-name">Counter</span> a subsequent squadron attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card would be unable to trigger <a class="card-ref" href="/rulings/upgrades/ordnance.html#ordnance-pods-ordnance"><em>Ordnance Pods</em></a> if it had previously attacked during the round.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The &#39;cannot attack more than once per round&#39; is absolute. A ship equipped with this Upgrade Card can still only attack once even if it is equipped with Gunnery Team or is the objective ship in Advanced Gunnery.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><span class="keyword-name">Counter</span> and Salvo both count as an attack. A ship equipped with this Upgrade Card and Quad Laser Turrets, if it chooses to <span class="keyword-name">Counter</span> a squadron attack, would not be able to attack on its activation. If it attacked on its activation it would be unable to <span class="keyword-name">Counter</span> a subsequent squadron attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card would be unable to trigger Ordnance Pods if it had previously attacked during the round.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1468,7 +1584,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">These dice can be used to claim <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a> objective tokens, as they are considered part of the ship&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">These dice can be used to claim Fire Lanes objective tokens, as they are considered part of the ship&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1493,7 +1609,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If you do not reveal a command dial, you cannot exhaust this Upgrade Card nor place a Focus token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When this ship is attacking another ship from a hull zone marked with a Focus token, during the &#39;Resolve Attack Effects&#39; step, you can add 1 die of a color that is present in an adjacent hull zone&#39;s battery armament to your attack pool.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">For example, a black die could be chosen to be added to an attack, regardless of range, if that die is in an adjacent hull zone&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When this ship is attacking another ship or squadron from a hull zone adjacent to the hull zone with a Focus token, after you gather dice but before rolling your initial attack pool, remove 1 die. This includes any attacks made by card effects such as <a class="card-ref" href="/rulings/upgrades/ordnance.html#ordnance-pods-ordnance"><em>Ordnance Pods</em></a> or <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a> if you choose to use the effect from a hull zone adjacent to one with the Focus token. Because this die is removed before the attack pool is rolled, an attack consisting of a single die will be cancelled.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Salvo attacks from a hull zone adjacent to a hull zone with a Focus token must have a die removed as well, as they originate from the defending hull zone.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If you do not reveal a command dial, you cannot exhaust this Upgrade Card nor place a Focus token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When this ship is attacking another ship from a hull zone marked with a Focus token, during the &#39;Resolve Attack Effects&#39; step, you can add 1 die of a color that is present in an adjacent hull zone&#39;s battery armament to your attack pool.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">For example, a black die could be chosen to be added to an attack, regardless of range, if that die is in an adjacent hull zone&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When this ship is attacking another ship or squadron from a hull zone adjacent to the hull zone with a Focus token, after you gather dice but before rolling your initial attack pool, remove 1 die. This includes any attacks made by card effects such as Ordnance Pods or Quad Laser Turrets if you choose to use the effect from a hull zone adjacent to one with the Focus token. Because this die is removed before the attack pool is rolled, an attack consisting of a single die will be cancelled.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Salvo attacks from a hull zone adjacent to a hull zone with a Focus token must have a die removed as well, as they originate from the defending hull zone.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1528,7 +1644,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship equipped with this Upgrade Card also has the faceup damage card <a class="card-ref" href="/rulings/damage-cards.html#faulty-countermeasures-damage"><em>Faulty Countermeasures</em></a>, you cannot spend and discard exhausted Evade defense tokens to resolve this Upgrade Card&#39;s effect. You would only be eligible to spend readied Evade defense tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship equipped with this Upgrade Card also has the faceup damage card Faulty Countermeasures, you cannot spend and discard exhausted Evade defense tokens to resolve this Upgrade Card&#39;s effect. You would only be eligible to spend readied Evade defense tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1553,7 +1669,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Commander <a class="card-ref" href="/rulings/upgrades/commander.html#kyrsta-agate-commander"><em>Kyrsta Agate</em></a>&#39;s effect &#39;discards&#39; a defense token rather than &#39;spends&#39; it. If a ship equipped with Commander <a class="card-ref" href="/rulings/upgrades/commander.html#kyrsta-agate-commander"><em>Kyrsta Agate</em></a> discards a redirect token, the effects of the XI7 Turbolasers would be bypassed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the defender has <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#advanced-projectors-defensive-retro"><em>Advanced Projectors</em></a>, this Upgrade Card prevents more than one damage on each hull zone other than the defending hull zone. An example is given: an attack dealing five damage could result in one damage to each other hull zone and two damage to the original defending hull zone.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Cards with critical effects causing damage to adjacent hull zones (e.g., <a class="card-ref" href="/rulings/upgrades/ordnance.html#assault-concussion-missiles-ordnance"><em>Assault Concussion Missiles</em></a> or <a class="card-ref" href="/rulings/upgrades/super-weapon.html#superheavy-composite-beam-turbolasers-super-weapon"><em>Superheavy Composite Beam Turbolasers</em></a>) do not interact with this Upgrade Card. The redirect defense effect is resolved after damage is applied to adjacent hull zones from the critical effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Commander Kyrsta Agate&#39;s effect &#39;discards&#39; a defense token rather than &#39;spends&#39; it. If a ship equipped with Commander Kyrsta Agate discards a redirect token, the effects of the XI7 Turbolasers would be bypassed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the defender has Advanced Projectors, this Upgrade Card prevents more than one damage on each hull zone other than the defending hull zone. An example is given: an attack dealing five damage could result in one damage to each other hull zone and two damage to the original defending hull zone.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Cards with critical effects causing damage to adjacent hull zones (e.g., Assault Concussion Missiles or Superheavy Composite Beam Turbolasers) do not interact with this Upgrade Card. The redirect defense effect is resolved after damage is applied to adjacent hull zones from the critical effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1578,23 +1694,37 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/commander.html#general-dodonna-commander"><em>General Dodonna</em></a> resolves once for each faceup damage card dealt. If two face-up damage cards are dealt, the player draws four cards once (Dodonna chooses one), and then draws four cards a second time (Dodonna chooses another).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship with Fire Control Team resolves both this Upgrade Card&#39;s critical effect and the standard critical effect, only the first 2 damage cards will be faceup.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship with Fire Control Team resolves the critical effects of both this Upgrade Card and <a class="card-ref" href="/rulings/upgrades/ordnance.html#assault-proton-torpedoes-ordnance"><em>Assault Proton Torpedoes</em></a>, the damage card from <a class="card-ref" href="/rulings/upgrades/ordnance.html#assault-proton-torpedoes-ordnance"><em>Assault Proton Torpedoes</em></a> is the &#39;first&#39; faceup damage card. If additional hull damage is dealt, it would be the &#39;second&#39; faceup damage card due to this Upgrade Card. Only two critical damage cards would be dealt faceup in total.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">General Dodonna resolves once for each faceup damage card dealt. If two face-up damage cards are dealt, the player draws four cards once (Dodonna chooses one), and then draws four cards a second time (Dodonna chooses another).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship with Fire Control Team resolves both this Upgrade Card&#39;s critical effect and the standard critical effect, only the first 2 damage cards will be faceup.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship with Fire Control Team resolves the critical effects of both this Upgrade Card and Assault Proton Torpedoes, the damage card from Assault Proton Torpedoes is the &#39;first&#39; faceup damage card. If additional hull damage is dealt, it would be the &#39;second&#39; faceup damage card due to this Upgrade Card. Only two critical damage cards would be dealt faceup in total.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If the first damage card dealt by this Upgrade Card&#39;s effect is <a class="card-ref" href="/rulings/damage-cards.html#structural-damage-damage"><em>Structural Damage</em></a>, the additional card dealt by <a class="card-ref" href="/rulings/damage-cards.html#structural-damage-damage"><em>Structural Damage</em></a> would not be dealt faceup. However, if another damage card is dealt due to the defender suffering hull damage, that card would be dealt faceup due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If the first damage card dealt by this Upgrade Card&#39;s effect is Structural Damage, the additional card dealt by Structural Damage would not be dealt faceup. However, if another damage card is dealt due to the defender suffering hull damage, that card would be dealt faceup due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
-  <div class="section-header-title">Nexus Upgrades </div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Nexus Upgrades </div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card karm-header-card" id="header-turbolaser-2" data-category="header">
-  <div class="section-header-title">Turbolaser <span class="icon-font">D</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Turbolaser <span class="icon-font">D</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">D</span> is a special type of upgrade card with the <span class="icon-font">D</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">D</span> can be equipped to any ship that has the <span class="icon-font">D</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">D</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="ag-2g-quad-laser-cannons-turbolaser" data-name="ag-2g quad laser cannons" data-factions="" data-category="nexus-upgrades" data-type="turbolaser">

@@ -21,6 +21,7 @@
     "aeroMaticsRegular": "public/rulings/fonts/aero-matics-display-regular.woff",
     "teutonFett": "public/rulings/fonts/TeutonFett.woff",
     "revengerLite": "public/rulings/fonts/RevengerLiteBB.woff",
-    "iconFont": "public/rulings/fonts/icons.woff"
+    "iconFont": "public/rulings/fonts/icons.woff",
+    "logoFont": "public/rulings/fonts/logo.woff"
   }
 }

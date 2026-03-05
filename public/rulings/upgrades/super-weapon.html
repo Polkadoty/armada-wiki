@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,7 +1268,12 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-super-weapon" data-category="header">
-  <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card" id="magnite-crystal-tractor-beam-array-super-weapon" data-name="magnite crystal tractor beam array" data-factions="rebel" data-category="upgrades" data-type="super-weapon">
@@ -1250,11 +1362,21 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
-  <div class="section-header-title">Nexus Upgrades </div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Nexus Upgrades </div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card karm-header-card" id="header-super-weapon-2" data-category="header">
-  <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Super Weapon <span class="icon-font">N</span></div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card" id="ion-pulse-emitter-super-weapon" data-name="ion pulse emitter" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">

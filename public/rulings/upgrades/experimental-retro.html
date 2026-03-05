@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,7 +1268,16 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-experimental-retro" data-category="header">
-  <div class="section-header-title">Experimental Retro <span class="icon-font">L</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Experimental Retro <span class="icon-font">L</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">L</span> is a special type of upgrade card with the <span class="icon-font">L</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">L</span> can be equipped to any ship that has the <span class="icon-font">L</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">L</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="g-8-experimental-projector-experimental-retro" data-name="g-8 experimental projector" data-factions="" data-category="upgrades" data-type="experimental-retro">
@@ -1188,12 +1304,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The maneuver granted by <a class="card-ref" href="/rulings/upgrades/support-team.html#engine-techs-support-team"><em>Engine Techs</em></a>, <a class="card-ref" href="/rulings/upgrades/title.html#quantum-storm-title"><em>Quantum Storm</em></a>, or <a class="card-ref" href="/rulings/upgrades/commander.html#admiral-ozzel-commander"><em>Admiral Ozzel</em></a> (officer) may be affected by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card does not trigger <a class="card-ref" href="/rulings/upgrades/officer.html#the-grand-inquisitor-officer"><em>The Grand Inquisitor</em></a> as the ship&#39;s speed dial is not changed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship&#39;s speed is temporarily slowed by an effect such as this Upgrade Card, that ship will not be able to use <a class="card-ref" href="/rulings/upgrades/fleet-command.html#take-evasive-action-fleet-command"><em>Take Evasive Action!</em></a> For example, a ship&#39;s &#39;current speed&#39; is 3. It is then temporarily slowed to &#39;2&#39;, but this temporary reduction in speed does not change the ship&#39;s speed dial. Since the ship&#39;s &#39;current speed&#39; is 3, but forced to conduct the maneuver at speed 2, <a class="card-ref" href="/rulings/upgrades/fleet-command.html#take-evasive-action-fleet-command"><em>Take Evasive Action!</em></a> cannot modify the yaw value in the speed 2 chart.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card would not prevent <a class="card-ref" href="/rulings/upgrades/commander.html#moff-jerjerrod-commander"><em>Moff Jerjerrod</em></a>&#39;s effect from resolving.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The maneuver granted by Engine Techs, Quantum Storm, or Admiral Ozzel (officer) may be affected by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card does not trigger The Grand Inquisitor as the ship&#39;s speed dial is not changed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship&#39;s speed is temporarily slowed by an effect such as this Upgrade Card, that ship will not be able to use Take Evasive Action! For example, a ship&#39;s &#39;current speed&#39; is 3. It is then temporarily slowed to &#39;2&#39;, but this temporary reduction in speed does not change the ship&#39;s speed dial. Since the ship&#39;s &#39;current speed&#39; is 3, but forced to conduct the maneuver at speed 2, Take Evasive Action! cannot modify the yaw value in the speed 2 chart.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card would not prevent Moff Jerjerrod&#39;s effect from resolving.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card effect stacks with the speed reduction of the Gravity Rift Obstacle.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card may affect the special rule maneuver granted by <a class="card-ref" href="/rulings/objectives.html#rift-ambush-objective"><em>Rift Ambush</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card effect stacks with the speed reduction of the Gravity Rift Obstacle.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card may affect the special rule maneuver granted by Rift Ambush.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1218,12 +1334,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Grav well tokens are never removed from play, and cannot be moved unless they are placed on an obstacle that is moved. This is important as ships that deploy during play from abilities such as <a class="card-ref" href="/rulings/upgrades/commander.html#admiral-raddus-commander"><em>Admiral Raddus</em></a> or <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a> can be affected by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Grav Well tokens may be placed anywhere in the play area, including deployment zones.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Each copy of this Upgrade Card in a fleet grants one Grav Well token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card must be in the play area (not set aside or otherwise not in play) in order for its effect to be resolved.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Grav well tokens are never removed from play, and cannot be moved unless they are placed on an obstacle that is moved. This is important as ships that deploy during play from abilities such as Admiral Raddus or Hyperspace Assault can be affected by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Grav Well tokens may be placed anywhere in the play area, including deployment zones.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Each copy of this Upgrade Card in a fleet grants one Grav Well token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card must be in the play area (not set aside or otherwise not in play) in order for its effect to be resolved.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The maneuver granted by <a class="card-ref" href="/rulings/upgrades/commander.html#admiral-ozzel-commander"><em>Admiral Ozzel</em></a> (officer) is not affected by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The maneuver granted by Admiral Ozzel (officer) is not affected by this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1253,7 +1369,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">During the <a class="card-ref" href="/rulings/objectives.html#doomed-station-objective"><em>Doomed Station</em></a> objective, if an obstacle is moved by this Upgrade Card so it is touching the Gravity Rift, the obstacle is not removed as obstacles are only removed during &#39;End of Round&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">During the Doomed Station objective, if an obstacle is moved by this Upgrade Card so it is touching the Gravity Rift, the obstacle is not removed as obstacles are only removed during &#39;End of Round&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1283,7 +1399,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Squadron Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card cannot reroll a die that has been modified by the <a class="card-ref" href="/rulings/squadrons.html#lando-calrissian-squadron"><em>Lando Calrissian (squadron)</em></a> card effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card cannot reroll a die that has been modified by the Lando Calrissian (squadron) card effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article></div>

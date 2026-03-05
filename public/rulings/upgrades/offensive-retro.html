@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,7 +1268,16 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-offensive-retro" data-category="header">
-  <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">G</span> is a special type of upgrade card with the <span class="icon-font">G</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">G</span> can be equipped to any ship that has the <span class="icon-font">G</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">G</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="advanced-transponder-net-offensive-retro" data-name="advanced transponder net" data-factions="" data-category="upgrades" data-type="offensive-retro">
@@ -1188,7 +1304,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Squadron Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/squadrons.html#tycho-celchu-squadron"><em>Tycho Celchu</em></a> is not prevented from attacking a ship equipped with this Upgrade Card even if he is engaged by enemy <span class="keyword-name">Heavy</span> squadrons.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Tycho Celchu is not prevented from attacking a ship equipped with this Upgrade Card even if he is engaged by enemy <span class="keyword-name">Heavy</span> squadrons.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1238,7 +1354,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A squadron can resolve its <span class="keyword-name">Relay</span> keyword even if it could only be activated because of this Upgrade Card</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Effects that reference a particular distance or range (such as <a class="card-ref" href="/rulings/upgrades/support-team.html#fighter-coordination-team-support-team"><em>Fighter Coordination Team</em></a> or Triumphant) have no interaction with this card. However, effects that reference whether or not a squadron is at the appropriate range to be activated (such as <span class="keyword-name">Relay</span>) would combine with the effects of this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A squadron can resolve its <span class="keyword-name">Relay</span> keyword even if it could only be activated because of this Upgrade Card</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Effects that reference a particular distance or range (such as Fighter Coordination Team or Triumphant) have no interaction with this card. However, effects that reference whether or not a squadron is at the appropriate range to be activated (such as <span class="keyword-name">Relay</span>) would combine with the effects of this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1268,7 +1384,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">As this Upgrade Card&#39;s effect is applied while attacking ships, the blue dice in the battery armament of the equipped ship cannot be used to claim <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a> objective tokens at long range on the round this Upgrade Card has been discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">As this Upgrade Card&#39;s effect is effective until the end of the round, blue dice of the equipped ship can be used when performing Salvo attacks after this Upgrade Card has been discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card does not apply to Ignition attacks, as Ignition arcs have a &#39;special battery armament&#39; instead of a &#39;battery armament.&#39; In addition, the close-long range mentioned in the card text refers to the distance from the ship&#39;s firing arcs, not the range measured from the Ignition token for the purposes of gathering dice.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">As this Upgrade Card&#39;s effect is applied while attacking ships, the blue dice in the battery armament of the equipped ship cannot be used to claim Fire Lanes objective tokens at long range on the round this Upgrade Card has been discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">As this Upgrade Card&#39;s effect is effective until the end of the round, blue dice of the equipped ship can be used when performing Salvo attacks after this Upgrade Card has been discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card does not apply to Ignition attacks, as Ignition arcs have a &#39;special battery armament&#39; instead of a &#39;battery armament.&#39; In addition, the close-long range mentioned in the card text refers to the distance from the ship&#39;s firing arcs, not the range measured from the Ignition token for the purposes of gathering dice.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1293,7 +1409,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with this Upgrade Card has its &#39;Squadron Value&#39; increased by 1 when activating squadrons or otherwise referencing the equipped ship&#39;s squadron value (e.g. <a class="card-ref" href="#hyperspace-rings-offensive-retro"><em>Hyperspace Rings</em></a>, <a class="card-ref" href="/rulings/upgrades/weapons-team-offensive-retro.html#boarding-troopers-weapons-team-offensive-retro"><em>Boarding Troopers</em></a>, etc). This increase remains unless the equipped ship is destroyed or forced to discard this Upgrade Card by some other effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with this Upgrade Card has its &#39;Squadron Value&#39; increased by 1 when activating squadrons or otherwise referencing the equipped ship&#39;s squadron value (e.g. <a class="card-ref" href="#hyperspace-rings-offensive-retro"><em>Hyperspace Rings</em></a>, Boarding Troopers, etc). This increase remains unless the equipped ship is destroyed or forced to discard this Upgrade Card by some other effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1323,7 +1439,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card is discarded by <a class="card-ref" href="/rulings/upgrades/weapons-team-offensive-retro.html#darth-vader-boarding-team-weapons-team-offensive-retro"><em>Darth Vader (Boarding Team)</em></a> or Shriv Suurgav (Boarding Team), the equipped Fleet Command card granted by the title card ability remains. This Upgrade Card being discarded also removes the restriction of not being able to discard command tokens for the equipped Fleet Command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card is discarded by Darth Vader (Boarding Team) or Shriv Suurgav (Boarding Team), the equipped Fleet Command card granted by the title card ability remains. This Upgrade Card being discarded also removes the restriction of not being able to discard command tokens for the equipped Fleet Command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1353,7 +1469,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a> and this Upgrade Card must replace the blue die from <span class="keyword-name">Counter</span> 1 with a black die when performing <span class="keyword-name">Counter</span> attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="/rulings/upgrades/officer.html#agent-kallus-officer"><em>Agent Kallus</em></a> and this Upgrade Card can add a die of any color (not only black) when performing attacks against a unique squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="/rulings/upgrades/commander.html#general-draven-commander"><em>General Draven</em></a> (Officer) and this Upgrade Card can add a die of any color (not only black) when performing attacks against a squadron with <span class="keyword-name">Counter</span> or <span class="keyword-name">Intel</span>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a> and this Upgrade Card must replace the blue die from <span class="keyword-name">Counter</span> 1 with a black die when performing <span class="keyword-name">Counter</span> attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with Agent Kallus and this Upgrade Card can add a die of any color (not only black) when performing attacks against a unique squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with General Draven (Officer) and this Upgrade Card can add a die of any color (not only black) when performing attacks against a squadron with <span class="keyword-name">Counter</span> or <span class="keyword-name">Intel</span>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1378,12 +1494,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with this Upgrade Card and Amity would be dealt 1 damage card (instead of 2), if it chooses to resolve Amity&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card would be dealt 1 faceup damage card when it is overlapped by a ship equipped with <a class="card-ref" href="/rulings/upgrades/title.html#garel-s-honor-title"><em>Garel&#39;s Honor</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card and <a class="card-ref" href="/rulings/upgrades/officer.html#lira-wessex-officer"><em>Lira Wessex</em></a> can turn the faceup damage card from <a class="card-ref" href="/rulings/upgrades/title.html#garel-s-honor-title"><em>Garel&#39;s Honor</em></a> to a facedown damage card, but it cannot then trigger this Upgrade Card to not be dealt this facedown damage card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with this Upgrade Card and Amity would be dealt 1 damage card (instead of 2), if it chooses to resolve Amity&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card would be dealt 1 faceup damage card when it is overlapped by a ship equipped with Garel&#39;s Honor.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card and Lira Wessex can turn the faceup damage card from Garel&#39;s Honor to a facedown damage card, but it cannot then trigger this Upgrade Card to not be dealt this facedown damage card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The additional facedown damage card dealt from <a class="card-ref" href="/rulings/damage-cards.html#structural-damage-damage"><em>Structural Damage</em></a> cannot be discarded by this Upgrade Card, as it was not the result of an overlap, but from that critical card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The additional facedown damage card dealt from Structural Damage cannot be discarded by this Upgrade Card, as it was not the result of an overlap, but from that critical card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1443,7 +1559,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card does not interact with the <a class="card-ref" href="/rulings/upgrades/weapons-team.html#flight-controllers-weapons-team"><em>Flight Controllers</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#san-hill-officer"><em>San Hill</em></a>, or the <span class="keyword-name">Relay</span> keyword in any way.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card does not interact with the Flight Controllers, San Hill, or the <span class="keyword-name">Relay</span> keyword in any way.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1473,12 +1589,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/officer.html#the-grand-inquisitor-officer"><em>The Grand Inquisitor</em></a> can resolve from this Upgrade Card being used on an enemy ship, if the owner of the ship is forced to change the speed on its speed dial.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The Grand Inquisitor can resolve from this Upgrade Card being used on an enemy ship, if the owner of the ship is forced to change the speed on its speed dial.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The damage from <a class="card-ref" href="/rulings/damage-cards.html#thruster-fissure-damage"><em>Thruster Fissure</em></a> will resolve if a ship is forced to change its speed as a result of this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The damage from Thruster Fissure will resolve if a ship is forced to change its speed as a result of this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1533,12 +1649,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card and <a class="card-ref" href="/rulings/upgrades/commander.html#admiral-raddus-commander"><em>Admiral Raddus</em></a> share the same timing, so proximity mine tokens can be placed before choosing an <a class="card-ref" href="/rulings/upgrades/commander.html#admiral-raddus-commander"><em>Admiral Raddus</em></a> ship to set aside.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/weapons-team.html#ruthless-strategists-weapons-team"><em>Ruthless Strategists</em></a> cannot be triggered when attacking a Proximity Mine Token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/turbolaser.html#linked-turbolaser-towers-turbolaser"><em>Linked Turbolaser Towers</em></a> added die effect can be used on a Proximity Mine Token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/turbolaser.html#heavy-fire-zone-turbolaser"><em>Heavy Fire Zone</em></a> may be used against Proximity Mines Tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship deployed by Raddus or <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a> ship can be deployed on or near Proximity Mine Tokens without triggering them.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Impetuous is able to attack a Proximity Mines Token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/ordnance.html#ordnance-pods-ordnance"><em>Ordnance Pods</em></a> can use its attack to target a single Proximity Mines token but no other squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/ordnance.html#wide-area-barrage-ordnance"><em>Wide-Area Barrage</em></a> cannot choose a Proximity Mines Token to suffer damage, as it is not a ship or squadron.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card and Admiral Raddus share the same timing, so proximity mine tokens can be placed before choosing an Admiral Raddus ship to set aside.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ruthless Strategists cannot be triggered when attacking a Proximity Mine Token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Linked Turbolaser Towers added die effect can be used on a Proximity Mine Token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Heavy Fire Zone may be used against Proximity Mines Tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship deployed by Raddus or Hyperspace Assault ship can be deployed on or near Proximity Mine Tokens without triggering them.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Impetuous is able to attack a Proximity Mines Token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ordnance Pods can use its attack to target a single Proximity Mines token but no other squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Wide-Area Barrage cannot choose a Proximity Mines Token to suffer damage, as it is not a ship or squadron.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/objectives.html#volatile-deposits-objective"><em>Volatile Deposits</em></a> special rule cannot choose a Proximity Mines Token to suffer damage, as it is not a ship or squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">In <a class="card-ref" href="/rulings/objectives.html#doomed-station-objective"><em>Doomed Station</em></a>, when an obstacle with a Proximity Mines Token on it is moved and touches the Gravity Rift in its final position and is to be removed from the play area, the Proximity Mines Token remains in its last location before the obstacle is removed.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Volatile Deposits special rule cannot choose a Proximity Mines Token to suffer damage, as it is not a ship or squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">In Doomed Station, when an obstacle with a Proximity Mines Token on it is moved and touches the Gravity Rift in its final position and is to be removed from the play area, the Proximity Mines Token remains in its last location before the obstacle is removed.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1568,7 +1684,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has not yet resolved the Concentrate Fire command this round, it may use a Concentrate Fire token on this attack. But it then cannot use the Concentrate Fire command for the rest of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with this Upgrade card is the first player <a class="card-ref" href="/rulings/objectives.html#advanced-gunnery-objective"><em>Advanced Gunnery</em></a> objective ship and performs a <span class="keyword-name">Counter</span> attack using this Upgrade card&#39;s effect, the hull zone that performed the <span class="keyword-name">Counter</span> attack can no longer target that squadron that round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/weapons-team.html#ruthless-strategists-weapons-team"><em>Ruthless Strategists</em></a> can trigger from this Upgrade Card&#39;s attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="/rulings/upgrades/turbolaser.html#heavy-fire-zone-turbolaser"><em>Heavy Fire Zone</em></a> and this Upgrade Card can replace the blue die from <span class="keyword-name">Counter</span> 1 with a red die when performing <span class="keyword-name">Counter</span> attacks, if the target is not engaged with a friendly squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="#flak-guns-offensive-retro"><em>Flak Guns</em></a> and this Upgrade Card must replace the blue die from <span class="keyword-name">Counter</span> 1 with a black die when performing <span class="keyword-name">Counter</span> attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="/rulings/upgrades/officer.html#agent-kallus-officer"><em>Agent Kallus</em></a> and this Upgrade Card can add a die when performing <span class="keyword-name">Counter</span> attacks against a unique squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="/rulings/upgrades/commander.html#general-draven-commander"><em>General Draven</em></a> (Officer) and this Upgrade Card can add a die when performing <span class="keyword-name">Counter</span> attacks against a squadron with <span class="keyword-name">Counter</span> or <span class="keyword-name">Intel</span>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/turbolaser.html#linked-turbolaser-towers-turbolaser"><em>Linked Turbolaser Towers</em></a>&#39; dice add effect cannot be used on this Upgrade Card&#39;s <span class="keyword-name">Counter</span> attacks as they do not occur during that ship&#39;s activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If an unactivated ship equipped with <a class="card-ref" href="/rulings/upgrades/turbolaser.html#slaved-turrets-turbolaser"><em>Slaved Turrets</em></a> and this Upgrade Card chooses to perform a <span class="keyword-name">Counter</span> attack, that ship cannot perform further <span class="keyword-name">Counter</span> attacks, nor can it attack when that ship is activated. If the ship had activated and had attacked, it cannot perform any <span class="keyword-name">Counter</span> attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with this Upgrade Card has declared <a class="card-ref" href="/rulings/upgrades/commander.html#admiral-ackbar-commander"><em>Admiral Ackbar</em></a>&#39;s ability, then that ship can only resolve attacks from either its left or right hullzones, and cannot attack from its front or rear.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has not yet resolved the Concentrate Fire command this round, it may use a Concentrate Fire token on this attack. But it then cannot use the Concentrate Fire command for the rest of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with this Upgrade card is the first player Advanced Gunnery objective ship and performs a <span class="keyword-name">Counter</span> attack using this Upgrade card&#39;s effect, the hull zone that performed the <span class="keyword-name">Counter</span> attack can no longer target that squadron that round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ruthless Strategists can trigger from this Upgrade Card&#39;s attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with Heavy Fire Zone and this Upgrade Card can replace the blue die from <span class="keyword-name">Counter</span> 1 with a red die when performing <span class="keyword-name">Counter</span> attacks, if the target is not engaged with a friendly squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="#flak-guns-offensive-retro"><em>Flak Guns</em></a> and this Upgrade Card must replace the blue die from <span class="keyword-name">Counter</span> 1 with a black die when performing <span class="keyword-name">Counter</span> attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with Agent Kallus and this Upgrade Card can add a die when performing <span class="keyword-name">Counter</span> attacks against a unique squadron.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with General Draven (Officer) and this Upgrade Card can add a die when performing <span class="keyword-name">Counter</span> attacks against a squadron with <span class="keyword-name">Counter</span> or <span class="keyword-name">Intel</span>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Linked Turbolaser Towers&#39; dice add effect cannot be used on this Upgrade Card&#39;s <span class="keyword-name">Counter</span> attacks as they do not occur during that ship&#39;s activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If an unactivated ship equipped with Slaved Turrets and this Upgrade Card chooses to perform a <span class="keyword-name">Counter</span> attack, that ship cannot perform further <span class="keyword-name">Counter</span> attacks, nor can it attack when that ship is activated. If the ship had activated and had attacked, it cannot perform any <span class="keyword-name">Counter</span> attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with this Upgrade Card has declared Admiral Ackbar&#39;s ability, then that ship can only resolve attacks from either its left or right hullzones, and cannot attack from its front or rear.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1603,7 +1719,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with <a class="card-ref" href="/rulings/upgrades/support-team.html#fighter-coordination-team-support-team"><em>Fighter Coordination Team</em></a> and this Upgrade Card cannot choose to move any squadrons on the round placed by this Upgrade Card on the round they are placed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded by another card ability such as <a class="card-ref" href="/rulings/upgrades/weapons-team-offensive-retro.html#darth-vader-boarding-team-weapons-team-offensive-retro"><em>Darth Vader (Boarding Team)</em></a> then any squadrons currently set aside that have not been placed are considered destroyed.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with Fighter Coordination Team and this Upgrade Card cannot choose to move any squadrons on the round placed by this Upgrade Card on the round they are placed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded by another card ability such as Darth Vader (Boarding Team) then any squadrons currently set aside that have not been placed are considered destroyed.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1633,7 +1749,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a squadron gains <span class="keyword-name">Swarm</span> during its activation, such as from <a class="card-ref" href="/rulings/upgrades/title.html#nevoota-bee-title"><em>Nevoota Bee</em></a> effect, and is destroyed during its activation, it can be chosen to trigger this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A squadron that is chosen to trigger this Upgrade Card still counts as having been destroyed for triggering the effect of <a class="card-ref" href="/rulings/upgrades/commander.html#general-grievous-commander"><em>General Grievous</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a squadron gains <span class="keyword-name">Swarm</span> during its activation, such as from Nevoota Bee effect, and is destroyed during its activation, it can be chosen to trigger this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A squadron that is chosen to trigger this Upgrade Card still counts as having been destroyed for triggering the effect of General Grievous.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1665,11 +1781,25 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
-  <div class="section-header-title">Nexus Upgrades </div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Nexus Upgrades </div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card karm-header-card" id="header-offensive-retro-2" data-category="header">
-  <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Offensive Retro <span class="icon-font">G</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">G</span> is a special type of upgrade card with the <span class="icon-font">G</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">G</span> can be equipped to any ship that has the <span class="icon-font">G</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">G</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="ambush-offensive-retro" data-name="ambush" data-factions="scum" data-category="nexus-upgrades" data-type="offensive-retro">

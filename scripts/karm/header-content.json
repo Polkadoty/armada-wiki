@@ -1,0 +1,51 @@
+{
+  "weapons-team-offensive-retro": {
+    "cardText": "For brevity and clarity, this document will refer to :weapons_team::offensive_retro: upgrade cards as Boarding Team upgrade cards.\n\n**Boarding Team** :weapons_team::offensive_retro: - is a special type of upgrade card with the :weapons_team::offensive_retro: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- Some upgrade cards have more than one upgrade icon.\n- A Boarding Team can be equipped to any ship that has both a Weapons Team and an Offensive Retrofit upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same Boarding Team card.\n- A Boarding Team can be equipped to any ship that has the :weapons_team::offensive_retro: upgrade icon(s) in its ship card.",
+    "rules": [
+      { "section": "clarifications", "text": "To resolve a Boarding Team you must discard a command dial or a command token (your choice), then also discard the upgrade." },
+      { "section": "clarifications", "text": "If a ship does not reveal a command dial during the Reveal Command Dial step, Boarding Teams cannot trigger because there is no command dial to discard." }
+    ]
+  },
+  "commander": {
+    "cardText": "A is a special type of upgrade card with the :commander: icon on its card back and no upgrade icon in the card front.\n- A :commander: can be equipped to any ship except Flotillas.\n- A fleet cannot have more than one :commander:.\n- A ship with a :commander: equipped is a flagship.\n- A :commander: must be in the play area to be able to resolve. If this card has been set aside, then the :commander: ability cannot resolve."
+  },
+  "officer": {
+    "cardText": "A :officer: is a special type of upgrade card with the :officer: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :officer: can be equipped to any ship that has the :officer: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :officer: card."
+  },
+  "weapons-team": {
+    "cardText": "A :weapons_team: is a special type of upgrade card with the :weapons_team: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :weapons_team: can be equipped to any ship that has the :weapons_team: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :weapons_team: card."
+  },
+  "offensive-retro": {
+    "cardText": "A :offensive_retro: is a special type of upgrade card with the :offensive_retro: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :offensive_retro: can be equipped to any ship that has the :offensive_retro: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :offensive_retro: card."
+  },
+  "defensive-retro": {
+    "cardText": "A :defensive_retro: is a special type of upgrade card with the :defensive_retro: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :defensive_retro: can be equipped to any ship that has the :defensive_retro: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :defensive_retro: card."
+  },
+  "turbolaser": {
+    "cardText": "A :turbolaser: is a special type of upgrade card with the :turbolaser: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :turbolaser: can be equipped to any ship that has the :turbolaser: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :turbolaser: card."
+  },
+  "ion-cannon": {
+    "cardText": "A :ion_cannon: is a special type of upgrade card with the :ion_cannon: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :ion_cannon: can be equipped to any ship that has the :ion_cannon: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :ion_cannon: card."
+  },
+  "ordnance": {
+    "cardText": "A :ordnance: is a special type of upgrade card with the :ordnance: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :ordnance: can be equipped to any ship that has the :ordnance: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :ordnance: card."
+  },
+  "fleet-support": {
+    "cardText": "A :fleet_support: is a special type of upgrade card with the :fleet_support: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :fleet_support: can be equipped to any ship that has the :fleet_support: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :fleet_support: card."
+  },
+  "support-team": {
+    "cardText": "A :support_team: is a special type of upgrade card with the :support_team: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :support_team: can be equipped to any ship that has the :support_team: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :support_team: card."
+  },
+  "experimental-retro": {
+    "cardText": "A :experimental_retro: is a special type of upgrade card with the :experimental_retro: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :experimental_retro: can be equipped to any ship that has the :experimental_retro: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :experimental_retro: card."
+  },
+  "fleet-command": {
+    "cardText": "A :fleet_command: is a special type of upgrade card with the :fleet_command: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :fleet_command: can be equipped to any ship that has the :fleet_command: upgrade icon in its ship card.\n- Only one :fleet_command: card of the same type can be in play for that fleet (or allied fleets in team play), if this :fleet_command: is discarded during play, it cannot be equipped by any other ship in that fleet, such as Chimaera.\n- If a :fleet_command: has an effect that triggers at the start of a phase, that card's effect will persist until the end of the round, even if the ship that card is equipped to is destroyed, or if that card is discarded by some other effect."
+  },
+  "title": {
+    "cardText": "A :title: is a special type of upgrade card with the :title: icon on its card back and ship icon it equips too in the lower-left corner of the card front.\n- A :title: can be equipped to the ship shown in the lower-left corner of the card front.\n- A ship cannot equip more than one :title: card.\n- Insert RRG: \"Name-Restricted Title Cards: Some Title upgrade cards in this expansion have an icon in the lower-left corner that does not match a specific ship icon. A ship can equip this upgrade card if that ship matches this card's faction affiliation and the ship's name matches this upgrade card's name-restriction trait.\""
+  },
+  "superweapon": {
+    "cardText": "A :superweapon: is a special type of upgrade card with the :superweapon: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :superweapon: can be equipped to any ship that has the :superweapon: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :superweapon: card."
+  }
+}

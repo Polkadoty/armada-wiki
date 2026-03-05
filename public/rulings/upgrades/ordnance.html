@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,7 +1268,16 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-ordnance" data-category="header">
-  <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">F</span> is a special type of upgrade card with the <span class="icon-font">F</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">F</span> can be equipped to any ship that has the <span class="icon-font">F</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">F</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="assault-concussion-missiles-ordnance" data-name="assault concussion missiles" data-factions="" data-category="upgrades" data-type="ordnance">
@@ -1188,7 +1304,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship with both this Upgrade Card and <a class="card-ref" href="/rulings/upgrades/turbolaser.html#xi7-turbolasers-turbolaser"><em>XI7 Turbolasers</em></a> equipped resolves this Upgrade Card effect, XI7 will have no effect on the damage dealt from this Upgrade Card. The redirect token effect is resolved after damage is applied to the adjacent hull zones from the critical effect, and the defender will be able to redirect 1 of the total damage dealt during the &#39;Resolve Damage&#39; step.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship with both this Upgrade Card and XI7 Turbolasers equipped resolves this Upgrade Card effect, XI7 will have no effect on the damage dealt from this Upgrade Card. The redirect token effect is resolved after damage is applied to the adjacent hull zones from the critical effect, and the defender will be able to redirect 1 of the total damage dealt during the &#39;Resolve Damage&#39; step.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1213,12 +1329,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">When spending a Redirect defense token, the defender declares which adjacent hull zone(s) is being chosen to suffer damage in the &#39;spend defense token&#39; step. This occurs before the attacker chooses and resolves a critical effect in the &#39;Resolve Attack Effects&#39; step. Once chosen, the defender cannot select a different hull zone. This can be important for the effect of this Upgrade Card; faceup damage cards such as <a class="card-ref" href="/rulings/damage-cards.html#shield-failure-damage"><em>Shield Failure</em></a> or <a class="card-ref" href="/rulings/damage-cards.html#projector-misaligned-damage"><em>Projector Misaligned</em></a> that may reduce or remove all shields from the chosen hull zone(s).</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When spending a Redirect defense token, the defender declares which adjacent hull zone(s) is being chosen to suffer damage in the &#39;spend defense token&#39; step. This occurs before the attacker chooses and resolves a critical effect in the &#39;Resolve Attack Effects&#39; step. Once chosen, the defender cannot select a different hull zone. This can be important for the effect of this Upgrade Card; faceup damage cards such as Shield Failure or Projector Misaligned that may reduce or remove all shields from the chosen hull zone(s).</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship with Fire Control Team equipped resolves both this Upgrade Card critical effect and the standard critical effect, only the damage card dealt by resolving this Upgrade Card is dealt face up.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with Fire Control Team resolves the critical effects of both this Upgrade Card and <a class="card-ref" href="/rulings/upgrades/turbolaser.html#xx-9-turbolasers-turbolaser"><em>XX-9 Turbolasers</em></a>, the damage card dealt by this Upgrade Card would be the &#39;first&#39; faceup damage card dealt. If any damage is then also dealt to the defending ship&#39;s hull, it would suffer its &#39;second&#39; faceup damage card as <a class="card-ref" href="/rulings/upgrades/turbolaser.html#xx-9-turbolasers-turbolaser"><em>XX-9 Turbolasers</em></a> applies its effect. Only two faceup damage cards would be dealt faceup in total.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship with Fire Control Team equipped resolves both this Upgrade Card critical effect and the standard critical effect, only the damage card dealt by resolving this Upgrade Card is dealt face up.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with Fire Control Team resolves the critical effects of both this Upgrade Card and XX-9 Turbolasers, the damage card dealt by this Upgrade Card would be the &#39;first&#39; faceup damage card dealt. If any damage is then also dealt to the defending ship&#39;s hull, it would suffer its &#39;second&#39; faceup damage card as XX-9 Turbolasers applies its effect. Only two faceup damage cards would be dealt faceup in total.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1243,7 +1359,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">These dice can be used to claim <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a> objective tokens, as they are considered part of the ship&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Battery armament is used when attacking a ship, and thus this Upgrade Card does not increase that ship&#39;s anti-squadron armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">These dice can be used to claim Fire Lanes objective tokens, as they are considered part of the ship&#39;s battery armament.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Battery armament is used when attacking a ship, and thus this Upgrade Card does not increase that ship&#39;s anti-squadron armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1298,12 +1414,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship equipped with this Upgrade Card performs a <span class="keyword-name">Counter</span> attack (granted by a card ability such as <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a> combined with <a class="card-ref" href="/rulings/upgrades/officer.html#agent-kallus-officer"><em>Agent Kallus</em></a> or <a class="card-ref" href="/rulings/upgrades/commander.html#general-draven-commander"><em>General Draven</em></a>), spending a black die with crit icon to toggle a squadrons slider that is already activated does not end that squadron&#39;s activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the defending squadron is an unactivated squadron being granted an attack by another ability such as <a class="card-ref" href="/rulings/squadrons.html#colonel-jendon-squadron"><em>Colonel Jendon</em></a>, a black die with crit icon could be spent to toggle that squadron&#39;s activation slider to the activated side.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship equipped with this Upgrade Card performs a <span class="keyword-name">Counter</span> attack (granted by a card ability such as Quad Laser Turrets combined with Agent Kallus or General Draven), spending a black die with crit icon to toggle a squadrons slider that is already activated does not end that squadron&#39;s activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the defending squadron is an unactivated squadron being granted an attack by another ability such as Colonel Jendon, a black die with crit icon could be spent to toggle that squadron&#39;s activation slider to the activated side.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card is not affected by the faceup damage card <a class="card-ref" href="/rulings/damage-cards.html#targeter-disruption-damage"><em>Targeter Disruption</em></a>. A black dice with the critical icon is &#39;spent&#39; to trigger a card effect; it is not a critical effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card is not affected by the faceup damage card Targeter Disruption. A black dice with the critical icon is &#39;spent&#39; to trigger a card effect; it is not a critical effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1333,7 +1449,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has declared the use of <a class="card-ref" href="/rulings/upgrades/commander.html#admiral-ackbar-commander"><em>Admiral Ackbar</em></a>&#39;s ability, a ship will not be able to use this Upgrade Card to attack with its front or rear hull zones.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship equipped with this Upgrade Card is also equipped with <a class="card-ref" href="/rulings/upgrades/weapons-team.html#gunnery-team-weapons-team"><em>Gunnery Team</em></a>, or was selected as the first player objective ship in <a class="card-ref" href="/rulings/objectives.html#advanced-gunnery-objective"><em>Advanced Gunnery</em></a>, this Upgrade Card&#39;s effect is not able to attack a target if that target has already been attacked from the chosen hull zone.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/weapons-team.html#ruthless-strategists-weapons-team"><em>Ruthless Strategists</em></a> can trigger from this Upgrade Card&#39;s attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card can be used to target a single proximity mines token, but then would not be able to attack other squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship is equipped with both this Upgrade Card and <a class="card-ref" href="/rulings/upgrades/turbolaser.html#slaved-turrets-turbolaser"><em>Slaved Turrets</em></a>, the ship cannot attack more than once per round. If a ship has attacked this round, it is then not able to resolve this Upgrade Card at the end of its Attack Step.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has declared the use of Admiral Ackbar&#39;s ability, a ship will not be able to use this Upgrade Card to attack with its front or rear hull zones.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship equipped with this Upgrade Card is also equipped with Gunnery Team, or was selected as the first player objective ship in Advanced Gunnery, this Upgrade Card&#39;s effect is not able to attack a target if that target has already been attacked from the chosen hull zone.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ruthless Strategists can trigger from this Upgrade Card&#39;s attacks.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card can be used to target a single proximity mines token, but then would not be able to attack other squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship is equipped with both this Upgrade Card and Slaved Turrets, the ship cannot attack more than once per round. If a ship has attacked this round, it is then not able to resolve this Upgrade Card at the end of its Attack Step.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1358,7 +1474,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">These dice can be used to claim <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a> objective tokens, as they are considered part of the ships battery armament.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Battery armament is used when attacking a ship, and thus this Upgrade Card does not increase that ship&#39;s anti squadron armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">These dice can be used to claim Fire Lanes objective tokens, as they are considered part of the ships battery armament.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Battery armament is used when attacking a ship, and thus this Upgrade Card does not increase that ship&#39;s anti squadron armament.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1395,11 +1511,25 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
-  <div class="section-header-title">Nexus Upgrades </div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Nexus Upgrades </div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card karm-header-card" id="header-ordnance-2" data-category="header">
-  <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Ordnance <span class="icon-font">F</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">F</span> is a special type of upgrade card with the <span class="icon-font">F</span> icon on its card back and upgrade icon in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">F</span> can be equipped to any ship that has the <span class="icon-font">F</span> upgrade icon in its ship card.</li><li>A ship cannot equip more than one copy of the same <span class="icon-font">F</span> card.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="counter-battery-retrofit-ordnance" data-name="counter-battery retrofit" data-factions="new-republic" data-category="nexus-upgrades" data-type="ordnance">

@@ -11,6 +11,7 @@
     <link rel="preload" href="/rulings/fonts/TeutonFett.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/aero-matics-display-regular.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/icons.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/rulings/fonts/logo.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <style>
       :root { --page-background: url('/rulings/assets/rulebook-background.webp?v=rulings-v1'); }
       
@@ -82,6 +83,14 @@
   font-family: 'ArmadaIcons';
   src: url('/rulings/fonts/icons.woff?v=rulings-v1') format('woff');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LogoFont';
+  src: url('/rulings/fonts/logo.woff?v=rulings-v1') format('woff');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -710,8 +719,24 @@ body.search-open .search-drawer {
 .karm-header-card {
   min-height: 760px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.section-header-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  width: 100%;
+}
+
+.header-bar {
+  border: none;
+  height: 2px;
+  background: var(--accent);
+  margin: 0;
 }
 
 .section-header-title {
@@ -720,7 +745,12 @@ body.search-open .search-drawer {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--accent);
-  font-family: "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  text-align: center;
+}
+
+.header-content {
+  margin-top: 16px;
 }
 
 .ruling-content blockquote {
@@ -953,13 +983,22 @@ body.karm-web .ruling-footnotes {
   font-size: 13px;
 }
 
+body.karm-web .header-bar {
+  height: 1.5px;
+}
+
 body.karm-web .section-header-title {
-  font-size: 48px;
+  font-size: 32px;
 }
 
 body.karm-web .karm-header-card {
   min-height: 120px;
   padding: 24px 0;
+}
+
+body.karm-web .header-content {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
@@ -999,7 +1038,7 @@ body.karm-web .card-divider {
   }
 
   body.karm-web .section-header-title {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   body.karm-web .karm-header-card {
@@ -1054,6 +1093,68 @@ body.karm-web .card-divider {
   }
 }
 
+/* ── Index page ── */
+
+.index-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.index-title {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+.index-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin: 8px 0 0;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+
+.index-links li a {
+  display: block;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  font-size: 18px;
+  color: #1f1f1f;
+  text-decoration: none;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.index-links li a:hover {
+  color: var(--accent);
+}
+
+.index-links .index-section-label {
+  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .index-title { font-size: 32px; }
+  .index-links li a { font-size: 16px; }
+}
+
 @media print {
   .arc-points-toggle,
   .copy-link-btn,
@@ -1101,6 +1202,12 @@ body.karm-web .card-divider {
   .karm-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+
+  .header-bar {
+    background: #24408f;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -1161,7 +1268,16 @@ body.karm-web .card-divider {
       
       <div class="karm-continuous">
 <article class="karm-card karm-header-card" id="header-commander" data-category="header">
-  <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A is a special type of upgrade card with the <span class="icon-font">B</span> icon on its card back and no upgrade icon in the card front.</p><ul><li>A <span class="icon-font">B</span> can be equipped to any ship except Flotillas.</li><li>A fleet cannot have more than one <span class="icon-font">B</span>.</li><li>A ship with a <span class="icon-font">B</span> equipped is a flagship.</li><li>A <span class="icon-font">B</span> must be in the play area to be able to resolve. If this card has been set aside, then the <span class="icon-font">B</span> ability cannot resolve.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="admiral-konstantine-commander" data-name="admiral konstantine" data-factions="empire" data-category="upgrades" data-type="commander">
@@ -1188,12 +1304,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/officer.html#the-grand-inquisitor-officer"><em>The Grand Inquisitor</em></a> may resolve from this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The Grand Inquisitor may resolve from this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card&#39;s effect changes the speed of a ship with a faceup <a class="card-ref" href="/rulings/damage-cards.html#thruster-fissure-damage"><em>Thruster Fissure</em></a> damage card, that ship does not suffer 1 damage from <a class="card-ref" href="/rulings/damage-cards.html#thruster-fissure-damage"><em>Thruster Fissure</em></a>&#39;s effect since this Upgrade Card is forcing the speed change, and not the ship&#39;s owner.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card&#39;s effect changes the speed of a ship with a faceup Thruster Fissure damage card, that ship does not suffer 1 damage from Thruster Fissure&#39;s effect since this Upgrade Card is forcing the speed change, and not the ship&#39;s owner.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1253,7 +1369,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">During a friendly ship&#39;s &#39;Determine Course&#39; step, the player may change the speed of that ship by 1. This effect can resolve during any of your ships&#39; &#39;Determine Course&#39; steps such as when conducting a maneuver from <a class="card-ref" href="/rulings/objectives.html#rift-ambush-objective"><em>Rift Ambush</em></a> or <a class="card-ref" href="/rulings/upgrades/support-team.html#engine-techs-support-team"><em>Engine Techs</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">During a friendly ship&#39;s &#39;Determine Course&#39; step, the player may change the speed of that ship by 1. This effect can resolve during any of your ships&#39; &#39;Determine Course&#39; steps such as when conducting a maneuver from Rift Ambush or Engine Techs.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1283,7 +1399,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card is equipped to a ship with the <a class="card-ref" href="/rulings/upgrades/title.html#interdictor-title"><em>Interdictor (Title)</em></a> upgrade, this Upgrade Card can be chosen to become unexhausted.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/officer.html#commander-beck-officer"><em>Commander Beck</em></a>&#39;s ability can be used by this card for one command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card is equipped to a ship with the Interdictor (Title) upgrade, this Upgrade Card can be chosen to become unexhausted.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Commander Beck&#39;s ability can be used by this card for one command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1333,7 +1449,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card can use its effect only once per activation, when a friendly ship is attacking during the &#39;Resolve Attack Effects&#39; step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">In a friendly ship&#39;s activation, if attacking squadrons, that ship may only use this Upgrade Card&#39;s effect on one squadron within that attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships that resolve this Upgrade Card&#39;s effect may spend a die to change any other die in their attack pool to a face with a <span class="icon-font">T</span> icon, even a <span class="icon-font">S</span><span class="icon-font">T</span> icon.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can resolve once during any ship or squadron&#39;s activation, even an opponent&#39;s. For example, this Upgrade Card&#39;s effect may be used in an enemy ship&#39;s activation to resolve on a <span class="icon-font">6</span> attack, or on a <span class="icon-font">g</span> attack against a squadron.</span> <span class="footnote-ref">[2]</span></li><li><span class="ruling-text">A die set to a face by this upgrade card&#39;s effect cannot be rerolled, either by attack effects (such as <a class="card-ref" href="/rulings/upgrades/ion-cannon.html#leading-shots-ion-cannon"><em>Leading Shots</em></a>) or defense effects (such as <a class="card-ref" href="/rulings/upgrades/ion-cannon.html#point-defense-ion-cannons-ion-cannon"><em>Point Defense Ion Cannons</em></a>). The die may still be modified in other ways, such as being set to a different face, cancelled, or spent. Unlike <a class="card-ref" href="/rulings/upgrades/officer.html#lando-calrissian-officer"><em>Lando Calrissian</em></a> (Millennium Falcon), the die from this upgrade card&#39;s effect is still vulnerable to the <span class="icon-font">1</span> defense token effect (which cancels dice) but not to the <span class="icon-font">4</span> defense token effect when resolved at medium range (which rerolls a die).</span> <span class="footnote-ref">[3]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card can use its effect only once per activation, when a friendly ship is attacking during the &#39;Resolve Attack Effects&#39; step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">In a friendly ship&#39;s activation, if attacking squadrons, that ship may only use this Upgrade Card&#39;s effect on one squadron within that attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships that resolve this Upgrade Card&#39;s effect may spend a die to change any other die in their attack pool to a face with a <span class="icon-font">T</span> icon, even a <span class="icon-font">S</span><span class="icon-font">T</span> icon.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can resolve once during any ship or squadron&#39;s activation, even an opponent&#39;s. For example, this Upgrade Card&#39;s effect may be used in an enemy ship&#39;s activation to resolve on a <span class="icon-font">6</span> attack, or on a <span class="icon-font">g</span> attack against a squadron.</span> <span class="footnote-ref">[2]</span></li><li><span class="ruling-text">A die set to a face by this upgrade card&#39;s effect cannot be rerolled, either by attack effects (such as Leading Shots) or defense effects (such as Point Defense Ion Cannons). The die may still be modified in other ways, such as being set to a different face, cancelled, or spent. Unlike Lando Calrissian (Millennium Falcon), the die from this upgrade card&#39;s effect is still vulnerable to the <span class="icon-font">1</span> defense token effect (which cancels dice) but not to the <span class="icon-font">4</span> defense token effect when resolved at medium range (which rerolls a die).</span> <span class="footnote-ref">[3]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div><div>[2] Doty | 2026-03-03 | Website Updates</div><div>[3] ARC | 2026-07-07 | ARM v1.1</div></div>
 </article>
@@ -1363,7 +1479,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/defensive-retro.html#electronic-countermeasures-defensive-retro"><em>Electronic Countermeasures</em></a> does not allow the defender to spend a defense token that, during this attack, has already been spent by this Upgrade Card&#39;s ability.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Electronic Countermeasures does not allow the defender to spend a defense token that, during this attack, has already been spent by this Upgrade Card&#39;s ability.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1393,12 +1509,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/officer.html#intel-officer-officer"><em>Intel Officer</em></a> allows a player to target their own defense tokens. If that targeted defense token is chosen by this Upgrade Card&#39;s effect to be spent for a reroll, that defense token would be discarded.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Intel Officer allows a player to target their own defense tokens. If that targeted defense token is chosen by this Upgrade Card&#39;s effect to be spent for a reroll, that defense token would be discarded.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has the critical card <a class="card-ref" href="/rulings/damage-cards.html#faulty-countermeasures-damage"><em>Faulty Countermeasures</em></a> (&#39;You cannot spend exhausted defense tokens.&#39;), a ship eligible for this Upgrade Card&#39;s effect may not spend an exhausted defense token for this card&#39;s ability.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has the critical card Faulty Countermeasures (&#39;You cannot spend exhausted defense tokens.&#39;), a ship eligible for this Upgrade Card&#39;s effect may not spend an exhausted defense token for this card&#39;s ability.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div><div>[2] Doty | 2026-03-03 | Website Updates</div></div>
 </article>
@@ -1423,17 +1539,17 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If the ship this Upgrade Card is equipped to is destroyed, this Upgrade Card&#39;s ability (if active) will remain in effect until the end of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This card can only resolve against enemy ships that spend tokens in their &#39;Spend Defense Tokens&#39; step. Any defense tokens that are spent &#39;while attacking&#39; would not be discarded due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded due to <a class="card-ref" href="/rulings/upgrades/officer.html#darth-vader-officer"><em>Darth Vader (Officer)</em></a>, any remaining defensive tokens on this Upgrade Card cannot be discarded. However if a defensive token was discarded at the beginning of the turn, the card ability will remain in effect until the end of the turn.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If the ship this Upgrade Card is equipped to is destroyed, this Upgrade Card&#39;s ability (if active) will remain in effect until the end of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This card can only resolve against enemy ships that spend tokens in their &#39;Spend Defense Tokens&#39; step. Any defense tokens that are spent &#39;while attacking&#39; would not be discarded due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded due to Darth Vader (Officer), any remaining defensive tokens on this Upgrade Card cannot be discarded. However if a defensive token was discarded at the beginning of the turn, the card ability will remain in effect until the end of the turn.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Squadron Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card will resolve against <a class="card-ref" href="/rulings/squadrons.html#jan-ors-squadron"><em>Jan Ors</em></a>&#39; card ability, as it is still a defense token being &#39;spent&#39; in the &#39;Spend Defense Tokens&#39; step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card will not resolve against Axe as his effect takes place outside of the &#39;Spend Defense Tokens&#39; step.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card will resolve against Jan Ors&#39; card ability, as it is still a defense token being &#39;spent&#39; in the &#39;Spend Defense Tokens&#39; step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card will not resolve against Axe as his effect takes place outside of the &#39;Spend Defense Tokens&#39; step.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The <a class="card-ref" href="/rulings/damage-cards.html#injured-crew-damage"><em>Injured Crew</em></a> damage card only affects the ship&#39;s defense tokens, not those on this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The Injured Crew damage card only affects the ship&#39;s defense tokens, not those on this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1475,12 +1591,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s ability would not prevent the obstruction caused by <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#early-warning-system-defensive-retro"><em>Early Warning System</em></a>, General Cracken, and <a class="card-ref" href="/rulings/upgrades/officer.html#admiral-montferrat-officer"><em>Admiral Montferrat</em></a>. However if line of sight would also trace through an obstacle or another ship this Upgrade Card would supersede those cards&#39; effects, no longer removing a die and adding 1 red to the attack pool.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s ability would not prevent the obstruction caused by Early Warning System, General Cracken, and Admiral Montferrat. However if line of sight would also trace through an obstacle or another ship this Upgrade Card would supersede those cards&#39; effects, no longer removing a die and adding 1 red to the attack pool.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">When determining control of tokens in <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a>, this Upgrade Card would not prevent the removal of a die due to obstruction as this is not an attack against a ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When determining control of tokens in Fire Lanes, this Upgrade Card would not prevent the removal of a die due to obstruction as this is not an attack against a ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1515,7 +1631,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">General Tagge cannot choose to recover any defense token &#39;replaced&#39; by card effects such as <a class="card-ref" href="/rulings/upgrades/officer.html#captain-needa-officer"><em>Captain Needa</em></a> and <a class="card-ref" href="/rulings/upgrades/weapons-team.html#local-fire-control-weapons-team"><em>Local Fire Control</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card cannot choose to recover any defense token &#39;replaced&#39; by card effects such as Captain Needa and Local Fire Control.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1540,22 +1656,22 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A dial &#39;gained&#39; from this card can be converted into a matching command token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship gaining a command dial from this effect can spend it to resolve that command, but cannot resolve the same command more than once during its activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship equipped with Grand Admiral Thrawn is destroyed, any command dial already revealed and discarded can still be gained by other friendly ships activating for the rest of the turn.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Huge ships do not gain a matching token from this card&#39;s dials because they are &#39;gained&#39; not &#39;revealed&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship cannot discard a dial gained from card effects (like Thrawn&#39;s) to discard raid tokens directly. However, it can use the dial to gain a matching token, and then discard that token to remove a matching raid token.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A dial &#39;gained&#39; from this card can be converted into a matching command token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship gaining a command dial from this effect can spend it to resolve that command, but cannot resolve the same command more than once during its activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship equipped with this Upgrade Card is destroyed, any command dial already revealed and discarded can still be gained by other friendly ships activating for the rest of the turn.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Huge ships do not gain a matching token from this Upgrade Card&#39;s dials because they are &#39;gained&#39; not &#39;revealed&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship cannot discard a dial gained from card effects (like Thrawn&#39;s) to discard raid tokens directly. However, it can use the dial to gain a matching token, and then discard that token to remove a matching raid token.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s dials cannot be targeted by effects like <a class="card-ref" href="/rulings/upgrades/fleet-support.html#slicer-tools-fleet-support"><em>Slicer Tools</em></a>, the damage card <a class="card-ref" href="/rulings/damage-cards.html#comm-noise-damage"><em>Comm Noise</em></a>, or the boarding team <a class="card-ref" href="/rulings/upgrades/weapons-team-offensive-retro.html#cham-syndulla-weapons-team-offensive-retro"><em>Cham Syndulla</em></a>. This is because these effects target dials in a ship&#39;s command stack, and Thrawn&#39;s dials are not kept in a command stack; they are gained at the beginning of the ship phase.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If Grand Admiral Thrawn is discarded due to <a class="card-ref" href="/rulings/upgrades/officer.html#darth-vader-officer"><em>Darth Vader (Officer)</em></a>, any remaining command dials on the card cannot be revealed and discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Dials gained from this card can be discarded to trigger Boarding Teams, provided any command dial is being revealed by the ship. The squadron dial being discarded does not need to be the one being revealed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Upgrades that trigger or resolve only on a ship&#39;s &#39;revealed&#39; dial (e.g., <a class="card-ref" href="/rulings/upgrades/officer.html#commandant-aresko-officer"><em>Commandant Aresko</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#taskmaster-grint-officer"><em>Taskmaster Grint</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#wing-commander-officer"><em>Wing Commander</em></a>) do not trigger or resolve on dials &#39;gained&#39; from Grand Admiral Thrawn&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">For ships with <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>: When a ship &#39;reveals&#39; its command dial, it also &#39;gains&#39; a dial from Thrawn at the same time. The player must declare if these dials will be used or gained as tokens. If the ship is at maximum token capacity, the gained dial would replace an existing token before it could be assigned by <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Grand Admiral Thrawn&#39;s timing occurs before <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>&#39;s timing (which is after the Reveal Command dial step). <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a> can send away a token gained from Thrawn. However, a player cannot gain a token from Thrawn, send it away with <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>, and then convert their dial to another command token. Also, <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a> cannot be used to make room for a token gained from Thrawn.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s dials cannot be targeted by effects like Slicer Tools, the damage card Comm Noise, or the boarding team Cham Syndulla. This is because these effects target dials in a ship&#39;s command stack, and Thrawn&#39;s dials are not kept in a command stack; they are gained at the beginning of the ship phase.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded due to Darth Vader (Officer), any remaining command dials on the card cannot be revealed and discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Dials gained from this card can be discarded to trigger Boarding Teams, provided any command dial is being revealed by the ship. The squadron dial being discarded does not need to be the one being revealed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Upgrades that trigger or resolve only on a ship&#39;s &#39;revealed&#39; dial (e.g., Commandant Aresko, Taskmaster Grint, Wing Commander) do not trigger or resolve on dials &#39;gained&#39; from this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">For ships with Comms Net: When a ship &#39;reveals&#39; its command dial, it also &#39;gains&#39; a dial from this Upgrade Card at the same time. The player must declare if these dials will be used or gained as tokens. If the ship is at maximum token capacity, the gained dial would replace an existing token before it could be assigned by Comms Net.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before Comms Net&#39;s timing (which is after the Reveal Command dial step). Comms Net can send away a token gained from this Upgrade Card. However, a player cannot gain a token from this Upgrade Card, send it away with Comms Net, and then convert their dial to another command token. Also, Comms Net cannot be used to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card will not gain facedown command dials if the ship it is equipped to is set aside before fleets are deployed (e.g., by <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a>&#39;s Setup effect).</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card will not gain facedown command dials if the ship it is equipped to is set aside before fleets are deployed (e.g., by Hyperspace Assault&#39;s Setup effect).</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The <a class="card-ref" href="/rulings/damage-cards.html#crew-panic-damage"><em>Crew Panic</em></a> damage card only affects dials on a ship&#39;s command stack, not the dials on Grand Admiral Thrawn, as they are &#39;gained&#39; not &#39;revealed&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The Crew Panic damage card only affects dials on a ship&#39;s command stack, not the dials on this Upgrade Card, as they are &#39;gained&#39; not &#39;revealed&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1585,7 +1701,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade card is unable to assign command tokens to ships with the <a class="card-ref" href="/rulings/damage-cards.html#life-support-failure-damage"><em>Life Support Failure</em></a> damage card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade card is unable to assign command tokens to ships with the Life Support Failure damage card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1610,22 +1726,22 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">When a ship is determining its course with the maneuver tool, before the maneuver tool is locked in it may suffer 1 damage to any selected hull zone. This changes the first yaw value of the ship&#39;s current speed to &#39;II&#39; until the end of its activation. &#39;Current Speed&#39; refers to the numeric value that is currently displayed on the ship&#39;s speed dial, not the speed of any maneuver granted by another effect, such as <a class="card-ref" href="/rulings/upgrades/support-team.html#engine-techs-support-team"><em>Engine Techs</em></a> or <a class="card-ref" href="/rulings/objectives.html#rift-ambush-objective"><em>Rift Ambush</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship&#39;s &#39;current speed&#39; is speed 1, then Moff Jerjerrod&#39;s effect would last until the end of that ship&#39;s activation and affect movement from <a class="card-ref" href="/rulings/upgrades/support-team.html#engine-techs-support-team"><em>Engine Techs</em></a>, <a class="card-ref" href="#admiral-ozzel-commander"><em>Admiral Ozzel</em></a> (Officer) or <a class="card-ref" href="/rulings/objectives.html#rift-ambush-objective"><em>Rift Ambush</em></a> (see below).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a ship suffers damage from this Upgrade Card&#39;s ability, that damage must be taken on a selected hull zone. That hull zone would suffer damage to shields in that zone first. If no shields are present, then that damage would be taken to the ship&#39;s hull as a facedown damage card. You cannot bypass shields to take a facedown damage card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A first yaw value of &#39;II&#39; does not require you to use both clicks.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When a ship is determining its course with the maneuver tool, before the maneuver tool is locked in it may suffer 1 damage to any selected hull zone. This changes the first yaw value of the ship&#39;s current speed to &#39;II&#39; until the end of its activation. &#39;Current Speed&#39; refers to the numeric value that is currently displayed on the ship&#39;s speed dial, not the speed of any maneuver granted by another effect, such as Engine Techs or Rift Ambush.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship&#39;s &#39;current speed&#39; is speed 1, then this Upgrade Card&#39;s effect would last until the end of that ship&#39;s activation and affect movement from Engine Techs, <a class="card-ref" href="#admiral-ozzel-commander"><em>Admiral Ozzel</em></a> (Officer) or Rift Ambush (see below).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a ship suffers damage from this Upgrade Card&#39;s effect, that damage must be taken on a selected hull zone. That hull zone would suffer damage to shields in that zone first. If no shields are present, then that damage would be taken to the ship&#39;s hull as a facedown damage card. You cannot bypass shields to take a facedown damage card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A first yaw value of &#39;II&#39; does not require you to use both clicks.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card effect can be resolved with <a class="card-ref" href="/rulings/upgrades/title.html#rakehell-title"><em>Rakehell (Title)</em></a> to add an additional yaw at speed 0.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card effect can be resolved with Rakehell (Title) to add an additional yaw at speed 0.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">In <a class="card-ref" href="/rulings/objectives.html#rift-ambush-objective"><em>Rift Ambush</em></a> if you are first player the <a class="card-ref" href="/rulings/objectives.html#rift-ambush-objective"><em>Rift Ambush</em></a> special rule overrides this Upgrade Card&#39;s ability because &#39;it must execute a speed-1 maneuver with a yaw of &#39;-&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">In Rift Ambush, if you are first player, the Rift Ambush special rule overrides this Upgrade Card&#39;s effect because &#39;it must execute a speed-1 maneuver with a yaw of &#39;-&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card can be used to add a yaw back to a yaw joint after <a class="card-ref" href="/rulings/damage-cards.html#thrust-control-malfunction-damage"><em>Thrust Control Malfunction</em></a> reduction if a ships speed dial is set to 1.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card can be used to add a yaw back to a yaw joint after Thrust Control Malfunction reduction if a ships speed dial is set to 1.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1650,12 +1766,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship is equipped with Gunnery Teams, this Upgrade Card&#39;s effect may apply to both attacks performed from the same hull zone.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Using this Upgrade Card will prevent a ship from attacking from its front or rear hull zones with upgrade cards such as <a class="card-ref" href="/rulings/upgrades/ordnance.html#ordnance-pods-ordnance"><em>Ordnance Pods</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship is equipped with Gunnery Teams, this Upgrade Card&#39;s effect may apply to both attacks performed from the same hull zone.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Using this Upgrade Card will prevent a ship from attacking from its front or rear hull zones with upgrade cards such as Ordnance Pods.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Ships that have chosen to use this Upgrade Card&#39;s effect can claim <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a> tokens with their front and rear ship batteries. However, this Upgrade Card&#39;s effect does not increase a ship&#39;s battery armament, and the extra dice added from this card cannot be used to claim <a class="card-ref" href="/rulings/objectives.html#fire-lanes-objective"><em>Fire Lanes</em></a> tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Ships that have chosen to use this Upgrade Card&#39;s effect can claim Fire Lanes tokens with their front and rear ship batteries. However, this Upgrade Card&#39;s effect does not increase a ship&#39;s battery armament, and the extra dice added from this card cannot be used to claim Fire Lanes tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1685,17 +1801,17 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If the ship with this Upgrade Card equipped is destroyed after resolving this Upgrade Card&#39;s effect to deploy a ship, the ship that was deployed by this Upgrade Card&#39;s effect still cannot be the first ship to activate that round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships deployed with this Upgrade Card&#39;s effect can be deployed overlapping anything except other ships and squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card must be on a ship in the play area in order to trigger its effect. For example, if this Upgrade Card&#39;s ship was set aside by <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a> or into Profundity, that ship must be deployed before being able to use this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If the ship with this Upgrade Card equipped is destroyed after resolving this Upgrade Card&#39;s effect to deploy a ship, the ship that was deployed by this Upgrade Card&#39;s effect still cannot be the first ship to activate that round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships deployed with this Upgrade Card&#39;s effect can be deployed overlapping anything except other ships and squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card must be on a ship in the play area in order to trigger its effect. For example, if this Upgrade Card&#39;s ship was set aside by Hyperspace Assault or into Profundity (Title), that ship must be deployed before being able to use this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">You cannot set aside this Upgrade Card&#39;s ship into Profundity, and then set aside Profundity with this Upgrade Card. This is because this Upgrade Card is no longer in effect after being set aside, and there would be no way to deploy Profundity if it was also set aside with this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a ship set aside by this Upgrade Card is equipped with Aspiration or <a class="card-ref" href="/rulings/upgrades/weapons-team.html#local-fire-control-weapons-team"><em>Local Fire Control</em></a>, those effects trigger during deployment, since those effects resolve when the ship deploys.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">You cannot set aside this Upgrade Card&#39;s ship into Profundity (Title), and then set aside Profundity (Title) with this Upgrade Card. This is because this Upgrade Card is no longer in effect after being set aside, and there would be no way to deploy Profundity (Title) if it was also set aside with this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a ship set aside by this Upgrade Card is equipped with Aspiration (Title)or Local Fire Control, those effects trigger during deployment, since those effects resolve when the ship deploys.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Objectives which target ships in the play area cannot target a ship set aside by this Upgrade Card. Objectives which target ships not yet in the play area can target a ship set aside by this Upgrade Card. For this reason, a ship set aside by this Upgrade Card can be chosen for <a class="card-ref" href="/rulings/objectives.html#intel-sweep-objective"><em>Intel Sweep</em></a> and will receive a token for <a class="card-ref" href="/rulings/objectives.html#blockade-run-objective"><em>Blockade Run</em></a>; it cannot be assigned as an objective ship for <a class="card-ref" href="/rulings/objectives.html#most-wanted-objective"><em>Most Wanted</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/offensive-retro.html#proximity-mines-offensive-retro"><em>Proximity Mines</em></a> and this Upgrade Card share the same timing window, so Proximity Mine tokens can be placed before choosing a ship to be set aside by this Upgrade Card (subject to first and second player considerations).</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Objectives which target ships in the play area cannot target a ship set aside by this Upgrade Card. Objectives which target ships not yet in the play area can target a ship set aside by this Upgrade Card. For this reason, a ship set aside by this Upgrade Card can be chosen for Intel Sweep and will receive a token for Blockade Run; it cannot be assigned as an objective ship for Most Wanted.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Proximity Mines and this Upgrade Card share the same timing window, so Proximity Mine tokens can be placed before choosing a ship to be set aside by this Upgrade Card (subject to first and second player considerations).</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1725,7 +1841,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Any dice gained by equipped cards that increase the battery armament of a ship (e.g. <a class="card-ref" href="/rulings/upgrades/turbolaser.html#spinal-armament-turbolaser"><em>Spinal Armament</em></a>, <a class="card-ref" href="/rulings/upgrades/ordnance.html#rapid-reload-ordnance"><em>Rapid Reload</em></a>) are eligible to be chosen.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/defensive-retro.html#thermal-shields-defensive-retro"><em>Thermal Shields</em></a> trigger &#39;after an attacker gathers dice&#39; while this Upgrade Card&#39;s effect triggers &#39;before rolling attack dice&#39;. During the Roll Attack Dice Step, the attacker will gather dice and then roll attack dice, so <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#thermal-shields-defensive-retro"><em>Thermal Shields</em></a> will trigger before this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Any dice gained by equipped cards that increase the battery armament of a ship (e.g. Spinal Armament, Rapid Reload) are eligible to be chosen.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Thermal Shields trigger &#39;after an attacker gathers dice&#39; while this Upgrade Card&#39;s effect triggers &#39;before rolling attack dice&#39;. During the Roll Attack Dice Step, the attacker will gather dice and then roll attack dice, so Thermal Shields will trigger before this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1772,12 +1888,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/title.html#phoenix-home-title"><em>Phoenix Home</em></a> does not increase a ship&#39;s command value; it allows it to be assigned up to 4 command tokens. However, this Upgrade Card only allows ships to gain command tokens equal to its command value, so <a class="card-ref" href="/rulings/upgrades/title.html#phoenix-home-title"><em>Phoenix Home</em></a> would only gain 2 command tokens. If <a class="card-ref" href="/rulings/upgrades/title.html#phoenix-home-title"><em>Phoenix Home</em></a> already has 2 command tokens and this Upgrade Card&#39;s effect triggers at the start of a Ship Phase, it could gain another 2 command tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When this Upgrade Card assigns command tokens, if a ship has the title <a class="card-ref" href="/rulings/upgrades/title.html#tantive-iv-title"><em>Tantive IV</em></a>, before it gains its command token, it may assign that token to another ship in range.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Phoenix Home does not increase a ship&#39;s command value; it allows it to be assigned up to 4 command tokens. However, this Upgrade Card only allows ships to gain command tokens equal to its command value, so Phoenix Home would only gain 2 command tokens. If Phoenix Home already has 2 command tokens and this Upgrade Card&#39;s effect triggers at the start of a Ship Phase, it could gain another 2 command tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When this Upgrade Card assigns command tokens, if a ship has the title Tantive IV, before it gains its command token, it may assign that token to another ship in range.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card is unable to assign command tokens to ships with the <a class="card-ref" href="/rulings/damage-cards.html#life-support-failure-damage"><em>Life Support Failure</em></a> damage card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card is unable to assign command tokens to ships with the Life Support Failure damage card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1807,7 +1923,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Attacks made by a ship equipped with <a class="card-ref" href="/rulings/upgrades/title.html#jaina-s-light-title"><em>Jaina&#39;s Light</em></a> ignore this Upgrade Card&#39;s effect as those attacks cannot be obstructed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If an attacking ship is using <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>&#39;s effect, and the defending ship is using this Upgrade Card&#39;s effect, the attack does not benefit from <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>&#39;s effect unless line of sight is traced over an obstacle or another ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Attacks made by a ship equipped with Jaina&#39;s Light ignore this Upgrade Card&#39;s effect as those attacks cannot be obstructed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If an attacking ship is using <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>&#39;s effect, and the defending ship is using this Upgrade Card&#39;s effect, the attack does not benefit from <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>&#39;s effect unless line of sight is traced over an obstacle or another ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1842,7 +1958,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card is equipped to a ship that is also equipped with <a class="card-ref" href="/rulings/upgrades/title.html#garel-s-honor-title"><em>Garel&#39;s Honor</em></a> and that ship overlaps an enemy ship but is destroyed in doing so, this Upgrade Card&#39;s effect may still trigger and resolve before that ship is destroyed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect is not resolved when damage cards already dealt face down are flipped face up (e.g. <a class="card-ref" href="/rulings/upgrades/weapons-team-offensive-retro.html#boarding-engineers-weapons-team-offensive-retro"><em>Boarding Engineers</em></a> or <a class="card-ref" href="/rulings/objectives.html#precision-strike-objective"><em>Precision Strike</em></a>).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A damage card chosen by this Upgrade Card&#39;s effect may be flipped face down by <a class="card-ref" href="/rulings/upgrades/officer.html#lira-wessex-officer"><em>Lira Wessex</em></a> before the damage card resolves its effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card is equipped to a ship that is also equipped with Garel&#39;s Honor and that ship overlaps an enemy ship but is destroyed in doing so, this Upgrade Card&#39;s effect may still trigger and resolve before that ship is destroyed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect is not resolved when damage cards already dealt face down are flipped face up (e.g. Boarding Engineers or Precision Strike).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A damage card chosen by this Upgrade Card&#39;s effect may be flipped face down by Lira Wessex before the damage card resolves its effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1909,12 +2025,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect does not trigger during a maneuver from <a class="card-ref" href="/rulings/upgrades/support-team.html#engine-techs-support-team"><em>Engine Techs</em></a> as it is not the first maneuver a ship would perform during its activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship&#39;s yaw value is reduced by a card effect or damage card, this Upgrade Card&#39;s effect can be used to add yaw back after the reduction.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect does not trigger during a maneuver from Engine Techs as it is not the first maneuver a ship would perform during its activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship&#39;s yaw value is reduced by a card effect or damage card, this Upgrade Card&#39;s effect can be used to add yaw back after the reduction.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect does not trigger during a maneuver from the <a class="card-ref" href="/rulings/objectives.html#rift-ambush-objective"><em>Rift Ambush</em></a> special rule as it is not the first maneuver a ship would perform during its activation.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect does not trigger during a maneuver from the Rift Ambush special rule as it is not the first maneuver a ship would perform during its activation.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -1939,17 +2055,17 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Ships and squadrons affected by this Upgrade Card are destroyed at the end of the Status Phase regardless of the number of damage cards or hull points they have at that time. These ships or squadrons are removed before resolving any &#39;end of round&#39; or &#39;end of game&#39; effects.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships and squadrons affected by this effect are treated as not destroyed until the end of the Status Phase for all purposes (attacking, defending, resolving card abilities, etc). These ships and squadrons can suffer additional damage from resolving effects such as <a class="card-ref" href="/rulings/upgrades/weapons-team.html#ruthless-strategists-weapons-team"><em>Ruthless Strategists</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect affects the ship he is equipped to. If this effect prevents the last ship in this Upgrade Card&#39;s fleet from being destroyed, the game ends at the end of the game round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship or unique squadron may continue to be attacked and/or suffer damage while in the play area. Damage cards are still drawn on a ship that has been destroyed yet still in the play area under the effect of this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Once a ship or unique squadron is destroyed and under the effect of this Upgrade Card, it must be removed from the play area at the end of the Status Phase, even if it had recovered lost hull.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Ships and squadrons affected by this Upgrade Card are destroyed at the end of the Status Phase regardless of the number of damage cards or hull points they have at that time. These ships or squadrons are removed before resolving any &#39;end of round&#39; or &#39;end of game&#39; effects.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships and squadrons affected by this effect are treated as not destroyed until the end of the Status Phase for all purposes (attacking, defending, resolving card abilities, etc). These ships and squadrons can suffer additional damage from resolving effects such as Ruthless Strategists.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect affects the ship he is equipped to. If this effect prevents the last ship in this Upgrade Card&#39;s fleet from being destroyed, the game ends at the end of the game round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship or unique squadron may continue to be attacked and/or suffer damage while in the play area. Damage cards are still drawn on a ship that has been destroyed yet still in the play area under the effect of this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Once a ship or unique squadron is destroyed and under the effect of this Upgrade Card, it must be removed from the play area at the end of the Status Phase, even if it had recovered lost hull.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Squadron Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text"><a class="card-ref" href="/rulings/squadrons.html#biggs-darklighter-squadron"><em>Biggs Darklighter</em></a> cannot move damage to a friendly unique squadron that is destroyed yet still in play due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Biggs Darklighter cannot move damage to a friendly unique squadron that is destroyed yet still in play due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship under this Upgrade Card&#39;s effect may still be used by the opponent to score points from objectives such as <a class="card-ref" href="/rulings/objectives.html#precision-strike-objective"><em>Precision Strike</em></a> and <a class="card-ref" href="/rulings/objectives.html#superior-positions-objective"><em>Superior Positions</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship or squadron under this Upgrade Card&#39;s effect is removed from the play area at the end of the Status Phase, meaning that it cannot score on objectives that take place &#39;end of round&#39; or &#39;end of game&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect may be used on an armed or unarmed station that the player controls as &#39;stations are treated as ships when resolving effects&#39;. This ruling is primarily for <a class="card-ref" href="/rulings/objectives.html#station-assault-objective"><em>Station Assault</em></a> and Corellian Conflict objectives.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship under this Upgrade Card&#39;s effect may still be used by the opponent to score points from objectives such as Precision Strike and Superior Positions.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship or squadron under this Upgrade Card&#39;s effect is removed from the play area at the end of the Status Phase, meaning that it cannot score on objectives that take place &#39;end of round&#39; or &#39;end of game&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect may be used on an armed or unarmed station that the player controls as &#39;stations are treated as ships when resolving effects&#39;. This ruling is primarily for Station Assault and Corellian Conflict objectives.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1989,12 +2105,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with both this Upgrade Card and <a class="card-ref" href="/rulings/upgrades/officer.html#expert-shield-tech-officer"><em>Expert Shield Tech</em></a> may spend a <span class="icon-font">2</span> defense token and resolve the <a class="card-ref" href="/rulings/upgrades/officer.html#expert-shield-tech-officer"><em>Expert Shield Tech</em></a> card effect, and then discard that token to resolve this Upgrade Card&#39;s second effect to resolve the standard <span class="icon-font">2</span> defense token effect. This is because these are two different defense token effects. However, a ship cannot discard a <span class="icon-font">2</span> defense token using this Upgrade Card&#39;s second effect and choose to resolve the <a class="card-ref" href="/rulings/upgrades/officer.html#expert-shield-tech-officer"><em>Expert Shield Tech</em></a> card effect as that effect requires a defense token to be &#39;spent&#39; and not &#39;discarded&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card defending against an attack using the <a class="card-ref" href="/rulings/upgrades/turbolaser.html#heavy-turbolaser-turrets-turbolaser"><em>Heavy Turbolaser Turrets</em></a> upgrade effect may resolve the <span class="icon-font">3</span> defense token effect by spending a <span class="icon-font">3</span> defense token and also discard another type of defense token to resolve a different defense token effect without suffering the effect of <a class="card-ref" href="/rulings/upgrades/turbolaser.html#heavy-turbolaser-turrets-turbolaser"><em>Heavy Turbolaser Turrets</em></a>. This is because this Upgrade Card&#39;s second effect &#39;discards&#39; a defense token to resolve a defense token effect. However, if the defender uses this Upgrade Card&#39;s second effect to discard a <span class="icon-font">3</span> defense token to resolve its defense token effect, then the <a class="card-ref" href="/rulings/upgrades/turbolaser.html#heavy-turbolaser-turrets-turbolaser"><em>Heavy Turbolaser Turrets</em></a> upgrade effect would trigger and the defender would not be able to reduce the damage total by more than 1. This is because <a class="card-ref" href="/rulings/upgrades/turbolaser.html#heavy-turbolaser-turrets-turbolaser"><em>Heavy Turbolaser Turrets</em></a> requires the defender to &#39;spend&#39; a single <span class="icon-font">3</span> defense token, not &#39;discard&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card defending against an attack using <a class="card-ref" href="/rulings/upgrades/turbolaser.html#xi7-turbolasers-turbolaser"><em>XI7 Turbolasers</em></a> may use this Upgrade Card&#39;s second effect to discard a <span class="icon-font">2</span> defense token and effectively ignore the effect of <a class="card-ref" href="/rulings/upgrades/turbolaser.html#xi7-turbolasers-turbolaser"><em>XI7 Turbolasers</em></a>. This is because <a class="card-ref" href="/rulings/upgrades/turbolaser.html#xi7-turbolasers-turbolaser"><em>XI7 Turbolasers</em></a> requires the defender to &#39;spend&#39; a <span class="icon-font">2</span> defense token, whereas this Upgrade Card has the defender &#39;discard&#39; a <span class="icon-font">2</span> defense token to resolve that defense token effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Upgrades such as <a class="card-ref" href="/rulings/upgrades/title.html#avenger-title"><em>Avenger (Title)</em></a> and <a class="card-ref" href="/rulings/upgrades/title.html#mon-karren-title"><em>Mon Karren (Title)</em></a> do not prevent a defender equipped with this Upgrade Card from discarding a defense token to resolve its effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text"><a class="card-ref" href="/rulings/upgrades/officer.html#walex-blissex-officer"><em>Walex Blissex</em></a> can choose to recover a defense token granted by this Upgrade Card&#39;s first effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship at speed 0 and equipped with the <a class="card-ref" href="/rulings/upgrades/title.html#concord-title"><em>Concord (Title)</em></a> may spend 1 defense token while defending. If this ship is also equipped with this Upgrade Card it would not be able to resolve this Upgrade Card&#39;s second effect and discard a defense token at speed 0.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a ship is equipped with both <a class="card-ref" href="/rulings/upgrades/title.html#admonition-title"><em>Admonition (Title)</em></a> and this Upgrade Card, it may not resolve both effects when using Admonition (Title)to discard a single defense token while defending. Each card requires its own separate discard.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is equipped to a ship deployed by <a class="card-ref" href="/rulings/upgrades/title.html#profundity-title"><em>Profundity (Title)</em></a>, the deployed ship would not be granted a defense token by this Upgrade Card&#39;s second effect. This is because the ship is deployed and then equipped with this Upgrade Card, thus missing the timing window.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with both this Upgrade Card and Expert Shield Tech may spend a <span class="icon-font">2</span> defense token and resolve the Expert Shield Tech card effect, and then discard that token to resolve this Upgrade Card&#39;s second effect to resolve the standard <span class="icon-font">2</span> defense token effect. This is because these are two different defense token effects. However, a ship cannot discard a <span class="icon-font">2</span> defense token using this Upgrade Card&#39;s second effect and choose to resolve the Expert Shield Tech card effect as that effect requires a defense token to be &#39;spent&#39; and not &#39;discarded&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card defending against an attack using the Heavy Turbolaser Turrets upgrade effect may resolve the <span class="icon-font">3</span> defense token effect by spending a <span class="icon-font">3</span> defense token and also discard another type of defense token to resolve a different defense token effect without suffering the effect of Heavy Turbolaser Turrets. This is because this Upgrade Card&#39;s second effect &#39;discards&#39; a defense token to resolve a defense token effect. However, if the defender uses this Upgrade Card&#39;s second effect to discard a <span class="icon-font">3</span> defense token to resolve its defense token effect, then the Heavy Turbolaser Turrets upgrade effect would trigger and the defender would not be able to reduce the damage total by more than 1. This is because Heavy Turbolaser Turrets requires the defender to &#39;spend&#39; a single <span class="icon-font">3</span> defense token, not &#39;discard&#39;.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with this Upgrade Card defending against an attack using XI7 Turbolasers may use this Upgrade Card&#39;s second effect to discard a <span class="icon-font">2</span> defense token and effectively ignore the effect of XI7 Turbolasers. This is because XI7 Turbolasers requires the defender to &#39;spend&#39; a <span class="icon-font">2</span> defense token, whereas this Upgrade Card has the defender &#39;discard&#39; a <span class="icon-font">2</span> defense token to resolve that defense token effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Upgrades such as Avenger (Title) and Mon Karren (Title) do not prevent a defender equipped with this Upgrade Card from discarding a defense token to resolve its effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Walex Blissex can choose to recover a defense token granted by this Upgrade Card&#39;s first effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship at speed 0 and equipped with the Concord (Title) may spend 1 defense token while defending. If this ship is also equipped with this Upgrade Card it would not be able to resolve this Upgrade Card&#39;s second effect and discard a defense token at speed 0.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a ship is equipped with both Admonition (Title) and this Upgrade Card, it may not resolve both effects when using Admonition (Title)to discard a single defense token while defending. Each card requires its own separate discard.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is equipped to a ship deployed by Profundity (Title), the deployed ship would not be granted a defense token by this Upgrade Card&#39;s second effect. This is because the ship is deployed and then equipped with this Upgrade Card, thus missing the timing window.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">When a ship equipped with this Upgrade Card deploys from being set aside by <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a>, it may resolve this Upgrade Card&#39;s first effect, since it is &#39;after you deploy&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When a ship equipped with this Upgrade Card deploys from being set aside by Hyperspace Assault, it may resolve this Upgrade Card&#39;s first effect, since it is &#39;after you deploy&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2024,12 +2140,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect is unimpeded when spending tokens for Fleet Command upgrade cards or upgrade cards like Boarding Teams, because those cards do not resolve commands.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">However, if a dial must be discarded for a card or otherwise, this Upgrade Card&#39;s effect would not be able to trigger since there is no dial with which to resolve a command.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship using this Upgrade Card&#39;s effect is considered to have spent a command token, which would resolve cards such as Liberty (Title)or <a class="card-ref" href="/rulings/upgrades/support-team.html#nav-team-support-team"><em>Nav Team</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect is unimpeded when spending tokens for Fleet Command upgrade cards or upgrade cards like Boarding Teams, because those cards do not resolve commands.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">However, if a dial must be discarded for a card or otherwise, this Upgrade Card&#39;s effect would not be able to trigger since there is no dial with which to resolve a command.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship using this Upgrade Card&#39;s effect is considered to have spent a command token, which would resolve cards such as Liberty (Title) or Nav Team.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect is unaffected by <a class="card-ref" href="/rulings/damage-cards.html#life-support-failure-damage"><em>Life Support Failure</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect is unaffected by Life Support Failure.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2076,7 +2192,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect works alongside Foresight (Title)to affect an additional die when a ship resolves the <span class="icon-font">4</span> defense effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect works alongside Foresight (Title) to affect an additional die when a ship resolves the <span class="icon-font">4</span> defense effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2118,7 +2234,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a friendly ship does not have any native &#39;-&#39; yaw values in its navigation chart, it cannot resolve this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship&#39;s yaw effect is reduced by a card effect or damage card during the Determine Course step, this Upgrade Card&#39;s effect cannot be used to increase the yaw effect in that timestep. This is different than <a class="card-ref" href="#general-madine-commander"><em>General Madine</em></a>, who resolves during the Determine Course step, not before the Determine Course step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect may apply to any maneuvers executed during a ship&#39;s activation, including a second maneuver granted by <a class="card-ref" href="/rulings/upgrades/support-team.html#engine-techs-support-team"><em>Engine Techs</em></a> or <a class="card-ref" href="/rulings/objectives.html#rift-assault-objective"><em>Rift Assault</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a friendly ship does not have any native &#39;-&#39; yaw values in its navigation chart, it cannot resolve this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship&#39;s yaw effect is reduced by a card effect or damage card during the Determine Course step, this Upgrade Card&#39;s effect cannot be used to increase the yaw effect in that timestep. This is different than <a class="card-ref" href="#general-madine-commander"><em>General Madine</em></a>, who resolves during the Determine Course step, not before the Determine Course step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect may apply to any maneuvers executed during a ship&#39;s activation, including a second maneuver granted by Engine Techs or Rift Assault.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
 </article>
@@ -2143,17 +2259,17 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not receive any command tokens on this card (and would thus be useless) if the ship it is equipped to is set aside before fleets are deployed, such as by <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a>&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The dial that is &#39;gained&#39; from this Upgrade Card may be turned into a matching command token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You cannot resolve two dials of the same command. You may use this Upgrade Card&#39;s effect to generate a token if you have revealed the matching command dial. Only a dial, or a token, or a dial + token together may be resolved in the same activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s dial cannot be discarded to clear all Raid tokens. Only a ship&#39;s &#39;revealed&#39; dial may be discarded, and this Upgrade Card&#39;s dials are &#39;gained&#39; not &#39;revealed&#39;. However this Upgrade Card&#39;s dial can be turned into a token that may be used to clear a matching Raid token. This would allow a command to be resolved if the ship&#39;s dial is also of that command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not receive any command tokens on this card (and would thus be useless) if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The dial that is &#39;gained&#39; from this Upgrade Card may be turned into a matching command token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You cannot resolve two dials of the same command. You may use this Upgrade Card&#39;s effect to generate a token if you have revealed the matching command dial. Only a dial, or a token, or a dial + token together may be resolved in the same activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s dial cannot be discarded to clear all Raid tokens. Only a ship&#39;s &#39;revealed&#39; dial may be discarded, and this Upgrade Card&#39;s dials are &#39;gained&#39; not &#39;revealed&#39;. However this Upgrade Card&#39;s dial can be turned into a token that may be used to clear a matching Raid token. This would allow a command to be resolved if the ship&#39;s dial is also of that command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">As long as a ship has &#39;revealed&#39; a dial, this Upgrade Card&#39;s dial can be discarded to trigger Boarding Teams, as the squadron dial being discarded does not need to be the one being revealed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s ability can be resolved before you choose to resolve Fleet Commands, as they share the same timing.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before that of <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>, which is after the Reveal Command dial step. <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a> can send away a token gained from this Upgrade Card. However you may not gain a token from this Upgrade Card, send it to another ship using <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>, and then convert your dial to another command token. You also may not use <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a> to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">As long as a ship has &#39;revealed&#39; a dial, this Upgrade Card&#39;s dial can be discarded to trigger Boarding Teams, as the squadron dial being discarded does not need to be the one being revealed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s ability can be resolved before you choose to resolve Fleet Commands, as they share the same timing.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before that of Comms Net, which is after the Reveal Command dial step. Comms Net can send away a token gained from this Upgrade Card. However you may not gain a token from this Upgrade Card, send it to another ship using Comms Net, and then convert your dial to another command token. You also may not use Comms Net to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The <a class="card-ref" href="/rulings/damage-cards.html#crew-panic-damage"><em>Crew Panic</em></a> damage card only affects the ship&#39;s dial, not this Upgrade Card&#39;s dial as they are &#39;gained&#39; not &#39;revealed&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The Crew Panic damage card only affects the ship&#39;s dial, not this Upgrade Card&#39;s dial as they are &#39;gained&#39; not &#39;revealed&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2208,7 +2324,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has the <a class="card-ref" href="/rulings/damage-cards.html#faulty-countermeasures-damage"><em>Faulty Countermeasures</em></a> critical card (&#39;You cannot spend exhausted defense tokens.&#39;) it may not spend its defense token to allow another friendly attacking ship to resolve this Upgrade Card&#39;s ability if it has no readied defense tokens. If the attacking ship has the <a class="card-ref" href="/rulings/damage-cards.html#faulty-countermeasures-damage"><em>Faulty Countermeasures</em></a> damage card, it may still choose another friendly ship at distance 1-5 and resolve this Upgrade Card&#39;s ability even if it has no readied defense tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship has the Faulty Countermeasures critical card (&#39;You cannot spend exhausted defense tokens.&#39;) it may not spend its defense token to allow another friendly attacking ship to resolve this Upgrade Card&#39;s ability if it has no readied defense tokens. If the attacking ship has the Faulty Countermeasures damage card, it may still choose another friendly ship at distance 1-5 and resolve this Upgrade Card&#39;s ability even if it has no readied defense tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2233,17 +2349,17 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not gain any command tokens on this card if the ship it is equipped to is set aside before fleets are deployed, such as by <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a>&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The dial that is gained from this Upgrade Card may be turned into a matching command token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You cannot resolve two dials of the same command. You may use this Upgrade Card&#39;s effect to generate a token if you have revealed the matching command dial. Only a dial, or a token, or a dial + token together may be resolved.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Only a ship&#39;s &#39;revealed&#39; dial may be discarded to clear raid tokens. This Upgrade Card&#39;s dials are &#39;gained&#39; not &#39;revealed&#39; and thus may not be used to clear Raid tokens. This Upgrade Card&#39;s dials can be turned into a token that may be then used to clear a matching Raid token. This would allow a command to be resolved if the ship&#39;s dial is also of that command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not gain any command tokens on this card if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The dial that is gained from this Upgrade Card may be turned into a matching command token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You cannot resolve two dials of the same command. You may use this Upgrade Card&#39;s effect to generate a token if you have revealed the matching command dial. Only a dial, or a token, or a dial + token together may be resolved.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Only a ship&#39;s &#39;revealed&#39; dial may be discarded to clear raid tokens. This Upgrade Card&#39;s dials are &#39;gained&#39; not &#39;revealed&#39; and thus may not be used to clear Raid tokens. This Upgrade Card&#39;s dials can be turned into a token that may be then used to clear a matching Raid token. This would allow a command to be resolved if the ship&#39;s dial is also of that command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Upgrades that trigger and resolve, or resolve on, that ship&#39;s &#39;revealed&#39; dial, do not trigger on this Upgrade Card&#39;s &#39;gained&#39; dial. Examples include; <a class="card-ref" href="/rulings/upgrades/officer.html#clone-navigation-officer-officer"><em>Clone Navigation Officer</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#navigation-officer-officer"><em>Navigation Officer</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#engineering-captain-officer"><em>Engineering Captain</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#tactical-expert-officer"><em>Tactical Expert</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#wing-commander-officer"><em>Wing Commander</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#weapons-liaison-officer"><em>Weapons Liaison</em></a>, <a class="card-ref" href="/rulings/upgrades/officer.html#defense-liaison-officer"><em>Defense Liaison</em></a>, and <a class="card-ref" href="/rulings/upgrades/officer.html#support-officer-officer"><em>Support Officer</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before that of <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>, which is after the Reveal Command dial step. <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a> can send away a token gained from this Upgrade Card. However you may not gain a token from this Upgrade Card, send it to another ship using <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a>, and then convert your dial to another command token. You also may not use <a class="card-ref" href="/rulings/upgrades/fleet-support.html#comms-net-fleet-support"><em>Comms Net</em></a> to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Upgrades that trigger and resolve, or resolve on, that ship&#39;s &#39;revealed&#39; dial, do not trigger on this Upgrade Card&#39;s &#39;gained&#39; dial. Examples include; Clone Navigation Officer, Navigation Officer, Engineering Captain, Tactical Expert, Wing Commander, Weapons Liaison, Defense Liaison, and Support Officer.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before that of Comms Net, which is after the Reveal Command dial step. Comms Net can send away a token gained from this Upgrade Card. However you may not gain a token from this Upgrade Card, send it to another ship using Comms Net, and then convert your dial to another command token. You also may not use Comms Net to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship does not &#39;reveal&#39; a command because it chose to discard it due to a card effect such as <a class="card-ref" href="/rulings/damage-cards.html#crew-panic-damage"><em>Crew Panic</em></a> or another effect, then you cannot resolve this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship with this Upgrade Card as well as the <a class="card-ref" href="/rulings/damage-cards.html#crew-panic-damage"><em>Crew Panic</em></a> damage card may reveal a normal command dial as well as gain this Upgrade Card&#39;s dial, and only suffer 1 damage (not 2), as <a class="card-ref" href="/rulings/damage-cards.html#crew-panic-damage"><em>Crew Panic</em></a> only affects the ship dial.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship does not &#39;reveal&#39; a command because it chose to discard it due to a card effect such as Crew Panic or another effect, then you cannot resolve this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship with this Upgrade Card as well as the Crew Panic damage card may reveal a normal command dial as well as gain this Upgrade Card&#39;s dial, and only suffer 1 damage (not 2), as Crew Panic only affects the ship dial.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2261,7 +2377,7 @@ body.karm-web .card-divider {
 </div>
 <div class="top-summary-block">
   <div class="top-summary-label">Timing</div>
-  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers after rolling the initial attack pool, but before the &#39;Resolve Attack Effects&#39; step.<br/>The timing window to add the die from this Upgrade Card is shared with <a class="card-ref" href="/rulings/upgrades/officer.html#intel-officer-officer"><em>Intel Officer</em></a>, meaning that you must add the die from this Upgrade Card before resolving additional attack effects. In this case, as the timing window is shared, the attacker may choose to resolve this Upgrade Card&#39;s effect or <a class="card-ref" href="/rulings/upgrades/officer.html#intel-officer-officer"><em>Intel Officer</em></a>&#39;s effect in either order.<br/>Dice addition effects which may add dice of other colors, such as <a class="card-ref" href="/rulings/upgrades/weapons-team.html#clone-gunners-weapons-team"><em>Clone Gunners</em></a>, <a class="card-ref" href="/rulings/upgrades/turbolaser.html#quad-battery-turrets-turbolaser"><em>Quad Battery Turrets</em></a>, <a class="card-ref" href="/rulings/upgrades/turbolaser.html#swivel-mount-batteries-turbolaser"><em>Swivel-Mount Batteries</em></a>, <a class="card-ref" href="/rulings/upgrades/turbolaser.html#dual-turbolaser-turrets-turbolaser"><em>Dual Turbolaser Turrets</em></a>, and <a class="card-ref" href="/rulings/objectives.html#opening-salvo-objective"><em>Opening Salvo</em></a>, must be declared after this Upgrade Card’s effect. This means this Upgrade Card may only add dice of a color in the original attack pool, before these upgrades resolve.</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers after rolling the initial attack pool, but before the &#39;Resolve Attack Effects&#39; step.<br/>The timing window to add the die from this Upgrade Card is shared with Intel Officer, meaning that you must add the die from this Upgrade Card before resolving additional attack effects. In this case, as the timing window is shared, the attacker may choose to resolve this Upgrade Card&#39;s effect or Intel Officer&#39;s effect in either order.<br/>Dice addition effects which may add dice of other colors, such as Clone Gunners, Quad Battery Turrets, Swivel-Mount Batteries, Dual Turbolaser Turrets, and Opening Salvo, must be declared after this Upgrade Card’s effect. This means this Upgrade Card may only add dice of a color in the original attack pool, before these upgrades resolve.</div>
 </div></div>
     </div>
   </div>
@@ -2273,7 +2389,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect can be applied to an attack initiated from <a class="card-ref" href="/rulings/upgrades/ordnance.html#ordnance-pods-ordnance"><em>Ordnance Pods</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can be applied to an anti-squadron attack using <a class="card-ref" href="/rulings/upgrades/turbolaser.html#linked-turbolaser-towers-turbolaser"><em>Linked Turbolaser Towers</em></a>, although due to the timing window, the attacker must add a die of a color already in the attack pool, not add dice of a color only added through <a class="card-ref" href="/rulings/upgrades/turbolaser.html#linked-turbolaser-towers-turbolaser"><em>Linked Turbolaser Towers</em></a>&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect does not count as &quot;suffering damage from an attack&quot; for interactions with upgrades like <a class="card-ref" href="/rulings/upgrades/officer.html#adi-gallia-officer"><em>Adi Gallia</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect can be applied to an attack initiated from Ordnance Pods.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can be applied to an anti-squadron attack using Linked Turbolaser Towers, although due to the timing window, the attacker must add a die of a color already in the attack pool, not add dice of a color only added through Linked Turbolaser Towers&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect does not count as &quot;suffering damage from an attack&quot; for interactions with upgrades like Adi Gallia.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2283,12 +2399,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Objective Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect has a timing window at the start of the &quot;Resolve Attack Effects&quot; step that must be declared before other dice adding or modifying effects, such as from <a class="card-ref" href="/rulings/objectives.html#opening-salvo-objective"><em>Opening Salvo</em></a>, can occur.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect has a timing window at the start of the &quot;Resolve Attack Effects&quot; step that must be declared before other dice adding or modifying effects, such as from Opening Salvo, can occur.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Counter and Salvo Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect cannot be added to a <span class="icon-font">6</span> attack as you cannot add dice to a <span class="icon-font">6</span> attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card can be added to a <span class="keyword-name">Counter</span> attack, such as one granted by <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#quad-laser-turrets-offensive-retro"><em>Quad Laser Turrets</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect cannot be added to a <span class="icon-font">6</span> attack as you cannot add dice to a <span class="icon-font">6</span> attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card can be added to a <span class="keyword-name">Counter</span> attack, such as one granted by Quad Laser Turrets.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2323,7 +2439,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship spends a defense token to resolve <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#thermal-shields-defensive-retro"><em>Thermal Shields</em></a>, that spent defense token is counted when determining if this Upgrade Card&#39;s effect can be resolved.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship spends a defense token to resolve Thermal Shields, that spent defense token is counted when determining if this Upgrade Card&#39;s effect can be resolved.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2358,12 +2474,12 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect does not take the place of the standard <span class="icon-font">2</span> effect. As such, cards that do replace the standard <span class="icon-font">2</span> effect (such as <a class="card-ref" href="/rulings/upgrades/officer.html#expert-shield-tech-officer"><em>Expert Shield Tech</em></a> or <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#reactive-gunnery-defensive-retro"><em>Reactive Gunnery</em></a>) would be able to stack with the effects of this Upgrade Card. If a ship had all three cards it would have to choose between the latter two, in addition to this Upgrade Card effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A defender cannot spend more than one defense token of each type per attack. For example, a defender cannot spend one <span class="icon-font">2</span> token to resolve the <span class="icon-font">2</span> effect and a second <span class="icon-font">2</span> token to resolve <a class="card-ref" href="/rulings/upgrades/defensive-retro.html#reactive-gunnery-defensive-retro"><em>Reactive Gunnery</em></a> to trigger this Upgrade Card twice.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect does not take the place of the standard <span class="icon-font">2</span> effect. As such, cards that do replace the standard <span class="icon-font">2</span> effect (such as Expert Shield Tech or Reactive Gunnery) would be able to stack with the effects of this Upgrade Card. If a ship had all three cards it would have to choose between the latter two, in addition to this Upgrade Card effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A defender cannot spend more than one defense token of each type per attack. For example, a defender cannot spend one <span class="icon-font">2</span> token to resolve the <span class="icon-font">2</span> effect and a second <span class="icon-font">2</span> token to resolve Reactive Gunnery to trigger this Upgrade Card twice.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The <a class="card-ref" href="/rulings/damage-cards.html#capacitor-failure-damage"><em>Capacitor Failure</em></a> critical prevents the spending of a <span class="icon-font">2</span> token when the condition is triggeredand would prevent this Upgrade Card&#39;s effect from triggering.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The Capacitor Failure critical prevents the spending of a <span class="icon-font">2</span> token when the condition is triggeredand would prevent this Upgrade Card&#39;s effect from triggering.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2377,7 +2493,7 @@ body.karm-web .card-divider {
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
-  <div class="top-summary-text"><p>While a friendly squadron is attacking a ship that is at distance 1-3 of a friendly ship, the attacker may add 1 blue die set to an [accuracy] icon to its attack pool. That die cannot be rerolled or changed. Friendly squadrons without adept gain grit while they are at distance 1 of a friendly squadron with adept.</p></div>
+  <div class="top-summary-text"><p>While a friendly squadron is attacking a ship that is at distance 1-3 of a friendly ship, the attacker may add 1 blue die set to an <span class="icon-font">U</span> icon to its attack pool. That die cannot be rerolled or changed. Friendly squadrons without <span class="keyword-name">Adept</span> gain <span class="keyword-name">Grit</span> while they are at distance 1 of a friendly squadron with <span class="keyword-name">Adept</span>.</p></div>
 </div>
 <div class="top-summary-block">
   <div class="top-summary-label">Timing</div>
@@ -2413,7 +2529,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not gain any command dials on this card if the ship it is equipped to is set aside before fleets are deployed, such as by <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a>&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship under the effect of this Upgrade Card has a Raid token, it may not spend a matching command token to resolve This Upgrade Card&#39;s ability.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship this Upgrade Card is equipped to is destroyed after this Upgrade Card&#39;s effect is resolved, the effect would last until the end of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Effects which trigger when a ship &#39;Reveals&#39; a command dial are not triggered by this Upgrade Card, as this Upgrade Card&#39;s dials are on the card, not its ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not gain any command dials on this card if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship under the effect of this Upgrade Card has a Raid token, it may not spend a matching command token to resolve This Upgrade Card&#39;s ability.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If the ship this Upgrade Card is equipped to is destroyed after this Upgrade Card&#39;s effect is resolved, the effect would last until the end of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Effects which trigger when a ship &#39;Reveals&#39; a command dial are not triggered by this Upgrade Card, as this Upgrade Card&#39;s dials are on the card, not its ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2438,7 +2554,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not gain any command tokens on this card if the ship it is equipped to is set aside before fleets are deployed, such as by <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a>&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not gain any command tokens on this card if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2463,12 +2579,12 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card only affects non-unique squadrons. Unique squadrons do not benefit from either effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The reroll granted after using <span class="keyword-name">Ai: Battery</span> occurs after the <span class="keyword-name">Ai</span> die has been added, and must occur before a reroll from another source, such as <a class="card-ref" href="/rulings/upgrades/fleet-support.html#bomber-command-center-fleet-support"><em>Bomber Command Center</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card only affects non-unique squadrons. Unique squadrons do not benefit from either effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The reroll granted after using <span class="keyword-name">Ai: Battery</span> occurs after the <span class="keyword-name">Ai</span> die has been added, and must occur before a reroll from another source, such as Bomber Command Center.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">Squadrons chosen by <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#hyperwave-signal-boost-offensive-retro"><em>Hyperwave Signal Boost</em></a> may also use this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Squadrons chosen by Hyperwave Signal Boost may also use this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -2478,7 +2594,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Counter and Salvo Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card does not apply to <span class="keyword-name">Counter</span> attacks made outside of a squadron&#39;s activation, as those do not resolve the <span class="keyword-name">Ai</span> keyword.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s first effect applies to a <span class="keyword-name">Counter</span> attack made during a friendly squadron&#39;s activation. For example, <a class="card-ref" href="/rulings/squadrons.html#haor-chall-prototypes-squadron"><em>Haor Chall Prototypes</em></a> resolves its ability and initiates an anti-squadron attack against a friendly squadron during its activation. If that friendly squadron has both <span class="keyword-name">Ai: Anti-Squadron</span> and <span class="keyword-name">Counter</span>, the <span class="keyword-name">Counter</span> attack occurs during that squadron&#39;s activation, and thus it may resolve the <span class="keyword-name">Ai</span> keyword. If it does, it could resolve this Upgrade Card&#39;s first effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card does not apply to <span class="keyword-name">Counter</span> attacks made outside of a squadron&#39;s activation, as those do not resolve the <span class="keyword-name">Ai</span> keyword.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s first effect applies to a <span class="keyword-name">Counter</span> attack made during a friendly squadron&#39;s activation. For example, Haor Chall Prototypes resolves its ability and initiates an anti-squadron attack against a friendly squadron during its activation. If that friendly squadron has both <span class="keyword-name">Ai: Anti-Squadron</span> and <span class="keyword-name">Counter</span>, the <span class="keyword-name">Counter</span> attack occurs during that squadron&#39;s activation, and thus it may resolve the <span class="keyword-name">Ai</span> keyword. If it does, it could resolve this Upgrade Card&#39;s first effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] Legacy | 2025-07-17 | FAQ 1.1</div></div>
 </article>
@@ -2503,7 +2619,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a player chooses to resolve the <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#reserve-hangar-deck-offensive-retro"><em>Reserve Hangar Deck</em></a> effect when a squadron is destroyed, the squadron is still considered destroyed and would resolve this Upgrade Card&#39;s effect. These effects share a timing window and can be resolved in the order of the controlling player&#39;s choice.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a player chooses to move a ship or squadron so that any of it is outside of the play area; i.e., fly it off the board, it is considered destroyed and would trigger this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can resolve when a friendly Unarmed Stations is destroyed as Unarmed Stations are treated as ships when resolving effects.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The squadron&#39;s position when it was destroyed would be used when determining distance for this Upgrade Card effect, not the squadron&#39;s position after being placed by <a class="card-ref" href="/rulings/upgrades/offensive-retro.html#reserve-hangar-deck-offensive-retro"><em>Reserve Hangar Deck</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a player chooses to resolve the Reserve Hangar Deck effect when a squadron is destroyed, the squadron is still considered destroyed and would resolve this Upgrade Card&#39;s effect. These effects share a timing window and can be resolved in the order of the controlling player&#39;s choice.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a player chooses to move a ship or squadron so that any of it is outside of the play area; i.e., fly it off the board, it is considered destroyed and would trigger this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can resolve when a friendly Unarmed Stations is destroyed as Unarmed Stations are treated as ships when resolving effects.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The squadron&#39;s position when it was destroyed would be used when determining distance for this Upgrade Card effect, not the squadron&#39;s position after being placed by Reserve Hangar Deck.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2558,7 +2674,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship with this Upgrade Card&#39;s ability performs an attack with a single die in the attack pool against a ship that has no shields remaining, the attack would not be canceled despite having no dice in the pool. It has already passed the &#39;Gather Dice&#39; step (at which point the attack would be cancelled if there were no dice) and has now moved on to the &#39;Roll Dice&#39; step of the attack. At this point the attack must continue. Effects that add additional dice may still add dice to this attack pool, such as <a class="card-ref" href="/rulings/upgrades/turbolaser.html#quad-battery-turrets-turbolaser"><em>Quad Battery Turrets</em></a>, or <a class="card-ref" href="/rulings/upgrades/ordnance.html#external-racks-ordnance"><em>External Racks</em></a>. Effects that have a requirement based on dice currently in the attack would only trigger if dice were later added to the pool. e.g., Concentrate Fire adds a die of any color already present in the attack pool.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship with this Upgrade Card&#39;s ability performs an attack with a single die in the attack pool against a ship that has no shields remaining, the attack would not be canceled despite having no dice in the pool. It has already passed the &#39;Gather Dice&#39; step (at which point the attack would be cancelled if there were no dice) and has now moved on to the &#39;Roll Dice&#39; step of the attack. At this point the attack must continue. Effects that add additional dice may still add dice to this attack pool, such as Quad Battery Turrets, or External Racks. Effects that have a requirement based on dice currently in the attack would only trigger if dice were later added to the pool. e.g., Concentrate Fire adds a die of any color already present in the attack pool.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
 </article>
@@ -2583,22 +2699,22 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s first effect only applies after deploying fleets, meaning that ships held off the board, such as through <a class="card-ref" href="/rulings/objectives.html#hyperspace-assault-objective"><em>Hyperspace Assault</em></a>, would not gain a command token after they deploy.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s obstruction effect may resolve against ships or squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Command token assignment from this Upgrade Card&#39;s second effect only affects the number of tokens that can be &quot;held&quot; on a ship, not the number of tokens that may be gained by converting a command dial to a command token as an example.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Command tokens discarded to resolve this Upgrade Card&#39;s effect may not resolve other effects that trigger off of a command token discard.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s first effect only applies after deploying fleets, meaning that ships held off the board, such as through Hyperspace Assault, would not gain a command token after they deploy.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s obstruction effect may resolve against ships or squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Command token assignment from this Upgrade Card&#39;s second effect only affects the number of tokens that can be &quot;held&quot; on a ship, not the number of tokens that may be gained by converting a command dial to a command token as an example.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Command tokens discarded to resolve this Upgrade Card&#39;s effect may not resolve other effects that trigger off of a command token discard.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">The obstruction granted by this Upgrade Card&#39;s effect counts as obstruction granted by a card effect for interacting with <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The additional command token assignment from this Upgrade Card&#39;s effect stacks with other assignment effects, such as from <a class="card-ref" href="/rulings/upgrades/title.html#nova-defiant-title"><em>Nova Defiant</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with Petranaki may discard a command token to resolve this Upgrade Card&#39;s effect, and then may resolve the effect of Petranaki.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The obstruction granted by this Upgrade Card&#39;s effect counts as obstruction granted by a card effect for interacting with <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The additional command token assignment from this Upgrade Card&#39;s effect stacks with other assignment effects, such as from Nova Defiant.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with Petranaki may discard a command token to resolve this Upgrade Card&#39;s effect, and then may resolve the effect of Petranaki (Title).</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Counter and Salvo Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship or squadron with a single die declares an attack against a ship which resolves this Upgrade Card&#39;s third effect, the ship may not perform a <span class="keyword-name">Counter</span> or <span class="icon-font">6</span> attack against it as dice were removed before rolling. If the dice is removed through resolving Petranaki&#39;s effect, then a ship may perform a <span class="keyword-name">Counter</span> or <span class="icon-font">6</span> attack against it as dice are removed after rolling and the attack is not cancelled.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship or squadron with a single die declares an attack against a ship which resolves this Upgrade Card&#39;s third effect, the ship may not perform a <span class="keyword-name">Counter</span> or <span class="icon-font">6</span> attack against it as dice were removed before rolling. If the dice is removed through resolving Petranaki (Title)&#39;s effect, then a ship may perform a <span class="keyword-name">Counter</span> or <span class="icon-font">6</span> attack against it as dice are removed after rolling and the attack is not cancelled.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Damage Card Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">As <a class="card-ref" href="/rulings/damage-cards.html#disengaged-fire-control-damage"><em>Disengaged Fire Control</em></a> happens &quot;when declaring the target of an attack&quot;, but this Upgrade Card&#39;s effect resolves &quot;after an eligible ship is declared the target of an attack&quot;, a ship with the damage card <a class="card-ref" href="/rulings/damage-cards.html#disengaged-fire-control-damage"><em>Disengaged Fire Control</em></a> may still attack a hull zone obstructed through this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">As Disengaged Fire Control happens &quot;when declaring the target of an attack&quot;, but this Upgrade Card&#39;s effect resolves &quot;after an eligible ship is declared the target of an attack&quot;, a ship with the damage card Disengaged Fire Control may still attack a hull zone obstructed through this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] Legacy | 2026-02-26 | Legacy FAQ</div></div>
 </article>
@@ -2630,11 +2746,25 @@ body.karm-web .card-divider {
 <hr class="card-divider" />
 
 <article class="karm-card karm-header-card" id="header-nexus-upgrades" data-category="header">
-  <div class="section-header-title">Nexus Upgrades </div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Nexus Upgrades </div>
+    <hr class="header-bar" />
+  </div>
+  
 </article>
 
 <article class="karm-card karm-header-card" id="header-commander-2" data-category="header">
-  <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+  <div class="section-header-wrap">
+    <hr class="header-bar" />
+    <div class="section-header-title">Commander <span class="icon-font">B</span></div>
+    <hr class="header-bar" />
+  </div>
+  <div class="header-content card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Card Text</h3>
+  <div class="ruling-content"><div class="card-text-content"><p>A is a special type of upgrade card with the <span class="icon-font">B</span> icon on its card back and no upgrade icon in the card front.</p><ul><li>A <span class="icon-font">B</span> can be equipped to any ship except Flotillas.</li><li>A fleet cannot have more than one <span class="icon-font">B</span>.</li><li>A ship with a <span class="icon-font">B</span> equipped is a flagship.</li><li>A <span class="icon-font">B</span> must be in the play area to be able to resolve. If this card has been set aside, then the <span class="icon-font">B</span> ability cannot resolve.</li></ul></div></div>
+</div></div>
 </article>
 
 <article class="karm-card" id="admiral-ackbar-commander-2" data-name="admiral ackbar" data-factions="new-republic" data-category="nexus-upgrades" data-type="commander">
