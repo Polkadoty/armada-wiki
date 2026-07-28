@@ -15,7 +15,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { fetchCardData } from '@/utils/dataFetcher';
-import { formatFactionName, getSourceBadgeClasses, getFactionColorClasses } from '@/utils/diceDisplay';
+import { formatFactionName, formatChassisName, getSourceBadgeClasses, getFactionColorClasses } from '@/utils/diceDisplay';
 import type { Ship, ShipModel, Squadron, Upgrade, Objective } from '@/types/cards';
 
 interface SearchResult {
@@ -107,7 +107,7 @@ export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
                         id: modelId,
                         type: 'ship',
                         name: model.name,
-                        subtitle: chassis.chassis_name,
+                        subtitle: formatChassisName(chassis.chassis_name),
                         faction: model.faction,
                         points: model.points,
                         source: model.source,

@@ -1,14 +1,18 @@
-# KARM Rulings PDF Generator
+# Rulings Generator
 
-This script builds a rulings book PDF from live API data for:
+Builds the **Rules & Rulings** site (`public/rulings/`) and a printable rulings book PDF
+from live API data for:
 - Objectives
 - Damage cards
 - Upgrades
 - Ace squadrons (`ace = true`)
 
-It renders an HTML document using the KARM-style page template and can print to PDF via:
+It renders an HTML document using the rulebook page template and can print to PDF via:
 - Chrome/Chromium (headless `--print-to-pdf`)
 - WeasyPrint
+
+The public-facing site title is defined by `SITE_TITLE` in
+`generate-karm-rulings-book.mjs`; `karm` remains only as the internal script/directory name.
 
 ## Setup
 
@@ -76,6 +80,15 @@ Output defaults:
 Web output (`scripts/karm/config.web.json`):
 - HTML: `public/rulings/index.html`
 - Compile log: `public/rulings/compile.log`
+
+## Empty results are a build failure
+
+The card API rate-limits (HTTP 429) when the eight web jobs run back to back. A throttled
+job used to produce a placeholder page, silently replacing good published content with an
+empty one. The generator now exits non-zero when a run yields no qualifying cards, and
+`publish-rulings-web.mjs` paces the jobs and retries once before giving up.
+
+Pass `--allow-empty` if you genuinely want a placeholder page instead of a failure.
 
 ## Notes
 

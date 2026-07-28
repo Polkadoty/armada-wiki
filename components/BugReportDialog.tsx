@@ -78,12 +78,16 @@ export function BugReportDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
-        <Button variant="ghost" size="sm">
-          <Bug className="h-4 w-4 mr-2" />
-          Report Bug
-        </Button>
-      </DialogTrigger>
+      {/* `render` makes the Button *be* the trigger. Nesting it inside DialogTrigger
+          renders a button within a button, which is invalid HTML and breaks hydration. */}
+      <DialogTrigger
+        render={
+          <Button variant="ghost" size="sm">
+            <Bug className="h-4 w-4 mr-2" />
+            Report Bug
+          </Button>
+        }
+      />
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Report a Bug</DialogTitle>

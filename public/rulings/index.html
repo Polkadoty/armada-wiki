@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
+    <title>Rules &amp; Rulings</title>
+    <meta name="description" content="Comprehensive rulings and clarifications for Star Wars: Armada" />
+    <meta name="theme-color" content="#24408f" />
     <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
@@ -175,9 +177,17 @@ body.toc-open .toc-drawer {
 }
 
 .toc-title {
+  display: block;
   font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 36px;
+  font-size: 32px;
+  line-height: 1.1;
   margin: 0 0 10px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.toc-title:hover {
+  text-decoration: underline;
 }
 
 .toc-link {
@@ -194,9 +204,30 @@ body.toc-open .toc-drawer {
   color: #24408f;
 }
 
+.toc-link.is-current {
+  color: #24408f;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 #24408f;
+  background: rgba(36, 64, 143, 0.06);
+}
+
 .toc-link.toc-sub {
   padding-left: 16px;
   font-size: 17px;
+}
+
+/* ── Drawer scrim ── */
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  background: rgba(20, 18, 16, 0.35);
+  border: 0;
+}
+
+.drawer-scrim[hidden] {
+  display: none;
 }
 
 .toc-section-label {
@@ -871,8 +902,11 @@ body.search-open .search-drawer {
 body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
-  background-size: 180%;
-  background-position: center top -60px;
+  /* The source asset is a full rulebook page including its printed frame. Zooming to
+     200% and centring keeps the viewport inside the parchment, so the frame's panel
+     strip never peeks in along the top edge. */
+  background-size: 200%;
+  background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
@@ -880,7 +914,15 @@ body.karm-web {
 
 @media (min-width: 1400px) {
   body.karm-web {
+    /* Wide enough that the frame's left/right edges read as an intentional border. */
     background-size: cover;
+  }
+}
+
+/* `background-attachment: fixed` is janky-to-unsupported on mobile browsers. */
+@media (max-width: 768px) {
+  body.karm-web {
+    background-attachment: scroll;
   }
 }
 
@@ -1150,6 +1192,29 @@ body.karm-web .card-divider {
   letter-spacing: 0.04em;
 }
 
+.index-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(36, 64, 143, 0.15);
+  text-align: center;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  color: #555;
+}
+
+.index-footer p {
+  margin: 0 0 6px;
+}
+
+.index-footer a {
+  color: var(--accent);
+}
+
+.index-disclaimer {
+  font-size: 13px;
+  color: #777;
+}
+
 @media (max-width: 480px) {
   .index-title { font-size: 32px; }
   .index-links li a { font-size: 16px; }
@@ -1162,6 +1227,7 @@ body.karm-web .card-divider {
 
   .toc-fab,
   .toc-drawer,
+  .drawer-scrim,
   .search-fab,
   .search-drawer,
   .no-results {
@@ -1215,7 +1281,7 @@ body.karm-web .card-divider {
   </head>
   <body class="karm-web">
     <div class="index-page">
-      <h1 class="index-title">KARM Rulings Book</h1>
+      <h1 class="index-title">Rules &amp; Rulings</h1>
       <p class="index-subtitle">Comprehensive rulings and clarifications for Star Wars: Armada</p>
       <ul class="index-links">
         <li><a href="/rulings/objectives.html">Objectives</a></li>
@@ -1239,10 +1305,21 @@ body.karm-web .card-divider {
         <li><a href="/rulings/upgrades/fleet-command.html">Fleet Command</a></li>
         <li><a href="/rulings/upgrades/title.html">Title</a></li>
         <li><a href="/rulings/upgrades/super-weapon.html">Superweapon</a></li>
+        <li><a href="/rulings/upgrades/leader.html">Leader</a></li>
+        <li><a href="/rulings/upgrades/veteran.html">Veteran</a></li>
         <li class="index-section-label">Nexus</li>
         <li><a href="/rulings/nexus-upgrades.html">Nexus Upgrades</a></li>
         <li><a href="/rulings/nexus-squadrons.html">Nexus Squadrons</a></li>
       </ul>
+      <footer class="index-footer">
+        <p>
+          Looking for card stats instead? Browse the
+          <a href="/ships">card wiki</a>.
+        </p>
+        <p class="index-disclaimer">
+          Star Wars: Armada is a trademark of Fantasy Flight Games. This is an unofficial fan project.
+        </p>
+      </footer>
     </div>
   </body>
 </html>

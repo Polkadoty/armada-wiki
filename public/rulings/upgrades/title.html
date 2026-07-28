@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
+    <title>Rules &amp; Rulings</title>
+    <meta name="description" content="Comprehensive rulings and clarifications for Star Wars: Armada" />
+    <meta name="theme-color" content="#24408f" />
     <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
@@ -175,9 +177,17 @@ body.toc-open .toc-drawer {
 }
 
 .toc-title {
+  display: block;
   font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 36px;
+  font-size: 32px;
+  line-height: 1.1;
   margin: 0 0 10px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.toc-title:hover {
+  text-decoration: underline;
 }
 
 .toc-link {
@@ -194,9 +204,30 @@ body.toc-open .toc-drawer {
   color: #24408f;
 }
 
+.toc-link.is-current {
+  color: #24408f;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 #24408f;
+  background: rgba(36, 64, 143, 0.06);
+}
+
 .toc-link.toc-sub {
   padding-left: 16px;
   font-size: 17px;
+}
+
+/* ── Drawer scrim ── */
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  background: rgba(20, 18, 16, 0.35);
+  border: 0;
+}
+
+.drawer-scrim[hidden] {
+  display: none;
 }
 
 .toc-section-label {
@@ -871,8 +902,11 @@ body.search-open .search-drawer {
 body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
-  background-size: 180%;
-  background-position: center top -60px;
+  /* The source asset is a full rulebook page including its printed frame. Zooming to
+     200% and centring keeps the viewport inside the parchment, so the frame's panel
+     strip never peeks in along the top edge. */
+  background-size: 200%;
+  background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
@@ -880,7 +914,15 @@ body.karm-web {
 
 @media (min-width: 1400px) {
   body.karm-web {
+    /* Wide enough that the frame's left/right edges read as an intentional border. */
     background-size: cover;
+  }
+}
+
+/* `background-attachment: fixed` is janky-to-unsupported on mobile browsers. */
+@media (max-width: 768px) {
+  body.karm-web {
+    background-attachment: scroll;
   }
 }
 
@@ -1150,6 +1192,29 @@ body.karm-web .card-divider {
   letter-spacing: 0.04em;
 }
 
+.index-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(36, 64, 143, 0.15);
+  text-align: center;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  color: #555;
+}
+
+.index-footer p {
+  margin: 0 0 6px;
+}
+
+.index-footer a {
+  color: var(--accent);
+}
+
+.index-disclaimer {
+  font-size: 13px;
+  color: #777;
+}
+
 @media (max-width: 480px) {
   .index-title { font-size: 32px; }
   .index-links li a { font-size: 16px; }
@@ -1162,6 +1227,7 @@ body.karm-web .card-divider {
 
   .toc-fab,
   .toc-drawer,
+  .drawer-scrim,
   .search-fab,
   .search-drawer,
   .no-results {
@@ -1215,17 +1281,18 @@ body.karm-web .card-divider {
   </head>
   <body class="karm-web">
     
-<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+<button type="button" class="toc-fab" aria-label="Open rulings menu" aria-expanded="false" data-drawer-toggle="toc">
   <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
 </button>
+<div class="drawer-scrim" data-drawer-close hidden></div>
 <aside class="toc-drawer" aria-label="Rulings navigation">
-  <div class="toc-title">Rulings</div>
+  <a class="toc-title" href="/rulings">Rules &amp; Rulings</a>
   <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
 <a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
 <a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
 <a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
 <div class="toc-section-label">Upgrades</div>
-<a href="/rulings/upgrades.html" class="toc-link toc-sub">All</a>
+<a href="/rulings/upgrades.html" class="toc-link toc-sub">All Upgrades</a>
 <a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
 <a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
 <a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
@@ -1239,13 +1306,15 @@ body.karm-web .card-divider {
 <a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>
 <a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>
 <a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
-<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
+<a href="/rulings/upgrades/title.html" class="toc-link toc-sub is-current" aria-current="page">Title</a>
 <a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<a href="/rulings/upgrades/leader.html" class="toc-link toc-sub">Leader</a>
+<a href="/rulings/upgrades/veteran.html" class="toc-link toc-sub">Veteran</a>
 <div class="toc-section-label">Nexus</div>
 <a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
 <a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
 </aside>
-<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+<button type="button" class="search-fab" aria-label="Search cards" aria-expanded="false" data-drawer-toggle="search">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 </button>
 <aside class="search-drawer" aria-label="Search and filter">
@@ -1279,6 +1348,19 @@ body.karm-web .card-divider {
   <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">A</span> is a special type of upgrade card with the <span class="icon-font">A</span> icon on its card back and ship icon it equips too in the lower-left corner of the card front.</p><ul><li>A <span class="icon-font">A</span> can be equipped to the ship shown in the lower-left corner of the card front.</li><li>A ship cannot equip more than one <span class="icon-font">A</span> card.</li><li>Insert RRG: &quot;Name-Restricted Title Cards: Some Title upgrade cards in this expansion have an icon in the lower-left corner that does not match a specific ship icon. A ship can equip this upgrade card if that ship matches this card&#39;s faction affiliation and the ship&#39;s name matches this upgrade card&#39;s name-restriction trait.&quot;</li></ul></div></div>
 </div></div>
 </article>
+
+<article class="karm-card" id="abrogator-title" data-name="abrogator" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/abrogator-title-content-playtest.webp" alt="Abrogator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Abrogator <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="abrogator-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
 
 <article class="karm-card" id="admonition-title" data-name="admonition" data-factions="rebel" data-category="upgrades" data-type="title">
   <div class="card-top">
@@ -1395,6 +1477,36 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="arlionne-title-2" data-name="arlionne" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/arlionne-title-community.webp" alt="Arlionne" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Arlionne <span class="icon-font">|</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="arlionne-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong><span class="icon-font">T</span></strong>: You may exhaust this card. If you do, the defender suffers 1 damage. This occurs once for each of your exhausted defense tokens.</p><p>You can resolve this critical effect during a <span class="icon-font">6</span> attack. You cannot resolve this critical effect during an <strong>ignition</strong> attack.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card may be resolved during the &quot;Resolve Damage&quot; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect may only resolve on &quot;exhausted&quot; defense tokens, not discarded defense tokens.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Because this Upgrade Card specifies &quot;this occurs once&quot;, the defender will choose a new hull zone (or the same hull zone) for each instance of damage triggered by this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The damage inflicted by this Upgrade Card&#39;s effect is not an attack, it is a critical effect. Therefore this damage cannot be reduced or cancelled by defense tokens, nor can any card effects that involve moving or reducing damage &quot;from an attack&quot; be utilized.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship defending against an attack using both this Upgrade Card and XI-7 Turbolasers may suffer each damage from this Upgrade Card&#39;s critical effect on any of its hull zones, one at a time. The XI-7 effect will prevent the defender from redirecting more than 1 of the total damage dealt during the &quot;Resolve Damage&quot; step.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="aspiration-title" data-name="aspiration" data-factions="rebel" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/aspiration-title.webp" alt="Aspiration" /></div>
@@ -1417,6 +1529,19 @@ body.karm-web .card-divider {
   <div class="ruling-content"><ul><li><span class="ruling-text">“Recovering” shields and “moving” shields are different. Therefore, while this Upgrade Card does not allow a ship to recover shields, shields may still be moved (for example, due to the effects of Projection Experts).</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Cards which reference “recovering” shields (such as Redundant Shields or Shields to Maximum!) will have no effect while this ship has a hull zone with shields in excess of its maximum shield value.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded in the course of the game, shields exceeding a hull zone’s maximum shield value are immediately lost.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is deployed at an uncommon time (such as due to Admiral Raddus), it will trigger at the time of deployment.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="assailer-title" data-name="assailer" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/assailer-title-content-playtest.webp" alt="Assailer" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Assailer <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="assailer-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
 </article>
 <hr class="card-divider" />
 
@@ -1450,6 +1575,31 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/battle-cruiser-title-legacy.webp" alt="Battle Cruiser" /></div>
     <div class="card-main">
       <h2 class="card-title">Battle Cruiser <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="battle-cruiser-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><em>&#39;Combat Refit only.&#39;</em></p><p>You gain 1 <span class="icon-font">D</span> icon in your upgrade bar.</p><p>After you deploy, you may replace 1 of your defense tokens with a <span class="icon-font">6</span> token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect occurs before deployment.<br/>This Upgrade Card&#39;s second effect occurs after you deploy.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">6</span> token and <span class="icon-font">D</span> upgrade card slot granted from this title would remain.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="battle-cruiser-title-2" data-name="battle cruiser" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/battle-cruiser-title-community.webp" alt="Battle Cruiser" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Battle Cruiser <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="battle-cruiser-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1572,6 +1722,19 @@ body.karm-web .card-divider {
   <div class="ruling-content"><ul><li><span class="ruling-text">Centicore’s effective range may be boosted by the <span class="keyword-name">Relay</span> keyword; if another friendly ship is resolving a squadron command, and Squadron A (with the <span class="keyword-name">Relay</span> keyword) is at close-medium range of Centicore, Squadron B (at distance 1-3 of Squadron A) may be activated.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">There is no requirement for the other friendly ship to be at a specific distance from Centicore.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="cerastes-title" data-name="cerastes" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/cerastes-title-content-playtest.webp" alt="Cerastes" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Cerastes <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="cerastes-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
 </article>
 <hr class="card-divider" />
 
@@ -1825,6 +1988,19 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="duchess-senna-title" data-name="duchess senna" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/duchess-senna-title-content-playtest.webp" alt="Duchess Senna" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Duchess Senna <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="duchess-senna-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="eclipse-title" data-name="eclipse" data-factions="empire" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/eclipse-title.webp" alt="Eclipse" /></div>
@@ -1910,6 +2086,19 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="falchion-title" data-name="falchion" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/falchion-title-content-playtest.webp" alt="Falchion" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Falchion <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="falchion-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="fb-88-title" data-name="fb-88" data-factions="republic" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fb-88-title.webp" alt="FB-88" /></div>
@@ -1932,6 +2121,19 @@ body.karm-web .card-divider {
   <div class="ruling-content"><ul><li><span class="ruling-text">After resolving this Upgrade Card effect, reveal the next available dial in the command stack, if possible.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="fleet-group-two-title" data-name="fleet group two" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fleet-group-two-title-content-playtest.webp" alt="Fleet Group Two" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Fleet Group Two <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="fleet-group-two-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
 </article>
 <hr class="card-divider" />
 
@@ -2155,6 +2357,19 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="hoplite-title" data-name="hoplite" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hoplite-title-content-playtest.webp" alt="Hoplite" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hoplite <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="hoplite-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="impetuous-title" data-name="impetuous" data-factions="empire" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/impetuous-title.webp" alt="Impetuous" /></div>
@@ -2235,6 +2450,36 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/insatiable-title-legacy.webp" alt="Insatiable" /></div>
     <div class="card-main">
       <h2 class="card-title">Insatiable <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="insatiable-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: When a squadron you activate uses <strong><span class="keyword-name">Ai</span>: Battery</strong>, you may suffer 1 damage. If you do, one of the dice it adds can be of any color.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers when a squadron activated by this ship uses <span class="keyword-name">Ai</span>: Battery.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When a ship suffers damage from this Upgrade Card&#39;s effect, the 1 damage dealt to the ship bypasses standard defense mechanics, and cannot be reduced or redirected. Damage can be dealt straight to hull as a facedown damage card if suffered on a hull zone with no shields remaining. You cannot bypass shields to take a facedown damage card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If you resolve this Upgrade Card&#39;s effect during a Squadron command, and suffer damage that would destroy your ship, it is immediately destroyed and the ship may not activate other squadrons in its activation.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">As this Upgrade Card&#39;s effect allows the attacking squadron to swap the dice color upon resolving the <span class="keyword-name">Ai</span>: Battery keyword, DBS-404 may choose to add a die of a color that is added through this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="insatiable-title-2" data-name="insatiable" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/insatiable-title-community.webp" alt="Insatiable" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Insatiable <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="insatiable-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2385,6 +2630,46 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="intrepid-title-2" data-name="intrepid" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intrepid-title-community.webp" alt="Intrepid" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Intrepid <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="intrepid-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After you deploy, gain 1 <span class="icon-font">5</span> defense token.</p><p>While a friendly squadron with no defense tokens at distance 1-2 suffers damage, you may spend 1 <span class="icon-font">5</span> defense token. If you do, it may reduce the damage by 1.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect triggers after the Deployment step.<br/>This Upgrade Card&#39;s second effect triggers whenever a friendly squadron with no defense tokens at distance 1-2 suffers damage. This damage can be suffered from any source.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Squadrons suffering damage through both attack and non-attack effects, such as Anakin Skywalker (Delta-7), Ten Numb&#39;s splash effect, Exogorths, Purrgils, etc. may have the non-attack damage reduced by this Upgrade Card&#39;s second effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The <span class="icon-font">5</span> defense token added by this Upgrade Card&#39;s first effect may be replaced through other card effects.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If Emperor Palpatine Commander (Base Game) selects a contain defense token as the target for the round, as this Upgrade Card&#39;s second effect spends the token outside of the Spend Defense Tokens step, then it would not be discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If Emperor Palpatine Commander (ARC) selects a contain defense token as the target for the round, then this Upgrade Card&#39;s effect would trigger Emperor Palpatine and thus cause that contain token to be discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">5</span> token granted from this title would remain.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If an unique squadron discards all of its defense tokens and is within distance 1-2 of this ship, then this Upgrade Card&#39;s effect may be used on that squadron as it no longer has defense tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Damage suffered by obstacle effects, such as Exogorths and Purrgils, are eligible for reduction from this Upgrade Card&#39;s second effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="invincible-title" data-name="invincible" data-factions="separatist" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/invincible-title.webp" alt="Invincible" /></div>
@@ -2436,6 +2721,19 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="ironclad-title" data-name="ironclad" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ironclad-title-content-playtest.webp" alt="Ironclad" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ironclad <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="ironclad-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="jaina-s-light-title" data-name="jaina&#39;s light" data-factions="rebel" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jainas-light-title.webp" alt="Jaina&#39;s Light" /></div>
@@ -2476,11 +2774,49 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="kalleran-pride-title" data-name="kalleran pride" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kalleran-pride-title-content-playtest.webp" alt="Kalleran Pride" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Kalleran Pride <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="kalleran-pride-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="koklivex-title" data-name="koklivex" data-factions="separatist" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/koklivex-title-legacy.webp" alt="Koklivex" /></div>
     <div class="card-main">
       <h2 class="card-title">Koklivex <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="koklivex-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>You gain 1 <span class="icon-font">G</span> icon in your upgrade bar.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card resolves during Fleet Building.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">G</span> icon granted from this title would remain.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="koklivex-title-2" data-name="koklivex" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/koklivex-title-community.webp" alt="Koklivex" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Koklivex <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="koklivex-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2548,6 +2884,32 @@ body.karm-web .card-divider {
   <div class="ruling-content"><ul><li><span class="ruling-text">Commander Leia Organa’s effect allows ships to resolve a command “as if it had spent a matching command token”; this will trigger this Upgrade Card’s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="liberty-star-title" data-name="liberty star" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/liberty-star-title-content-playtest.webp" alt="Liberty Star" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Liberty Star <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="liberty-star-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="lightmaker-title" data-name="lightmaker" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/lightmaker-title-content-playtest.webp" alt="Lightmaker" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Lightmaker <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="lightmaker-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
 </article>
 <hr class="card-divider" />
 
@@ -2632,6 +2994,36 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nautilian-title-legacy.webp" alt="Nautilian" /></div>
     <div class="card-main">
       <h2 class="card-title">Nautilian <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="nautilian-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Gain 1 <span class="icon-font">M</span> icon in your upgrade bar.</p><p>When a friendly ship is choosing another copy of its non-unique <span class="icon-font">A</span> upgrade to exhaust, it may treat this card as if it were a copy of its <span class="icon-font">A</span> upgrade.</p><p>When you activate, you may ready this card.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers when a friendly ship is choosing a non-unique title upgrade to exhaust.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Any non-unique title available for the Rebel faction, including one with a refresh cost, is considered eligible for this Upgrade Card&#39;s effect. This includes <a class="card-ref" href="#mon-calamari-exodus-fleet-title"><em>Mon Calamari Exodus Fleet</em></a>, <a class="card-ref" href="#task-force-organa-title"><em>Task Force Organa</em></a>, and <a class="card-ref" href="#task-force-antilles-title"><em>Task Force Antilles</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If this Upgrade Card were to be removed from this ship after deployment through a card effect, such as Darth Vader (Boarding Team), then the <span class="icon-font">M</span> icon granted from this title would remain.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="nautilian-title-2" data-name="nautilian" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/nautilian-title-community.webp" alt="Nautilian" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Nautilian <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="nautilian-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2757,11 +3149,49 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="peregrine-title" data-name="peregrine" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/peregrine-title-content-playtest.webp" alt="Peregrine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Peregrine <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="peregrine-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="petranaki-title" data-name="petranaki" data-factions="separatist" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/petranaki-title-legacy.webp" alt="Petranaki" /></div>
     <div class="card-main">
       <h2 class="card-title">Petranaki <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="petranaki-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending, if the attack is obstructed, you may choose which die is removed from the attack pool.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect may resolve before the attacker rolls dice during the Roll Attack Dice step.<br/>This Upgrade Card&#39;s second effect resolves during the Spend Defense Tokens step, and only if the ship it is equipped to is defending.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When an <span class="icon-font">4</span> defense token is discarded using this Upgrade Card&#39;s second effect, the defender cannot affect an additional die since the <span class="icon-font">4</span> defense token must have been spent and then discarded to be able to affect an additional die with the natural <span class="icon-font">4</span> defense effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s second effect allows an <span class="icon-font">4</span> token to be discarded while at speed 0 to resolve the effect of that defense token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The ship this Upgrade Card is equipped to may discard an <span class="icon-font">4</span> token to resolve the Upgrade Card&#39;s second effect even if that token were targeted by an <span class="icon-font">U</span>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Similarly to Admonition, the ship this Upgrade Card is equipped to may &#39;double spend&#39; an <span class="icon-font">4</span> token as there is not an explicit restriction against resolving the same defense effect twice. For example, while defending against an attack at long range against a small ship, an <span class="icon-font">4</span> token could be spent to remove 1 die from the attack pool, and then discarded with this Upgrade Card&#39;s second effect to remove another die from the attack pool.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="petranaki-title-2" data-name="petranaki" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/petranaki-title-community.webp" alt="Petranaki" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Petranaki <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="petranaki-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2967,11 +3397,64 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="reactor-power-reroute-title" data-name="reactor power reroute" data-factions="empire,republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/reactor-power-reroute-title-content-playtest.webp" alt="Reactor Power Reroute" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Reactor Power Reroute <span class="icon-font">\</span><span class="icon-font">|</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="reactor-power-reroute-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="rebel-one-title" data-name="rebel one" data-factions="rebel" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rebel-one-title-legacy.webp" alt="Rebel One" /></div>
     <div class="card-main">
       <h2 class="card-title">Rebel One <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="rebel-one-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While defending, you may discard 1 of your <span class="icon-font">I</span> or <span class="icon-font">J</span> upgrades and exhaust this card to spend a defense token an opponent targeted with an <span class="icon-font">U</span>.</p><p>While attacking, you may discard this card. If you do, you may add up to 3 dice of different colors equal to the number of your discarded <span class="icon-font">I</span> or <span class="icon-font">J</span> cards.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect triggers while defending, during the Spend Defense Tokens step.<br/>This Upgrade Card&#39;s second effect triggers while attacking, during the Resolve Attack Effects step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">As the dice addition from this Upgrade Card occurs during the Resolve Attack Effects step, it may occur in any order desired by the attacker. If a <span class="icon-font">I</span> or <span class="icon-font">J</span> upgrade were to be discarded during the course of an attack, as long as the upgrade is discarded before resolving this Upgrade Card&#39;s second effect, then that discarded upgrade would count towards the total.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The dice addition from this Upgrade Card&#39;s second effect does not specify a range, meaning that this ship may discard this Upgrade Card to add dice of different colors at close, medium, or long range.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If an <span class="icon-font">I</span> or <span class="icon-font">J</span> upgrade is discarded by an upgrade card effect, such as resolving Medical Team or the effect of an upgrade such as Darth Vader (Boarding Team) or Shriv Suurgav, that upgrade card still counts towards the number of discarded upgrades on the ship.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Defense tokens spent by this Upgrade Card&#39;s effect are still affected by Emperor Palpatine&#39;s or Intel Officer&#39;s effects.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Counter and Salvo Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The dice addition from this Upgrade Card&#39;s second effect cannot be added to a <span class="icon-font">6</span> attack.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Damage Card Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A defense token effected by Faulty Countermeasures cannot be overruled by this Upgrade Card&#39;s second effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="rebel-one-title-2" data-name="rebel one" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/rebel-one-title-community.webp" alt="Rebel One" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Rebel One <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="rebel-one-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -3132,6 +3615,19 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="scimitar-title" data-name="scimitar" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/scimitar-title-content-playtest.webp" alt="Scimitar" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Scimitar <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="scimitar-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="seventh-fleet-star-destroyer-title" data-name="seventh fleet star destroyer" data-factions="empire" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/seventh-fleet-star-destroyer-title.webp" alt="Seventh Fleet Star Destroyer" /></div>
@@ -3157,6 +3653,19 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="sharu-s-luck-title" data-name="sharu&#39;s luck" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sharus-luck-title-content-playtest.webp" alt="Sharu&#39;s Luck" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Sharu&#39;s Luck <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="sharu-s-luck-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="sovereign-title" data-name="sovereign" data-factions="empire" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/sovereign-title.webp" alt="Sovereign" /></div>
@@ -3179,6 +3688,19 @@ body.karm-web .card-divider {
   <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card does not allow a ship to hold duplicate command tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="spatha-title" data-name="spatha" data-factions="empire" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/spatha-title-content-playtest.webp" alt="Spatha" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Spatha <span class="icon-font">\</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="spatha-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
 </article>
 <hr class="card-divider" />
 
@@ -3212,6 +3734,32 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/stellar-rise-title-legacy.webp" alt="Stellar Rise" /></div>
     <div class="card-main">
       <h2 class="card-title">Stellar Rise <span class="icon-font">|</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="stellar-rise-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Your printed squadron value is treated as 3. You cannot spend <span class="icon-font">8</span> dials to resolve the <span class="icon-font">8</span> command.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">While a ship equipped with this Upgrade Card would resolve a <span class="icon-font">8</span> command, it may only resolve the effect of <span class="icon-font">8</span> tokens. The effect of a dial cannot be used.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships equipped with this Upgrade Card may still spend a <span class="icon-font">8</span> dial to receive a <span class="icon-font">8</span> token, they just cannot resolve the <span class="icon-font">8</span> command with that dial.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A ship equipped with this Upgrade Card may set aside up to 3 squadrons with Rapid Launch Bays&#39; effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When a ship equipped with this Upgrade Card resolves Boarding Troopers, it may spend up to 3 defense tokens on the chosen enemy ship.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship is equipped with this Upgrade Card, it may choose up to 3 friendly squadrons when resolving Fighter Coordination Team.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship equipped with this Upgrade Card is eligible for Admiral Yularen&#39;s first effect and resolves the effect of a <span class="icon-font">8</span> token, it may still activate an extra squadron from Admiral Yularen&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships equipped with this Upgrade Card may still discard a <span class="icon-font">8</span> dial to clear raid tokens, resolve another card effect, or damage card effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="stellar-rise-title-2" data-name="stellar rise" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/stellar-rise-title-community.webp" alt="Stellar Rise" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Stellar Rise <span class="icon-font">|</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="stellar-rise-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -3313,6 +3861,36 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/surrogator-title-legacy.webp" alt="Surrogator" /></div>
     <div class="card-main">
       <h2 class="card-title">Surrogator <span class="icon-font">|</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="surrogator-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><span class="icon-font">8</span>: Squadrons you activate at distance 1 of a squadron with the printed <strong><span class="keyword-name">Assault</span></strong> keyword may reroll 1 <span class="icon-font">T</span> icon when attacking.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect occurs when a squadron that is at distance 1 of a friendly squadron with the printed <span class="keyword-name">Assault</span> keyword is activated by this ship&#39;s <span class="icon-font">8</span> command.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The squadron does not have to begin its activation at distance 1 of a friendly squadron with the printed <span class="keyword-name">Assault</span> keyword to gain this Upgrade Card&#39;s effect. It only has to be at distance 1 when performing its attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The reroll granted by this Upgrade Card may be used while attacking a ship or squadron.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Squadrons that gain <span class="keyword-name">Assault</span> from an effect such as Clone Commander Wolffe, but do not have the <span class="keyword-name">Assault</span> keyword printed on their squadron card do not trigger this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Squadrons activated by a ship equipped with both this Upgrade Card and Clone Commander Wolffe that begin their activation at distance 1 of a friendly squadron with the printed <span class="keyword-name">Assault</span> keyword may reroll 1 die while attacking a ship, and spend a die with either a <span class="icon-font">T</span> or an <span class="icon-font">U</span> icon to resolve the <span class="keyword-name">Assault</span> effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="surrogator-title-2" data-name="surrogator" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/surrogator-title-community.webp" alt="Surrogator" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Surrogator <span class="icon-font">|</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="surrogator-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -3503,6 +4081,36 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="thunder-wasp-title-2" data-name="thunder wasp" data-factions="republic" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/thunder-wasp-title-community.webp" alt="Thunder Wasp" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Thunder Wasp <span class="icon-font">|</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="thunder-wasp-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When you would add a die from the <span class="icon-font">9</span> dial effect, that die may be of any color.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect occurs when the ship is resolving a <span class="icon-font">9</span> command as a dial.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The die added may be of any color, and does not have to match a color already in the attack pool.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The die can be added regardless of range, so a black die may be added at medium and long range, and a blue die may be added at long range.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">After rolling dice, if all dice are removed from the attack pool (such as Solar Corona forcing a die to be discarded) so there are no dice remaining, this Upgrade Card can still be used to add a die of any color to the attack pool.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect may be used before or after effects like Clone Gunners which also share the <span class="icon-font">9</span> command timing window.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="tide-of-progress-xii-title" data-name="tide of progress xii" data-factions="separatist" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tide-of-progress-xii-title.webp" alt="Tide of Progress XII" /></div>
@@ -3659,11 +4267,54 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="virtue-s-reward-title" data-name="virtue&#39;s reward" data-factions="rebel" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/virtues-reward-title-content-playtest.webp" alt="Virtue&#39;s Reward" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Virtue&#39;s Reward <span class="icon-font">[</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="virtue-s-reward-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="visgura-title" data-name="visgura" data-factions="separatist" data-category="upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/visgura-title-legacy.webp" alt="Visgura" /></div>
     <div class="card-main">
       <h2 class="card-title">Visgura <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="visgura-title" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After you reveal a command, you may discard a command token and choose 1 friendly ship at distance 1-5. If you do, you may change that ship&#39;s top command to match the discarded command token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This upgrade card&#39;s effect triggers before the Reveal Command Dial Step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Because this upgrade card occurs before the Reveal Command Dial Step, it can be used to change the top command dial on the ship it is equipped to.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect can be used to change a command dial that was required to be set to a specific command by Tikkes.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can change a command dial that was previously changed by Slicer Tools.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="visgura-title-2" data-name="visgura" data-factions="separatist" data-category="upgrades" data-type="title">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/visgura-title-community.webp" alt="Visgura" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Visgura <span class="icon-font">}</span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="visgura-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -4215,11 +4866,11 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
-<article class="karm-card" id="intrepid-title-2" data-name="intrepid" data-factions="new-republic" data-category="nexus-upgrades" data-type="title">
+<article class="karm-card" id="intrepid-title-3" data-name="intrepid" data-factions="new-republic" data-category="nexus-upgrades" data-type="title">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intrepid-title-new-republic-nexus.webp" alt="Intrepid" /></div>
     <div class="card-main">
-      <h2 class="card-title">Intrepid <span class="faction-icon-nr"><svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M299.97 9C139.338 9 9 139.401 9 300.033C9 460.665 139.338 591.003 299.97 591.003C460.602 591.003 591.003 460.665 591.003 300.033C591.003 139.401 460.602 9 299.97 9Z" stroke="currentColor" stroke-width="10"/> <path d="M253.278 38.4763L249.829 55.5352L242.429 49.7022L244.373 59.047L227.502 54.5944L240.61 66.0086L231.767 69.5833L240.861 72.5307L228.568 84.8856L245.063 79.2412L243.746 88.6487L250.832 82.3146L255.411 99.1223L258.797 82.0636L266.198 87.8964L264.316 78.6142L281.124 83.0043L268.017 71.5901L276.86 68.0155L267.828 65.0047L280.058 52.6497L263.627 58.2942L264.881 48.8872L257.794 55.2841L253.278 38.4763ZM349.422 39.1034L345.345 55.9736L338.133 49.8906L339.638 59.2349L323.018 54.0921L335.562 66.0713L326.656 69.2694L335.624 72.6566L322.83 84.5099L339.45 79.5549L337.819 88.8373L345.157 82.8163L349.046 99.8125L353.122 82.8789L360.334 89.025L358.829 79.6176L375.386 84.7603L362.78 72.7818L371.749 69.6457L362.78 66.3219L375.574 54.406L358.892 59.2976L360.648 50.0158L353.31 56.0369L349.422 39.1034ZM164.598 76.2311L161.023 93.2271L153.623 87.2691L155.379 96.6764L138.696 91.9727L151.616 103.575L142.71 107.025L151.741 110.161L139.324 122.39L155.818 116.934L154.375 126.341L161.588 120.069L165.978 136.94L169.553 119.944L176.953 125.902L175.134 116.495L191.88 121.136L178.96 109.596L187.803 106.146L178.835 103.01L191.252 90.844L174.758 96.1747L176.138 86.8299L168.926 93.1018L164.598 76.2311ZM437.35 77.9872L433.398 94.9201L426.123 88.7747L427.754 98.2443L411.009 93.1645L423.678 105.018L414.772 108.279L423.74 111.603L411.009 123.519L427.691 118.502L425.998 127.846L433.336 121.763L437.287 138.696L441.238 121.763L448.513 127.909L446.882 118.502L463.565 123.519L450.959 111.666L459.864 108.404L450.896 105.08L463.627 93.2271L447.008 98.1815L448.638 88.8373L441.238 94.9835L437.35 77.9872ZM97.304 148.103L93.7292 165.037L86.3287 159.142L88.1476 168.486L71.4651 163.845L84.3219 175.447L75.4788 178.897L84.5099 181.97L72.0922 194.137L88.5864 188.743L87.2068 198.151L94.4191 191.879L98.8091 208.75L102.321 191.816L109.722 197.649L107.903 188.304L124.648 193.008L111.729 181.343L120.572 177.956L111.603 174.821L123.958 162.654L107.464 168.047L108.906 158.703L101.694 164.911L97.304 148.103ZM503.264 150.675L499.438 167.608L492.1 161.525L493.794 170.995L477.111 166.04L489.843 177.831L480.937 181.092L489.905 184.416L477.3 196.395L493.919 191.252L492.351 200.597L499.626 194.451L503.766 211.384L507.591 194.451L514.866 200.471L513.173 191.064L529.855 195.956L517.124 184.228L526.093 180.904L517.061 177.643L529.667 165.664L513.11 170.806L514.678 161.399L507.34 167.608L503.264 150.675ZM65.319 243.055L61.6187 260.051L54.2182 254.031L55.9743 263.438L39.2291 258.672L52.0859 270.274L43.243 273.723L52.2114 276.922L39.6681 288.963L56.225 283.695L54.7827 293.103L62.0577 286.831L66.1969 303.827L69.8972 286.831L77.235 292.789L75.4788 283.444L92.2868 288.274L79.43 276.483L88.273 273.159L79.3045 270.023L91.785 257.857L75.228 263.125L76.7959 253.78L69.5836 259.989L65.319 243.055ZM534.434 246.316L530.608 263.187L523.27 257.167L524.964 266.511L508.219 261.619L520.95 273.472L512.107 276.734L521.012 279.995L508.407 291.973L525.026 286.831L523.458 296.176L530.733 290.092L534.873 306.963L538.698 290.092L546.036 296.113L544.343 286.705L561.025 291.66L548.231 279.87L557.137 276.546L548.168 273.284L560.774 261.243L544.28 266.449L545.848 257.104L538.51 263.187L534.434 246.316ZM75.9179 343.965L72.1549 360.961L64.8172 354.94L66.5105 364.285L49.7655 359.393L62.5594 371.184L53.6538 374.508L62.6849 377.706L50.079 389.81L66.6359 384.605L65.1308 393.887L72.4057 387.803L76.5451 404.737L80.3708 387.741L87.7085 393.762L85.9524 384.354L102.698 389.246L89.9036 377.455L98.8091 374.131L89.7781 370.933L102.447 358.891L85.827 364.097L87.3949 354.752L80.1199 360.899L75.9179 343.965ZM522.267 347.164L518.504 364.159L511.166 358.202L512.922 367.547L496.177 362.78L509.034 374.445L500.191 377.832L509.159 381.03L496.616 393.134L513.173 387.866L511.668 397.211L518.943 391.002L523.145 407.936L526.845 390.94L534.183 396.96L532.427 387.553L549.172 392.319L536.378 380.654L545.221 377.267L536.19 374.069L548.733 361.965L532.176 367.233L533.681 357.888L526.406 364.097L522.267 347.164ZM125.589 429.384L122.202 446.381L114.676 440.548L116.621 449.892L99.8127 445.376L112.795 456.854L104.015 460.366L113.108 463.376L100.691 475.668L117.185 470.212L115.868 479.494L123.017 473.223L127.533 490.094L130.92 473.035L138.383 478.93L136.501 469.522L153.309 474.038L140.264 462.561L149.045 459.049L140.014 456.038L152.306 443.683L135.874 449.265L137.191 439.858L130.104 446.192L125.589 429.384ZM471.342 431.955L467.265 448.764L459.99 442.68L461.558 452.024L444.875 446.882L457.481 458.923L448.576 462.059L457.481 465.446L444.687 477.299L461.37 472.345L459.614 481.689L467.014 475.668L470.84 492.602L474.979 475.731L482.191 481.877L480.686 472.47L497.243 477.613L484.7 465.696L493.606 462.499L484.7 459.111L497.494 447.258L480.812 452.15L482.568 442.868L475.167 448.889L471.342 431.955ZM205.426 485.64L201.538 502.574L194.263 496.49L195.894 505.898L179.211 500.943L191.88 512.733L183.037 516.057L192.005 519.319L179.336 531.297L195.956 526.218L194.326 535.562L201.663 529.416L205.74 546.349L209.628 529.416L216.903 535.499L215.273 526.092L231.892 531.047L219.161 519.256L228.067 515.932L219.098 512.671L231.767 500.692L215.21 505.773L216.778 496.427L209.503 502.574L205.426 485.64ZM391.567 486.957L387.49 503.891L380.278 497.745L381.846 507.152L365.164 502.072L377.832 513.988L368.864 517.249L377.832 520.573L365.101 532.426L381.721 527.472L380.09 536.817L387.428 530.733L391.379 547.729L395.33 530.796L402.542 536.942L400.974 527.472L417.657 532.615L405.051 520.699L413.957 517.5L404.988 514.113L417.719 502.26L401.1 507.215L402.793 497.87L395.393 503.954L391.567 486.957ZM298.246 505.396L294.295 522.392L287.02 516.308L288.713 525.716L271.968 520.761L284.699 532.552L275.856 535.876L284.825 539.137L272.156 551.116L288.776 546.036L287.208 555.38L294.483 549.171L298.559 566.168L302.448 549.234L309.723 555.255L308.029 545.848L324.712 550.803L311.981 539.012L320.886 535.688L311.918 532.426L324.586 520.448L307.967 525.59L309.597 516.246L302.322 522.392L298.246 505.396Z" fill="currentColor"/> <path d="M300.002 99.0597L263.376 142.961C276.014 160.727 281.312 179.016 281.312 189.747C267.891 173.566 259.864 167.545 249.829 157.511L223.927 184.416C259.889 201.637 277.926 235.966 277.926 271.905C277.926 292.31 269.716 337.394 225.244 335.499C192.442 331.692 160.349 287.361 157.574 246.568C154.807 205.895 176.047 170.114 205.05 137.254C145.504 171.633 107.339 233.773 107.339 291.974C107.339 411.265 192.913 490.658 300.002 490.658C407.09 490.658 492.665 411.265 492.665 291.974C492.665 233.773 454.499 171.633 394.954 137.254C423.957 170.114 445.196 205.895 442.429 246.568C439.655 287.361 407.562 331.692 374.759 335.499C330.287 337.394 322.078 292.31 322.078 271.905C322.078 235.966 340.114 201.637 376.076 184.416L350.174 157.511C340.14 167.545 332.112 173.566 318.691 189.747C318.691 179.016 323.989 160.727 336.628 142.961L300.002 99.0597Z" fill="currentColor"/> </svg></span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="intrepid-title-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <h2 class="card-title">Intrepid <span class="faction-icon-nr"><svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M299.97 9C139.338 9 9 139.401 9 300.033C9 460.665 139.338 591.003 299.97 591.003C460.602 591.003 591.003 460.665 591.003 300.033C591.003 139.401 460.602 9 299.97 9Z" stroke="currentColor" stroke-width="10"/> <path d="M253.278 38.4763L249.829 55.5352L242.429 49.7022L244.373 59.047L227.502 54.5944L240.61 66.0086L231.767 69.5833L240.861 72.5307L228.568 84.8856L245.063 79.2412L243.746 88.6487L250.832 82.3146L255.411 99.1223L258.797 82.0636L266.198 87.8964L264.316 78.6142L281.124 83.0043L268.017 71.5901L276.86 68.0155L267.828 65.0047L280.058 52.6497L263.627 58.2942L264.881 48.8872L257.794 55.2841L253.278 38.4763ZM349.422 39.1034L345.345 55.9736L338.133 49.8906L339.638 59.2349L323.018 54.0921L335.562 66.0713L326.656 69.2694L335.624 72.6566L322.83 84.5099L339.45 79.5549L337.819 88.8373L345.157 82.8163L349.046 99.8125L353.122 82.8789L360.334 89.025L358.829 79.6176L375.386 84.7603L362.78 72.7818L371.749 69.6457L362.78 66.3219L375.574 54.406L358.892 59.2976L360.648 50.0158L353.31 56.0369L349.422 39.1034ZM164.598 76.2311L161.023 93.2271L153.623 87.2691L155.379 96.6764L138.696 91.9727L151.616 103.575L142.71 107.025L151.741 110.161L139.324 122.39L155.818 116.934L154.375 126.341L161.588 120.069L165.978 136.94L169.553 119.944L176.953 125.902L175.134 116.495L191.88 121.136L178.96 109.596L187.803 106.146L178.835 103.01L191.252 90.844L174.758 96.1747L176.138 86.8299L168.926 93.1018L164.598 76.2311ZM437.35 77.9872L433.398 94.9201L426.123 88.7747L427.754 98.2443L411.009 93.1645L423.678 105.018L414.772 108.279L423.74 111.603L411.009 123.519L427.691 118.502L425.998 127.846L433.336 121.763L437.287 138.696L441.238 121.763L448.513 127.909L446.882 118.502L463.565 123.519L450.959 111.666L459.864 108.404L450.896 105.08L463.627 93.2271L447.008 98.1815L448.638 88.8373L441.238 94.9835L437.35 77.9872ZM97.304 148.103L93.7292 165.037L86.3287 159.142L88.1476 168.486L71.4651 163.845L84.3219 175.447L75.4788 178.897L84.5099 181.97L72.0922 194.137L88.5864 188.743L87.2068 198.151L94.4191 191.879L98.8091 208.75L102.321 191.816L109.722 197.649L107.903 188.304L124.648 193.008L111.729 181.343L120.572 177.956L111.603 174.821L123.958 162.654L107.464 168.047L108.906 158.703L101.694 164.911L97.304 148.103ZM503.264 150.675L499.438 167.608L492.1 161.525L493.794 170.995L477.111 166.04L489.843 177.831L480.937 181.092L489.905 184.416L477.3 196.395L493.919 191.252L492.351 200.597L499.626 194.451L503.766 211.384L507.591 194.451L514.866 200.471L513.173 191.064L529.855 195.956L517.124 184.228L526.093 180.904L517.061 177.643L529.667 165.664L513.11 170.806L514.678 161.399L507.34 167.608L503.264 150.675ZM65.319 243.055L61.6187 260.051L54.2182 254.031L55.9743 263.438L39.2291 258.672L52.0859 270.274L43.243 273.723L52.2114 276.922L39.6681 288.963L56.225 283.695L54.7827 293.103L62.0577 286.831L66.1969 303.827L69.8972 286.831L77.235 292.789L75.4788 283.444L92.2868 288.274L79.43 276.483L88.273 273.159L79.3045 270.023L91.785 257.857L75.228 263.125L76.7959 253.78L69.5836 259.989L65.319 243.055ZM534.434 246.316L530.608 263.187L523.27 257.167L524.964 266.511L508.219 261.619L520.95 273.472L512.107 276.734L521.012 279.995L508.407 291.973L525.026 286.831L523.458 296.176L530.733 290.092L534.873 306.963L538.698 290.092L546.036 296.113L544.343 286.705L561.025 291.66L548.231 279.87L557.137 276.546L548.168 273.284L560.774 261.243L544.28 266.449L545.848 257.104L538.51 263.187L534.434 246.316ZM75.9179 343.965L72.1549 360.961L64.8172 354.94L66.5105 364.285L49.7655 359.393L62.5594 371.184L53.6538 374.508L62.6849 377.706L50.079 389.81L66.6359 384.605L65.1308 393.887L72.4057 387.803L76.5451 404.737L80.3708 387.741L87.7085 393.762L85.9524 384.354L102.698 389.246L89.9036 377.455L98.8091 374.131L89.7781 370.933L102.447 358.891L85.827 364.097L87.3949 354.752L80.1199 360.899L75.9179 343.965ZM522.267 347.164L518.504 364.159L511.166 358.202L512.922 367.547L496.177 362.78L509.034 374.445L500.191 377.832L509.159 381.03L496.616 393.134L513.173 387.866L511.668 397.211L518.943 391.002L523.145 407.936L526.845 390.94L534.183 396.96L532.427 387.553L549.172 392.319L536.378 380.654L545.221 377.267L536.19 374.069L548.733 361.965L532.176 367.233L533.681 357.888L526.406 364.097L522.267 347.164ZM125.589 429.384L122.202 446.381L114.676 440.548L116.621 449.892L99.8127 445.376L112.795 456.854L104.015 460.366L113.108 463.376L100.691 475.668L117.185 470.212L115.868 479.494L123.017 473.223L127.533 490.094L130.92 473.035L138.383 478.93L136.501 469.522L153.309 474.038L140.264 462.561L149.045 459.049L140.014 456.038L152.306 443.683L135.874 449.265L137.191 439.858L130.104 446.192L125.589 429.384ZM471.342 431.955L467.265 448.764L459.99 442.68L461.558 452.024L444.875 446.882L457.481 458.923L448.576 462.059L457.481 465.446L444.687 477.299L461.37 472.345L459.614 481.689L467.014 475.668L470.84 492.602L474.979 475.731L482.191 481.877L480.686 472.47L497.243 477.613L484.7 465.696L493.606 462.499L484.7 459.111L497.494 447.258L480.812 452.15L482.568 442.868L475.167 448.889L471.342 431.955ZM205.426 485.64L201.538 502.574L194.263 496.49L195.894 505.898L179.211 500.943L191.88 512.733L183.037 516.057L192.005 519.319L179.336 531.297L195.956 526.218L194.326 535.562L201.663 529.416L205.74 546.349L209.628 529.416L216.903 535.499L215.273 526.092L231.892 531.047L219.161 519.256L228.067 515.932L219.098 512.671L231.767 500.692L215.21 505.773L216.778 496.427L209.503 502.574L205.426 485.64ZM391.567 486.957L387.49 503.891L380.278 497.745L381.846 507.152L365.164 502.072L377.832 513.988L368.864 517.249L377.832 520.573L365.101 532.426L381.721 527.472L380.09 536.817L387.428 530.733L391.379 547.729L395.33 530.796L402.542 536.942L400.974 527.472L417.657 532.615L405.051 520.699L413.957 517.5L404.988 514.113L417.719 502.26L401.1 507.215L402.793 497.87L395.393 503.954L391.567 486.957ZM298.246 505.396L294.295 522.392L287.02 516.308L288.713 525.716L271.968 520.761L284.699 532.552L275.856 535.876L284.825 539.137L272.156 551.116L288.776 546.036L287.208 555.38L294.483 549.171L298.559 566.168L302.448 549.234L309.723 555.255L308.029 545.848L324.712 550.803L311.981 539.012L320.886 535.688L311.918 532.426L324.586 520.448L307.967 525.59L309.597 516.246L302.322 522.392L298.246 505.396Z" fill="currentColor"/> <path d="M300.002 99.0597L263.376 142.961C276.014 160.727 281.312 179.016 281.312 189.747C267.891 173.566 259.864 167.545 249.829 157.511L223.927 184.416C259.889 201.637 277.926 235.966 277.926 271.905C277.926 292.31 269.716 337.394 225.244 335.499C192.442 331.692 160.349 287.361 157.574 246.568C154.807 205.895 176.047 170.114 205.05 137.254C145.504 171.633 107.339 233.773 107.339 291.974C107.339 411.265 192.913 490.658 300.002 490.658C407.09 490.658 492.665 411.265 492.665 291.974C492.665 233.773 454.499 171.633 394.954 137.254C423.957 170.114 445.196 205.895 442.429 246.568C439.655 287.361 407.562 331.692 374.759 335.499C330.287 337.394 322.078 292.31 322.078 271.905C322.078 235.966 340.114 201.637 376.076 184.416L350.174 157.511C340.14 167.545 332.112 173.566 318.691 189.747C318.691 179.016 323.989 160.727 336.628 142.961L300.002 99.0597Z" fill="currentColor"/> </svg></span> <span class="icon-font"> A</span> <button class="copy-link-btn" data-anchor="intrepid-title-3" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -4735,6 +5386,66 @@ body.karm-web .card-divider {
     
     <script>
 (function () {
+  var scrim = document.querySelector('.drawer-scrim');
+  var toggles = document.querySelectorAll('[data-drawer-toggle]');
+
+  function isOpen(name) {
+    return document.body.classList.contains(name + '-open');
+  }
+
+  function setOpen(name, open) {
+    document.body.classList.toggle('toc-open', name === 'toc' && open);
+    document.body.classList.toggle('search-open', name === 'search' && open);
+    if (scrim) scrim.hidden = !open;
+    for (var i = 0; i < toggles.length; i++) {
+      var t = toggles[i];
+      t.setAttribute('aria-expanded', String(open && t.getAttribute('data-drawer-toggle') === name));
+    }
+    if (open && name === 'search') {
+      var input = document.getElementById('karm-search-input');
+      if (input) input.focus();
+    }
+  }
+
+  function closeAll() {
+    setOpen('', false);
+  }
+
+  for (var i = 0; i < toggles.length; i++) {
+    (function (toggle) {
+      var name = toggle.getAttribute('data-drawer-toggle');
+      toggle.addEventListener('click', function () {
+        setOpen(name, !isOpen(name));
+      });
+    })(toggles[i]);
+  }
+
+  if (scrim) scrim.addEventListener('click', closeAll);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      // A non-empty search input swallows the first Escape to clear itself
+      // (see the filter script), so reaching here means there is nothing left to clear.
+      closeAll();
+      return;
+    }
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      var tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+      e.preventDefault();
+      setOpen('search', true);
+    }
+  });
+
+  // Close the menu after following an in-page link so the content isn't left covered.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('.toc-drawer a[href^="#"]');
+    if (link) closeAll();
+  });
+})();
+</script>
+    <script>
+(function () {
   var searchInput = document.getElementById('karm-search-input');
   var filtersContainer = document.getElementById('karm-faction-filters');
   var noResults = document.getElementById('karm-no-results');
@@ -4849,10 +5560,13 @@ body.karm-web .card-divider {
   });
 
   searchInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      searchInput.value = '';
-      applyFilters();
-    }
+    if (e.key !== 'Escape') return;
+    if (!searchInput.value) return;
+    // Clear the query first and stop the event here; a second Escape reaches the
+    // drawer script's document handler and closes the drawer.
+    searchInput.value = '';
+    applyFilters();
+    e.stopPropagation();
   });
 })();
 </script>
@@ -4905,6 +5619,6 @@ body.karm-web .card-divider {
   });
 })();
 </script>
-    <!-- Generated cards: 140 -->
+    <!-- Generated cards: 169 -->
   </body>
 </html>

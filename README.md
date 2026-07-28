@@ -24,6 +24,14 @@ Reference and discovery site for Star Wars: Armada cards/content (ships, squadro
 - Deep-links to Star Forge (`https://star-forge.tools`) from resources/about pages
 - Uses browser cache/localStorage data strategy compatible with Star Forge content keys
 
+## Routing
+
+`/` redirects to `/rulings`, the **Rules & Rulings** site generated into `public/rulings/`
+by the `prebuild` step. `/rulings` is rewritten to `/rulings/index.html` in
+`next.config.ts` — Next serves `public/` files by exact path, so without that rewrite the
+redirect lands on a 404. The card wiki pages below live at their own routes
+(`/ships`, `/squadrons`, …) and are linked from the rulings index footer.
+
 ## Features
 
 - Browse pages for ships, squadrons, upgrades, objectives

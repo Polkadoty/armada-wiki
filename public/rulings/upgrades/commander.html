@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
+    <title>Rules &amp; Rulings</title>
+    <meta name="description" content="Comprehensive rulings and clarifications for Star Wars: Armada" />
+    <meta name="theme-color" content="#24408f" />
     <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
@@ -175,9 +177,17 @@ body.toc-open .toc-drawer {
 }
 
 .toc-title {
+  display: block;
   font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 36px;
+  font-size: 32px;
+  line-height: 1.1;
   margin: 0 0 10px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.toc-title:hover {
+  text-decoration: underline;
 }
 
 .toc-link {
@@ -194,9 +204,30 @@ body.toc-open .toc-drawer {
   color: #24408f;
 }
 
+.toc-link.is-current {
+  color: #24408f;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 #24408f;
+  background: rgba(36, 64, 143, 0.06);
+}
+
 .toc-link.toc-sub {
   padding-left: 16px;
   font-size: 17px;
+}
+
+/* ── Drawer scrim ── */
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  background: rgba(20, 18, 16, 0.35);
+  border: 0;
+}
+
+.drawer-scrim[hidden] {
+  display: none;
 }
 
 .toc-section-label {
@@ -871,8 +902,11 @@ body.search-open .search-drawer {
 body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
-  background-size: 180%;
-  background-position: center top -60px;
+  /* The source asset is a full rulebook page including its printed frame. Zooming to
+     200% and centring keeps the viewport inside the parchment, so the frame's panel
+     strip never peeks in along the top edge. */
+  background-size: 200%;
+  background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
@@ -880,7 +914,15 @@ body.karm-web {
 
 @media (min-width: 1400px) {
   body.karm-web {
+    /* Wide enough that the frame's left/right edges read as an intentional border. */
     background-size: cover;
+  }
+}
+
+/* `background-attachment: fixed` is janky-to-unsupported on mobile browsers. */
+@media (max-width: 768px) {
+  body.karm-web {
+    background-attachment: scroll;
   }
 }
 
@@ -1150,6 +1192,29 @@ body.karm-web .card-divider {
   letter-spacing: 0.04em;
 }
 
+.index-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(36, 64, 143, 0.15);
+  text-align: center;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  color: #555;
+}
+
+.index-footer p {
+  margin: 0 0 6px;
+}
+
+.index-footer a {
+  color: var(--accent);
+}
+
+.index-disclaimer {
+  font-size: 13px;
+  color: #777;
+}
+
 @media (max-width: 480px) {
   .index-title { font-size: 32px; }
   .index-links li a { font-size: 16px; }
@@ -1162,6 +1227,7 @@ body.karm-web .card-divider {
 
   .toc-fab,
   .toc-drawer,
+  .drawer-scrim,
   .search-fab,
   .search-drawer,
   .no-results {
@@ -1215,18 +1281,19 @@ body.karm-web .card-divider {
   </head>
   <body class="karm-web">
     
-<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+<button type="button" class="toc-fab" aria-label="Open rulings menu" aria-expanded="false" data-drawer-toggle="toc">
   <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
 </button>
+<div class="drawer-scrim" data-drawer-close hidden></div>
 <aside class="toc-drawer" aria-label="Rulings navigation">
-  <div class="toc-title">Rulings</div>
+  <a class="toc-title" href="/rulings">Rules &amp; Rulings</a>
   <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
 <a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
 <a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
 <a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
 <div class="toc-section-label">Upgrades</div>
-<a href="/rulings/upgrades.html" class="toc-link toc-sub">All</a>
-<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
+<a href="/rulings/upgrades.html" class="toc-link toc-sub">All Upgrades</a>
+<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub is-current" aria-current="page">Commander</a>
 <a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
 <a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
 <a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
@@ -1241,11 +1308,13 @@ body.karm-web .card-divider {
 <a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
 <a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
 <a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<a href="/rulings/upgrades/leader.html" class="toc-link toc-sub">Leader</a>
+<a href="/rulings/upgrades/veteran.html" class="toc-link toc-sub">Veteran</a>
 <div class="toc-section-label">Nexus</div>
 <a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
 <a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
 </aside>
-<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+<button type="button" class="search-fab" aria-label="Search cards" aria-expanded="false" data-drawer-toggle="search">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 </button>
 <aside class="search-drawer" aria-label="Search and filter">
@@ -1276,7 +1345,7 @@ body.karm-web .card-divider {
   <div class="header-content card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Card Text</h3>
-  <div class="ruling-content"><div class="card-text-content"><p>A is a special type of upgrade card with the <span class="icon-font">B</span> icon on its card back and no upgrade icon in the card front.</p><ul><li>A <span class="icon-font">B</span> can be equipped to any ship except Flotillas.</li><li>A fleet cannot have more than one <span class="icon-font">B</span>.</li><li>A ship with a <span class="icon-font">B</span> equipped is a flagship.</li><li>A <span class="icon-font">B</span> must be in the play area to be able to resolve. If this card has been set aside, then the <span class="icon-font">B</span> ability cannot resolve.</li></ul></div></div>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">B</span> is a special type of upgrade card with the <span class="icon-font">B</span> icon on its card back and no upgrade icon in the card front.</p><ul><li>A <span class="icon-font">B</span> can be equipped to any ship except Flotillas.</li><li>A fleet cannot have more than one <span class="icon-font">B</span>.</li><li>A ship with a <span class="icon-font">B</span> equipped is a flagship.</li><li>A <span class="icon-font">B</span> must be in the play area to be able to resolve. If this card has been set aside, then the <span class="icon-font">B</span> ability cannot resolve.</li></ul></div></div>
 </div></div>
 </article>
 
@@ -1347,6 +1416,23 @@ body.karm-web .card-divider {
   <div class="ruling-content"><ul><li><span class="ruling-text">This card does not work with Armed Stations or Unarmed Stations as they are not given a size class.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-motti-commander-2" data-name="admiral motti" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-motti-commander-errata-community.webp" alt="Admiral Motti" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Motti <span class="icon-font">\</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="admiral-motti-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>The hull value of each friendly ship is increased according to its size class:</p><p>Small ship: 1</p><p>Medium ship: 2</p><p>Large ship: 3</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
 </article>
 <hr class="card-divider" />
 
@@ -1455,6 +1541,31 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="admiral-screed-commander-3" data-name="admiral screed" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-screed-commander-errata-community.webp" alt="Admiral Screed" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Screed <span class="icon-font">\</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="admiral-screed-commander-3" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per activation, when a friendly ship is attacking, it may spend 1 die to change a die to a face with a <span class="icon-font">T</span> icon. That die cannot be rerolled.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect is resolved in the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card can use its effect only once per activation, when a friendly ship is attacking during the &#39;Resolve Attack Effects&#39; step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">In a friendly ship&#39;s activation, if attacking squadrons, that ship may only use this Upgrade Card&#39;s effect on one squadron within that attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Ships that resolve this Upgrade Card&#39;s effect may spend a die to change any other die in their attack pool to a face with a <span class="icon-font">T</span> icon, even a <span class="icon-font">S</span><span class="icon-font">T</span> icon.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can resolve once during any ship or squadron&#39;s activation, even an opponent&#39;s. For example, this Upgrade Card&#39;s effect may be used in an enemy ship&#39;s activation to resolve on a <span class="icon-font">6</span> attack, or on a <span class="icon-font">g</span> attack against a squadron.</span> <span class="footnote-ref">[2]</span></li><li><span class="ruling-text">A die set to a face by this upgrade card&#39;s effect cannot be rerolled, either by attack effects (such as Leading Shots) or defense effects (such as Point Defense Ion Cannons). The die may still be modified in other ways, such as being set to a different face, cancelled, or spent. Unlike Lando Calrissian (Millennium Falcon), the die from this upgrade card&#39;s effect is still vulnerable to the <span class="icon-font">1</span> defense token effect (which cancels dice) but not to the <span class="icon-font">4</span> defense token effect when resolved at medium range (which rerolls a die).</span> <span class="footnote-ref">[3]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div><div>[2] Doty | 2026-03-03 | Website Updates</div><div>[3] ARC | 2026-07-07 | ARM v1.1</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="admiral-sloane-commander" data-name="admiral sloane" data-factions="empire" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-sloane-commander.webp" alt="Admiral Sloane" /></div>
@@ -1482,6 +1593,40 @@ body.karm-web .card-divider {
   <div class="ruling-content"><ul><li><span class="ruling-text">Electronic Countermeasures does not allow the defender to spend a defense token that, during this attack, has already been spent by this Upgrade Card&#39;s ability.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div></div>
   <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="captain-pellaeon-commander" data-name="captain pellaeon" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/captain-pellaeon-commander-content-playtest.webp" alt="Captain Pellaeon" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Captain Pellaeon <span class="icon-font">\</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="captain-pellaeon-commander" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Each ship in your fleet can equip a number of <span class="icon-font">:veteran:</span> cards equal to its command value.</p><p>When you activate, you may exhaust this card to refresh a <span class="icon-font">:veteran:</span> card on a friendly ship at distance 1-5.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="darth-vader-commander" data-name="darth vader" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/darth-vader-commander-errata-community.webp" alt="Darth Vader" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Darth Vader <span class="icon-font">\</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="darth-vader-commander" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship, it may spend 1 of its defense tokens to reroll any number of dice in its attack pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
 </article>
 <hr class="card-divider" />
 
@@ -1539,7 +1684,7 @@ body.karm-web .card-divider {
   <div class="card-bottom card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Clarifications</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">If the ship this Upgrade Card is equipped to is destroyed, this Upgrade Card&#39;s ability (if active) will remain in effect until the end of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This card can only resolve against enemy ships that spend tokens in their &#39;Spend Defense Tokens&#39; step. Any defense tokens that are spent &#39;while attacking&#39; would not be discarded due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded due to Darth Vader (Officer), any remaining defensive tokens on this Upgrade Card cannot be discarded. However if a defensive token was discarded at the beginning of the turn, the card ability will remain in effect until the end of the turn.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If the ship this Upgrade Card is equipped to is destroyed, this Upgrade Card&#39;s ability (if active) will remain in effect until the end of the round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This card can only resolve against enemy ships that spend tokens in their &#39;Spend Defense Tokens&#39; step. Any defense tokens that are spent &#39;while attacking&#39; would not be discarded due to this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded due to <a class="card-ref" href="#darth-vader-commander"><em>Darth Vader</em></a> (Officer), any remaining defensive tokens on this Upgrade Card cannot be discarded. However if a defensive token was discarded at the beginning of the turn, the card ability will remain in effect until the end of the turn.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1560,6 +1705,23 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/emperor-palpatine-commander-errata-arc.webp" alt="Emperor Palpatine" /></div>
     <div class="card-main">
       <h2 class="card-title">Emperor Palpatine <span class="icon-font">\</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="emperor-palpatine-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets, place 1 defense token of each type on this card. At the start of each Ship Phase you may discard 1 of those tokens. If you do, until the end of the round, if an enemy ship or squadron spends a matching token, discard that token. This card&#39;s effect cannot be resolved against friendly ships or squadrons.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="emperor-palpatine-commander-3" data-name="emperor palpatine" data-factions="empire" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/emperor-palpatine-commander-errata-community.webp" alt="Emperor Palpatine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Emperor Palpatine <span class="icon-font">\</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="emperor-palpatine-commander-3" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1661,7 +1823,7 @@ body.karm-web .card-divider {
 
 <div class="ruling-section">
   <h3 class="ruling-heading">Upgrade Interactions</h3>
-  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s dials cannot be targeted by effects like Slicer Tools, the damage card Comm Noise, or the boarding team Cham Syndulla. This is because these effects target dials in a ship&#39;s command stack, and Thrawn&#39;s dials are not kept in a command stack; they are gained at the beginning of the ship phase.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded due to Darth Vader (Officer), any remaining command dials on the card cannot be revealed and discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Dials gained from this card can be discarded to trigger Boarding Teams, provided any command dial is being revealed by the ship. The squadron dial being discarded does not need to be the one being revealed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Upgrades that trigger or resolve only on a ship&#39;s &#39;revealed&#39; dial (e.g., Commandant Aresko, Taskmaster Grint, Wing Commander) do not trigger or resolve on dials &#39;gained&#39; from this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">For ships with Comms Net: When a ship &#39;reveals&#39; its command dial, it also &#39;gains&#39; a dial from this Upgrade Card at the same time. The player must declare if these dials will be used or gained as tokens. If the ship is at maximum token capacity, the gained dial would replace an existing token before it could be assigned by Comms Net.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before Comms Net&#39;s timing (which is after the Reveal Command dial step). Comms Net can send away a token gained from this Upgrade Card. However, a player cannot gain a token from this Upgrade Card, send it away with Comms Net, and then convert their dial to another command token. Also, Comms Net cannot be used to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s dials cannot be targeted by effects like Slicer Tools, the damage card Comm Noise, or the boarding team Cham Syndulla. This is because these effects target dials in a ship&#39;s command stack, and Thrawn&#39;s dials are not kept in a command stack; they are gained at the beginning of the ship phase.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If this Upgrade Card is discarded due to <a class="card-ref" href="#darth-vader-commander"><em>Darth Vader</em></a> (Officer), any remaining command dials on the card cannot be revealed and discarded.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Dials gained from this card can be discarded to trigger Boarding Teams, provided any command dial is being revealed by the ship. The squadron dial being discarded does not need to be the one being revealed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Upgrades that trigger or resolve only on a ship&#39;s &#39;revealed&#39; dial (e.g., Commandant Aresko, Taskmaster Grint, Wing Commander) do not trigger or resolve on dials &#39;gained&#39; from this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">For ships with Comms Net: When a ship &#39;reveals&#39; its command dial, it also &#39;gains&#39; a dial from this Upgrade Card at the same time. The player must declare if these dials will be used or gained as tokens. If the ship is at maximum token capacity, the gained dial would replace an existing token before it could be assigned by Comms Net.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before Comms Net&#39;s timing (which is after the Reveal Command dial step). Comms Net can send away a token gained from this Upgrade Card. However, a player cannot gain a token from this Upgrade Card, send it away with Comms Net, and then convert their dial to another command token. Also, Comms Net cannot be used to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
 </div>
 
 <div class="ruling-section">
@@ -1782,6 +1944,23 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="admiral-nantz-commander" data-name="admiral nantz" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-nantz-commander-content-playtest.webp" alt="Admiral Nantz" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Nantz <span class="icon-font">[</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="admiral-nantz-commander" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets, if a friendly ship has 4 or more defense tokens, it may replace 1 of its defense tokens with a <span class="icon-font">6</span> defense token, otherwise it gains 1 <span class="icon-font">6</span> defense token.</p><p>When declaring a non-<span class="icon-font">6</span> attack, friendly ships may spend a readied <span class="icon-font">6</span> defense token to also gather their anti-squadron armament as part of their armament pool.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="admiral-raddus-commander" data-name="admiral raddus" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-raddus-commander.webp" alt="Admiral Raddus" /></div>
@@ -1852,6 +2031,23 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commander-sato-commander-errata-arc.webp" alt="Commander Sato" /></div>
     <div class="card-main">
       <h2 class="card-title">Commander Sato <span class="icon-font">[</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="commander-sato-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking a ship at distance 1 of a friendly squadron, the attacker may add 2 dice, each of any color. If it does, it must cancel 1 attack dice.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="commander-sato-commander-3" data-name="commander sato" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/commander-sato-commander-errata-community.webp" alt="Commander Sato" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Commander Sato <span class="icon-font">[</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="commander-sato-commander-3" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1994,6 +2190,23 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-draven-commander-errata-arc.webp" alt="General Draven" /></div>
     <div class="card-main">
       <h2 class="card-title">General Draven <span class="icon-font">[</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="general-draven-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After an enemy ship resolves a command, you may discard a matching command token from this card. If you do, that enemy ship gains 1 matching raid token.</p><p>While a friendly squadron is attacking, if it is at distance 1-2 of an enemy ship with at least 1 raid token, it may reroll 1 die.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="general-draven-commander-3" data-name="general draven" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-draven-commander-errata-community.webp" alt="General Draven" /></div>
+    <div class="card-main">
+      <h2 class="card-title">General Draven <span class="icon-font">[</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="general-draven-commander-3" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2168,6 +2381,23 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="leia-organa-commander-3" data-name="leia organa" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/leia-organa-commander-errata-community.webp" alt="Leia Organa" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Leia Organa <span class="icon-font">[</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="leia-organa-commander-3" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship resolves a command by spending the command dial it revealed, it may resolve that command as if it also spent a matching command token.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="mon-mothma-commander" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-mothma-commander.webp" alt="Mon Mothma" /></div>
@@ -2215,6 +2445,23 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="mon-mothma-commander-3" data-name="mon mothma" data-factions="rebel" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/mon-mothma-commander-errata-community.webp" alt="Mon Mothma" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Mon Mothma <span class="icon-font">[</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="mon-mothma-commander-3" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When a friendly ship resolves the <span class="icon-font">4</span> token effect, it can cancel 1 die at medium range or reroll 1 additional die at close range or distance 1.</p><p>While a friendly ship is defending, it may spend an <span class="icon-font">4</span> token that the attacker has targeted with an <span class="icon-font">U</span> result.</p></div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="admiral-coburn-commander" data-name="admiral coburn" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-coburn-commander-legacy.webp" alt="Admiral Coburn" /></div>
@@ -2240,11 +2487,71 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="admiral-coburn-commander-2" data-name="admiral coburn" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-coburn-commander-community.webp" alt="Admiral Coburn" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Coburn <span class="icon-font">|</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="admiral-coburn-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship at distance 1-2 of an enemy ship or obstacle is executing a maneuver, before the Determine Course step, it may change each of its &#39;-&#39; yaw values to &#39;I&#39; until the end of that maneuver.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect occurs before the Determine Course step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a friendly ship does not have any native &#39;-&#39; yaw values in its navigation chart, it cannot resolve this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship&#39;s yaw effect is reduced by a card effect or damage card during the Determine Course step, this Upgrade Card&#39;s effect cannot be used to increase the yaw effect in that timestep. This is different than <a class="card-ref" href="#general-madine-commander"><em>General Madine</em></a>, who resolves during the Determine Course step, not before the Determine Course step.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect may apply to any maneuvers executed during a ship&#39;s activation, including a second maneuver granted by Engine Techs or Rift Assault.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-10-27 | Legacy Wave 1 FAQ 1.0</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="admiral-tarkin-commander" data-name="admiral tarkin" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-tarkin-commander.webp" alt="Admiral Tarkin" /></div>
     <div class="card-main">
       <h2 class="card-title">Admiral Tarkin <span class="icon-font">|</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="admiral-tarkin-commander" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>At the start of each Ship Phase, you may discard 1 command token from this card. If you do, either you gain 1 matching command dial, or each friendly ship gains 1 matching command token.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The initial effect of this card triggers when that ship is deployed &#39;during the Deploy Ships step of setup&#39;, place only 6 command tokens of any type on this card. The second part of this Upgrade Card triggers at the start of each Ship Phase.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card would not receive any command tokens on this card (and would thus be useless) if the ship it is equipped to is set aside before fleets are deployed, such as by Hyperspace Assault&#39;s Setup effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The dial that is &#39;gained&#39; from this Upgrade Card may be turned into a matching command token.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You cannot resolve two dials of the same command. You may use this Upgrade Card&#39;s effect to generate a token if you have revealed the matching command dial. Only a dial, or a token, or a dial + token together may be resolved in the same activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s dial cannot be discarded to clear all Raid tokens. Only a ship&#39;s &#39;revealed&#39; dial may be discarded, and this Upgrade Card&#39;s dials are &#39;gained&#39; not &#39;revealed&#39;. However this Upgrade Card&#39;s dial can be turned into a token that may be used to clear a matching Raid token. This would allow a command to be resolved if the ship&#39;s dial is also of that command.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">As long as a ship has &#39;revealed&#39; a dial, this Upgrade Card&#39;s dial can be discarded to trigger Boarding Teams, as the squadron dial being discarded does not need to be the one being revealed.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s ability can be resolved before you choose to resolve Fleet Commands, as they share the same timing.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s timing occurs before that of Comms Net, which is after the Reveal Command dial step. Comms Net can send away a token gained from this Upgrade Card. However you may not gain a token from this Upgrade Card, send it to another ship using Comms Net, and then convert your dial to another command token. You also may not use Comms Net to make room for a token gained from this Upgrade Card.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Damage Card Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The Crew Panic damage card only affects the ship&#39;s dial, not this Upgrade Card&#39;s dial as they are &#39;gained&#39; not &#39;revealed&#39;.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="admiral-tarkin-commander-2" data-name="admiral tarkin" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/admiral-tarkin-commander-errata-community.webp" alt="Admiral Tarkin" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Admiral Tarkin <span class="icon-font">|</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="admiral-tarkin-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2415,6 +2722,56 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="ki-adi-mundi-commander-2" data-name="ki-adi-mundi" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ki-adi-mundi-commander-errata-community.webp" alt="Ki-Adi-Mundi" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Ki-Adi-Mundi <span class="icon-font">|</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="ki-adi-mundi-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly ship is attacking, after they roll their attack pool, it may suffer one damage to add one dice of any color already in its attack pool to the attack pool. Then, the attacker gains a <span class="icon-font">)</span> token. If it already has a <span class="icon-font">)</span>, the attacking hull zone suffers one damage.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s effect triggers after rolling the initial attack pool, but before the &#39;Resolve Attack Effects&#39; step.<br/>The timing window to add the die from this Upgrade Card is shared with Intel Officer, meaning that you must add the die from this Upgrade Card before resolving additional attack effects. In this case, as the timing window is shared, the attacker may choose to resolve this Upgrade Card&#39;s effect or Intel Officer&#39;s effect in either order.<br/>Dice addition effects which may add dice of other colors, such as Clone Gunners, Quad Battery Turrets, Swivel-Mount Batteries, Dual Turbolaser Turrets, and Opening Salvo, must be declared after this Upgrade Card’s effect. This means this Upgrade Card may only add dice of a color in the original attack pool, before these upgrades resolve.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When a ship suffers damage from this Upgrade Card&#39;s effect, the 2 damage dealt to the attacking hull zone bypasses standard defense mechanics, and cannot be reduced or redirected. Damage can be dealt straight to hull as a facedown damage card if suffered on a hull zone with one or no shields remaining. You cannot bypass shields to take a facedown damage card.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If you resolve this Upgrade Card&#39;s effect during an attack, and the attacker suffers damage from this card&#39;s effect that would destroy it, it is immediately destroyed and the attack ends without resolving. However, if the ship is performing a <span class="keyword-name">Counter</span> attack, the attack will resolve completely.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You may resolve this Upgrade Card&#39;s effect when a ship is already destroyed and resolving a <span class="keyword-name">Counter</span> attack, as it would suffer damage and then be removed from the board as normal.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card cannot cause a proximity mine token to suffer damage, as a token does not make an attack and is not a ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect can be applied to an attack initiated from Ordnance Pods.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect can be applied to an anti-squadron attack using Linked Turbolaser Towers, although due to the timing window, the attacker must add a die of a color already in the attack pool, not add dice of a color only added through Linked Turbolaser Towers&#39;s effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect does not count as &quot;suffering damage from an attack&quot; for interactions with upgrades like Adi Gallia.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect can be used during an anti-squadron attack against any number of squadrons. The attacker may choose which squadron(s) to apply this Upgrade&#39;s effect to and which to resolve normally. The cost (gaining a raid token or suffering 2 damage) applies once for each instance the ability is used during the anti-squadron attack, and is applied as the ability use is declared.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If you add a die using this Upgrade Card&#39;s effect to a squadron you attack, you are not required to add a die against other squadrons in that attack.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Objective Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect has a timing window at the start of the &quot;Resolve Attack Effects&quot; step that must be declared before other dice adding or modifying effects, such as from Opening Salvo, can occur.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Counter and Salvo Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect cannot be added to a SALVO attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card can be added to a <span class="keyword-name">Counter</span> attack, such as one granted by Quad Laser Turrets.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect applies to Armed Stations. Armed Stations are treated as ships when resolving effects, and although you cannot assign an raid token to an Armed Station, you can still add a die to its attack pool as the dice-add effect occurs before the raid token assignment. In addition, because the station cannot be assigned a raid token, it cannot suffer 2 damage for having a raid token equipped.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-07-17 | FAQ 1.1</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="luminara-unduli-commander" data-name="luminara unduli" data-factions="republic" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/luminara-unduli-commander.webp" alt="Luminara Unduli" /></div>
@@ -2490,6 +2847,31 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-commander.webp" alt="Plo Koon" /></div>
     <div class="card-main">
       <h2 class="card-title">Plo Koon <span class="icon-font">|</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="plo-koon-commander" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>While a friendly squadron is attacking a ship that is at distance 1-3 of a friendly ship, the attacker may add 1 blue die set to an <span class="icon-font">U</span> icon to its attack pool. That die cannot be rerolled or changed. Friendly squadrons without <span class="keyword-name">Adept</span> gain <span class="keyword-name">Grit</span> while they are at distance 1 of a friendly squadron with <span class="keyword-name">Adept</span>.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The first effect of this Upgrade Card triggers during a friendly squadron&#39;s Attack step 3: &#39;Modifying Dice&#39;.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text"><span class="keyword-name">Grit</span> only applies as long as the &#39;at distance 1 of a friendly <span class="keyword-name">Adept</span> squadron&#39; condition is satisfied. If that condition is lost (by either the friendly squadron or the <span class="keyword-name">Adept</span> squadron moving away) then <span class="keyword-name">Grit</span> will also be lost instantly.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If Kickback performs an attack before moving while at distance 1 of a friendly squadron with <span class="keyword-name">Adept</span> but moves out of distance 1 using his ability, he would lose <span class="keyword-name">Grit</span> and not be able to move after the attack if engaged by a squadron. The same would apply in reverse if he used his ability to move into distance 1.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="plo-koon-commander-2" data-name="plo koon" data-factions="republic" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/plo-koon-commander-errata-community.webp" alt="Plo Koon" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Plo Koon <span class="icon-font">|</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="plo-koon-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2600,6 +2982,46 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="daultay-dofine-commander-2" data-name="daultay dofine" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/daultay-dofine-commander-community.webp" alt="Daultay Dofine" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Daultay Dofine <span class="icon-font">}</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="daultay-dofine-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>When activated by a ship, friendly non-unique squadrons with <span class="keyword-name">Ai: Anti-Squadron</span> may add a die of any color using <span class="keyword-name">Ai: Anti-Squadron</span> instead of a color already in their attack pool and friendly non-unique squadrons with <span class="keyword-name">Ai: Battery</span> may reroll one die in their attack pool when attacking a ship.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">The effects of this Upgrade Card trigger during a squadron&#39;s attack step when it resolves <span class="keyword-name">Ai</span>: Anti-Squadron or <span class="keyword-name">Ai</span>: Battery.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card only affects non-unique squadrons. Unique squadrons do not benefit from either effect.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The reroll granted after using <span class="keyword-name">Ai: Battery</span> occurs after the <span class="keyword-name">Ai</span> die has been added, and must occur before a reroll from another source, such as Bomber Command Center.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">Squadrons chosen by Hyperwave Signal Boost may also use this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Squadron Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">When using <span class="keyword-name">Ai: Anti-Squadron</span>, if the squadron is adding more than 1 die (such as with an <span class="keyword-name">Ai</span> value greater than 1), only 1 of those dice may be of any color. The others must follow standard <span class="keyword-name">Ai</span> rules.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">When using <span class="keyword-name">Ai: Battery</span>, squadrons may reroll a die from the initial attack pool, or one added from <span class="keyword-name">Ai: Battery</span>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Counter and Salvo Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card does not apply to <span class="keyword-name">Counter</span> attacks made outside of a squadron&#39;s activation, as those do not resolve the <span class="keyword-name">Ai</span> keyword.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s first effect applies to a <span class="keyword-name">Counter</span> attack made during a friendly squadron&#39;s activation. For example, Haor Chall Prototypes resolves its ability and initiates an anti-squadron attack against a friendly squadron during its activation. If that friendly squadron has both <span class="keyword-name">Ai: Anti-Squadron</span> and <span class="keyword-name">Counter</span>, the <span class="keyword-name">Counter</span> attack occurs during that squadron&#39;s activation, and thus it may resolve the <span class="keyword-name">Ai</span> keyword. If it does, it could resolve this Upgrade Card&#39;s first effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2025-07-17 | FAQ 1.1</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="general-grievous-commander" data-name="general grievous" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/general-grievous-commander.webp" alt="General Grievous" /></div>
@@ -2630,6 +3052,36 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kraken-commander.webp" alt="Kraken" data-base-image="https://images.swarmada.wiki/images/kraken-commander.webp" data-arc-image="https://images.swarmada.wiki/images/kraken-commander-errata-arc.webp" /></div>
     <div class="card-main">
       <h2 class="card-title">Kraken <span class="icon-font">}</span> <span class="icon-font"> B</span> <button class="arc-points-toggle" data-card-id="kraken-commander" title="Toggle ARC points image" aria-label="Toggle ARC points image">ARC</button> <button class="copy-link-btn" data-anchor="kraken-commander" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>Once per activation, while a friendly ship is attacking a ship, if another friendly ship is at close-medium range of the defender, the attacker may change 1 die to a face with any 1 icon (and no other icons).</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This ability may be resolved in the &#39;Resolve Attack Effects&#39; step.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s effect can resolve once per enemy ship&#39;s activation while performing a Salvo attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">You cannot change a die to a blank face, a double hit icon, or a hit/crit icon.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s effect does not work against enemy squadrons.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Obstacle Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s requirement of a friendly ship at close-medium range of the defender can be met by a friendly Unarmed Station, as Unarmed Stations are treated as ships when resolving effects.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] ARC | 2025-07-11 | ARM 1.03</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="kraken-commander-2" data-name="kraken" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kraken-commander-errata-community.webp" alt="Kraken" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Kraken <span class="icon-font">}</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="kraken-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2720,6 +3172,46 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="poggle-the-lesser-commander-2" data-name="poggle the lesser" data-factions="separatist" data-category="upgrades" data-type="commander">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/poggle-the-lesser-commander-community.webp" alt="Poggle the Lesser" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Poggle the Lesser <span class="icon-font">}</span> <span class="icon-font"> B</span> <button class="copy-link-btn" data-anchor="poggle-the-lesser-commander-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p>After deploying fleets, each friendly ship gains a command token. Friendly ships may be assigned 1 more command token than their command value. After you or a friendly small non-flotilla ship is declared the target of an attack, it may discard 1 command token to obstruct the attack.</p></div>
+</div>
+<div class="top-summary-block">
+  <div class="top-summary-label">Timing</div>
+  <div class="top-summary-text">This Upgrade Card&#39;s first effect to grant a command token occurs after deploying fleets.<br/>This Upgrade Card&#39;s second effect is permanent until the flagship is destroyed, then all ships in the fleet must choose and discard any excess command tokens.<br/>This Upgrade Card&#39;s third effect occurs after the Declare Target step before rolling dice.</div>
+</div></div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This Upgrade Card&#39;s first effect only applies after deploying fleets, meaning that ships held off the board, such as through Hyperspace Assault, would not gain a command token after they deploy.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This Upgrade Card&#39;s obstruction effect may resolve against ships or squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Command token assignment from this Upgrade Card&#39;s second effect only affects the number of tokens that can be &quot;held&quot; on a ship, not the number of tokens that may be gained by converting a command dial to a command token as an example.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Command tokens discarded to resolve this Upgrade Card&#39;s effect may not resolve other effects that trigger off of a command token discard.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The obstruction granted by this Upgrade Card&#39;s effect counts as obstruction granted by a card effect for interacting with <a class="card-ref" href="#general-romodi-commander"><em>General Romodi</em></a>.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">The additional command token assignment from this Upgrade Card&#39;s effect stacks with other assignment effects, such as from Nova Defiant.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship equipped with Petranaki may discard a command token to resolve this Upgrade Card&#39;s effect, and then may resolve the effect of Petranaki (Title).</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Counter and Salvo Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If a ship or squadron with a single die declares an attack against a ship which resolves this Upgrade Card&#39;s third effect, the ship may not perform a <span class="keyword-name">Counter</span> or <span class="icon-font">6</span> attack against it as dice were removed before rolling. If the dice is removed through resolving Petranaki (Title)&#39;s effect, then a ship may perform a <span class="keyword-name">Counter</span> or <span class="icon-font">6</span> attack against it as dice are removed after rolling and the attack is not cancelled.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Damage Card Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">As Disengaged Fire Control happens &quot;when declaring the target of an attack&quot;, but this Upgrade Card&#39;s effect resolves &quot;after an eligible ship is declared the target of an attack&quot;, a ship with the damage card Disengaged Fire Control may still attack a hull zone obstructed through this Upgrade Card&#39;s effect.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] Legacy | 2026-02-26 | Legacy FAQ</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="tf-1726-commander" data-name="tf-1726" data-factions="separatist" data-category="upgrades" data-type="commander">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/tf-1726-commander.webp" alt="TF-1726" /></div>
@@ -2763,7 +3255,7 @@ body.karm-web .card-divider {
   <div class="header-content card-rulings">
 <div class="ruling-section">
   <h3 class="ruling-heading">Card Text</h3>
-  <div class="ruling-content"><div class="card-text-content"><p>A is a special type of upgrade card with the <span class="icon-font">B</span> icon on its card back and no upgrade icon in the card front.</p><ul><li>A <span class="icon-font">B</span> can be equipped to any ship except Flotillas.</li><li>A fleet cannot have more than one <span class="icon-font">B</span>.</li><li>A ship with a <span class="icon-font">B</span> equipped is a flagship.</li><li>A <span class="icon-font">B</span> must be in the play area to be able to resolve. If this card has been set aside, then the <span class="icon-font">B</span> ability cannot resolve.</li></ul></div></div>
+  <div class="ruling-content"><div class="card-text-content"><p>A <span class="icon-font">B</span> is a special type of upgrade card with the <span class="icon-font">B</span> icon on its card back and no upgrade icon in the card front.</p><ul><li>A <span class="icon-font">B</span> can be equipped to any ship except Flotillas.</li><li>A fleet cannot have more than one <span class="icon-font">B</span>.</li><li>A ship with a <span class="icon-font">B</span> equipped is a flagship.</li><li>A <span class="icon-font">B</span> must be in the play area to be able to resolve. If this card has been set aside, then the <span class="icon-font">B</span> ability cannot resolve.</li></ul></div></div>
 </div></div>
 </article>
 
@@ -3137,6 +3629,66 @@ body.karm-web .card-divider {
     
     <script>
 (function () {
+  var scrim = document.querySelector('.drawer-scrim');
+  var toggles = document.querySelectorAll('[data-drawer-toggle]');
+
+  function isOpen(name) {
+    return document.body.classList.contains(name + '-open');
+  }
+
+  function setOpen(name, open) {
+    document.body.classList.toggle('toc-open', name === 'toc' && open);
+    document.body.classList.toggle('search-open', name === 'search' && open);
+    if (scrim) scrim.hidden = !open;
+    for (var i = 0; i < toggles.length; i++) {
+      var t = toggles[i];
+      t.setAttribute('aria-expanded', String(open && t.getAttribute('data-drawer-toggle') === name));
+    }
+    if (open && name === 'search') {
+      var input = document.getElementById('karm-search-input');
+      if (input) input.focus();
+    }
+  }
+
+  function closeAll() {
+    setOpen('', false);
+  }
+
+  for (var i = 0; i < toggles.length; i++) {
+    (function (toggle) {
+      var name = toggle.getAttribute('data-drawer-toggle');
+      toggle.addEventListener('click', function () {
+        setOpen(name, !isOpen(name));
+      });
+    })(toggles[i]);
+  }
+
+  if (scrim) scrim.addEventListener('click', closeAll);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      // A non-empty search input swallows the first Escape to clear itself
+      // (see the filter script), so reaching here means there is nothing left to clear.
+      closeAll();
+      return;
+    }
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      var tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+      e.preventDefault();
+      setOpen('search', true);
+    }
+  });
+
+  // Close the menu after following an in-page link so the content isn't left covered.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('.toc-drawer a[href^="#"]');
+    if (link) closeAll();
+  });
+})();
+</script>
+    <script>
+(function () {
   var searchInput = document.getElementById('karm-search-input');
   var filtersContainer = document.getElementById('karm-faction-filters');
   var noResults = document.getElementById('karm-no-results');
@@ -3251,10 +3803,13 @@ body.karm-web .card-divider {
   });
 
   searchInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      searchInput.value = '';
-      applyFilters();
-    }
+    if (e.key !== 'Escape') return;
+    if (!searchInput.value) return;
+    // Clear the query first and stop the event here; a second Escape reaches the
+    // drawer script's document handler and closes the drawer.
+    searchInput.value = '';
+    applyFilters();
+    e.stopPropagation();
   });
 })();
 </script>
@@ -3307,6 +3862,6 @@ body.karm-web .card-divider {
   });
 })();
 </script>
-    <!-- Generated cards: 66 -->
+    <!-- Generated cards: 83 -->
   </body>
 </html>

@@ -6,7 +6,7 @@ import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { formatDice, formatFactionName } from '@/utils/diceDisplay';
+import { formatDice, formatFactionName, formatChassisName } from '@/utils/diceDisplay';
 import { cn } from '@/lib/utils';
 
 export default function ShipDetailPage({
@@ -82,7 +82,7 @@ export default function ShipDetailPage({
           <div>
             <div className="mb-6 rounded-2xl border border-border/70 bg-card/70 backdrop-blur-sm p-5">
               <h1 className="text-4xl font-bold mb-2 uppercase tracking-wide">{model.name}</h1>
-              <p className="text-xl text-muted-foreground">{chassis.chassis_name}</p>
+              <p className="text-xl text-muted-foreground">{formatChassisName(chassis.chassis_name)}</p>
             </div>
 
             {/* Basic stats */}

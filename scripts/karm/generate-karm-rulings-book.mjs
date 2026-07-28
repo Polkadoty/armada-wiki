@@ -31,6 +31,7 @@ const compileLogArg = [...args].find((arg) => arg.startsWith('--compile-log=')) 
 const writeCardIndexArg = [...args].find((arg) => arg.startsWith('--write-card-index=')) || '';
 const loadCardIndexArg = [...args].find((arg) => arg.startsWith('--load-card-index=')) || '';
 const indexOnly = args.has('--index-only');
+const allowEmpty = args.has('--allow-empty');
 let ICON_MAP_RUNTIME = {};
 let HEADER_CONTENT = {};
 let ICON_FONT_ENABLED = true;
@@ -42,6 +43,41 @@ let CURRENT_WEB_MODE = false;
 let LINK_ALIASES = {};
 let DISPLAY_NAME_OVERRIDES = {};
 let GLOBAL_CARD_INDEX = null;
+
+const SITE_TITLE = 'Rules & Rulings';
+const SITE_DESCRIPTION = 'Comprehensive rulings and clarifications for Star Wars: Armada';
+const RULINGS_HOME = '/rulings';
+
+// Single source of truth for both the index page and the in-page drawer, so the two
+// can't drift apart. `section` entries are non-clickable group labels.
+const RULINGS_NAV = [
+  { href: '/rulings/objectives.html', label: 'Objectives' },
+  { href: '/rulings/campaign.html', label: 'Campaign Objectives' },
+  { href: '/rulings/damage-cards.html', label: 'Damage Cards' },
+  { href: '/rulings/squadrons.html', label: 'Ace Squadrons' },
+  { section: 'Upgrades' },
+  { href: '/rulings/upgrades.html', label: 'All Upgrades', sub: true },
+  { href: '/rulings/upgrades/commander.html', label: 'Commander', sub: true },
+  { href: '/rulings/upgrades/officer.html', label: 'Officer', sub: true },
+  { href: '/rulings/upgrades/weapons-team-offensive-retro.html', label: 'Boarding Teams', sub: true },
+  { href: '/rulings/upgrades/weapons-team.html', label: 'Weapons Team', sub: true },
+  { href: '/rulings/upgrades/offensive-retro.html', label: 'Offensive Retrofit', sub: true },
+  { href: '/rulings/upgrades/defensive-retro.html', label: 'Defensive Retrofit', sub: true },
+  { href: '/rulings/upgrades/turbolaser.html', label: 'Turbolaser', sub: true },
+  { href: '/rulings/upgrades/ion-cannon.html', label: 'Ion Cannon', sub: true },
+  { href: '/rulings/upgrades/ordnance.html', label: 'Ordnance', sub: true },
+  { href: '/rulings/upgrades/fleet-support.html', label: 'Fleet Support', sub: true },
+  { href: '/rulings/upgrades/support-team.html', label: 'Support Team', sub: true },
+  { href: '/rulings/upgrades/experimental-retro.html', label: 'Experimental Retrofit', sub: true },
+  { href: '/rulings/upgrades/fleet-command.html', label: 'Fleet Command', sub: true },
+  { href: '/rulings/upgrades/title.html', label: 'Title', sub: true },
+  { href: '/rulings/upgrades/super-weapon.html', label: 'Superweapon', sub: true },
+  { href: '/rulings/upgrades/leader.html', label: 'Leader', sub: true },
+  { href: '/rulings/upgrades/veteran.html', label: 'Veteran', sub: true },
+  { section: 'Nexus' },
+  { href: '/rulings/nexus-upgrades.html', label: 'Nexus Upgrades', sub: true },
+  { href: '/rulings/nexus-squadrons.html', label: 'Nexus Squadrons', sub: true },
+];
 
 const FACTION_TAG_RE = /\s*\{([^}]+)\}/g;
 const FACTION_TAG_MAP = {
@@ -57,23 +93,6 @@ const WEB_ASSET_VERSION =
     .toString()
     .slice(0, 12) || 'rulings-v1';
 
-const emojiMap = {
-  accuracy: '🎯',
-  attack: '⚔️',
-  bomber: '💣',
-  brace: '🛡️',
-  contain: '⛨',
-  crit: '💥',
-  damage: '🟥',
-  evade: '💨',
-  redirect: '↪️',
-  salvo: '📡',
-  scatter: '✶',
-  ship: '🚢',
-  squadron: '✈️',
-  speed: '➤',
-  shield: '🛡',
-};
 
 const RULE_SECTION_LABELS = {
   card_text: 'Card Text',
@@ -250,13 +269,23 @@ async function main() {
   const buildResult = buildCards(data, config, iconMap, arcPointsOnlyNames);
   let cards = buildResult.cards;
   if (cards.length === 0) {
+    // A transient API failure used to land here and quietly overwrite a good page with
+    // a placeholder — on Vercel that publishes an empty rulings page. Fail the build
+    // instead so the previously published output stays live.
+    if (!allowEmpty) {
+      throw new Error(
+        `No qualifying cards were returned for ${config.outputHtml}. ` +
+        'This usually means the card API was unreachable or throttled. ' +
+        'Re-run, or pass --allow-empty to emit a placeholder page anyway.'
+      );
+    }
     log('No qualifying cards were found from live APIs. Emitting a placeholder page.');
     cards = [buildPlaceholderCard()];
   }
 
   const webMode = isWebOutput(config);
   const pages = webMode ? null : paginateCards(cards);
-  const html = await renderHtml({ pages, cards, config });
+  const html = await renderHtml({ pages, cards, config, pageHref: toSiteHref(config.outputHtml) });
   const outputHtmlPath = path.resolve(repoRoot, config.outputHtml);
   const outputPdfPath = path.resolve(repoRoot, config.outputPdf);
   const compileLogPath = path.resolve(repoRoot, config.compileLog);
@@ -1127,7 +1156,13 @@ function estimateLineCountByLength(totalChars, charsPerLine) {
   return Math.ceil(totalChars / charsPerLine);
 }
 
-async function renderHtml({ pages, cards, config }) {
+// `public/rulings/upgrades/title.html` → `/rulings/upgrades/title.html`
+function toSiteHref(outputPath) {
+  const rel = String(outputPath || '').split(path.sep).join('/');
+  return rel.startsWith('public/') ? rel.slice('public'.length) : `/${rel.replace(/^\/+/, '')}`;
+}
+
+async function renderHtml({ pages, cards, config, pageHref = '' }) {
   const cssPath = path.resolve(repoRoot, config.templateCss);
   const css = await readFile(cssPath, 'utf8');
   const fontFaces = buildFontFaceCss(config.fonts, config);
@@ -1167,7 +1202,7 @@ async function renderHtml({ pages, cards, config }) {
   const pageBackground = config.pageBackgroundImage
     ? `url('${withAssetVersion(toAssetUrl(path.resolve(repoRoot, config.pageBackgroundImage), config), config)}')`
     : 'none';
-  const webNav = webMode ? renderWebNav() : '';
+  const webNav = webMode ? renderWebNav(pageHref) : '';
   const preloadLinks = webMode ? buildPreloadLinks(config) : '';
   const bodyClass = webMode ? ' class="karm-web"' : '';
   const scaleScript = webMode
@@ -1185,6 +1220,69 @@ async function renderHtml({ pages, cards, config }) {
         window.addEventListener('resize', updateScale);
       })();
     </script>`;
+
+  const drawerScript = webMode
+    ? `<script>
+(function () {
+  var scrim = document.querySelector('.drawer-scrim');
+  var toggles = document.querySelectorAll('[data-drawer-toggle]');
+
+  function isOpen(name) {
+    return document.body.classList.contains(name + '-open');
+  }
+
+  function setOpen(name, open) {
+    document.body.classList.toggle('toc-open', name === 'toc' && open);
+    document.body.classList.toggle('search-open', name === 'search' && open);
+    if (scrim) scrim.hidden = !open;
+    for (var i = 0; i < toggles.length; i++) {
+      var t = toggles[i];
+      t.setAttribute('aria-expanded', String(open && t.getAttribute('data-drawer-toggle') === name));
+    }
+    if (open && name === 'search') {
+      var input = document.getElementById('karm-search-input');
+      if (input) input.focus();
+    }
+  }
+
+  function closeAll() {
+    setOpen('', false);
+  }
+
+  for (var i = 0; i < toggles.length; i++) {
+    (function (toggle) {
+      var name = toggle.getAttribute('data-drawer-toggle');
+      toggle.addEventListener('click', function () {
+        setOpen(name, !isOpen(name));
+      });
+    })(toggles[i]);
+  }
+
+  if (scrim) scrim.addEventListener('click', closeAll);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      // A non-empty search input swallows the first Escape to clear itself
+      // (see the filter script), so reaching here means there is nothing left to clear.
+      closeAll();
+      return;
+    }
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      var tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+      e.preventDefault();
+      setOpen('search', true);
+    }
+  });
+
+  // Close the menu after following an in-page link so the content isn't left covered.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('.toc-drawer a[href^="#"]');
+    if (link) closeAll();
+  });
+})();
+</script>`
+    : '';
 
   const filterScript = webMode
     ? `<script>
@@ -1303,10 +1401,13 @@ async function renderHtml({ pages, cards, config }) {
   });
 
   searchInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      searchInput.value = '';
-      applyFilters();
-    }
+    if (e.key !== 'Escape') return;
+    if (!searchInput.value) return;
+    // Clear the query first and stop the event here; a second Escape reaches the
+    // drawer script's document handler and closes the drawer.
+    searchInput.value = '';
+    applyFilters();
+    e.stopPropagation();
   });
 })();
 </script>`
@@ -1372,7 +1473,9 @@ async function renderHtml({ pages, cards, config }) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
+    <title>${escapeHtml(SITE_TITLE)}</title>
+    <meta name="description" content="${escapeAttribute(SITE_DESCRIPTION)}" />
+    <meta name="theme-color" content="#24408f" />
     ${preloadLinks}
     <style>
       :root { --page-background: ${pageBackground}; }
@@ -1388,6 +1491,7 @@ async function renderHtml({ pages, cards, config }) {
       ${afterPages}
     </div>
     ${scaleScript}
+    ${drawerScript}
     ${filterScript}
     ${arcToggleScript}
     ${copyLinkScript}
@@ -1426,42 +1530,29 @@ function buildPreloadLinks(config) {
     .join('\n    ');
 }
 
-function renderWebNav() {
-  const links = [];
-  links.push(`<a href="/rulings/objectives.html" class="toc-link">Objectives</a>`);
-  links.push(`<a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>`);
-  links.push(`<a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>`);
-  links.push(`<a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>`);
-  links.push(`<div class="toc-section-label">Upgrades</div>`);
-  links.push(`<a href="/rulings/upgrades.html" class="toc-link toc-sub">All</a>`);
-  links.push(`<a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>`);
-  links.push(`<a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>`);
-  links.push(`<a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>`);
-  links.push(`<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>`);
-  links.push(`<a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>`);
-  links.push(`<a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>`);
-  links.push(`<a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>`);
-  links.push(`<a href="/rulings/upgrades/ion-cannon.html" class="toc-link toc-sub">Ion Cannon</a>`);
-  links.push(`<a href="/rulings/upgrades/ordnance.html" class="toc-link toc-sub">Ordnance</a>`);
-  links.push(`<a href="/rulings/upgrades/fleet-support.html" class="toc-link toc-sub">Fleet Support</a>`);
-  links.push(`<a href="/rulings/upgrades/support-team.html" class="toc-link toc-sub">Support Team</a>`);
-  links.push(`<a href="/rulings/upgrades/experimental-retro.html" class="toc-link toc-sub">Experimental Retrofit</a>`);
-  links.push(`<a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>`);
-  links.push(`<a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>`);
-  links.push(`<a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>`);
-  links.push(`<div class="toc-section-label">Nexus</div>`);
-  links.push(`<a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>`);
-  links.push(`<a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>`);
+function renderWebNav(currentHref) {
+  const links = RULINGS_NAV.map((entry) => {
+    if (entry.section) {
+      return `<div class="toc-section-label">${escapeHtml(entry.section)}</div>`;
+    }
+    const classes = ['toc-link'];
+    if (entry.sub) classes.push('toc-sub');
+    const isCurrent = entry.href === currentHref;
+    if (isCurrent) classes.push('is-current');
+    const ariaCurrent = isCurrent ? ' aria-current="page"' : '';
+    return `<a href="${entry.href}" class="${classes.join(' ')}"${ariaCurrent}>${escapeHtml(entry.label)}</a>`;
+  });
 
   return `
-<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+<button type="button" class="toc-fab" aria-label="Open rulings menu" aria-expanded="false" data-drawer-toggle="toc">
   <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
 </button>
+<div class="drawer-scrim" data-drawer-close hidden></div>
 <aside class="toc-drawer" aria-label="Rulings navigation">
-  <div class="toc-title">Rulings</div>
+  <a class="toc-title" href="${RULINGS_HOME}">${escapeHtml(SITE_TITLE)}</a>
   ${links.join('\n')}
 </aside>
-<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+<button type="button" class="search-fab" aria-label="Search cards" aria-expanded="false" data-drawer-toggle="search">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 </button>
 <aside class="search-drawer" aria-label="Search and filter">
@@ -1491,38 +1582,20 @@ async function buildIndexHtml(config) {
     ? `url('${withAssetVersion(toAssetUrl(path.resolve(repoRoot, config.pageBackgroundImage), config), config)}')`
     : 'none';
 
-  const links = [];
-  links.push(`<li><a href="/rulings/objectives.html">Objectives</a></li>`);
-  links.push(`<li><a href="/rulings/campaign.html">Campaign Objectives</a></li>`);
-  links.push(`<li><a href="/rulings/damage-cards.html">Damage Cards</a></li>`);
-  links.push(`<li><a href="/rulings/squadrons.html">Ace Squadrons</a></li>`);
-  links.push(`<li class="index-section-label">Upgrades</li>`);
-  links.push(`<li><a href="/rulings/upgrades.html">All Upgrades</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/commander.html">Commander</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/officer.html">Officer</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/weapons-team-offensive-retro.html">Boarding Teams</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/weapons-team.html">Weapons Team</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/offensive-retro.html">Offensive Retrofit</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/defensive-retro.html">Defensive Retrofit</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/turbolaser.html">Turbolaser</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/ion-cannon.html">Ion Cannon</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/ordnance.html">Ordnance</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/fleet-support.html">Fleet Support</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/support-team.html">Support Team</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/experimental-retro.html">Experimental Retrofit</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/fleet-command.html">Fleet Command</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/title.html">Title</a></li>`);
-  links.push(`<li><a href="/rulings/upgrades/super-weapon.html">Superweapon</a></li>`);
-  links.push(`<li class="index-section-label">Nexus</li>`);
-  links.push(`<li><a href="/rulings/nexus-upgrades.html">Nexus Upgrades</a></li>`);
-  links.push(`<li><a href="/rulings/nexus-squadrons.html">Nexus Squadrons</a></li>`);
+  const links = RULINGS_NAV.map((entry) =>
+    entry.section
+      ? `<li class="index-section-label">${escapeHtml(entry.section)}</li>`
+      : `<li><a href="${entry.href}">${escapeHtml(entry.label)}</a></li>`
+  );
 
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
+    <title>${escapeHtml(SITE_TITLE)}</title>
+    <meta name="description" content="${escapeAttribute(SITE_DESCRIPTION)}" />
+    <meta name="theme-color" content="#24408f" />
     ${preloadLinks}
     <style>
       :root { --page-background: ${pageBackground}; }
@@ -1532,11 +1605,20 @@ async function buildIndexHtml(config) {
   </head>
   <body class="karm-web">
     <div class="index-page">
-      <h1 class="index-title">KARM Rulings Book</h1>
-      <p class="index-subtitle">Comprehensive rulings and clarifications for Star Wars: Armada</p>
+      <h1 class="index-title">${escapeHtml(SITE_TITLE)}</h1>
+      <p class="index-subtitle">${escapeHtml(SITE_DESCRIPTION)}</p>
       <ul class="index-links">
         ${links.join('\n        ')}
       </ul>
+      <footer class="index-footer">
+        <p>
+          Looking for card stats instead? Browse the
+          <a href="/ships">card wiki</a>.
+        </p>
+        <p class="index-disclaimer">
+          Star Wars: Armada is a trademark of Fantasy Flight Games. This is an unofficial fan project.
+        </p>
+      </footer>
     </div>
   </body>
 </html>`;
@@ -2028,10 +2110,6 @@ function applyCardLinks(html) {
   return processed.join('');
 }
 
-function applyEmojiShortcodes(text) {
-  return text.replace(/:([a-z0-9_-]+):/gi, (_, token) => emojiMap[token.toLowerCase()] || `:${token}:`);
-}
-
 function markdownishToHtmlInline(input) {
   const text = decodeEscapedSequences(String(input || '')).trim();
   return inlineMarkup(text);
@@ -2043,16 +2121,6 @@ function iconGlyphForToken(token) {
   const mapped = ICON_MAP_RUNTIME[lower] || ICON_MAP_RUNTIME[underscored] || '';
   if (mapped) return mapped;
   return `:${token}:`;
-}
-
-function isPrivateUseGlyph(char) {
-  if (!char) return false;
-  const code = char.codePointAt(0) || 0;
-  return (
-    (code >= 0xe000 && code <= 0xf8ff) ||
-    (code >= 0xf0000 && code <= 0xffffd) ||
-    (code >= 0x100000 && code <= 0x10fffd)
-  );
 }
 
 async function resolveChromeExecutable(configured) {
@@ -2169,8 +2237,13 @@ async function generateSplitUpgradeFiles(allCards, config, iconMap, splitDir) {
     if (isWebOutput(config)) {
       buildCardLinkRegistry(withAnchors);
     }
-    const html = await renderHtml({ pages: null, cards: withAnchors, config });
     const outPath = path.join(resolvedDir, `${type}.html`);
+    const html = await renderHtml({
+      pages: null,
+      cards: withAnchors,
+      config,
+      pageHref: toSiteHref(path.relative(repoRoot, outPath)),
+    });
     await writeFile(outPath, html, 'utf8');
     log(`Split upgrade file: ${type} (${typeCards.length} cards) -> ${outPath}`);
   }
@@ -2449,7 +2522,7 @@ function buildCardLinkRegistry(cards) {
     byName.get(key).push(card);
   }
 
-  for (const [lowerName, group] of byName) {
+  for (const [, group] of byName) {
     if (group.length === 1) {
       // Unique name — register plain name
       const card = group[0];
@@ -2531,26 +2604,35 @@ function splitCsv(value) {
     .filter(Boolean);
 }
 
-async function tryFetchJson(url, retries = 2) {
+async function tryFetchJson(url, retries = 3) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       if (attempt > 0) {
-        const delay = 1000 * attempt;
+        const delay = 1000 * 2 ** (attempt - 1);
         if (verbose) log(`Retry ${attempt}/${retries} for ${url} after ${delay}ms`);
         await new Promise((r) => setTimeout(r, delay));
       }
       const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
       if (!response.ok) {
-        if (verbose) log(`Fetch failed ${response.status} ${response.statusText}: ${url}`);
-        if (response.status >= 500 && attempt < retries) continue;
+        // 404 is expected for endpoints the manifest lists but the API doesn't serve,
+        // so keep those quiet. Anything else is worth surfacing in a build log.
+        if (verbose || response.status !== 404) {
+          log(`Fetch failed ${response.status} ${response.statusText}: ${url}`);
+        }
+        const retryable = response.status === 429 || response.status >= 500;
+        if (retryable && attempt < retries) {
+          const retryAfter = Number.parseFloat(response.headers.get('retry-after') || '');
+          if (Number.isFinite(retryAfter) && retryAfter > 0) {
+            await new Promise((r) => setTimeout(r, Math.min(retryAfter, 30) * 1000));
+          }
+          continue;
+        }
         return null;
       }
       return await response.json();
     } catch (error) {
-      if (verbose) {
-        const message = error instanceof Error ? error.message : String(error);
-        log(`Fetch error: ${url} -> ${message}`);
-      }
+      const message = error instanceof Error ? error.message : String(error);
+      log(`Fetch error: ${url} -> ${message}`);
       if (attempt < retries) continue;
       return null;
     }

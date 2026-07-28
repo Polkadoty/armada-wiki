@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
+    <title>Rules &amp; Rulings</title>
+    <meta name="description" content="Comprehensive rulings and clarifications for Star Wars: Armada" />
+    <meta name="theme-color" content="#24408f" />
     <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
@@ -175,9 +177,17 @@ body.toc-open .toc-drawer {
 }
 
 .toc-title {
+  display: block;
   font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 36px;
+  font-size: 32px;
+  line-height: 1.1;
   margin: 0 0 10px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.toc-title:hover {
+  text-decoration: underline;
 }
 
 .toc-link {
@@ -194,9 +204,30 @@ body.toc-open .toc-drawer {
   color: #24408f;
 }
 
+.toc-link.is-current {
+  color: #24408f;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 #24408f;
+  background: rgba(36, 64, 143, 0.06);
+}
+
 .toc-link.toc-sub {
   padding-left: 16px;
   font-size: 17px;
+}
+
+/* ── Drawer scrim ── */
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  background: rgba(20, 18, 16, 0.35);
+  border: 0;
+}
+
+.drawer-scrim[hidden] {
+  display: none;
 }
 
 .toc-section-label {
@@ -871,8 +902,11 @@ body.search-open .search-drawer {
 body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
-  background-size: 180%;
-  background-position: center top -60px;
+  /* The source asset is a full rulebook page including its printed frame. Zooming to
+     200% and centring keeps the viewport inside the parchment, so the frame's panel
+     strip never peeks in along the top edge. */
+  background-size: 200%;
+  background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
@@ -880,7 +914,15 @@ body.karm-web {
 
 @media (min-width: 1400px) {
   body.karm-web {
+    /* Wide enough that the frame's left/right edges read as an intentional border. */
     background-size: cover;
+  }
+}
+
+/* `background-attachment: fixed` is janky-to-unsupported on mobile browsers. */
+@media (max-width: 768px) {
+  body.karm-web {
+    background-attachment: scroll;
   }
 }
 
@@ -1150,6 +1192,29 @@ body.karm-web .card-divider {
   letter-spacing: 0.04em;
 }
 
+.index-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(36, 64, 143, 0.15);
+  text-align: center;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  color: #555;
+}
+
+.index-footer p {
+  margin: 0 0 6px;
+}
+
+.index-footer a {
+  color: var(--accent);
+}
+
+.index-disclaimer {
+  font-size: 13px;
+  color: #777;
+}
+
 @media (max-width: 480px) {
   .index-title { font-size: 32px; }
   .index-links li a { font-size: 16px; }
@@ -1162,6 +1227,7 @@ body.karm-web .card-divider {
 
   .toc-fab,
   .toc-drawer,
+  .drawer-scrim,
   .search-fab,
   .search-drawer,
   .no-results {
@@ -1215,17 +1281,18 @@ body.karm-web .card-divider {
   </head>
   <body class="karm-web">
     
-<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+<button type="button" class="toc-fab" aria-label="Open rulings menu" aria-expanded="false" data-drawer-toggle="toc">
   <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
 </button>
+<div class="drawer-scrim" data-drawer-close hidden></div>
 <aside class="toc-drawer" aria-label="Rulings navigation">
-  <div class="toc-title">Rulings</div>
-  <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
+  <a class="toc-title" href="/rulings">Rules &amp; Rulings</a>
+  <a href="/rulings/objectives.html" class="toc-link is-current" aria-current="page">Objectives</a>
 <a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
 <a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
 <a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
 <div class="toc-section-label">Upgrades</div>
-<a href="/rulings/upgrades.html" class="toc-link toc-sub">All</a>
+<a href="/rulings/upgrades.html" class="toc-link toc-sub">All Upgrades</a>
 <a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
 <a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
 <a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
@@ -1241,11 +1308,13 @@ body.karm-web .card-divider {
 <a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
 <a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
 <a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<a href="/rulings/upgrades/leader.html" class="toc-link toc-sub">Leader</a>
+<a href="/rulings/upgrades/veteran.html" class="toc-link toc-sub">Veteran</a>
 <div class="toc-section-label">Nexus</div>
 <a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
 <a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
 </aside>
-<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+<button type="button" class="search-fab" aria-label="Search cards" aria-expanded="false" data-drawer-toggle="search">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 </button>
 <aside class="search-drawer" aria-label="Search and filter">
@@ -1272,6 +1341,28 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/advanced-gunnery.webp" alt="Advanced Gunnery" /></div>
     <div class="card-main">
       <h2 class="card-title">Advanced Gunnery  <button class="copy-link-btn" data-anchor="advanced-gunnery-objective" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, each player chooses 1 of his ships to be an objective ship, starting with the first player.</p><p><strong>Special Rule:</strong> The first player&#39;s objective ship may perform each of its attacks from the same hull zone. It cannot target the same hull zone or squadron more than once each round with that hull zone.</p><p>The second player&#39;s objective ship may perform each of its attacks from the same hull zone, and it may do so against the same targets.</p><p><strong>End of Game:</strong> The fleet point cost of a destroyed objective ship is doubled. Do not double the cost of its upgrade cards.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Upgrade Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If either player&#39;s objective ship is equipped with <a class="card-ref" href="/rulings/upgrades/weapons-team.html#gunnery-team-weapons-team"><em>Gunnery Team</em></a>, and attacks from the same hull zone during its activation, that ship cannot target the same ship or squadron more than once during its activation.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If either player&#39;s objective ship is equipped with <a class="card-ref" href="/rulings/upgrades/turbolaser.html#slaved-turrets-turbolaser"><em>Slaved Turrets</em></a>, that ship cannot attack more than once per round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If either player&#39;s objective ship is equipped with <a class="card-ref" href="/rulings/upgrades/title.html#impetuous-title"><em>Impetuous (Title)</em></a> or <a class="card-ref" href="/rulings/upgrades/ordnance.html#ordnance-pods-ordnance"><em>Ordnance Pods</em></a>, its hull zone cannot target the same squadron more than once during that ship&#39;s activation.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="advanced-gunnery-objective-2" data-name="advanced gunnery" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/advanced-gunnery-errata-community.webp" alt="Advanced Gunnery" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Advanced Gunnery  <button class="copy-link-btn" data-anchor="advanced-gunnery-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1365,6 +1456,24 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="marked-for-destruction-objective-2" data-name="marked for destruction" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/marked-for-destruction-errata-community.webp" alt="Marked for Destruction" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Marked for Destruction  <button class="copy-link-btn" data-anchor="marked-for-destruction-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, adding the 2 dust fields and excluding the station and asteroid fields. Then the second player places the 2 purrgil in the setup area. Each purrgil must be placed beyond distance 1 of all obstacles and beyond 5 of both player&#39;s edges.</p><p><strong>Special Rule:</strong> Each ship has the following critical effect:</p><p><span class="icon-font">T</span>: If this attack is at close-medium range, remove all objective tokens from enemy ships. Then assign an objective token to the defender.</p><p>After a player moves a purrgil, if that purrgil is at distance 1 of a ship with an objective token, that player may choose and discard 1 objective token. Then that ship suffers 1 facedown damage and the opposing fleet&#39;s owner gains 1 victory token.</p><p><strong>End of Game:</strong> The fleet point cost of a destroyed objective ship is doubled. Do not double the cost of its upgrade cards.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="most-wanted-objective" data-name="most wanted" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/most-wanted.webp" alt="Most Wanted" /></div>
@@ -1383,11 +1492,51 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="most-wanted-objective-2" data-name="most wanted" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/most-wanted-errata-community.webp" alt="Most Wanted" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Most Wanted  <button class="copy-link-btn" data-anchor="most-wanted-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, the second player chooses 1 of his ships and 1 of the first player&#39;s ships to be objective ships.</p><p><strong>Special Rule:</strong> While a ship is attacking an objective ship, it may add 1 die of any color that is already in its attack pool to its attack pool.</p><p><strong>End of Game:</strong> The fleet point cost of a destroyed objective ship is doubled. Do not double the cost of its upgrade cards.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="opening-salvo-objective" data-name="opening salvo" data-factions="neutral" data-category="objectives" data-type="assault">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/opening-salvo.webp" alt="Opening Salvo" /></div>
     <div class="card-main">
       <h2 class="card-title">Opening Salvo  <button class="copy-link-btn" data-anchor="opening-salvo-objective" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After deploying fleets, assign 1 objective token to each ship.</p><p><strong>Special Rule:</strong> The first time a ship performs an attack against another ship, discard the attacker&#39;s objective token. If the attacker belongs to the first player, he adds 2 red dice to the attack pool. If the attacker belongs to the second player, he adds 2 dice, each of any color, to the attack pool.</p><p><strong>End of Game:</strong> Each player increases his final score by half the fleet point cost of each enemy ship in the play area that has at least 1 damage card, rounded up.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The dice added by this card effect are added to the attack pool after the attack pool is rolled. The second player&#39;s added dice can be of any color, regardless of the range of the attack.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship&#39;s fleet point cost includes the costs of all upgrade cards equipped to that ship.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="opening-salvo-objective-2" data-name="opening salvo" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/opening-salvo-errata-community.webp" alt="Opening Salvo" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Opening Salvo  <button class="copy-link-btn" data-anchor="opening-salvo-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1490,6 +1639,28 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/targeting-beacons.webp" alt="Targeting Beacons" /></div>
     <div class="card-main">
       <h2 class="card-title">Targeting Beacons  <button class="copy-link-btn" data-anchor="targeting-beacons-objective" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the players alternate placing a total of 4 objective tokens in the setup area, starting with the second player.</p><p><strong>Special Rule:</strong> While one of the second player&#39;s ships is attacking a ship that is at distance 1-2 of an objective token, the attacker may reroll up to 2 attack dice in the attack pool.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">This card&#39;s Special Rule cannot resolve more than once during each attack, even if there is more than one objective token at distance 1-2 of the defender.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="targeting-beacons-objective-2" data-name="targeting beacons" data-factions="neutral" data-category="objectives" data-type="assault">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/targeting-beacons-errata-community.webp" alt="Targeting Beacons" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Targeting Beacons  <button class="copy-link-btn" data-anchor="targeting-beacons-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1627,11 +1798,60 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="fire-lanes-objective-2" data-name="fire lanes" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fire-lanes-errata-community.webp" alt="Fire Lanes" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Fire Lanes  <button class="copy-link-btn" data-anchor="fire-lanes-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the second player places 3 objective tokens in the setup area beyond distance 4 of both players&#39; edges. Then the first player may move each objective token to within distance 1-2 of its current position.</p><p><strong>End of Round:</strong> Each player gains 1 victory token for each objective token he controls. To determine control of each token, players measure attack range and line of sight from each of their ships&#39; hull zones as if performing attacks with battery armament targeting that objective token. The player with the highest total number of dice in his combined attack pools controls that token. If a player&#39;s ship or squadron overlaps an objective token, his opponent controls that token; if both players&#39; ships or squadrons overlap the same token, neither player controls it.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If only a portion of a hull zone&#39;s armament is at attack range of an objective token, only that portion is added to the sum.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A hull zone can add only its current battery armament to the sum, including increases and decreases due to cards like <a class="card-ref" href="/rulings/upgrades/turbolaser.html#enhanced-armament-turbolaser"><em>Enhanced Armament</em></a>. Do not include dice granted after an attack would be rolled, such as from the Concentrate Fire command or the <a class="card-ref" href="/rulings/upgrades/title.html#dominator-title"><em>Dominator (Title)</em></a>.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="fleet-ambush-objective" data-name="fleet ambush" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fleet-ambush.webp" alt="Fleet Ambush" /></div>
     <div class="card-main">
       <h2 class="card-title">Fleet Ambush  <button class="copy-link-btn" data-anchor="fleet-ambush-objective" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> The portion of the setup area that is beyond distance 5 of any edge of the setup area is the AMBUSH ZONE. Players mark the corners of the ambush zone with objective tokens.</p><p>Players take turns deploying fleets as normal, but must deploy all ships before deploying any squadrons. The first player must deploy ships within the ambush zone on his odd-numbered deployment turns, starting with his first turn. He cannot deploy ships or squadrons overlapping obstacles in the ambush zone. After setup is complete, he removes all objective tokens from the play area.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">The first player can deploy squadrons within distance 1-2 of a ship inside the ambush zone.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div>
+
+<div class="ruling-section">
+  <h3 class="ruling-heading">Deployment Interactions</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">After a player has placed all of their ships, they begin placing squadrons on their next deployment turn. The other player continues placing ships until all of their ships have been placed, then they begin placing squadrons.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If a ship must be deployed into the ambush zone and cannot fit without overlapping obstacles or extending beyond the ambush zone, the player must deploy that ship so that the ship fits as completely into the ambush zone as possible.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="fleet-ambush-objective-2" data-name="fleet ambush" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/fleet-ambush-errata-community.webp" alt="Fleet Ambush" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Fleet Ambush  <button class="copy-link-btn" data-anchor="fleet-ambush-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1712,6 +1932,24 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="jamming-barrier-objective-2" data-name="jamming barrier" data-factions="neutral" data-category="objectives" data-type="defense">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/jamming-barrier-errata-community.webp" alt="Jamming Barrier" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Jamming Barrier  <button class="copy-link-btn" data-anchor="jamming-barrier-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station and replacing the 2 debris fields with the 2 dust fields.</p><p>After deploying fleets, the second player places 2 objective tokens in the setup area at distance 1-5 of each other.</p><p><strong>Special Rule:</strong> While attacking, if line of sight is traced across the line between the two objective tokens, the attacker must choose and remove half of the dice from the attack pool rounded down, before rolling.</p><p><strong>Errata:</strong> While attacking, if neither the attacker or defender are overlapping an objective token and line of sight is traced across an objective token or the line between the two objective tokens, the attacker must choose and remove half of the dice from the attack pool, rounded down, before rolling.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="planetary-ion-cannon-objective" data-name="planetary ion cannon" data-factions="neutral" data-category="objectives" data-type="defense">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/planetary-ion-cannon.webp" alt="Planetary Ion Cannon" /></div>
@@ -1774,6 +2012,28 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="dangerous-territory-objective-2" data-name="dangerous territory" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/dangerous-territory-errata-community.webp" alt="Dangerous Territory" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Dangerous Territory  <button class="copy-link-btn" data-anchor="dangerous-territory-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Obstacles must be placed in the setup area beyond distance 5 of both players&#39; edges. After placing obstacles, place 1 objective token on each obstacle.</p><p><strong>Special Rule:</strong> When a ship overlaps an obstacle, the ship&#39;s owner may remove the obstacle token on that obstacle to gain 1 victory token.</p><p>When one of the second player&#39;s ships overlaps an asteroid field or debris field, that obstacle has no effect.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">A squadron with <span class="keyword-name">Strategic</span> can move objective tokens off of or onto obstacles. An objective token can only be removed to gain 1 victory token if it is overlapping an obstacle. If multiple objective tokens are overlapping an obstacle, only 1 can be removed when a ship overlaps that obstacle.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">This card&#39;s Special Rule effect resolved during the Move Ship step while executing a maneuver.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="doomed-station-objective" data-name="doomed station" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/doomed-station.webp" alt="Doomed Station" /></div>
@@ -1801,6 +2061,28 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-migration.webp" alt="Hyperspace Migration" /></div>
     <div class="card-main">
       <h2 class="card-title">Hyperspace Migration  <button class="copy-link-btn" data-anchor="hyperspace-migration-objective" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. Then the second player places 1 objective token in the play area at distance 1 of a 3&#39; edge and another objective token at distance 1 of the opposite 3&#39; edge.</p><p><strong>Special Rule:</strong> At the start of the Ship Phase of the first and third rounds, the second player places 1 purrgil not in the play area at distance 1 of 1 objective token (the objective token must be the same during both rounds).</p><p>When a purrgil moves, it must move toward the objective token at the opposite 3&#39; edge. When a purrgil touches that objective token, that purrgil is removed from the play area.</p><p><strong>End of Round:</strong> If a ship has 1 objective token on it, remove the token and that ship&#39;s owner gains 1 victory token. If a ship is at distance 1 from a purrgil and has no objective tokens on it, place 1 objective token on the ship.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">During the same round, a ship can either receive an objective token or remove an objective token from itself to receive a victory token. This means a ship can only score every other round.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">Players move purrgil as normal after all ships gain or discard tokens.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="hyperspace-migration-objective-2" data-name="hyperspace migration" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/hyperspace-migration-errata-community.webp" alt="Hyperspace Migration" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Hyperspace Migration  <button class="copy-link-btn" data-anchor="hyperspace-migration-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -1854,6 +2136,24 @@ body.karm-web .card-divider {
 </article>
 <hr class="card-divider" />
 
+<article class="karm-card" id="intel-sweep-objective-2" data-name="intel sweep" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/intel-sweep-errata-community.webp" alt="Intel Sweep" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Intel Sweep  <button class="copy-link-btn" data-anchor="intel-sweep-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> After placing obstacles, the players alternate placing a total of 5 objective tokens in the setup area, starting with the second player. Each token must be placed in the play area beyond distance 5 of both players&#39; edges and beyond distance 3 of all other objective tokens. Then each player chooses one of his ships to be an objective ship, starting with the first player.</p><p><strong>Special Rule:</strong> When a player&#39;s objective ship reveals a command dial, that player may choose 1 objective token at distance 1 of that ship and remove it from the play area to gain 1 victory token.</p><p><strong>End of Game:</strong> If a player has more victory tokens than his opponent, increase his final score by 75.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings"></div>
+  
+</article>
+<hr class="card-divider" />
+
 <article class="karm-card" id="minefields-objective" data-name="minefields" data-factions="neutral" data-category="objectives" data-type="navigation">
   <div class="card-top">
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/minefields.webp" alt="Minefields" /></div>
@@ -1881,6 +2181,28 @@ body.karm-web .card-divider {
     <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/navigational-hazards.webp" alt="Navigational Hazards" /></div>
     <div class="card-main">
       <h2 class="card-title">Navigational Hazards  <button class="copy-link-btn" data-anchor="navigational-hazards-objective" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
+      <div class="top-summary">
+<div class="top-summary-block">
+  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-text"><p><strong>Setup:</strong> Place obstacles as normal, excluding the station. Then the second player places the station in the setup area beyond distance 1 of all obstacles and beyond distance 5 of both players&#39; edges of the play area.</p><p><strong>Special Rule:</strong> When a ship overlaps an obstacle and suffers 1 or more damage or is dealt 1 or more damage cards, the opposing fleet&#39;s owner gains 1 victory token.</p><p><strong>End of Round:</strong> Starting with the second player and alternating, each player chooses 1 asteroid or debris field that does not have an objective token on it, and moves it to within distance 1-2 of its current location. Then, he places an objective token on that obstacle. An obstacle cannot be moved so that it overlaps a ship, squadron, or other obstacle. At the start of the next round, remove all objective tokens from the play area.</p></div>
+</div>
+</div>
+    </div>
+  </div>
+  <div class="card-bottom card-rulings">
+<div class="ruling-section">
+  <h3 class="ruling-heading">Clarifications</h3>
+  <div class="ruling-content"><ul><li><span class="ruling-text">If an obstacle that is overlapped by a ship or squadron is moved, that ship or squadron remains in its current position after the obstacle is moved.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">If an obstacle cannot be moved because it would overlap ships, squadrons, or other obstacles, the controlling player can leave it in place or rotate it.</span> <span class="footnote-ref">[1]</span></li><li><span class="ruling-text">A ship or squadron only resolves an obstacle&#39;s effect when it overlaps that obstacle after moving.</span> <span class="footnote-ref">[1]</span></li></ul></div>
+</div></div>
+  <div class="ruling-footnotes"><div>[1] FFG | 2025-01-10 | RRG v1.6</div></div>
+</article>
+<hr class="card-divider" />
+
+<article class="karm-card" id="navigational-hazards-objective-2" data-name="navigational hazards" data-factions="neutral" data-category="objectives" data-type="navigation">
+  <div class="card-top">
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/navigational-hazards-errata-community.webp" alt="Navigational Hazards" /></div>
+    <div class="card-main">
+      <h2 class="card-title">Navigational Hazards  <button class="copy-link-btn" data-anchor="navigational-hazards-objective-2" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
 <div class="top-summary-block">
   <div class="top-summary-label">Card Text</div>
@@ -2067,6 +2389,66 @@ body.karm-web .card-divider {
     
     <script>
 (function () {
+  var scrim = document.querySelector('.drawer-scrim');
+  var toggles = document.querySelectorAll('[data-drawer-toggle]');
+
+  function isOpen(name) {
+    return document.body.classList.contains(name + '-open');
+  }
+
+  function setOpen(name, open) {
+    document.body.classList.toggle('toc-open', name === 'toc' && open);
+    document.body.classList.toggle('search-open', name === 'search' && open);
+    if (scrim) scrim.hidden = !open;
+    for (var i = 0; i < toggles.length; i++) {
+      var t = toggles[i];
+      t.setAttribute('aria-expanded', String(open && t.getAttribute('data-drawer-toggle') === name));
+    }
+    if (open && name === 'search') {
+      var input = document.getElementById('karm-search-input');
+      if (input) input.focus();
+    }
+  }
+
+  function closeAll() {
+    setOpen('', false);
+  }
+
+  for (var i = 0; i < toggles.length; i++) {
+    (function (toggle) {
+      var name = toggle.getAttribute('data-drawer-toggle');
+      toggle.addEventListener('click', function () {
+        setOpen(name, !isOpen(name));
+      });
+    })(toggles[i]);
+  }
+
+  if (scrim) scrim.addEventListener('click', closeAll);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      // A non-empty search input swallows the first Escape to clear itself
+      // (see the filter script), so reaching here means there is nothing left to clear.
+      closeAll();
+      return;
+    }
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      var tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+      e.preventDefault();
+      setOpen('search', true);
+    }
+  });
+
+  // Close the menu after following an in-page link so the content isn't left covered.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('.toc-drawer a[href^="#"]');
+    if (link) closeAll();
+  });
+})();
+</script>
+    <script>
+(function () {
   var searchInput = document.getElementById('karm-search-input');
   var filtersContainer = document.getElementById('karm-faction-filters');
   var noResults = document.getElementById('karm-no-results');
@@ -2181,10 +2563,13 @@ body.karm-web .card-divider {
   });
 
   searchInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      searchInput.value = '';
-      applyFilters();
-    }
+    if (e.key !== 'Escape') return;
+    if (!searchInput.value) return;
+    // Clear the query first and stop the event here; a second Escape reaches the
+    // drawer script's document handler and closes the drawer.
+    searchInput.value = '';
+    applyFilters();
+    e.stopPropagation();
   });
 })();
 </script>
@@ -2237,6 +2622,6 @@ body.karm-web .card-divider {
   });
 })();
 </script>
-    <!-- Generated cards: 40 -->
+    <!-- Generated cards: 52 -->
   </body>
 </html>

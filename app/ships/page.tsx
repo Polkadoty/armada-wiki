@@ -14,6 +14,7 @@ import {
   getSourceBadgeClasses,
   STANDARD_FACTIONS,
   formatFactionName,
+  formatChassisName,
   getFactionColorClasses,
 } from '@/utils/diceDisplay';
 import { cn } from '@/lib/utils';
@@ -220,7 +221,7 @@ export default function ShipsPage() {
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">
-                    {chassis.chassis_name}
+                    {formatChassisName(chassis.chassis_name)}
                   </p>
                   <div className="flex gap-2 text-xs flex-wrap">
                     {chassis.source && (

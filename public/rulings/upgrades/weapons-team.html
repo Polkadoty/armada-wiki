@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KARM Rulings Book</title>
+    <title>Rules &amp; Rulings</title>
+    <meta name="description" content="Comprehensive rulings and clarifications for Star Wars: Armada" />
+    <meta name="theme-color" content="#24408f" />
     <link rel="preload" href="/rulings/fonts/optima.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-italic.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/rulings/fonts/optima-bold.woff?v=rulings-v1" as="font" type="font/woff" crossorigin />
@@ -175,9 +177,17 @@ body.toc-open .toc-drawer {
 }
 
 .toc-title {
+  display: block;
   font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 36px;
+  font-size: 32px;
+  line-height: 1.1;
   margin: 0 0 10px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.toc-title:hover {
+  text-decoration: underline;
 }
 
 .toc-link {
@@ -194,9 +204,30 @@ body.toc-open .toc-drawer {
   color: #24408f;
 }
 
+.toc-link.is-current {
+  color: #24408f;
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 #24408f;
+  background: rgba(36, 64, 143, 0.06);
+}
+
 .toc-link.toc-sub {
   padding-left: 16px;
   font-size: 17px;
+}
+
+/* ── Drawer scrim ── */
+
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  background: rgba(20, 18, 16, 0.35);
+  border: 0;
+}
+
+.drawer-scrim[hidden] {
+  display: none;
 }
 
 .toc-section-label {
@@ -871,8 +902,11 @@ body.search-open .search-drawer {
 body.karm-web {
   background: #f5f2eb;
   background-image: var(--page-background);
-  background-size: 180%;
-  background-position: center top -60px;
+  /* The source asset is a full rulebook page including its printed frame. Zooming to
+     200% and centring keeps the viewport inside the parchment, so the frame's panel
+     strip never peeks in along the top edge. */
+  background-size: 200%;
+  background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
@@ -880,7 +914,15 @@ body.karm-web {
 
 @media (min-width: 1400px) {
   body.karm-web {
+    /* Wide enough that the frame's left/right edges read as an intentional border. */
     background-size: cover;
+  }
+}
+
+/* `background-attachment: fixed` is janky-to-unsupported on mobile browsers. */
+@media (max-width: 768px) {
+  body.karm-web {
+    background-attachment: scroll;
   }
 }
 
@@ -1150,6 +1192,29 @@ body.karm-web .card-divider {
   letter-spacing: 0.04em;
 }
 
+.index-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(36, 64, 143, 0.15);
+  text-align: center;
+  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  color: #555;
+}
+
+.index-footer p {
+  margin: 0 0 6px;
+}
+
+.index-footer a {
+  color: var(--accent);
+}
+
+.index-disclaimer {
+  font-size: 13px;
+  color: #777;
+}
+
 @media (max-width: 480px) {
   .index-title { font-size: 32px; }
   .index-links li a { font-size: 16px; }
@@ -1162,6 +1227,7 @@ body.karm-web .card-divider {
 
   .toc-fab,
   .toc-drawer,
+  .drawer-scrim,
   .search-fab,
   .search-drawer,
   .no-results {
@@ -1215,21 +1281,22 @@ body.karm-web .card-divider {
   </head>
   <body class="karm-web">
     
-<button type="button" class="toc-fab" aria-label="Open rulings menu" onclick="document.body.classList.toggle('toc-open'); document.body.classList.remove('search-open');">
+<button type="button" class="toc-fab" aria-label="Open rulings menu" aria-expanded="false" data-drawer-toggle="toc">
   <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
 </button>
+<div class="drawer-scrim" data-drawer-close hidden></div>
 <aside class="toc-drawer" aria-label="Rulings navigation">
-  <div class="toc-title">Rulings</div>
+  <a class="toc-title" href="/rulings">Rules &amp; Rulings</a>
   <a href="/rulings/objectives.html" class="toc-link">Objectives</a>
 <a href="/rulings/campaign.html" class="toc-link">Campaign Objectives</a>
 <a href="/rulings/damage-cards.html" class="toc-link">Damage Cards</a>
 <a href="/rulings/squadrons.html" class="toc-link">Ace Squadrons</a>
 <div class="toc-section-label">Upgrades</div>
-<a href="/rulings/upgrades.html" class="toc-link toc-sub">All</a>
+<a href="/rulings/upgrades.html" class="toc-link toc-sub">All Upgrades</a>
 <a href="/rulings/upgrades/commander.html" class="toc-link toc-sub">Commander</a>
 <a href="/rulings/upgrades/officer.html" class="toc-link toc-sub">Officer</a>
 <a href="/rulings/upgrades/weapons-team-offensive-retro.html" class="toc-link toc-sub">Boarding Teams</a>
-<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub">Weapons Team</a>
+<a href="/rulings/upgrades/weapons-team.html" class="toc-link toc-sub is-current" aria-current="page">Weapons Team</a>
 <a href="/rulings/upgrades/offensive-retro.html" class="toc-link toc-sub">Offensive Retrofit</a>
 <a href="/rulings/upgrades/defensive-retro.html" class="toc-link toc-sub">Defensive Retrofit</a>
 <a href="/rulings/upgrades/turbolaser.html" class="toc-link toc-sub">Turbolaser</a>
@@ -1241,11 +1308,13 @@ body.karm-web .card-divider {
 <a href="/rulings/upgrades/fleet-command.html" class="toc-link toc-sub">Fleet Command</a>
 <a href="/rulings/upgrades/title.html" class="toc-link toc-sub">Title</a>
 <a href="/rulings/upgrades/super-weapon.html" class="toc-link toc-sub">Superweapon</a>
+<a href="/rulings/upgrades/leader.html" class="toc-link toc-sub">Leader</a>
+<a href="/rulings/upgrades/veteran.html" class="toc-link toc-sub">Veteran</a>
 <div class="toc-section-label">Nexus</div>
 <a href="/rulings/nexus-upgrades.html" class="toc-link toc-sub">Nexus Upgrades</a>
 <a href="/rulings/nexus-squadrons.html" class="toc-link toc-sub">Nexus Squadrons</a>
 </aside>
-<button type="button" class="search-fab" aria-label="Search cards" onclick="document.body.classList.toggle('search-open'); document.body.classList.remove('toc-open');">
+<button type="button" class="search-fab" aria-label="Search cards" aria-expanded="false" data-drawer-toggle="search">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 </button>
 <aside class="search-drawer" aria-label="Search and filter">
@@ -1689,6 +1758,66 @@ body.karm-web .card-divider {
     
     <script>
 (function () {
+  var scrim = document.querySelector('.drawer-scrim');
+  var toggles = document.querySelectorAll('[data-drawer-toggle]');
+
+  function isOpen(name) {
+    return document.body.classList.contains(name + '-open');
+  }
+
+  function setOpen(name, open) {
+    document.body.classList.toggle('toc-open', name === 'toc' && open);
+    document.body.classList.toggle('search-open', name === 'search' && open);
+    if (scrim) scrim.hidden = !open;
+    for (var i = 0; i < toggles.length; i++) {
+      var t = toggles[i];
+      t.setAttribute('aria-expanded', String(open && t.getAttribute('data-drawer-toggle') === name));
+    }
+    if (open && name === 'search') {
+      var input = document.getElementById('karm-search-input');
+      if (input) input.focus();
+    }
+  }
+
+  function closeAll() {
+    setOpen('', false);
+  }
+
+  for (var i = 0; i < toggles.length; i++) {
+    (function (toggle) {
+      var name = toggle.getAttribute('data-drawer-toggle');
+      toggle.addEventListener('click', function () {
+        setOpen(name, !isOpen(name));
+      });
+    })(toggles[i]);
+  }
+
+  if (scrim) scrim.addEventListener('click', closeAll);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      // A non-empty search input swallows the first Escape to clear itself
+      // (see the filter script), so reaching here means there is nothing left to clear.
+      closeAll();
+      return;
+    }
+    if (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      var tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+      e.preventDefault();
+      setOpen('search', true);
+    }
+  });
+
+  // Close the menu after following an in-page link so the content isn't left covered.
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('.toc-drawer a[href^="#"]');
+    if (link) closeAll();
+  });
+})();
+</script>
+    <script>
+(function () {
   var searchInput = document.getElementById('karm-search-input');
   var filtersContainer = document.getElementById('karm-faction-filters');
   var noResults = document.getElementById('karm-no-results');
@@ -1803,10 +1932,13 @@ body.karm-web .card-divider {
   });
 
   searchInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      searchInput.value = '';
-      applyFilters();
-    }
+    if (e.key !== 'Escape') return;
+    if (!searchInput.value) return;
+    // Clear the query first and stop the event here; a second Escape reaches the
+    // drawer script's document handler and closes the drawer.
+    searchInput.value = '';
+    applyFilters();
+    e.stopPropagation();
   });
 })();
 </script>

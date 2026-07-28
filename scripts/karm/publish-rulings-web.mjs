@@ -89,11 +89,23 @@ const jobs = [
   { label: 'nexus-squadrons', out: 'public/rulings/nexus-squadrons.html', log: 'public/rulings/nexus-squadrons.log', categories: 'ace-squadrons', nexusOnly: true, loadCardIndex: cardIndexPath },
 ];
 
+// The card API throttles under sustained load; running eight jobs back to back used to
+// leave the last few with no data, which then published empty pages. The generator now
+// fails loudly on an empty result, so pace the jobs and retry once before giving up.
+const JOB_DELAY_MS = 5000;
+const RETRY_DELAY_MS = 30000;
+
 for (let i = 0; i < jobs.length; i++) {
   const job = jobs[i];
-  if (i > 0) await new Promise((r) => setTimeout(r, 1500));
+  if (i > 0) await new Promise((r) => setTimeout(r, JOB_DELAY_MS));
   process.stdout.write(`[karm-web] Generating ${job.label} -> ${job.out}\n`);
-  await runGenerator(job);
+  try {
+    await runGenerator(job);
+  } catch (error) {
+    process.stdout.write(`[karm-web] ${job.label} failed (${error.message}); retrying in ${RETRY_DELAY_MS / 1000}s\n`);
+    await new Promise((r) => setTimeout(r, RETRY_DELAY_MS));
+    await runGenerator(job);
+  }
 }
 
 async function runGenerator(job) {

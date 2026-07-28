@@ -7,7 +7,7 @@
     ]
   },
   "commander": {
-    "cardText": "A is a special type of upgrade card with the :commander: icon on its card back and no upgrade icon in the card front.\n- A :commander: can be equipped to any ship except Flotillas.\n- A fleet cannot have more than one :commander:.\n- A ship with a :commander: equipped is a flagship.\n- A :commander: must be in the play area to be able to resolve. If this card has been set aside, then the :commander: ability cannot resolve."
+    "cardText": "A :commander: is a special type of upgrade card with the :commander: icon on its card back and no upgrade icon in the card front.\n- A :commander: can be equipped to any ship except Flotillas.\n- A fleet cannot have more than one :commander:.\n- A ship with a :commander: equipped is a flagship.\n- A :commander: must be in the play area to be able to resolve. If this card has been set aside, then the :commander: ability cannot resolve."
   },
   "officer": {
     "cardText": "A :officer: is a special type of upgrade card with the :officer: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :officer: can be equipped to any ship that has the :officer: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :officer: card."

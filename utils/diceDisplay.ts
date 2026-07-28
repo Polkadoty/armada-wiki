@@ -70,6 +70,36 @@ export function formatFactionName(faction: string): string {
   return factionMap[faction.toLowerCase()] || faction.charAt(0).toUpperCase() + faction.slice(1);
 }
 
+// The API returns chassis names as slugs (`gozanti-class`), so title-case them for
+// display. Roman numerals and size classes are kept in their conventional casing.
+const CHASSIS_WORD_OVERRIDES: Record<string, string> = {
+  i: 'I',
+  ii: 'II',
+  iii: 'III',
+  iv: 'IV',
+  v: 'V',
+  vi: 'VI',
+  cr90: 'CR90',
+  gr75: 'GR-75',
+  mc30c: 'MC30c',
+  mc75: 'MC75',
+  mc80: 'MC80',
+  tie: 'TIE',
+};
+
+export function formatChassisName(chassisName: string): string {
+  if (!chassisName) return '';
+  // Already human-readable (contains a space or an uppercase letter) — leave it alone.
+  if (/\s/.test(chassisName) || /[A-Z]/.test(chassisName)) return chassisName;
+
+  return chassisName
+    .split('-')
+    .map((word) =>
+      CHASSIS_WORD_OVERRIDES[word] ?? word.charAt(0).toUpperCase() + word.slice(1)
+    )
+    .join(' ');
+}
+
 // Get faction color classes for styling
 export function getFactionColorClasses(faction: string): {
   border: string;
