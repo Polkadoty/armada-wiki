@@ -266,6 +266,26 @@ async function main() {
   } catch { /* NR SVG not available */ }
 
   const data = await fetchAllData(config);
+  const webMode = isWebOutput(config);
+
+  // The job that owns the card index builds it across *all* categories, not just the
+  // ones it renders — otherwise nothing could link to a squadron, objective or damage
+  // card. Doing it before the page build also gives this job's own pages (including the
+  // split upgrade files) a complete index to link against; without it they were the only
+  // pages in the site with no outgoing cross-page references.
+  // No extra API calls: fetchAllData already returns every category.
+  if (writeCardIndexArg && webMode) {
+    const indexConfig = {
+      ...config,
+      includeCategories: ['objectives', 'damage-cards', 'upgrades', 'ace-squadrons'],
+      includeUpgradeTypes: [],
+      includeObjectiveTypes: [],
+    };
+    const indexCards = buildCards(data, indexConfig, iconMap, arcPointsOnlyNames).cards;
+    GLOBAL_CARD_INDEX = buildCardIndex(indexCards);
+    await writeCardIndex(GLOBAL_CARD_INDEX, writeCardIndexArg.split('=')[1]);
+  }
+
   const buildResult = buildCards(data, config, iconMap, arcPointsOnlyNames);
   let cards = buildResult.cards;
   if (cards.length === 0) {
@@ -283,7 +303,6 @@ async function main() {
     cards = [buildPlaceholderCard()];
   }
 
-  const webMode = isWebOutput(config);
   const pages = webMode ? null : paginateCards(cards);
   const html = await renderHtml({ pages, cards, config, pageHref: toSiteHref(config.outputHtml) });
   const outputHtmlPath = path.resolve(repoRoot, config.outputHtml);
@@ -299,10 +318,6 @@ async function main() {
   const splitUpgradesDir = splitUpgradesDirArg ? splitUpgradesDirArg.split('=')[1] : '';
   if (splitUpgradesDir && webMode) {
     await generateSplitUpgradeFiles(cards, config, iconMap, splitUpgradesDir);
-  }
-
-  if (writeCardIndexArg && webMode) {
-    await writeCardIndex(cards, writeCardIndexArg.split('=')[1]);
   }
 
   if (dryRun) {
@@ -2329,7 +2344,7 @@ async function loadCardIndex(filePath) {
   }
 }
 
-async function writeCardIndex(cards, outputPath) {
+function buildCardIndex(cards) {
   const index = {};
   const nonHeaders = cards.filter((c) => c.category !== 'header');
 
@@ -2375,6 +2390,10 @@ async function writeCardIndex(cards, outputPath) {
     }
   }
 
+  return index;
+}
+
+async function writeCardIndex(index, outputPath) {
   const resolved = path.resolve(repoRoot, outputPath);
   await mkdir(path.dirname(resolved), { recursive: true });
   await writeFile(resolved, JSON.stringify(index, null, 2), 'utf8');
