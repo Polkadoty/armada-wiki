@@ -105,6 +105,20 @@
   --page-gap: 24px;
   --ink: #221e1d;
   --accent: #24408f;
+
+  /* ── Web surface tokens ──
+     Only consumed by `body.karm-web` rules so the print/PDF book, which renders
+     without that class, keeps its existing metrics exactly. */
+  --ink-muted: #6b625c;
+  --parchment: #f4f0e6;
+  --parchment-hi: #f8f5ee;
+  --rule-strong: rgba(36, 64, 143, 0.34);
+  --rule: rgba(36, 64, 143, 0.18);
+  --rule-soft: rgba(36, 64, 143, 0.1);
+  --accent-wash: rgba(36, 64, 143, 0.06);
+  /* One knob for how dark the surround behind the page sits. */
+  --surround-tint: #2b3350;
+  --sheet-shadow: 0 1px 2px rgba(24, 20, 14, 0.08), 0 18px 48px rgba(12, 14, 22, 0.28);
 }
 
 * {
@@ -122,23 +136,36 @@ body {
 
 .toc-fab {
   position: fixed;
-  right: 10px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 30;
   border: 0;
   border-radius: 999px;
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   padding: 0;
-  background: #24408f;
+  background: linear-gradient(180deg, #2c4da6 0%, #1e3778 100%);
   color: #fff;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 2px 6px rgba(10, 14, 26, 0.3), 0 10px 24px rgba(10, 14, 26, 0.32);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: filter 130ms ease, box-shadow 130ms ease;
+}
+
+.toc-fab:hover,
+.search-fab:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 3px 8px rgba(10, 14, 26, 0.34), 0 14px 30px rgba(10, 14, 26, 0.38);
+}
+
+.toc-fab:active,
+.search-fab:active {
+  filter: brightness(0.95);
+  box-shadow: 0 1px 4px rgba(10, 14, 26, 0.34);
 }
 
 .hamburger {
@@ -163,13 +190,14 @@ body {
   width: min(380px, 88vw);
   height: 100vh;
   z-index: 29;
-  background: rgba(245, 242, 235, 0.98);
-  border-left: 1px solid rgba(36, 64, 143, 0.25);
-  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
-  padding: 18px 16px 24px;
+  background: linear-gradient(180deg, #f8f5ee 0%, #f1ede3 100%);
+  border-left: 1px solid rgba(36, 64, 143, 0.28);
+  box-shadow: -18px 0 50px rgba(10, 14, 26, 0.34);
+  padding: 22px 18px 28px;
   overflow: auto;
+  overscroll-behavior: contain;
   transform: translateX(104%);
-  transition: transform 180ms ease;
+  transition: transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 body.toc-open .toc-drawer {
@@ -179,40 +207,47 @@ body.toc-open .toc-drawer {
 .toc-title {
   display: block;
   font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 32px;
+  font-size: 30px;
   line-height: 1.1;
-  margin: 0 0 10px;
+  margin: 0 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-strong);
   color: var(--accent);
   text-decoration: none;
 }
 
 .toc-title:hover {
   text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .toc-link {
   display: block;
   color: #1f1f1f;
   text-decoration: none;
-  padding: 8px 4px;
-  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
-  font-size: 20px;
-  line-height: 1.2;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--rule-soft);
+  font-size: 19px;
+  line-height: 1.25;
+  box-shadow: inset 0 0 0 0 var(--accent);
+  transition: background 120ms ease, color 120ms ease, box-shadow 120ms ease;
 }
 
 .toc-link:hover {
-  color: #24408f;
+  color: var(--accent);
+  background: var(--accent-wash);
+  box-shadow: inset 3px 0 0 0 var(--accent);
 }
 
 .toc-link.is-current {
   color: #24408f;
   font-weight: 700;
   box-shadow: inset 3px 0 0 #24408f;
-  background: rgba(36, 64, 143, 0.06);
+  background: rgba(36, 64, 143, 0.09);
 }
 
 .toc-link.toc-sub {
-  padding-left: 16px;
+  padding-left: 24px;
   font-size: 17px;
 }
 
@@ -231,34 +266,47 @@ body.toc-open .toc-drawer {
 }
 
 .toc-section-label {
-  font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
   color: var(--accent);
-  padding: 12px 4px 4px;
-  letter-spacing: 0.02em;
+  padding: 20px 4px 6px;
+  letter-spacing: 0.15em;
+}
+
+.toc-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule-soft);
 }
 
 /* ── Search FAB ── */
 
 .search-fab {
   position: fixed;
-  right: 10px;
-  top: calc(50% + 70px);
+  right: 14px;
+  top: calc(50% + 66px);
   transform: translateY(-50%);
   z-index: 30;
   border: 0;
   border-radius: 999px;
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   padding: 0;
-  background: #24408f;
+  background: linear-gradient(180deg, #2c4da6 0%, #1e3778 100%);
   color: #fff;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 2px 6px rgba(10, 14, 26, 0.3), 0 10px 24px rgba(10, 14, 26, 0.32);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: filter 130ms ease, box-shadow 130ms ease;
 }
 
 .search-fab svg {
@@ -274,13 +322,14 @@ body.toc-open .toc-drawer {
   width: min(380px, 88vw);
   height: 100vh;
   z-index: 29;
-  background: rgba(245, 242, 235, 0.98);
-  border-left: 1px solid rgba(36, 64, 143, 0.25);
-  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.2);
-  padding: 18px 16px 24px;
+  background: linear-gradient(180deg, #f8f5ee 0%, #f1ede3 100%);
+  border-left: 1px solid rgba(36, 64, 143, 0.28);
+  box-shadow: -18px 0 50px rgba(10, 14, 26, 0.34);
+  padding: 22px 18px 28px;
   overflow: auto;
+  overscroll-behavior: contain;
   transform: translateX(104%);
-  transition: transform 180ms ease;
+  transition: transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 body.search-open .search-drawer {
@@ -289,29 +338,35 @@ body.search-open .search-drawer {
 
 .search-drawer-title {
   font-family: "TeutonFett", "AeroMaticsDisplay", sans-serif;
-  font-size: 36px;
-  margin: 0 0 16px;
+  font-size: 30px;
+  color: var(--accent);
+  margin: 0 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-strong);
 }
 
 .search-input {
   width: 100%;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
-  font-size: 18px;
-  padding: 10px 12px;
-  border: none;
-  border-bottom: 2px solid rgba(36, 64, 143, 0.35);
-  background: transparent;
+  font-size: 17px;
+  padding: 11px 13px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.55);
   outline: none;
   color: #221e1d;
   margin-bottom: 18px;
+  transition: border-color 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
 .search-input:focus {
-  border-bottom-color: #24408f;
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(36, 64, 143, 0.14);
 }
 
 .search-input::placeholder {
-  color: #999;
+  color: #9a938c;
 }
 
 /* ── Faction filter buttons ── */
@@ -327,18 +382,32 @@ body.search-open .search-drawer {
   width: 44px;
   height: 44px;
   border-radius: 999px;
-  border: 2px solid #ccc;
-  background: #e8e5de;
-  color: #999;
+  border: 2px solid rgba(24, 20, 14, 0.16);
+  background: rgba(24, 20, 14, 0.05);
+  color: #9a938c;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 120ms, border-color 120ms, color 120ms;
+  transition: background 120ms, border-color 120ms, color 120ms, transform 120ms;
   padding: 0;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+}
+
+.faction-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(24, 20, 14, 0.3);
+  color: #6b625c;
+}
+
+.faction-btn.active:hover {
+  color: #fff;
+}
+
+.faction-btn.active {
+  box-shadow: 0 2px 6px rgba(10, 14, 26, 0.2);
 }
 
 .faction-btn .icon-font {
@@ -393,9 +462,10 @@ body.search-open .search-drawer {
 }
 
 .search-result-count {
-  font-size: 14px;
-  color: #666;
-  padding: 4px 0;
+  font-size: 13px;
+  color: var(--ink-muted);
+  padding: 6px 2px;
+  letter-spacing: 0.02em;
 }
 
 /* ── Filtered-out cards and dividers ── */
@@ -407,9 +477,9 @@ body.search-open .search-drawer {
 
 .no-results {
   text-align: center;
-  padding: 48px 24px;
-  font-size: 18px;
-  color: #666;
+  padding: 64px 24px;
+  font-size: 17px;
+  color: var(--ink-muted);
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
   display: none;
 }
@@ -900,23 +970,53 @@ body.search-open .search-drawer {
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
-  background: #f5f2eb;
+  /* The artwork is a light parchment page, so an overlay tint only greys it out.
+     Multiplying it into the navy keeps the paper grain while pushing the whole
+     surround back, letting the parchment sheet read as the lit surface. */
+  background-color: var(--surround-tint);
   background-image: var(--page-background);
-  /* The source asset is a full rulebook page including its printed frame. Zooming to
-     200% and centring keeps the viewport inside the parchment, so the frame's panel
-     strip never peeks in along the top edge. */
-  background-size: 200%;
+  background-blend-mode: multiply;
+  background-size: cover;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   overflow-x: hidden;
+  /* html carries a #444 canvas colour for the print path; without this a short page
+     (the index) leaves a grey band below the content. */
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (min-width: 1400px) {
-  body.karm-web {
-    /* Wide enough that the frame's left/right edges read as an intentional border. */
-    background-size: cover;
+html:has(body.karm-web) {
+  background: #2b3350;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(body.karm-web) {
+    scroll-behavior: auto;
   }
+
+  body.karm-web *,
+  body.karm-web *::before,
+  body.karm-web *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body.karm-web :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+body.karm-web .toc-fab:focus-visible,
+body.karm-web .search-fab:focus-visible {
+  outline-color: #fff;
+  outline-offset: 3px;
 }
 
 /* `background-attachment: fixed` is janky-to-unsupported on mobile browsers. */
@@ -929,11 +1029,14 @@ body.karm-web {
 body.karm-web .karm-book {
   max-width: 960px;
   width: 100%;
-  margin: 0 auto;
-  padding: 32px 24px;
+  margin: 28px auto 48px;
+  padding: 44px 52px 52px;
   gap: 0;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  background: linear-gradient(180deg, var(--parchment-hi) 0%, var(--parchment) 100%);
+  border: 1px solid rgba(36, 64, 143, 0.16);
+  box-shadow: var(--sheet-shadow);
 }
 
 body.karm-web .karm-page-shell,
@@ -955,16 +1058,25 @@ body.karm-web .page-number {
 
 body.karm-web .karm-card {
   max-width: 100%;
+  gap: 18px;
+  /* Copy-link anchors land flush against the viewport edge without this. */
+  scroll-margin-top: 24px;
+  /* Deliberately NOT `content-visibility: auto`. It measurably helps scrolling on
+     these 2 MB pages, but off-screen cards are then size-estimated, and the estimate
+     error accumulates: deep-linking to a card on upgrades.html landed ~7,800px past
+     it. Correct anchors matter more here, since every page cross-links by card.
+     `loading="lazy"` on the card images carries the load win instead. */
 }
 
 body.karm-web .card-top {
   min-height: auto;
-  gap: 20px;
+  gap: 26px;
 }
 
 body.karm-web .card-main {
   min-width: 0;
   flex: 1;
+  gap: 14px;
 }
 
 body.karm-web .card-image-wrap {
@@ -977,19 +1089,36 @@ body.karm-web .card-image {
   width: 220px;
   height: 312px;
   max-width: 100%;
-  border-radius: 10px;
+  border-radius: 8px;
+  border-color: rgba(24, 20, 14, 0.14);
+  box-shadow: 0 2px 4px rgba(24, 20, 14, 0.1), 0 10px 26px rgba(24, 20, 14, 0.16);
 }
 
 /* ── Typography ── */
 
 body.karm-web .card-title {
-  font-size: 28px;
+  font-size: 30px;
   letter-spacing: -0.03em;
+  color: #1a1614;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
 }
 
 body.karm-web .card-meta {
-  font-size: 16px;
-  gap: 8px;
+  font-size: 15px;
+  gap: 10px;
+  color: var(--ink-muted);
+}
+
+/* Keep the copy affordance quiet until the entry is hovered or focused. */
+body.karm-web .copy-link-btn {
+  opacity: 0;
+  transition: opacity 120ms ease, color 120ms ease, background 120ms ease;
+}
+
+body.karm-web .karm-card:hover .copy-link-btn,
+body.karm-web .copy-link-btn:focus-visible {
+  opacity: 1;
 }
 
 body.karm-web .card-body,
@@ -1005,57 +1134,162 @@ body.karm-web .card-keywords {
 }
 
 body.karm-web .top-summary-label {
-  font-size: 24px;
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+body.karm-web .top-summary-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule-soft);
 }
 
 body.karm-web .top-summary-text {
   font-size: 16px;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
+body.karm-web .top-summary {
+  margin-bottom: 4px;
+}
+
+/* Rulebook section labels: a navy eyebrow trailing a hairline, rather than a bold
+   heading that reads nearly as loud as the card name above it. */
 body.karm-web .ruling-heading {
-  font-size: 24px;
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
+body.karm-web .ruling-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule-soft);
+}
+
+body.karm-web .ruling-section + .ruling-section {
+  margin-top: 16px;
+}
+
+/* Angular markers echo the rulebook's own list glyphs; discs read generic here. */
 body.karm-web .ruling-content ul {
-  padding-left: 24px;
+  padding-left: 0;
+  list-style: none;
+}
+
+body.karm-web .ruling-content li {
+  position: relative;
+  padding-left: 22px;
+}
+
+body.karm-web .ruling-content li + li {
+  margin-top: 5px;
+}
+
+body.karm-web .ruling-content li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  opacity: 0.5;
+  transform: rotate(45deg);
+}
+
+body.karm-web .ruling-content li.defunct::before {
+  opacity: 0.25;
 }
 
 body.karm-web .ruling-footnotes {
-  font-size: 13px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  border-top: 1px solid var(--rule-soft);
+  margin-top: 18px;
+  padding-top: 8px;
+}
+
+body.karm-web .footnote-ref {
+  color: var(--accent);
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+@media (hover: none) {
+  body.karm-web .copy-link-btn {
+    opacity: 1;
+  }
 }
 
 body.karm-web .header-bar {
-  height: 1.5px;
+  height: 1px;
+  background: var(--rule-strong);
+}
+
+body.karm-web .section-header-wrap {
+  gap: 10px;
 }
 
 body.karm-web .section-header-title {
-  font-size: 32px;
+  font-size: 34px;
+  letter-spacing: 0.08em;
 }
 
 body.karm-web .karm-header-card {
-  min-height: 120px;
-  padding: 24px 0;
+  min-height: 0;
+  padding: 40px 0 28px;
 }
 
 body.karm-web .header-content {
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.55;
+}
+
+body.karm-web .card-ref {
+  border-bottom-color: var(--rule-strong);
+}
+
+body.karm-web .card-ref:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 body.karm-web .arc-points-toggle { font-size: 11px; padding: 2px 7px 1px; }
 
+/* A hairline that fades at both ends sits better on parchment than a hard edge-to-edge
+   rule, and keeps the eye inside the text column. */
 body.karm-web .card-divider {
   border: none;
-  border-top: 1px solid rgba(36, 64, 143, 0.2);
-  margin: 28px 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule) 18%, var(--rule) 82%, transparent);
+  margin: 38px 0;
 }
 
 /* ── Tablet ── */
 
 @media (max-width: 768px) {
   body.karm-web .karm-book {
-    padding: 24px 16px;
+    margin: 16px auto 32px;
+    padding: 30px 26px 36px;
   }
 
   body.karm-web .card-top {
@@ -1092,8 +1326,13 @@ body.karm-web .card-divider {
 /* ── Mobile ── */
 
 @media (max-width: 480px) {
+  /* Full-bleed sheet: side margins this narrow cost more reading width than the
+     framing is worth. */
   body.karm-web .karm-book {
-    padding: 16px 12px;
+    margin: 0 auto 24px;
+    padding: 24px 18px 32px;
+    border-left: none;
+    border-right: none;
   }
 
   body.karm-web .card-top {
@@ -1115,15 +1354,17 @@ body.karm-web .card-divider {
   body.karm-web .card-rulings,
   body.karm-web .card-bottom {
     font-size: 15px;
-    line-height: 1.45;
+    line-height: 1.5;
   }
 
   body.karm-web .top-summary-label {
-    font-size: 20px;
+    font-size: 14px;
+    letter-spacing: 0.12em;
   }
 
   body.karm-web .ruling-heading {
-    font-size: 20px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
   }
 
   body.karm-web .section-header-title {
@@ -1139,67 +1380,111 @@ body.karm-web .card-divider {
 
 .index-page {
   max-width: 720px;
-  margin: 0 auto;
-  padding: 48px 24px;
+  margin: 48px auto 64px;
+  padding: 52px 56px 44px;
+  background: linear-gradient(180deg, var(--parchment-hi) 0%, var(--parchment) 100%);
+  border: 1px solid rgba(36, 64, 143, 0.16);
+  box-shadow: var(--sheet-shadow);
 }
 
+/* Rules above and below the wordmark mirror the section-header plates used
+   throughout the book. */
 .index-title {
   font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 700;
   text-align: center;
   color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
   margin: 0;
+  padding: 14px 0 16px;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
 }
 
 .index-subtitle {
   text-align: center;
-  font-size: 18px;
-  color: #555;
-  margin: 8px 0 0;
+  font-size: 16px;
+  color: var(--ink-muted);
+  margin: 14px 0 0;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
 }
 
 .index-links {
   list-style: none;
   padding: 0;
-  margin: 32px 0 0;
+  margin: 34px 0 0;
 }
 
 .index-links li a {
-  display: block;
-  padding: 10px 8px;
-  border-bottom: 1px solid rgba(36, 64, 143, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule-soft);
   font-size: 18px;
   color: #1f1f1f;
   text-decoration: none;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  box-shadow: inset 0 0 0 0 var(--accent);
+  transition: background 130ms ease, color 130ms ease, box-shadow 130ms ease;
 }
 
-.index-links li a:hover {
+/* The chevron is the hover affordance; a colour shift alone reads as ambiguous
+   on a list this long. */
+.index-links li a::after {
+  content: "›";
+  font-size: 20px;
+  line-height: 1;
   color: var(--accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 130ms ease, transform 130ms ease;
+}
+
+.index-links li a:hover,
+.index-links li a:focus-visible {
+  color: var(--accent);
+  background: var(--accent-wash);
+  box-shadow: inset 3px 0 0 0 var(--accent);
+}
+
+.index-links li a:hover::after,
+.index-links li a:focus-visible::after {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .index-links .index-section-label {
-  font-family: "LogoFont", "RevengerLite", "Trajan Pro", Georgia, serif;
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
+  font-size: 13px;
   font-weight: 700;
   color: var(--accent);
-  padding-top: 16px;
+  padding: 26px 0 8px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.15em;
+}
+
+.index-links .index-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule-soft);
 }
 
 .index-footer {
-  margin-top: 32px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(36, 64, 143, 0.15);
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
   text-align: center;
   font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
   font-size: 15px;
-  color: #555;
+  color: var(--ink-muted);
 }
 
 .index-footer p {
@@ -1208,16 +1493,38 @@ body.karm-web .card-divider {
 
 .index-footer a {
   color: var(--accent);
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 2px;
+}
+
+.index-footer a:hover {
+  text-decoration-color: var(--accent);
 }
 
 .index-disclaimer {
-  font-size: 13px;
-  color: #777;
+  font-size: 12.5px;
+  color: #8a817a;
+}
+
+@media (max-width: 760px) {
+  .index-page {
+    margin: 20px auto 40px;
+    padding: 36px 28px 32px;
+  }
+
+  .index-title { font-size: 38px; }
 }
 
 @media (max-width: 480px) {
-  .index-title { font-size: 32px; }
-  .index-links li a { font-size: 16px; }
+  .index-page {
+    margin: 0 auto 24px;
+    padding: 30px 18px 26px;
+    border-left: none;
+    border-right: none;
+  }
+
+  .index-title { font-size: 28px; letter-spacing: 0.04em; }
+  .index-links li a { font-size: 16px; padding: 11px 10px; }
 }
 
 @media print {
@@ -1248,6 +1555,24 @@ body.karm-web .card-divider {
     background: transparent;
   }
 
+  /* Strip the on-screen page furniture so printing the web page yields plain
+     parchment-free copy. */
+  html:has(body.karm-web),
+  body.karm-web {
+    background: none;
+    min-height: 0;
+  }
+
+  body.karm-web .karm-book,
+  .index-page {
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+
+
   .karm-book {
     gap: 0;
     padding: 0;
@@ -1276,7 +1601,6 @@ body.karm-web .card-divider {
     print-color-adjust: exact;
   }
 }
-
     </style>
   </head>
   <body class="karm-web">
@@ -1347,7 +1671,7 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="magnite-crystal-tractor-beam-array-super-weapon" data-name="magnite crystal tractor beam array" data-factions="rebel" data-category="upgrades" data-type="super-weapon">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/magnite-crystal-tractor-beam-array.webp" alt="Magnite Crystal Tractor Beam Array" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/magnite-crystal-tractor-beam-array.webp" alt="Magnite Crystal Tractor Beam Array" loading="lazy" decoding="async" /></div>
     <div class="card-main">
       <h2 class="card-title">Magnite Crystal Tractor Beam Array <span class="icon-font">[</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="magnite-crystal-tractor-beam-array-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
@@ -1372,7 +1696,7 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="orbital-bombardment-particle-cannons-super-weapon" data-name="orbital bombardment particle cannons" data-factions="empire" data-category="upgrades" data-type="super-weapon">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/orbital-bombardment-particle-cannons.webp" alt="Orbital Bombardment Particle Cannons" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/orbital-bombardment-particle-cannons.webp" alt="Orbital Bombardment Particle Cannons" loading="lazy" decoding="async" /></div>
     <div class="card-main">
       <h2 class="card-title">Orbital Bombardment Particle Cannons <span class="icon-font">\</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="orbital-bombardment-particle-cannons-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
@@ -1402,7 +1726,7 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="superheavy-composite-beam-turbolasers-super-weapon" data-name="superheavy composite beam turbolasers" data-factions="empire" data-category="upgrades" data-type="super-weapon">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/superheavy-composite-beam-turbolasers.webp" alt="Superheavy Composite Beam Turbolasers" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/superheavy-composite-beam-turbolasers.webp" alt="Superheavy Composite Beam Turbolasers" loading="lazy" decoding="async" /></div>
     <div class="card-main">
       <h2 class="card-title">Superheavy Composite Beam Turbolasers <span class="icon-font">\</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="superheavy-composite-beam-turbolasers-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
@@ -1450,7 +1774,7 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="ion-pulse-emitter-super-weapon" data-name="ion pulse emitter" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-pulse-emitter-nexus.webp" alt="Ion Pulse Emitter" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ion-pulse-emitter-nexus.webp" alt="Ion Pulse Emitter" loading="lazy" decoding="async" /></div>
     <div class="card-main">
       <h2 class="card-title">Ion Pulse Emitter <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="ion-pulse-emitter-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
@@ -1485,7 +1809,7 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="ionic-plasma-rotors-super-weapon" data-name="ionic plasma rotors" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ionic-plasma-rotors-nexus.webp" alt="Ionic Plasma Rotors" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/ionic-plasma-rotors-nexus.webp" alt="Ionic Plasma Rotors" loading="lazy" decoding="async" /></div>
     <div class="card-main">
       <h2 class="card-title">Ionic Plasma Rotors <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="ionic-plasma-rotors-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
@@ -1520,7 +1844,7 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="kyber-beam-cannon-super-weapon" data-name="kyber beam cannon" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-cannon-nexus.webp" alt="Kyber Beam Cannon" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-cannon-nexus.webp" alt="Kyber Beam Cannon" loading="lazy" decoding="async" /></div>
     <div class="card-main">
       <h2 class="card-title">Kyber Beam Cannon <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="kyber-beam-cannon-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">
@@ -1550,7 +1874,7 @@ body.karm-web .card-divider {
 
 <article class="karm-card" id="kyber-beam-plasma-refit-super-weapon" data-name="kyber beam plasma refit" data-factions="separatist" data-category="nexus-upgrades" data-type="super-weapon">
   <div class="card-top">
-    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-plasma-refit-nexus.webp" alt="Kyber Beam Plasma Refit" /></div>
+    <div class="card-image-wrap"><img class="card-image" src="https://images.swarmada.wiki/images/kyber-beam-plasma-refit-nexus.webp" alt="Kyber Beam Plasma Refit" loading="lazy" decoding="async" /></div>
     <div class="card-main">
       <h2 class="card-title">Kyber Beam Plasma Refit <span class="icon-font">}</span> <span class="icon-font"> N</span> <button class="copy-link-btn" data-anchor="kyber-beam-plasma-refit-super-weapon" title="Copy link" aria-label="Copy link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8.5a3 3 0 0 0 4.2.4l2-2a3 3 0 0 0-4.2-4.2l-1.2 1.1"/><path d="M9.5 7.5a3 3 0 0 0-4.2-.4l-2 2a3 3 0 0 0 4.2 4.2l1.1-1.1"/></svg></button></h2>
       <div class="top-summary">

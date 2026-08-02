@@ -1760,10 +1760,14 @@ function renderCard(card) {
     : `${topSummary}${keywordHtml}`;
 
   const hasArcToggle = card.arcImage && CURRENT_WEB_MODE;
+  // A single web page carries up to ~500 remote card images, so deferring the
+  // off-screen ones is the largest available load win. The PDF path must stay eager:
+  // a lazy image that never enters a viewport prints blank.
+  const loadAttrs = CURRENT_WEB_MODE ? ' loading="lazy" decoding="async"' : '';
   const imageHtml = card.image
     ? hasArcToggle
-      ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" data-base-image="${escapeAttribute(card.image)}" data-arc-image="${escapeAttribute(card.arcImage)}" />`
-      : `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}" />`
+      ? `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}"${loadAttrs} data-base-image="${escapeAttribute(card.image)}" data-arc-image="${escapeAttribute(card.arcImage)}" />`
+      : `<img class="card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}"${loadAttrs} />`
     : `<div class="card-image fallback">No image</div>`;
 
   const arcToggleHtml = hasArcToggle

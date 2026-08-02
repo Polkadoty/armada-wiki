@@ -12,7 +12,9 @@
     "rulings:pdf:dry": "node scripts/karm/generate-karm-rulings-book.mjs --dry-run",
     "rulings:pdf:weasy": "node scripts/karm/generate-karm-rulings-book.mjs --engine=weasyprint",
     "rulings:icons:sync": "node scripts/karm/sync-icon-map.mjs",
-    "rulings:web": "GENERATE_RULINGS_WEB=1 node scripts/karm/publish-rulings-web.mjs"
+    "rulings:web": "GENERATE_RULINGS_WEB=1 node scripts/karm/publish-rulings-web.mjs",
+    "rulings:sync": "node scripts/karm/sync-built-pages.mjs",
+    "rulings:sync:check": "node scripts/karm/sync-built-pages.mjs --check"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",

@@ -72,6 +72,23 @@ Sync icon glyph mappings from armada-list-builder:
 npm run rulings:icons:sync
 ```
 
+## Presentation-only changes
+
+A full regeneration runs eight jobs against the rate-limited card API, which is a lot of
+work to ship a CSS tweak. For changes that touch presentation only, edit the source and
+re-apply it to the already-published pages in place:
+
+```bash
+npm run rulings:sync         # rewrite public/rulings/**.html
+npm run rulings:sync:check   # exit non-zero if any page is stale (CI-friendly)
+```
+
+This applies exactly what the generator now emits — the current `template.css` and
+`loading="lazy" decoding="async"` on card images — and never touches ruling content,
+ordering, or anchors. A later real generator run reproduces the same bytes.
+
+Anything that changes *what* is on the page still needs `npm run rulings:web`.
+
 Output defaults:
 - HTML: `scripts/karm/out/rulings-book.html`
 - PDF: `scripts/karm/out/rulings-book.pdf`
