@@ -1,0 +1,249 @@
+@font-face {
+  font-family: "ChangelogTrajan";
+  src: url("/rulings/fonts/logo.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ChangelogDisplay";
+  src: url("/rulings/fonts/aero-matics-display-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:global(body):has(.root) {
+  background: #444 !important;
+  color: #221e1d;
+}
+
+:global(body):has(.root) > :global(footer) {
+  display: none;
+}
+
+.root {
+  min-height: 100vh;
+  color-scheme: light;
+  color: #221e1d;
+  font-family: "Optima", "Segoe UI", Arial, sans-serif;
+}
+
+.pages {
+  width: min(100%, 1400px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  min-height: min(128.53vw, 1799px);
+  overflow: hidden;
+  background-color: #f8f7f1;
+  background-image: url("/rulings/assets/rulebook-background.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0 0 42px rgba(0, 0, 0, 0.34);
+}
+
+.masthead {
+  padding: 42px 7.2% 22px;
+  text-align: center;
+}
+
+.starWars {
+  font-family: "ChangelogDisplay", Impact, sans-serif;
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 0.8;
+  letter-spacing: 0.12em;
+}
+
+.armada {
+  margin-top: 3px;
+  font-family: "ChangelogTrajan", Georgia, serif;
+  font-size: clamp(52px, 7.6vw, 104px);
+  line-height: 0.9;
+  letter-spacing: 0.16em;
+}
+
+.title {
+  margin-top: 28px;
+  font-family: "ChangelogDisplay", Impact, sans-serif;
+  font-size: clamp(24px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.version {
+  margin-top: 5px;
+  color: #0875a5;
+  font-family: "ChangelogDisplay", Impact, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pageColumns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px 44px;
+  padding: 52px 7.2% 94px;
+}
+
+.firstPageColumns {
+  padding-top: 0;
+}
+
+.pageNumber {
+  position: absolute;
+  right: 6.4%;
+  bottom: 42px;
+  color: #24408f;
+  font-family: "ChangelogDisplay", Impact, sans-serif;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.section {
+  min-width: 0;
+  align-self: start;
+}
+
+.sectionHeader {
+  margin-bottom: 24px;
+  padding: 6px 8px 7px;
+  border-top: 5px double #24408f;
+  border-bottom: 5px double #24408f;
+  color: #24408f;
+  font-family: "ChangelogTrajan", Georgia, serif;
+  font-size: clamp(24px, 2.8vw, 39px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.category {
+  margin-top: 24px;
+  break-inside: avoid;
+}
+
+.category:first-of-type {
+  margin-top: 0;
+}
+
+.categoryTitle {
+  margin: 0 0 8px;
+  font-family: "TeutonFett", "ChangelogDisplay", Impact, sans-serif;
+  font-size: clamp(22px, 2.25vw, 34px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.entry {
+  padding: 2px 0 4px;
+  break-inside: avoid;
+}
+
+.communityMark {
+  display: inline-block;
+  width: 0.72em;
+  height: 0.91em;
+  margin-left: 0.08em;
+  background: url("/community-logo.svg") center / contain no-repeat;
+  transform: translateY(0.1em);
+}
+
+.entryLine {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 4px;
+  font-size: clamp(14px, 1.35vw, 19px);
+  line-height: 1.14;
+}
+
+.leader {
+  min-width: 10px;
+  flex: 1;
+  border-bottom: 2px dotted rgba(34, 30, 29, 0.75);
+  transform: translateY(-3px);
+}
+
+.details {
+  margin: 3px 0 2px 22px;
+  padding: 0;
+  font-size: clamp(13px, 1.17vw, 17px);
+  line-height: 1.23;
+}
+
+.details li {
+  margin: 2px 0;
+  padding-left: 3px;
+}
+
+@media (min-width: 900px) {
+  .pageColumns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 899px) {
+  :global(body):has(.root) {
+    background: #f8f7f1 !important;
+  }
+
+  .pages {
+    gap: 18px;
+  }
+
+  .page {
+    min-height: 128.53vw;
+    box-shadow: none;
+  }
+
+  .masthead {
+    padding-top: 30px;
+  }
+}
+
+@media print {
+  :global(body):has(.root) {
+    background: white !important;
+  }
+
+  .pages {
+    width: 100%;
+    gap: 0;
+  }
+
+  .page {
+    min-height: 100vh;
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .masthead {
+    padding-top: 0.28in;
+  }
+
+  .pageColumns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25in;
+    padding: 0.42in 0.42in 0.58in;
+  }
+
+  .firstPageColumns {
+    padding-top: 0;
+  }
+}

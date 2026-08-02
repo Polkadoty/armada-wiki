@@ -38,6 +38,11 @@ export function Footer() {
                   Objectives
                 </Link>
               </li>
+              <li>
+                <Link href="/changelog" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Community Changelog
+                </Link>
+              </li>
             </ul>
           </div>
 

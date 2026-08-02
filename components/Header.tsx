@@ -23,6 +23,7 @@ import {
   Heart,
   GitCompare,
   BookOpen,
+  ScrollText,
   Info,
 } from 'lucide-react';
 
@@ -36,6 +37,7 @@ const navItems = [
   { href: '/squadrons', label: 'Squadrons', icon: Plane },
   { href: '/upgrades', label: 'Upgrades', icon: Wrench },
   { href: '/objectives', label: 'Objectives', icon: Target },
+  { href: '/changelog', label: 'Changelog', icon: ScrollText },
 ];
 
 const mobileNavItems = [
