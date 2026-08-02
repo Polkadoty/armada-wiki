@@ -116,8 +116,6 @@
   --rule: rgba(36, 64, 143, 0.18);
   --rule-soft: rgba(36, 64, 143, 0.1);
   --accent-wash: rgba(36, 64, 143, 0.06);
-  /* One knob for how dark the surround behind the page sits. */
-  --surround-tint: #2b3350;
   --sheet-shadow: 0 1px 2px rgba(24, 20, 14, 0.08), 0 18px 48px rgba(12, 14, 22, 0.28);
 }
 
@@ -970,12 +968,8 @@ body.search-open .search-drawer {
 /* ── Continuous responsive web layout ── */
 
 body.karm-web {
-  /* The artwork is a light parchment page, so an overlay tint only greys it out.
-     Multiplying it into the navy keeps the paper grain while pushing the whole
-     surround back, letting the parchment sheet read as the lit surface. */
-  background-color: var(--surround-tint);
+  background-color: #f5f2eb;
   background-image: var(--page-background);
-  background-blend-mode: multiply;
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
@@ -989,7 +983,7 @@ body.karm-web {
 }
 
 html:has(body.karm-web) {
-  background: #2b3350;
+  background: #f5f2eb;
   scroll-behavior: smooth;
 }
 
