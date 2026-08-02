@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import {
   fetchCommunityChangelog,
   type ChangelogEntry,
@@ -49,7 +50,7 @@ function PointText({ entry }: { entry: ChangelogEntry }) {
 
 function ChangeEntry({ entry }: { entry: ChangelogEntry }) {
   const details = entry.changes.map((change) => change.summary);
-  if (entry.status === 'added') details.unshift('Added to the Community set.');
+  if (entry.status === 'added') details.unshift('Added to the Community set.', ...entry.additionDetails);
   if (!entry.baselineFound) details.push('Original version unavailable for comparison.');
 
   return (
@@ -100,8 +101,14 @@ export default async function ChangelogPage() {
           <article key={pageIndex} className={styles.page} aria-label={`Changelog page ${pageIndex + 1}`}>
             {pageIndex === 0 && (
               <header className={styles.masthead}>
-                <div className={styles.starWars}>STAR WARS</div>
-                <div className={styles.armada}>ARMADA</div>
+                <Image
+                  className={styles.mastheadLogo}
+                  src="/community-logo-splash.svg"
+                  alt="Armada Community Edition"
+                  width={1597}
+                  height={637}
+                  priority
+                />
                 <h1 className={styles.title}>Community Errata Change Log</h1>
                 <p className={styles.version}>Updated {formatDate(changelog.lastModified)}</p>
               </header>

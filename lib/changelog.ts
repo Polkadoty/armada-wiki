@@ -40,6 +40,7 @@ export interface ChangelogEntry {
     direction: 'increase' | 'decrease';
   };
   changes: ChangelogFieldChange[];
+  additionDetails: string[];
   rulingCount: number;
   inheritedRulingCount: number;
   baselineFound: boolean;
@@ -516,6 +517,15 @@ function clippedQuote(value: string, maxLength = 150): string {
   return `“${clipped}”`;
 }
 
+function fullQuote(value: string): string {
+  const plainText = value
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return `“${plainText}”`;
+}
+
 function summarizeTextChange(before: string, after: string): string {
   const beforeWords = before.split(/\s+/).filter(Boolean);
   const afterWords = after.split(/\s+/).filter(Boolean);
@@ -544,12 +554,82 @@ function summarizeTextChange(before: string, after: string): string {
   if (removed.length + added.length <= 230) {
     return `Changed ${clippedQuote(removed)} to ${clippedQuote(added)}`;
   }
-  return 'Card text replaced with updated wording.';
+  return `Updated card text: ${fullQuote(after)}`;
 }
 
 function summarizeFieldChange(path: string, label: string, before: string, after: string): string {
   if (/ability|rule|setup|end_of/.test(path)) return summarizeTextChange(before, after);
+
+  if (path.startsWith('tokens.')) {
+    const beforeCount = Number(before);
+    const afterCount = Number(after);
+    if (Number.isFinite(beforeCount) && Number.isFinite(afterCount)) {
+      const delta = afterCount - beforeCount;
+      if (delta !== 0) {
+        const count = Math.abs(delta);
+        const tokenName = label.replace(/ tokens?$/i, '').toLowerCase();
+        return `${delta > 0 ? 'Gains' : 'Loses'} ${count} ${tokenName} token${count === 1 ? '' : 's'}.`;
+      }
+    }
+  }
+
+  if (path.startsWith('abilities.')) {
+    if (before === 'Yes' && after === 'No') return `Loses ${label} Keyword.`;
+    if (before === 'No' && after === 'Yes') return `Gains ${label} Keyword.`;
+  }
+
+  if (path === 'modification') {
+    if (before === 'Yes' && after === 'No') return 'Loses Modification.';
+    if (before === 'No' && after === 'Yes') return 'Gains Modification.';
+  }
+
+  if (path === 'victory_tokens') {
+    if (before === 'No' && after === 'Yes') return 'Objective gains victory token scoring.';
+    if (before === 'Yes' && after === 'No') return 'Objective loses victory token scoring.';
+  }
+
   return `${label} changed from ${before} to ${after}.`;
+}
+
+function keywordLabel(keyword: string): string {
+  if (keyword === 'ai-battery') return 'AI: Battery';
+  if (keyword === 'ai-antisquadron') return 'AI: Anti-Squadron';
+  return humanize(keyword);
+}
+
+function additionDetails(entity: RawEntity): string[] {
+  if (entity.entityType === 'upgrade') {
+    const details: string[] = [];
+    const textFields: Array<[string, string]> = [
+      ['ability', 'Card text'],
+      ['setup', 'Setup'],
+      ['special_rule', 'Special rule'],
+      ['end_of_round', 'End of round'],
+      ['end_of_game', 'End of game'],
+    ];
+    for (const [field, label] of textFields) {
+      const value = asString(entity.item[field]).trim();
+      if (value) details.push(`${label}: ${fullQuote(value)}`);
+    }
+    return details;
+  }
+
+  if (entity.entityType === 'squadron') {
+    const keywords = Object.entries(asObject(entity.item.abilities))
+      .flatMap(([keyword, value]) => {
+        if (value === true) return [keywordLabel(keyword)];
+        if (typeof value === 'number' && value > 0) return [`${keywordLabel(keyword)} ${value}`];
+        return [];
+      });
+    return keywords.length > 0 ? [`Keywords: ${keywords.join(', ')}.`] : [];
+  }
+
+  if (entity.entityType === 'ship') {
+    const size = asString(asObject(entity.item.chassis_stats).size).trim();
+    return size ? [`Ship size: ${humanize(size)}.`] : [];
+  }
+
+  return [];
 }
 
 function compareGameplay(beforeItem: JsonObject, afterItem: JsonObject): ChangelogFieldChange[] {
@@ -650,6 +730,7 @@ export function buildCommunityChangelog(payloads: ChangelogPayloads): CommunityC
       points: afterPoints,
       pointChange,
       changes: baseline ? compareGameplay(baseline.item, entity.item) : [],
+      additionDetails: isErrata ? [] : additionDetails(entity),
       rulingCount: rules.length,
       inheritedRulingCount: enriched.inherited,
       baselineFound: !isErrata || Boolean(baseline),
