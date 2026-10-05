@@ -7,6 +7,9 @@
   --page-gap: 24px;
   --ink: #221e1d;
   --accent: #24408f;
+  /* The Armada Reference Manual sets its body copy in Libertinus Sans; Optima is the
+     fallback for builds whose config predates the bundled ArmBody faces. */
+  --font-body: "ArmBody", "Libertinus Sans", "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
 
   /* ── Web surface tokens ──
      Only consumed by `body.karm-web` rules so the print/PDF book, which renders
@@ -30,7 +33,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--ink);
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   background: #444;
 }
 
@@ -47,7 +50,7 @@ body {
   padding: 0;
   background: linear-gradient(180deg, #2c4da6 0%, #1e3778 100%);
   color: #fff;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(10, 14, 26, 0.3), 0 10px 24px rgba(10, 14, 26, 0.32);
   display: inline-flex;
@@ -200,7 +203,7 @@ body.toc-open .toc-drawer {
   padding: 0;
   background: linear-gradient(180deg, #2c4da6 0%, #1e3778 100%);
   color: #fff;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(10, 14, 26, 0.3), 0 10px 24px rgba(10, 14, 26, 0.32);
   display: inline-flex;
@@ -247,7 +250,7 @@ body.search-open .search-drawer {
 
 .search-input {
   width: 100%;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 17px;
   padding: 11px 13px;
   border: 1px solid var(--rule);
@@ -293,7 +296,7 @@ body.search-open .search-drawer {
   justify-content: center;
   transition: background 120ms, border-color 120ms, color 120ms, transform 120ms;
   padding: 0;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .faction-btn:hover {
@@ -380,7 +383,7 @@ body.search-open .search-drawer {
   padding: 64px 24px;
   font-size: 17px;
   color: var(--ink-muted);
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   display: none;
 }
 
@@ -593,7 +596,7 @@ body.search-open .search-drawer {
 }
 
 .top-summary-label {
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 46px;
   font-weight: 700;
   line-height: 1.05;
@@ -604,7 +607,7 @@ body.search-open .search-drawer {
   font-size: 29px;
   line-height: 1.22;
   font-weight: 400;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .top-summary-text p {
@@ -620,7 +623,7 @@ body.search-open .search-drawer {
   margin: 0 0 2px;
   font-size: 46px;
   line-height: 1.1;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   color: #202020;
 }
@@ -825,7 +828,7 @@ body.search-open .search-drawer {
   transform: translateX(-50%);
   background: #24408f;
   color: #fff;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   padding: 10px 20px;
   border-radius: 8px;
@@ -993,11 +996,9 @@ body.karm-web .card-image {
 /* ── Typography ── */
 
 body.karm-web .card-title {
-  font-size: 30px;
+  font-size: 32px;
   letter-spacing: -0.03em;
   color: #1a1614;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--rule);
 }
 
 body.karm-web .card-meta {
@@ -1029,24 +1030,18 @@ body.karm-web .card-keywords {
   font-size: 15px;
 }
 
-body.karm-web .top-summary-label {
-  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
-  font-size: 15px;
+/* Section labels follow the Armada Reference Manual: a bold run-in label in the body
+   face, set just above its text, rather than a tracked display-face eyebrow. */
+body.karm-web .top-summary-label,
+body.karm-web .ruling-heading {
+  font-family: var(--font-body);
+  font-size: 17px;
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-body.karm-web .top-summary-label::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--rule-soft);
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #202020;
+  margin: 0 0 2px;
 }
 
 body.karm-web .top-summary-text {
@@ -1054,38 +1049,25 @@ body.karm-web .top-summary-text {
   line-height: 1.55;
 }
 
+/* Card text is quoted from the card itself, which the ARM sets in italics. */
+body.karm-web .top-summary-block--card-text .top-summary-text {
+  font-style: italic;
+}
+
+body.karm-web .top-summary-block--card-text .top-summary-text .icon-font {
+  font-style: normal;
+}
+
 body.karm-web .top-summary {
+  gap: 14px;
   margin-bottom: 4px;
-}
-
-/* Rulebook section labels: a navy eyebrow trailing a hairline, rather than a bold
-   heading that reads nearly as loud as the card name above it. */
-body.karm-web .ruling-heading {
-  font-family: "AeroMaticsDisplay", "RevengerLite", "Trajan Pro", Georgia, serif;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 8px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-body.karm-web .ruling-heading::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--rule-soft);
 }
 
 body.karm-web .ruling-section + .ruling-section {
   margin-top: 16px;
 }
 
-/* Angular markers echo the rulebook's own list glyphs; discs read generic here. */
+/* Round ink bullets, matching the ARM's list glyphs. */
 body.karm-web .ruling-content ul {
   padding-left: 0;
   list-style: none;
@@ -1097,23 +1079,22 @@ body.karm-web .ruling-content li {
 }
 
 body.karm-web .ruling-content li + li {
-  margin-top: 5px;
+  margin-top: 6px;
 }
 
 body.karm-web .ruling-content li::before {
   content: "";
   position: absolute;
-  left: 4px;
-  top: 0.6em;
+  left: 6px;
+  top: 0.62em;
   width: 5px;
   height: 5px;
-  background: var(--accent);
-  opacity: 0.5;
-  transform: rotate(45deg);
+  border-radius: 50%;
+  background: currentColor;
 }
 
 body.karm-web .ruling-content li.defunct::before {
-  opacity: 0.25;
+  opacity: 0.4;
 }
 
 body.karm-web .ruling-footnotes {
@@ -1253,14 +1234,9 @@ body.karm-web .card-divider {
     line-height: 1.5;
   }
 
-  body.karm-web .top-summary-label {
-    font-size: 14px;
-    letter-spacing: 0.12em;
-  }
-
+  body.karm-web .top-summary-label,
   body.karm-web .ruling-heading {
-    font-size: 12px;
-    letter-spacing: 0.12em;
+    font-size: 16px;
   }
 
   body.karm-web .section-header-title {
@@ -1304,7 +1280,7 @@ body.karm-web .card-divider {
   font-size: 16px;
   color: var(--ink-muted);
   margin: 14px 0 0;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
 }
 
 .index-links {
@@ -1323,7 +1299,7 @@ body.karm-web .card-divider {
   font-size: 18px;
   color: #1f1f1f;
   text-decoration: none;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   box-shadow: inset 0 0 0 0 var(--accent);
   transition: background 130ms ease, color 130ms ease, box-shadow 130ms ease;
 }
@@ -1378,7 +1354,7 @@ body.karm-web .card-divider {
   padding-top: 18px;
   border-top: 1px solid var(--rule);
   text-align: center;
-  font-family: "OptimaCustom", Optima, "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   color: var(--ink-muted);
 }

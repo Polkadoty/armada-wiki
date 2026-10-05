@@ -19,6 +19,11 @@ export function Footer() {
             <h3 className="font-heading font-semibold text-sm">Browse</h3>
             <ul className="space-y-2 text-xs">
               <li>
+                <Link href="/rulings" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Rules &amp; Rulings
+                </Link>
+              </li>
+              <li>
                 <Link href="/ships" className="text-muted-foreground hover:text-foreground transition-colors">
                   Ships
                 </Link>
@@ -41,6 +46,11 @@ export function Footer() {
               <li>
                 <Link href="/changelog" className="text-muted-foreground hover:text-foreground transition-colors">
                   Community Changelog
+                </Link>
+              </li>
+              <li>
+                <Link href="/changelog/arm" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Reference Manual Changelog
                 </Link>
               </li>
             </ul>

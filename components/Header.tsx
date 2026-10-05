@@ -25,6 +25,7 @@ import {
   BookOpen,
   ScrollText,
   Info,
+  Gavel,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -33,6 +34,7 @@ interface HeaderProps {
 }
 
 const navItems = [
+  { href: '/rulings', label: 'Rulings', icon: Gavel },
   { href: '/ships', label: 'Ships', icon: Anchor },
   { href: '/squadrons', label: 'Squadrons', icon: Plane },
   { href: '/upgrades', label: 'Upgrades', icon: Wrench },

@@ -45,7 +45,7 @@
   "title": {
     "cardText": "A :title: is a special type of upgrade card with the :title: icon on its card back and ship icon it equips too in the lower-left corner of the card front.\n- A :title: can be equipped to the ship shown in the lower-left corner of the card front.\n- A ship cannot equip more than one :title: card.\n- Insert RRG: \"Name-Restricted Title Cards: Some Title upgrade cards in this expansion have an icon in the lower-left corner that does not match a specific ship icon. A ship can equip this upgrade card if that ship matches this card's faction affiliation and the ship's name matches this upgrade card's name-restriction trait.\""
   },
-  "superweapon": {
+  "super-weapon": {
     "cardText": "A :superweapon: is a special type of upgrade card with the :superweapon: icon on its card back and upgrade icon in the lower-left corner of the card front.\n- A :superweapon: can be equipped to any ship that has the :superweapon: upgrade icon in its ship card.\n- A ship cannot equip more than one copy of the same :superweapon: card."
   }
 }

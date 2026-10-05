@@ -3,6 +3,64 @@
 @tailwind utilities;
 
 /* ── Font Face Declarations ── */
+/* Libertinus Sans (SIL OFL, see public/fonts/LibertinusSans-OFL.txt) is the body face
+   of the Armada Reference Manual, so the wiki and the rulebook pages read alike. */
+@font-face {
+  font-family: 'Libertinus Sans';
+  src: url('/fonts/LibertinusSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Libertinus Sans';
+  src: url('/fonts/LibertinusSans-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Libertinus Sans';
+  src: url('/fonts/LibertinusSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaLogo';
+  src: url('/fonts/logo.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMatics';
+  src: url('/fonts/aero-matics-display-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'AeroMatics';
+  src: url('/fonts/fighter-keyword.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ArmadaIcons';
+  src: url('/fonts/icons.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
 @font-face {
   font-family: 'Optima';
   src: url('/fonts/optima.woff') format('woff');
@@ -44,7 +102,10 @@
 }
 
 @layer base {
-  :root {
+  /* Rulebook surfaces (rulings, changelogs) are printed-page parchment in either theme;
+     `.force-light` gives shadcn components inside them the light tokens. */
+  :root,
+  .force-light {
     --background: 36 33% 95%;
     --foreground: 20 10% 13%;
     --card: 36 33% 97%;
@@ -111,7 +172,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Optima', 'Segoe UI', sans-serif;
+    font-family: 'Libertinus Sans', 'Optima', 'Segoe UI', sans-serif;
     background-image:
       radial-gradient(circle at 10% 20%, hsl(224 59% 35% / 0.06), transparent 35%),
       radial-gradient(circle at 90% 10%, hsl(36 33% 80% / 0.15), transparent 28%),
@@ -255,4 +316,87 @@
 }
 .glow-faction-new-republic {
   box-shadow: 0 0 20px hsl(var(--faction-new-republic) / 0.3);
+}
+
+/* ── Rulebook prose ──
+   Rulings text arrives as rendered markdown (see components/rulings/RulingText.tsx), so
+   its paragraphs, lists and inline marks are styled here rather than per element. */
+@layer components {
+  .rulebook-prose {
+    @apply text-base leading-[1.55];
+  }
+
+  .rulebook-prose p + p,
+  .rulebook-prose p + ul,
+  .rulebook-prose ul + p {
+    @apply mt-2;
+  }
+
+  .rulebook-prose blockquote {
+    @apply my-2 border-l-2 border-rulebook-accent/30 pl-3 text-rulebook-muted;
+  }
+
+  .rulebook-prose code {
+    @apply rounded bg-black/5 px-1 font-mono text-[0.9em];
+  }
+
+  /* Round ink bullets, as the ARM sets them. */
+  .ruling-list > li {
+    @apply relative pl-[22px];
+  }
+
+  .ruling-list > li + li {
+    @apply mt-1.5;
+  }
+
+  .ruling-list > li::before {
+    content: "";
+    @apply absolute left-1.5 top-[0.62em] size-[5px] rounded-full bg-current;
+  }
+
+  /* Per-card chrome, repeated on every entry of a rulings page (some pages carry ~300),
+     is kept here rather than as utility strings to keep those pages light. */
+  .ruling-card-image {
+    @apply aspect-[220/312] w-full rounded-lg border border-black/15 bg-black/5 shadow-[0_2px_4px_rgba(24,20,14,0.1),0_10px_26px_rgba(24,20,14,0.16)];
+  }
+
+  .ruling-card-title {
+    @apply flex flex-wrap items-baseline gap-x-2 gap-y-1 font-heading text-[26px] leading-[1.04] tracking-[-0.03em] text-[#1a1614] sm:text-[32px];
+    font-variant: small-caps;
+  }
+
+  .ruling-label {
+    @apply font-body text-[17px] font-bold leading-tight text-[#202020];
+  }
+
+  .ruling-ref {
+    @apply ml-0.5 text-[0.7em] font-bold text-rulebook-accent/70;
+  }
+
+  .ruling-copy-link {
+    @apply self-center rounded p-1 text-rulebook-accent opacity-0 transition-opacity hover:bg-rulebook-accent/10 focus-visible:opacity-100 group-hover/card:opacity-100;
+  }
+
+  @media (hover: none) {
+    .ruling-copy-link {
+      @apply opacity-60;
+    }
+  }
+
+  .community-mark {
+    @apply inline-block h-[0.82em] w-[0.66em] bg-[url(/community-logo.svg)] bg-contain bg-center bg-no-repeat align-[-0.05em];
+  }
+
+  .card-ref {
+    @apply text-rulebook-accent decoration-rulebook-accent/40 underline-offset-2 hover:underline;
+  }
+
+  .keyword-name {
+    @apply font-aero font-bold not-italic;
+  }
+}
+
+/* Rulebook pages carry their own disclaimer and navigation. */
+body:has([data-rulebook]) > footer {
+  display: none;
 }

@@ -11,11 +11,22 @@ const config: Config = {
   theme: {
   	extend: {
   		fontFamily: {
-  			body: ['Optima', 'Segoe UI', 'sans-serif'],
+  			body: ['Libertinus Sans', 'Optima', 'Segoe UI', 'sans-serif'],
   			heading: ['TeutonFett', 'sans-serif'],
   			display: ['RevengerLiteBB', 'Impact', 'sans-serif'],
+  			// Rulebook faces: Armada Reference Manual body, title lettering, display caps, icons.
+  			logo: ['ArmadaLogo', 'Trajan Pro', 'Georgia', 'serif'],
+  			aero: ['AeroMatics', 'Impact', 'sans-serif'],
+  			icons: ['ArmadaIcons'],
   		},
   		colors: {
+  			rulebook: {
+  				ink: '#221e1d',
+  				muted: '#6b625c',
+  				accent: '#24408f',
+  				parchment: '#f4f0e6',
+  				sheet: '#f8f5ee',
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

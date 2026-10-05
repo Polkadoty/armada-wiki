@@ -1,0 +1,426 @@
+/* Mirrors the Armada Reference Manual's page treatment: Libertinus Sans body copy,
+   Teuton Fett small-caps card names, and bold run-in section labels, on the same
+   rulebook sheet the published rulings pages use. */
+
+@font-face {
+  font-family: "ChangelogTrajan";
+  src: url("/fonts/logo.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ChangelogDisplay";
+  src: url("/fonts/aero-matics-display-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:global(body):has(.root) {
+  background: #444 url("/images/rulebook-background.webp") center top / cover fixed !important;
+  color: #221e1d;
+}
+
+:global(body):has(.root) > :global(footer) {
+  display: none;
+}
+
+.root {
+  --ink: #221e1d;
+  --ink-muted: #6b625c;
+  --accent: #24408f;
+  --added: #1559b8;
+  --rule: rgba(36, 64, 143, 0.18);
+
+  min-height: 100vh;
+  padding: 40px 16px 64px;
+  color-scheme: light;
+  color: var(--ink);
+  font-family: "Libertinus Sans", "Optima", "Segoe UI", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.sheet {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 56px 64px 64px;
+  background: linear-gradient(180deg, #f8f5ee, #f4f0e6);
+  border: 1px solid rgba(36, 64, 143, 0.1);
+  box-shadow: 0 1px 2px rgba(24, 20, 14, 0.08), 0 18px 48px rgba(12, 14, 22, 0.28);
+}
+
+/* ── Masthead ── */
+
+.masthead {
+  text-align: center;
+  padding-bottom: 28px;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: "ChangelogDisplay", Impact, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 10px 0 0;
+  padding: 12px 0 10px;
+  border-top: 1px solid rgba(36, 64, 143, 0.34);
+  border-bottom: 1px solid rgba(36, 64, 143, 0.34);
+  color: var(--accent);
+  font-family: "ChangelogTrajan", Georgia, serif;
+  font-size: clamp(26px, 4.4vw, 44px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin: 14px 0 0;
+  font-family: "ChangelogDisplay", Impact, sans-serif;
+  font-size: clamp(20px, 2.6vw, 28px);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 24px;
+  margin-bottom: 36px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+}
+
+.releaseNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.releaseNav a,
+.footnotes a,
+.paragraph a {
+  color: var(--accent);
+  text-underline-offset: 2px;
+}
+
+/* ── Releases ── */
+
+.release {
+  scroll-margin-top: 24px;
+}
+
+.releaseHeader {
+  margin-bottom: 22px;
+  padding: 6px 8px 7px;
+  border-top: 5px double var(--accent);
+  border-bottom: 5px double var(--accent);
+  text-align: center;
+}
+
+.releaseTitle {
+  margin: 0;
+  color: var(--accent);
+  font-family: "ChangelogTrajan", Georgia, serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+.releaseDate {
+  margin: 4px 0 0;
+  color: #0875a5;
+  font-family: "ChangelogDisplay", Impact, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.divider {
+  margin: 56px 0 40px;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.paragraph {
+  margin: 0 0 14px;
+}
+
+.blockHeading {
+  margin: 26px 0 6px;
+  font-family: "TeutonFett", Impact, sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.blockHeading:first-child {
+  margin-top: 0;
+}
+
+.bullets {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.bullets li + li {
+  margin-top: 6px;
+}
+
+.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ── Numbered entries ── */
+
+.entries {
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 3.4em minmax(0, 1fr);
+  gap: 0 6px;
+  scroll-margin-top: 24px;
+}
+
+.entry + .entry {
+  margin-top: 18px;
+}
+
+.numeral {
+  color: var(--accent);
+  font-family: "ChangelogTrajan", Georgia, serif;
+  font-weight: 700;
+  text-align: right;
+  padding-right: 8px;
+}
+
+.entryBody {
+  min-width: 0;
+}
+
+.entryBody > .paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.outline {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.outline li {
+  display: grid;
+  grid-template-columns: 2em minmax(0, 1fr);
+}
+
+.outline li + li {
+  margin-top: 6px;
+}
+
+.outline p {
+  margin: 0;
+}
+
+.outline .outline {
+  margin: 6px 0 0;
+}
+
+.outlineMarker {
+  font-weight: 700;
+}
+
+/* ── Card entries, set as the ARM sets them ── */
+
+.card {
+  margin: 18px 0 22px;
+  padding: 16px 20px 6px;
+  border-left: 3px solid var(--rule);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.cardName {
+  margin: 0 0 10px;
+  font-family: "TeutonFett", Impact, sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  font-variant: small-caps;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.cardSection {
+  margin-bottom: 14px;
+}
+
+.cardSection p {
+  margin: 0 0 8px;
+}
+
+.cardLabel {
+  margin: 0 0 2px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.cardText {
+  font-style: italic;
+}
+
+/* ── Revision marks ── */
+
+.added {
+  color: var(--added);
+  text-decoration: none;
+}
+
+.removed {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+/* ── Footnotes ── */
+
+.footnoteRef {
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+.footnoteRef a {
+  padding: 0 1px;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footnotes {
+  margin-top: 28px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.footnotes ol {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.footnotes li {
+  scroll-margin-top: 24px;
+}
+
+.footnotes li + li {
+  margin-top: 4px;
+}
+
+.backref {
+  text-decoration: none;
+}
+
+.sheet :target {
+  animation: target-flash 1.6s ease-out;
+}
+
+@keyframes target-flash {
+  from { background: rgba(36, 64, 143, 0.14); }
+  to { background: transparent; }
+}
+
+@media (max-width: 700px) {
+  .root {
+    padding: 0;
+    font-size: 16px;
+  }
+
+  .sheet {
+    padding: 32px 20px 40px;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .entry {
+    grid-template-columns: 2.8em minmax(0, 1fr);
+  }
+
+  .card {
+    padding: 12px 14px 4px;
+  }
+
+  .cardName {
+    font-size: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet :target {
+    animation: none;
+  }
+}
+
+@media print {
+  :global(body):has(.root) {
+    background: white !important;
+  }
+
+  .root {
+    padding: 0;
+  }
+
+  .sheet {
+    max-width: none;
+    border: 0;
+    box-shadow: none;
+    background: none;
+  }
+
+  .toolbar .releaseNav {
+    display: none;
+  }
+
+  .entry,
+  .card {
+    break-inside: avoid;
+  }
+}

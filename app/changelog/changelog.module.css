@@ -1,6 +1,6 @@
 @font-face {
   font-family: "ChangelogTrajan";
-  src: url("/rulings/fonts/logo.woff") format("woff");
+  src: url("/fonts/logo.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "ChangelogDisplay";
-  src: url("/rulings/fonts/aero-matics-display-regular.woff") format("woff");
+  src: url("/fonts/aero-matics-display-regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -27,7 +27,7 @@
   min-height: 100vh;
   color-scheme: light;
   color: #221e1d;
-  font-family: "Optima", "Segoe UI", Arial, sans-serif;
+  font-family: "Libertinus Sans", "Optima", "Segoe UI", Arial, sans-serif;
 }
 
 .pages {
@@ -44,7 +44,7 @@
   min-height: min(128.53vw, 1799px);
   overflow: hidden;
   background-color: #f8f7f1;
-  background-image: url("/rulings/assets/rulebook-background.webp");
+  background-image: url("/images/rulebook-background.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;

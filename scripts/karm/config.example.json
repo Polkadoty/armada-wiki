@@ -29,6 +29,9 @@
     "neutral": ""
   },
   "fonts": {
+    "bodyRegular": "scripts/karm/fonts/LibertinusSans-Regular.woff2",
+    "bodyItalic": "scripts/karm/fonts/LibertinusSans-Italic.woff2",
+    "bodyBold": "scripts/karm/fonts/LibertinusSans-Bold.woff2",
     "optimaRegular": "/Users/andrew/Library/Fonts/Optima-Regular.ttf",
     "optimaItalic": "/Users/andrew/Downloads/armada-fonts/Optima Italic.ttf",
     "optimaBold": "/Users/andrew/Downloads/armada-fonts/Optima Bold.TTF",

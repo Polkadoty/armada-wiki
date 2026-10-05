@@ -185,6 +185,10 @@ const defaultConfig = {
   iconsMapSource: 'scripts/karm/icon-map.json',
   iconsMapSourceExternal: '/Users/andrew/Documents/GitHub/armada-list-builder/src/constants/icons.ts',
   fonts: {
+    // Body face of the Armada Reference Manual (Libertinus Sans, SIL OFL).
+    bodyRegular: 'scripts/karm/fonts/LibertinusSans-Regular.woff2',
+    bodyItalic: 'scripts/karm/fonts/LibertinusSans-Italic.woff2',
+    bodyBold: 'scripts/karm/fonts/LibertinusSans-Bold.woff2',
     optimaRegular: '/Users/andrew/Library/Fonts/Optima-Regular.ttf',
     optimaItalic: '/Users/andrew/Downloads/armada-fonts/Optima Italic.ttf',
     optimaBold: '/Users/andrew/Downloads/armada-fonts/Optima Bold.TTF',
@@ -1518,9 +1522,9 @@ async function renderHtml({ pages, cards, config, pageHref = '' }) {
 function buildPreloadLinks(config) {
   const fonts = config.fonts || {};
   const entries = [
-    fonts.optimaRegular,
-    fonts.optimaItalic,
-    fonts.optimaBold,
+    fonts.bodyRegular,
+    fonts.bodyItalic,
+    fonts.bodyBold,
     fonts.revengerLite,
     fonts.teutonFett,
     fonts.aeroMaticsRegular,
@@ -1721,6 +1725,9 @@ function buildFontFaceCss(fonts, config) {
 }`);
   };
 
+  pushFace('ArmBody', fonts?.bodyRegular, '400', 'normal');
+  pushFace('ArmBody', fonts?.bodyItalic, '400', 'italic');
+  pushFace('ArmBody', fonts?.bodyBold, '700', 'normal');
   pushFace('OptimaCustom', fonts?.optimaRegular, '400', 'normal');
   pushFace('OptimaCustom', fonts?.optimaItalic, '400', 'italic');
   pushFace('OptimaCustom', fonts?.optimaBold, '700', 'normal');
@@ -1936,7 +1943,7 @@ function renderUpgradeTopSummary(sectionEntries) {
 
   if (cardTextEntries.length > 0) {
     blocks.push(`
-<div class="top-summary-block">
+<div class="top-summary-block top-summary-block--card-text">
   <div class="top-summary-label">Card Text</div>
   <div class="top-summary-text">${markdownishToHtml(cardTextEntries[0].text)}</div>
 </div>`);

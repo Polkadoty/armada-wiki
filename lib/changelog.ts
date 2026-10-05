@@ -85,7 +85,9 @@ export interface ChangelogPayloads {
   warnings?: string[];
 }
 
-const API_REVALIDATE_SECONDS = 60 * 60;
+// Kept in step with CARD_CATALOG_TAG in lib/cardApi.ts (this module stays import-free so
+// its tests can load it directly): the changelog is rebuilt when the card data changes.
+const CARD_CATALOG_TAG = 'card-catalog';
 
 const EMPTY_SOURCE: SourcePayloads = {
   ships: {},
@@ -796,7 +798,8 @@ async function fetchEndpoint(path: string): Promise<{ data: JsonObject; warning?
   for (const base of bases) {
     try {
       const response = await fetch(`${base.replace(/\/$/, '')}${path}`, {
-        next: { revalidate: API_REVALIDATE_SECONDS },
+        cache: 'force-cache',
+        next: { tags: [CARD_CATALOG_TAG] },
         signal: AbortSignal.timeout(12_000),
       });
       if (!response.ok) {

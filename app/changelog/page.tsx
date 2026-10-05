@@ -5,6 +5,7 @@ import {
   type ChangelogEntry,
   type ChangelogSection,
 } from '@/lib/changelog';
+import { ChangelogTabs } from './ChangelogTabs';
 import styles from './changelog.module.css';
 
 export const metadata: Metadata = {
@@ -111,6 +112,7 @@ export default async function ChangelogPage() {
                 />
                 <h1 className={styles.title}>Changelog</h1>
                 <p className={styles.version}>Updated {formatDate(changelog.lastModified)}</p>
+                <ChangelogTabs active="community" />
               </header>
             )}
             <div className={`${styles.pageColumns} ${pageIndex === 0 ? styles.firstPageColumns : ''}`}>
@@ -122,6 +124,7 @@ export default async function ChangelogPage() {
           </article>
         )) : (
           <article className={styles.page}>
+            <ChangelogTabs active="community" />
             <p className="px-10 py-24 text-center">Community data is temporarily unavailable.</p>
           </article>
         )}
