@@ -11,16 +11,16 @@ import { GlobalSearch } from '@/components/GlobalSearch';
 import { useGlobalSearch } from '@/hooks/useGlobalSearch';
 import { SkeletonCardGrid } from '@/components/SkeletonCard';
 import {
-  getSourceBadgeClasses,
   formatFactionName,
   getFactionColorClasses,
 } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { CONTENT_SOURCES } from '@/utils/cardSources';
 import { cn } from '@/lib/utils';
 import { ArrowUpDown, Filter } from 'lucide-react';
 
 type SortOption = 'name' | 'points-asc' | 'points-desc' | 'type';
 
-const SOURCES = ['Core', 'Legacy', 'LegacyBeta', 'Nexus', 'ARC', 'Naboo', 'Legends'] as const;
 const normalizeFactionList = (factions: unknown): string[] =>
   Array.isArray(factions) ? factions.filter((f): f is string => typeof f === 'string') : [];
 const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'unknown');
@@ -210,7 +210,7 @@ export default function UpgradesPage() {
               >
                 All
               </Button>
-              {SOURCES.map((source) => (
+              {CONTENT_SOURCES.map((source) => (
                 <Button
                   key={source}
                   variant={sourceFilter === source ? 'default' : 'outline'}
@@ -256,7 +256,7 @@ export default function UpgradesPage() {
                   <div className="flex gap-2 text-xs flex-wrap mb-2">
                     {upgrade.source && (
                       <Badge className={getSourceBadgeClasses(upgrade.source)}>
-                        {upgrade.source}
+                        <SourceLabel source={upgrade.source} />
                       </Badge>
                     )}
                     <Badge variant="secondary" className="capitalize">

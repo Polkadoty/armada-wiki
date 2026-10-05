@@ -61,6 +61,8 @@ export interface ShipModel {
   artwork?: string;
   cardimage?: string;
   source?: string;
+  // Key of the core card this community erratum replaces (set by utils/cardSources)
+  supersedes?: string;
 }
 
 // Rule type shared across card types
@@ -123,6 +125,8 @@ export interface Squadron {
   artwork?: string;
   cardimage?: string;
   source?: string;
+  // Key of the core card this community erratum replaces (set by utils/cardSources)
+  supersedes?: string;
   rulings?: string;
   rules?: Rule[];
 }
@@ -159,6 +163,8 @@ export interface Upgrade {
   artwork?: string;
   cardimage?: string;
   source?: string;
+  // Key of the core card this community erratum replaces (set by utils/cardSources)
+  supersedes?: string;
   rulings?: string;
   rules?: Rule[];
 }
@@ -186,6 +192,8 @@ export interface Objective {
   artwork?: string;
   cardimage?: string;
   source?: string;
+  // Key of the core card this community erratum replaces (set by utils/cardSources)
+  supersedes?: string;
   rules?: Rule[];
 }
 

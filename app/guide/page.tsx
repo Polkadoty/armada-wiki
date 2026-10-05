@@ -142,7 +142,7 @@ export default function GuidePage() {
                 <h3 className="font-medium mb-2">Filter by Faction & Content</h3>
                 <p className="text-sm text-muted-foreground">
                   Use the filter buttons on browse pages to narrow down cards by faction (Rebel,
-                  Empire, Republic, etc.) or content pack (Core, Legacy, Nexus).
+                  Empire, Republic, etc.) or content pack (Core, Community, Nexus).
                 </p>
               </div>
 

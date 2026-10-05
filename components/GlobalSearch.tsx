@@ -15,8 +15,9 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { fetchCardData } from '@/utils/dataFetcher';
-import { formatFactionName, formatChassisName, getSourceBadgeClasses, getFactionColorClasses } from '@/utils/diceDisplay';
-import type { Ship, ShipModel, Squadron, Upgrade, Objective } from '@/types/cards';
+import { formatFactionName, formatChassisName, getFactionColorClasses } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { loadShips, loadSquadrons, loadUpgrades, loadObjectives } from '@/utils/cardSources';
 
 interface SearchResult {
   id: string;
@@ -77,133 +78,92 @@ export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
     }
 
     setIsLoading(true);
-    await fetchCardData();
+    try {
+      await fetchCardData();
+    } catch {
+      // Search whatever is already cached
+    }
 
     const searchResults: SearchResult[] = [];
     const lowerQuery = searchQuery.toLowerCase();
 
-    // Helper to load and search data
-    const searchInStorage = (
-      keys: string[],
-      type: 'ship' | 'squadron' | 'upgrade' | 'objective'
-    ) => {
-      keys.forEach((key) => {
-        try {
-          const data = localStorage.getItem(key);
-          if (!data) return;
-
-          const parsed = JSON.parse(data);
-
-          if (type === 'ship' && parsed.ships) {
-            Object.entries(parsed.ships as Record<string, Ship>).forEach(
-              ([chassisId, chassis]) => {
-                Object.entries(chassis.models as Record<string, ShipModel>).forEach(
-                  ([modelId, model]) => {
-                    if (
-                      model.name?.toLowerCase().includes(lowerQuery) ||
-                      chassis.chassis_name?.toLowerCase().includes(lowerQuery)
-                    ) {
-                      searchResults.push({
-                        id: modelId,
-                        type: 'ship',
-                        name: model.name,
-                        subtitle: formatChassisName(chassis.chassis_name),
-                        faction: model.faction,
-                        points: model.points,
-                        source: model.source,
-                        href: `/ships/${chassisId}/${modelId}`,
-                      });
-                    }
-                  }
-                );
-              }
-            );
-          }
-
-          if (type === 'squadron' && parsed.squadrons) {
-            Object.entries(parsed.squadrons as Record<string, Squadron>).forEach(
-              ([id, squadron]) => {
-                const displayName = squadron['ace-name']
-                  ? `${squadron['ace-name']} - ${squadron.name}`
-                  : squadron.name;
-                if (
-                  displayName.toLowerCase().includes(lowerQuery) ||
-                  squadron.name?.toLowerCase().includes(lowerQuery) ||
-                  (squadron['ace-name'] &&
-                    squadron['ace-name'].toLowerCase().includes(lowerQuery))
-                ) {
-                  searchResults.push({
-                    id,
-                    type: 'squadron',
-                    name: displayName,
-                    faction: squadron.faction,
-                    points: squadron.points,
-                    source: squadron.source,
-                    href: `/squadrons/${id}`,
-                  });
-                }
-              }
-            );
-          }
-
-          if (type === 'upgrade' && parsed.upgrades) {
-            Object.entries(parsed.upgrades as Record<string, Upgrade>).forEach(
-              ([id, upgrade]) => {
-                if (
-                  upgrade.name?.toLowerCase().includes(lowerQuery) ||
-                  upgrade.ability?.toLowerCase().includes(lowerQuery)
-                ) {
-                  const factions = normalizeFactionList(upgrade.faction);
-                  searchResults.push({
-                    id,
-                    type: 'upgrade',
-                    name: upgrade.name,
-                    subtitle: normalizeType(upgrade.type),
-                    faction: factions[0],
-                    points: upgrade.points,
-                    source: upgrade.source,
-                    href: `/upgrades/${id}`,
-                  });
-                }
-              }
-            );
-          }
-
-          if (type === 'objective' && parsed.objectives) {
-            Object.entries(parsed.objectives as Record<string, Objective>).forEach(
-              ([id, objective]) => {
-                if (
-                  objective.name?.toLowerCase().includes(lowerQuery) ||
-                  objective.special_rule?.toLowerCase().includes(lowerQuery)
-                ) {
-                  searchResults.push({
-                    id,
-                    type: 'objective',
-                    name: objective.name,
-                    subtitle: normalizeType(objective.type),
-                    source: objective.source,
-                    href: `/objectives/${id}`,
-                  });
-                }
-              }
-            );
-          }
-        } catch {
-          // Ignore errors
+    // Search the merged Core + Community + Nexus collections
+    Object.entries(loadShips()).forEach(([chassisId, chassis]) => {
+      Object.entries(chassis.models || {}).forEach(([modelId, model]) => {
+        if (
+          model.name?.toLowerCase().includes(lowerQuery) ||
+          chassis.chassis_name?.toLowerCase().includes(lowerQuery)
+        ) {
+          searchResults.push({
+            id: modelId,
+            type: 'ship',
+            name: model.name,
+            subtitle: formatChassisName(chassis.chassis_name),
+            faction: model.faction,
+            points: model.points,
+            source: model.source,
+            href: `/ships/${chassisId}/${modelId}`,
+          });
         }
       });
-    };
+    });
 
-    // Search all data sources
-    const shipKeys = ['ships', 'legacyShips', 'legacyBetaShips', 'nexusShips', 'arcShips', 'nabooShips'];
-    const squadronKeys = ['squadrons', 'legacySquadrons', 'legacyBetaSquadrons', 'nexusSquadrons', 'arcSquadrons', 'nabooSquadrons'];
-    const upgradeKeys = ['upgrades', 'legacyUpgrades', 'legacyBetaUpgrades', 'nexusUpgrades', 'arcUpgrades', 'nabooUpgrades', 'legendsUpgrades'];
-    const objectiveKeys = ['objectives', 'legacyObjectives', 'legacyBetaObjectives', 'nexusObjectives', 'arcObjectives', 'nabooObjectives'];
+    Object.entries(loadSquadrons()).forEach(([id, squadron]) => {
+      const displayName = squadron['ace-name']
+        ? `${squadron['ace-name']} - ${squadron.name}`
+        : squadron.name;
+      if (
+        displayName.toLowerCase().includes(lowerQuery) ||
+        squadron.name?.toLowerCase().includes(lowerQuery) ||
+        (squadron['ace-name'] &&
+          squadron['ace-name'].toLowerCase().includes(lowerQuery))
+      ) {
+        searchResults.push({
+          id,
+          type: 'squadron',
+          name: displayName,
+          faction: squadron.faction,
+          points: squadron.points,
+          source: squadron.source,
+          href: `/squadrons/${id}`,
+        });
+      }
+    });
 
-    searchInStorage(shipKeys, 'ship');
-    searchInStorage(squadronKeys, 'squadron');
-    searchInStorage(upgradeKeys, 'upgrade');
-    searchInStorage(objectiveKeys, 'objective');
+    Object.entries(loadUpgrades()).forEach(([id, upgrade]) => {
+      if (
+        upgrade.name?.toLowerCase().includes(lowerQuery) ||
+        upgrade.ability?.toLowerCase().includes(lowerQuery)
+      ) {
+        const factions = normalizeFactionList(upgrade.faction);
+        searchResults.push({
+          id,
+          type: 'upgrade',
+          name: upgrade.name,
+          subtitle: normalizeType(upgrade.type),
+          faction: factions[0],
+          points: upgrade.points,
+          source: upgrade.source,
+          href: `/upgrades/${id}`,
+        });
+      }
+    });
+
+    Object.entries(loadObjectives()).forEach(([id, objective]) => {
+      if (
+        objective.name?.toLowerCase().includes(lowerQuery) ||
+        objective.special_rule?.toLowerCase().includes(lowerQuery)
+      ) {
+        searchResults.push({
+          id,
+          type: 'objective',
+          name: objective.name,
+          subtitle: normalizeType(objective.type),
+          source: objective.source,
+          href: `/objectives/${id}`,
+        });
+      }
+    });
 
     // Sort and limit results
     const sortedResults = searchResults
@@ -361,7 +321,7 @@ export function GlobalSearch({ open, onOpenChange }: GlobalSearchProps) {
                                 getSourceBadgeClasses(result.source)
                               )}
                             >
-                              {result.source}
+                              <SourceLabel source={result.source} />
                             </Badge>
                           )}
                           <ArrowRight

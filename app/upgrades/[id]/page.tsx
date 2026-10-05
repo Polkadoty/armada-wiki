@@ -6,7 +6,9 @@ import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
+import { formatFactionName } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { resolveCardKey } from '@/utils/cardSources';
 const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'unknown');
 
 export default function UpgradeDetailPage({
@@ -17,9 +19,9 @@ export default function UpgradeDetailPage({
   const { id } = use(params);
   const { upgrades, loading } = useUpgrades();
 
-  const upgrade = useMemo(() => {
-    return upgrades[id] || null;
-  }, [upgrades, id]);
+  // Old links to a core card that community errata replaced resolve to the erratum
+  const cardKey = useMemo(() => resolveCardKey(upgrades, id), [upgrades, id]);
+  const upgrade = cardKey ? upgrades[cardKey] : null;
 
   if (loading) {
     return (
@@ -84,8 +86,8 @@ export default function UpgradeDetailPage({
                   {upgrade.points} Points
                 </span>
                 {upgrade.source && (
-                  <span className={`px-3 py-1 rounded font-bold ${getSourceBadgeClasses(upgrade.source)}`}>
-                    {upgrade.source}
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded font-bold ${getSourceBadgeClasses(upgrade.source)}`}>
+                    <SourceLabel source={upgrade.source} />
                   </span>
                 )}
                 <span className="px-3 py-1 bg-secondary rounded capitalize">
@@ -267,7 +269,7 @@ export default function UpgradeDetailPage({
 
         {/* Comments Section */}
         <div className="mt-12 border-t border-border/70 pt-8">
-          <Comments cardType="upgrade" cardId={id} />
+          <Comments cardType="upgrade" cardId={cardKey ?? id} />
         </div>
       </div>
     </div>

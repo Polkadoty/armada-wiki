@@ -11,19 +11,19 @@ import { GlobalSearch } from '@/components/GlobalSearch';
 import { useGlobalSearch } from '@/hooks/useGlobalSearch';
 import { SkeletonCardGrid } from '@/components/SkeletonCard';
 import {
-  getSourceBadgeClasses,
   STANDARD_FACTIONS,
   formatFactionName,
   formatChassisName,
   getFactionColorClasses,
 } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { CONTENT_SOURCES } from '@/utils/cardSources';
 import { cn } from '@/lib/utils';
 import { ArrowUpDown, Filter } from 'lucide-react';
 import type { Ship, ShipModel } from '@/types/cards';
 
 type SortOption = 'name' | 'points-asc' | 'points-desc' | 'faction';
 
-const SOURCES = ['Core', 'Legacy', 'LegacyBeta', 'Nexus', 'ARC', 'Naboo'] as const;
 
 export default function ShipsPage() {
   const { ships, loading } = useShips();
@@ -67,7 +67,7 @@ export default function ShipsPage() {
 
       const matchesSource =
         sourceFilter === 'all' ||
-        item.chassis.source === sourceFilter;
+        item.model.source === sourceFilter;
 
       return matchesSearch && matchesFaction && matchesSource;
     });
@@ -179,7 +179,7 @@ export default function ShipsPage() {
               >
                 All
               </Button>
-              {SOURCES.map((source) => (
+              {CONTENT_SOURCES.map((source) => (
                 <Button
                   key={source}
                   variant={sourceFilter === source ? 'default' : 'outline'}
@@ -224,9 +224,9 @@ export default function ShipsPage() {
                     {formatChassisName(chassis.chassis_name)}
                   </p>
                   <div className="flex gap-2 text-xs flex-wrap">
-                    {chassis.source && (
-                      <Badge className={getSourceBadgeClasses(chassis.source)}>
-                        {chassis.source}
+                    {model.source && (
+                      <Badge className={getSourceBadgeClasses(model.source)}>
+                        <SourceLabel source={model.source} />
                       </Badge>
                     )}
                     <Badge variant="secondary">

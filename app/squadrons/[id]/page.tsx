@@ -6,7 +6,9 @@ import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { formatDice, getSquadronDisplayName, getSourceBadgeClasses, formatFactionName } from '@/utils/diceDisplay';
+import { formatDice, getSquadronDisplayName, formatFactionName } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { resolveCardKey } from '@/utils/cardSources';
 const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'unknown');
 
 export default function SquadronDetailPage({
@@ -17,9 +19,9 @@ export default function SquadronDetailPage({
   const { id } = use(params);
   const { squadrons, loading } = useSquadrons();
 
-  const squadron = useMemo(() => {
-    return squadrons[id] || null;
-  }, [squadrons, id]);
+  // Old links to a core card that community errata replaced resolve to the erratum
+  const cardKey = useMemo(() => resolveCardKey(squadrons, id), [squadrons, id]);
+  const squadron = cardKey ? squadrons[cardKey] : null;
 
   if (loading) {
     return (
@@ -86,8 +88,8 @@ export default function SquadronDetailPage({
                   {squadron.points} Points
                 </span>
                 {squadron.source && (
-                  <span className={`px-3 py-1 rounded font-bold ${getSourceBadgeClasses(squadron.source)}`}>
-                    {squadron.source}
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded font-bold ${getSourceBadgeClasses(squadron.source)}`}>
+                    <SourceLabel source={squadron.source} />
                   </span>
                 )}
                 <span className="px-3 py-1 bg-secondary rounded">
@@ -242,7 +244,7 @@ export default function SquadronDetailPage({
 
         {/* Comments Section */}
         <div className="mt-12 border-t border-border/70 pt-8">
-          <Comments cardType="squadron" cardId={id} />
+          <Comments cardType="squadron" cardId={cardKey ?? id} />
         </div>
       </div>
     </div>

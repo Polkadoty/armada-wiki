@@ -13,8 +13,8 @@ import {
   formatFactionName,
   getFactionColorClasses,
   formatDice,
-  getSourceBadgeClasses,
 } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
 import type { ShipModel, Squadron, Upgrade } from '@/types/cards';
 
 type CompareType = 'ship' | 'squadron' | 'upgrade';
@@ -339,7 +339,7 @@ export default function ComparePage() {
                     {'source' in item.data && item.data.source && (
                       <div className="mt-3">
                         <Badge className={cn('text-xs', getSourceBadgeClasses(item.data.source))}>
-                          {item.data.source}
+                          <SourceLabel source={item.data.source} />
                         </Badge>
                       </div>
                     )}

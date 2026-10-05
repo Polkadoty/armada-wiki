@@ -12,17 +12,17 @@ import { useGlobalSearch } from '@/hooks/useGlobalSearch';
 import { SkeletonCardGrid } from '@/components/SkeletonCard';
 import {
   getSquadronDisplayName,
-  getSourceBadgeClasses,
   STANDARD_FACTIONS,
   formatFactionName,
   getFactionColorClasses,
 } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { CONTENT_SOURCES } from '@/utils/cardSources';
 import { cn } from '@/lib/utils';
 import { ArrowUpDown, Filter } from 'lucide-react';
 
 type SortOption = 'name' | 'points-asc' | 'points-desc' | 'faction' | 'hull';
 
-const SOURCES = ['Core', 'Legacy', 'LegacyBeta', 'Nexus', 'ARC', 'Naboo'] as const;
 
 export default function SquadronsPage() {
   const { squadrons, loading } = useSquadrons();
@@ -199,7 +199,7 @@ export default function SquadronsPage() {
               >
                 All
               </Button>
-              {SOURCES.map((source) => (
+              {CONTENT_SOURCES.map((source) => (
                 <Button
                   key={source}
                   variant={sourceFilter === source ? 'default' : 'outline'}
@@ -244,7 +244,7 @@ export default function SquadronsPage() {
                   <div className="flex gap-2 text-xs flex-wrap">
                     {squadron.source && (
                       <Badge className={getSourceBadgeClasses(squadron.source)}>
-                        {squadron.source}
+                        <SourceLabel source={squadron.source} />
                       </Badge>
                     )}
                     <Badge variant="secondary">

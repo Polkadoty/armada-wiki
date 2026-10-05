@@ -65,10 +65,8 @@ export default function AboutPage() {
             </p>
             <ul className="list-disc list-inside space-y-2 text-muted-foreground">
               <li><strong>Core</strong> - Official Star Wars: Armada content from Fantasy Flight Games</li>
-              <li><strong>Legacy</strong> - Armada Legacy community expansion content</li>
+              <li><strong>Community</strong> - Community errata of core cards, plus new community cards</li>
               <li><strong>Nexus</strong> - Crossover content including ships from other universes</li>
-              <li><strong>ARC</strong> - Additional community-created content</li>
-              <li><strong>Legends</strong> - Extended universe content</li>
             </ul>
           </section>
 

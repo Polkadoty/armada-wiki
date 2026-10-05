@@ -7,6 +7,8 @@ import { Comments } from '@/components/Comments';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
 import { formatDice, formatFactionName, formatChassisName } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { resolveCardKey } from '@/utils/cardSources';
 import { cn } from '@/lib/utils';
 
 export default function ShipDetailPage({
@@ -18,10 +20,15 @@ export default function ShipDetailPage({
   const { ships, loading } = useShips();
 
   const shipData = useMemo(() => {
-    if (!ships[chassisId] || !ships[chassisId].models?.[modelId]) return null;
+    const chassis = ships[chassisId];
+    if (!chassis?.models) return null;
+    // Old links to a core model that community errata replaced resolve to the erratum
+    const modelKey = resolveCardKey(chassis.models, modelId);
+    if (!modelKey) return null;
     return {
-      chassis: ships[chassisId],
-      model: ships[chassisId].models[modelId],
+      chassis,
+      model: chassis.models[modelKey],
+      modelKey,
     };
   }, [ships, chassisId, modelId]);
 
@@ -52,7 +59,7 @@ export default function ShipDetailPage({
     );
   }
 
-  const { chassis, model } = shipData;
+  const { chassis, model, modelKey } = shipData;
 
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -87,10 +94,15 @@ export default function ShipDetailPage({
 
             {/* Basic stats */}
             <div className="space-y-4 mb-6">
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 <span className="px-3 py-1 bg-primary text-primary-foreground rounded font-semibold">
                   {model.points} Points
                 </span>
+                {model.source && (
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded font-bold ${getSourceBadgeClasses(model.source)}`}>
+                    <SourceLabel source={model.source} />
+                  </span>
+                )}
                 <span className="px-3 py-1 bg-secondary rounded">
                   {formatFactionName(model.faction)}
                 </span>
@@ -196,7 +208,7 @@ export default function ShipDetailPage({
 
         {/* Comments Section */}
         <div className="mt-12 border-t border-border/70 pt-8">
-          <Comments cardType="ship" cardId={`${chassisId}-${modelId}`} />
+          <Comments cardType="ship" cardId={`${chassisId}-${modelKey}`} />
         </div>
       </div>
     </div>

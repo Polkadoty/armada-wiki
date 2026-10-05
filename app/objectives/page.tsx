@@ -10,14 +10,16 @@ import { Header } from '@/components/Header';
 import { GlobalSearch } from '@/components/GlobalSearch';
 import { useGlobalSearch } from '@/hooks/useGlobalSearch';
 import { SkeletonCardGrid } from '@/components/SkeletonCard';
-import { getSourceBadgeClasses } from '@/utils/diceDisplay';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import type { ContentSource } from '@/utils/cardSources';
 import { cn } from '@/lib/utils';
 import { ArrowUpDown, Filter } from 'lucide-react';
 
 type SortOption = 'name' | 'type';
 
 const OBJECTIVE_TYPES = ['assault', 'defense', 'navigation', 'special'] as const;
-const SOURCES = ['Core', 'Legacy', 'LegacyBeta', 'Nexus', 'ARC', 'Naboo'] as const;
+// Nexus has no objectives
+const SOURCES: ContentSource[] = ['Core', 'Community'];
 
 const typeColors: Record<string, string> = {
   assault: 'border-red-500',
@@ -196,7 +198,7 @@ export default function ObjectivesPage() {
                 <div className="flex gap-2 text-xs flex-wrap mb-2">
                   {objective.source && (
                     <Badge className={getSourceBadgeClasses(objective.source)}>
-                      {objective.source}
+                      <SourceLabel source={objective.source} />
                     </Badge>
                   )}
                   <Badge

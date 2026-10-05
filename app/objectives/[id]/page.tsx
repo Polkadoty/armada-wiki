@@ -5,8 +5,9 @@ import { useObjectives } from '@/hooks/useCardData';
 import { Header } from '@/components/Header';
 import { Comments } from '@/components/Comments';
 import { OptimizedImage } from '@/components/OptimizedImage';
+import { getSourceBadgeClasses, SourceLabel } from '@/components/SourceBadge';
+import { resolveCardKey } from '@/utils/cardSources';
 import { sanitizeImageUrl } from '@/utils/dataFetcher';
-import { getSourceBadgeClasses } from '@/utils/diceDisplay';
 const normalizeType = (value: unknown): string => (typeof value === 'string' && value.trim() ? value : 'objective');
 
 export default function ObjectiveDetailPage({
@@ -17,9 +18,9 @@ export default function ObjectiveDetailPage({
   const { id } = use(params);
   const { objectives, loading } = useObjectives();
 
-  const objective = useMemo(() => {
-    return objectives[id] || null;
-  }, [objectives, id]);
+  // Old links to a core card that community errata replaced resolve to the erratum
+  const cardKey = useMemo(() => resolveCardKey(objectives, id), [objectives, id]);
+  const objective = cardKey ? objectives[cardKey] : null;
 
   if (loading) {
     return (
@@ -84,8 +85,8 @@ export default function ObjectiveDetailPage({
                   {normalizeType(objective.type)}
                 </span>
                 {objective.source && (
-                  <span className={`px-3 py-1 rounded font-bold ${getSourceBadgeClasses(objective.source)}`}>
-                    {objective.source}
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded font-bold ${getSourceBadgeClasses(objective.source)}`}>
+                    <SourceLabel source={objective.source} />
                   </span>
                 )}
               </div>
@@ -236,7 +237,7 @@ export default function ObjectiveDetailPage({
 
         {/* Comments Section */}
         <div className="mt-12 border-t border-border/70 pt-8">
-          <Comments cardType="objective" cardId={id} />
+          <Comments cardType="objective" cardId={cardKey ?? id} />
         </div>
       </div>
     </div>

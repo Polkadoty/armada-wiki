@@ -7,6 +7,7 @@ import { GlobalSearch } from "@/components/GlobalSearch";
 import { useGlobalSearch } from "@/hooks/useGlobalSearch";
 import { Anchor, Plane, Wrench, Target, ChevronRight, Sparkles } from "lucide-react";
 import { fetchCardData } from "@/utils/dataFetcher";
+import { loadShips, loadSquadrons, loadUpgrades, loadObjectives } from "@/utils/cardSources";
 
 interface CardCounts {
   ships: number;
@@ -62,47 +63,16 @@ export default function Home() {
     async function loadCounts() {
       await fetchCardData();
 
-      // Count items from localStorage
-      const countItems = (keys: string[]) => {
-        let total = 0;
-        keys.forEach(key => {
-          try {
-            const data = localStorage.getItem(key);
-            if (data) {
-              const parsed = JSON.parse(data);
-              if (parsed.ships) {
-                // Ships have nested models
-                Object.values(parsed.ships).forEach((ship: unknown) => {
-                  const s = ship as { models?: Record<string, unknown> };
-                  if (s.models) {
-                    total += Object.keys(s.models).length;
-                  }
-                });
-              } else if (parsed.squadrons) {
-                total += Object.keys(parsed.squadrons).length;
-              } else if (parsed.upgrades) {
-                total += Object.keys(parsed.upgrades).length;
-              } else if (parsed.objectives) {
-                total += Object.keys(parsed.objectives).length;
-              }
-            }
-          } catch {
-            // Ignore errors
-          }
-        });
-        return total;
-      };
-
-      const shipKeys = ['ships', 'legacyShips', 'legacyBetaShips', 'nexusShips', 'arcShips', 'nabooShips'];
-      const squadronKeys = ['squadrons', 'legacySquadrons', 'legacyBetaSquadrons', 'nexusSquadrons', 'arcSquadrons', 'nabooSquadrons'];
-      const upgradeKeys = ['upgrades', 'legacyUpgrades', 'legacyBetaUpgrades', 'nexusUpgrades', 'arcUpgrades', 'nabooUpgrades', 'legendsUpgrades'];
-      const objectiveKeys = ['objectives', 'legacyObjectives', 'legacyBetaObjectives', 'nexusObjectives', 'arcObjectives', 'nabooObjectives'];
+      const shipCount = Object.values(loadShips()).reduce(
+        (total, chassis) => total + Object.keys(chassis.models || {}).length,
+        0
+      );
 
       setCounts({
-        ships: countItems(shipKeys),
-        squadrons: countItems(squadronKeys),
-        upgrades: countItems(upgradeKeys),
-        objectives: countItems(objectiveKeys),
+        ships: shipCount,
+        squadrons: Object.keys(loadSquadrons()).length,
+        upgrades: Object.keys(loadUpgrades()).length,
+        objectives: Object.keys(loadObjectives()).length,
       });
     }
 

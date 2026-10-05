@@ -11,36 +11,23 @@ import ContentAdditionWindow from './ContentAdditionWindow';
 import { fetchCardData } from '@/utils/dataFetcher';
 
 const CONFIG = {
-  showLegacyToggle: true,
-  showLegendsToggle: true,
+  showCommunityToggle: true,
   showNexusToggle: true,
-  showArcToggle: true,
-  showNabooToggle: true,
 };
 
 export function ContentToggleButton() {
-  const [enableLegacy, setEnableLegacy] = useState(false);
-  const [enableLegends, setEnableLegends] = useState(false);
-  const [enableNexus, setEnableNexus] = useState(false);
-  const [enableArc, setEnableArc] = useState(false);
-  const [enableNaboo, setEnableNaboo] = useState(false);
+  const [enableCommunity, setEnableCommunity] = useState(true);
+  const [enableNexus, setEnableNexus] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [infoOpen, setInfoOpen] = useState<string | null>(null);
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const legacyCookie = Cookies.get('enableLegacy');
-    const legendsCookie = Cookies.get('enableLegends');
-    const nexusCookie = Cookies.get('enableNexus');
-    const arcCookie = Cookies.get('enableArc');
-    const nabooCookie = Cookies.get('enableNaboo');
-
-    setEnableLegacy(CONFIG.showLegacyToggle && legacyCookie === 'true');
-    setEnableLegends(CONFIG.showLegendsToggle && legendsCookie === 'true');
-    setEnableNexus(nexusCookie === 'true');
-    setEnableArc(CONFIG.showArcToggle && arcCookie === 'true');
-    setEnableNaboo(CONFIG.showNabooToggle && nabooCookie === 'true');
+    // Community and Nexus are on unless explicitly turned off. Cookies for retired
+    // sources (enableLegacy, enableArc, ...) are simply never read.
+    setEnableCommunity(Cookies.get('enableCommunity') !== 'false');
+    setEnableNexus(Cookies.get('enableNexus') !== 'false');
   }, []);
 
   useEffect(() => {
@@ -59,29 +46,14 @@ export function ContentToggleButton() {
     window.location.reload();
   };
 
-  const handleLegacyToggle = async (checked: boolean) => {
-    setEnableLegacy(checked);
-    await handleToggle('enableLegacy', checked);
-  };
-
-  const handleLegendsToggle = async (checked: boolean) => {
-    setEnableLegends(checked);
-    await handleToggle('enableLegends', checked);
+  const handleCommunityToggle = async (checked: boolean) => {
+    setEnableCommunity(checked);
+    await handleToggle('enableCommunity', checked);
   };
 
   const handleNexusToggle = async (checked: boolean) => {
     setEnableNexus(checked);
     await handleToggle('enableNexus', checked);
-  };
-
-  const handleArcToggle = async (checked: boolean) => {
-    setEnableArc(checked);
-    await handleToggle('enableArc', checked);
-  };
-
-  const handleNabooToggle = async (checked: boolean) => {
-    setEnableNaboo(checked);
-    await handleToggle('enableNaboo', checked);
   };
 
   const triggerButton = (
@@ -110,17 +82,17 @@ export function ContentToggleButton() {
                 </div>
                 <div className="grid gap-3">
                   <div className="mt-4">
-                    <h5 className="font-semibold text-sm mb-3">Core Content</h5>
+                    <h5 className="font-semibold text-sm mb-3">Additional Content</h5>
 
-                    {CONFIG.showLegacyToggle && (
+                    {CONFIG.showCommunityToggle && (
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
-                          <label htmlFor="legacy-toggle" className="text-sm font-medium leading-none">
-                            Enable Legacy Content
+                          <label htmlFor="community-toggle" className="text-sm font-medium leading-none">
+                            Enable Community Content
                           </label>
                           <button
                             type="button"
-                            onClick={() => setInfoOpen('legacy')}
+                            onClick={() => setInfoOpen('community')}
                             className="ml-1 p-1 hover:bg-zinc-700/20 rounded-full"
                             aria-label="Info"
                           >
@@ -128,9 +100,9 @@ export function ContentToggleButton() {
                           </button>
                         </div>
                         <Switch
-                          id="legacy-toggle"
-                          checked={enableLegacy}
-                          onCheckedChange={handleLegacyToggle}
+                          id="community-toggle"
+                          checked={enableCommunity}
+                          onCheckedChange={handleCommunityToggle}
                         />
                       </div>
                     )}
@@ -154,79 +126,6 @@ export function ContentToggleButton() {
                           id="nexus-toggle"
                           checked={enableNexus}
                           onCheckedChange={handleNexusToggle}
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mt-4">
-                    <h5 className="font-semibold text-sm mb-3">Experimental Content</h5>
-
-                    {CONFIG.showNabooToggle && (
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                          <label htmlFor="naboo-toggle" className="text-sm font-medium leading-none">
-                            Battle for Naboo
-                          </label>
-                          <button
-                            type="button"
-                            onClick={() => setInfoOpen('naboo')}
-                            className="ml-1 p-1 hover:bg-zinc-700/20 rounded-full"
-                            aria-label="Info"
-                          >
-                            <Info className="w-4 h-4" />
-                          </button>
-                        </div>
-                        <Switch
-                          id="naboo-toggle"
-                          checked={enableNaboo}
-                          onCheckedChange={handleNabooToggle}
-                        />
-                      </div>
-                    )}
-
-                    {CONFIG.showArcToggle && (
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                          <label htmlFor="arc-toggle" className="text-sm font-medium leading-none">
-                            Arc Content
-                          </label>
-                          <button
-                            type="button"
-                            onClick={() => setInfoOpen('arc')}
-                            className="ml-1 p-1 hover:bg-zinc-700/20 rounded-full"
-                            aria-label="Info"
-                          >
-                            <Info className="w-4 h-4" />
-                          </button>
-                        </div>
-                        <Switch
-                          id="arc-toggle"
-                          checked={enableArc}
-                          onCheckedChange={handleArcToggle}
-                        />
-                      </div>
-                    )}
-
-                    {CONFIG.showLegendsToggle && (
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                          <label htmlFor="legends-toggle" className="text-sm font-medium leading-none">
-                            Legends Content
-                          </label>
-                          <button
-                            type="button"
-                            onClick={() => setInfoOpen('legends')}
-                            className="ml-1 p-1 hover:bg-zinc-700/20 rounded-full"
-                            aria-label="Info"
-                          >
-                            <Info className="w-4 h-4" />
-                          </button>
-                        </div>
-                        <Switch
-                          id="legends-toggle"
-                          checked={enableLegends}
-                          onCheckedChange={handleLegendsToggle}
                         />
                       </div>
                     )}

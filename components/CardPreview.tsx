@@ -4,7 +4,8 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import { getFactionColorClasses, getSourceBadgeClasses, formatFactionName } from "@/utils/diceDisplay";
+import { getFactionColorClasses, formatFactionName } from "@/utils/diceDisplay";
+import { getSourceBadgeClasses, SourceLabel } from "@/components/SourceBadge";
 import { sanitizeImageUrl } from "@/utils/dataFetcher";
 
 interface BaseCardPreviewProps {
@@ -241,7 +242,7 @@ export function CardPreview(props: CardPreviewProps) {
         {/* Source badge */}
         {source && (
           <Badge className={cn("text-xs", getSourceBadgeClasses(source))}>
-            {source}
+            <SourceLabel source={source} />
           </Badge>
         )}
 

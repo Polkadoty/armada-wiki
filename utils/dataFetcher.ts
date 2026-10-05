@@ -1,4 +1,5 @@
 import { FILE_TYPE_MAP, validateManifestContractMappings } from './manifestContract';
+import { RETIRED_STORAGE_KEYS } from './cardSources';
 
 const getPrimaryApiUrl = () => process.env.NEXT_PUBLIC_PRIMARY_API_URL || 'https://api.swarmada.wiki';
 const getBackupApiUrl = () => process.env.NEXT_PUBLIC_BACKUP_API_URL || 'https://api-backup.swarmada.wiki';
@@ -57,8 +58,14 @@ const saveTimestamp = (fileType: string, timestamp: number): void => {
   }
 };
 
+const purgeRetiredCaches = (): void => {
+  RETIRED_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
+};
+
 export const fetchCardData = async (): Promise<void> => {
   try {
+    purgeRetiredCaches();
+
     if (process.env.NODE_ENV !== 'production') {
       const contractErrors = validateManifestContractMappings(FILE_TYPE_MAP);
       if (contractErrors.length > 0) {

@@ -25,13 +25,8 @@ interface ContentAdditionWindowProps {
 const DATA_TYPES = ['Ships', 'Squadrons', 'Upgrades', 'Objectives'];
 
 const formatFactionName = (faction: string): string => {
-  if (faction === 'legacy') return 'Legacy';
+  if (faction === 'community') return 'Community';
   if (faction === 'nexus') return 'Nexus';
-  if (faction === 'nexusExperimental') return 'Nexus Experimental';
-  if (faction === 'legends') return 'Legends';
-  if (faction === 'legacyBeta') return 'LegacyBeta';
-  if (faction === 'legacyAlpha') return 'LegacyAlpha';
-  if (faction === 'naboo') return 'Battle for Naboo';
 
   return faction
     .split(' ')
