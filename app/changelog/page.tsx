@@ -8,7 +8,7 @@ import {
 import styles from './changelog.module.css';
 
 export const metadata: Metadata = {
-  title: 'Community Change Log | Armada Wiki',
+  title: 'Changelog | Armada Wiki',
   description: 'A text-based record of additions and errata in the consolidated Armada Community card set.',
 };
 
@@ -109,7 +109,7 @@ export default async function ChangelogPage() {
                   height={637}
                   priority
                 />
-                <h1 className={styles.title}>Community Errata Change Log</h1>
+                <h1 className={styles.title}>Changelog</h1>
                 <p className={styles.version}>Updated {formatDate(changelog.lastModified)}</p>
               </header>
             )}
