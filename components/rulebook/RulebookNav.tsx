@@ -4,20 +4,23 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
-export interface RulebookNavItem {
-  href: string;
-  label: string;
-  count?: number;
-}
+export type RulebookNavItem = { href: string; label: string; count?: number } | { heading: string };
 
 export function RulebookNav({ items, onNavigate }: { items: RulebookNavItem[]; onNavigate?: () => void }) {
   const pathname = usePathname();
   return (
     <nav aria-label="Rulebook sections" className="flex flex-col">
-      <div className="mb-1 mt-1 flex items-center gap-3 font-aero text-xs font-bold uppercase tracking-[0.15em] text-rulebook-accent after:h-px after:flex-1 after:bg-rulebook-accent/15">
-        Rules reference
-      </div>
       {items.map((item) => {
+        if ('heading' in item) {
+          return (
+            <div
+              key={item.heading}
+              className="mb-1 mt-5 flex items-center gap-3 font-aero text-xs font-bold uppercase tracking-[0.15em] text-rulebook-accent after:h-px after:flex-1 after:bg-rulebook-accent/15 first:mt-1"
+            >
+              {item.heading}
+            </div>
+          );
+        }
         const current = pathname === item.href;
         return (
           <Link

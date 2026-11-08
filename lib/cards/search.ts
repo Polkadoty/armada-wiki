@@ -1,5 +1,5 @@
 import { RULINGS_PAGES } from '@/lib/rulings/pages';
-import type { Rulebook } from '@/lib/rulebook';
+import type { CampaignGuideSpec, Rulebook } from '@/lib/rulebook';
 import type { CardCatalog } from './catalog';
 import { objectiveEntries, shipEntries, squadronEntries, upgradeEntries, type CardKind } from './entries';
 
@@ -25,7 +25,7 @@ export interface SearchRow {
 
 const PAGES: SearchRow[] = [
   { k: 'page', n: 'Rulings', s: 'Rulings for every card, following the Armada Reference Manual', h: '/rulings' },
-  { k: 'page', n: 'Rulebook', s: 'The Rules Reference: glossary, errata, FAQ and card clarifications', h: '/rulebook' },
+  { k: 'page', n: 'Rulebook', s: 'The Rules Reference and campaign guides', h: '/rulebook' },
   { k: 'page', n: 'Community changelog', s: 'Points changes and errata in the Community Edition card set', h: '/changelog' },
   { k: 'page', n: 'Reference Manual changelog', s: 'Every ARM revision, with changed text marked', h: '/changelog/arm' },
   { k: 'page', n: 'Rulings PDF', s: 'Every ruling in one document, saved as a PDF from your browser', h: '/rulings-pdf' },
@@ -38,30 +38,47 @@ const PAGES: SearchRow[] = [
 // cards, which the card rows already cover.
 const SEARCHED_RULEBOOK_SECTIONS = new Set(['glossary', 'rule-clarifications', 'faq', 'corellian-conflict-faq', 'rebellion-in-the-rim-faq', 'optional-rules', 'quick-reference']);
 
+const plainText = (blocks: Rulebook['sections'][number]['entries'][number]['blocks']) =>
+  blocks.map((block) => ('text' in block ? block.text : '')).join(' ').replace(/\*+|:[a-z_-]+:|\[|\]\([^)]*\)/g, '').replace(/\s+/g, ' ').trim().toLowerCase().slice(0, 300) || undefined;
+
 function rulebookRows(book: Rulebook | undefined): SearchRow[] {
   return (book?.sections ?? [])
     .filter((section) => SEARCHED_RULEBOOK_SECTIONS.has(section.id))
     .flatMap((section) =>
       section.entries.map((entry): SearchRow => {
-        const text = entry.blocks.map((block) => ('text' in block ? block.text : '')).join(' ');
         return {
           k: 'rule',
           n: entry.title,
           s: section.id === 'glossary' ? 'Rulebook glossary' : `Rulebook, ${section.title}`,
           h: `/rulebook/${section.id}#${entry.id}`,
-          t: text.replace(/\*+|:[a-z_-]+:/g, '').replace(/\s+/g, ' ').trim().toLowerCase().slice(0, 300) || undefined,
+          t: plainText(entry.blocks),
         };
       }),
     );
 }
 
-export function buildSearchIndex(catalog: CardCatalog, book?: Rulebook): SearchRow[] {
+function campaignRows(guides: Array<{ spec: CampaignGuideSpec; book: Rulebook }>): SearchRow[] {
+  return guides.flatMap(({ spec, book }) =>
+    book.sections.flatMap((section) =>
+      section.entries.map((entry): SearchRow => ({
+        k: 'rule',
+        n: entry.title,
+        s: `${spec.title}, ${section.title}`,
+        h: `/rulebook/${spec.slug}#${entry.id}`,
+        t: plainText(entry.blocks),
+      })),
+    ),
+  );
+}
+
+export function buildSearchIndex(catalog: CardCatalog, book?: Rulebook, guides: Array<{ spec: CampaignGuideSpec; book: Rulebook }> = []): SearchRow[] {
   const cards = [...shipEntries(catalog), ...squadronEntries(catalog), ...upgradeEntries(catalog), ...objectiveEntries(catalog)];
   const rulings = RULINGS_PAGES.map((page): SearchRow => ({ k: 'page', n: `${page.title} rulings`, s: page.description, h: page.href }));
   return [
     ...PAGES,
     ...rulings,
     ...rulebookRows(book),
+    ...campaignRows(guides),
     ...cards.map((card): SearchRow => ({
       k: card.kind,
       n: card.name,

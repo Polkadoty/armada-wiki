@@ -4,7 +4,8 @@ import { iconGlyph } from '@/lib/rulings/data';
 import { ArmadaIcon } from './ArmadaIcon';
 
 // Renders the API's markdown-ish rulings text: paragraphs, `-` bullets and `>` quotes;
-// inline **bold**, *italic* / _italic_, `code`, :icon: shortcodes; squadron keywords
+// inline **bold**, *italic* / _italic_, `code`, :icon: shortcodes, [text](/path) links
+// within the site; squadron keywords
 // written in capitals; and links to any other card named in the text.
 
 export interface RulingTextContext {
@@ -22,6 +23,9 @@ const KEYWORDS = [
 const KEYWORD_RE = new RegExp(`\\b(${KEYWORDS.map(escapeRegExp).join('|')})\\b`, 'g');
 
 const INLINE_PATTERNS = [
+  // Only site paths, so "IGNITION [RANGE]" and other bracketed text stay as written.
+  { kind: 'link', re: /\[([^\]]+)\]\((\/[^)\s]*)\)/ },
+  { kind: 'strongEm', re: /\*\*\*(.+?)\*\*\*/ },
   { kind: 'strong', re: /\*\*(.+?)\*\*/ },
   { kind: 'em', re: /\*([^*]+)\*/ },
   { kind: 'icon', re: /:([a-z0-9_-]+):/i },
@@ -104,7 +108,9 @@ export function renderInline(text: string, ctx: RulingTextContext, key = 'i'): R
     if (match.index > 0) nodes.push(...renderPlain(rest.slice(0, match.index), ctx, `${childKey}p`));
     const inner = match[1];
 
-    if (kind === 'strong') nodes.push(<strong key={childKey}>{renderInline(inner, ctx, childKey)}</strong>);
+    if (kind === 'link') nodes.push(<a key={childKey} href={match[2]} className="card-ref">{renderInline(inner, ctx, childKey)}</a>);
+    else if (kind === 'strongEm') nodes.push(<strong key={childKey}><em>{renderInline(inner, ctx, childKey)}</em></strong>);
+    else if (kind === 'strong') nodes.push(<strong key={childKey}>{renderInline(inner, ctx, childKey)}</strong>);
     else if (kind === 'em') nodes.push(<em key={childKey}>{renderInline(inner, ctx, childKey)}</em>);
     else if (kind === 'code') nodes.push(<code key={childKey}>{inner}</code>);
     else {

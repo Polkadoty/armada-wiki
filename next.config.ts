@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       { source: '/rulings/upgrades/veteran.html', destination: '/rulings/upgrades', permanent: true },
       { source: '/rulings/upgrades/:type.html', destination: '/rulings/upgrades/:type', permanent: true },
       { source: '/rulings/:section.html', destination: '/rulings/:section', permanent: true },
+      // The rulebook's errata now live in the text they correct.
+      { source: '/rulebook/errata', destination: '/rulebook', permanent: true },
     ];
   },
 };

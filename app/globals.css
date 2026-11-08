@@ -456,6 +456,18 @@
     @apply left-[14px];
   }
 
+  .rulebook-errata {
+    @apply ml-1.5 inline-block rounded border border-rulebook-accent/30 px-1 align-[0.1em] font-aero text-[10px] font-bold uppercase leading-[1.4] tracking-[0.1em] text-rulebook-accent;
+  }
+
+  .rulebook-sidebar {
+    @apply rounded-lg border border-rulebook-accent/25 bg-white/45 p-5;
+  }
+
+  .rulebook-sidebar .ruling-card-title {
+    @apply text-[22px] sm:text-[26px];
+  }
+
   .rulebook-changed-key {
     @apply mx-0.5 inline-block h-[1em] w-0.5 bg-[#2a72b8] align-[-0.15em];
   }

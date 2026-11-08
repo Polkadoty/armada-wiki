@@ -40,6 +40,43 @@ function changedProps(changed?: boolean) {
   return changed ? { 'data-changed': '', title: 'New or changed in this version' } : {};
 }
 
+/** Marks text an erratum replaced; `source` names the erratum. */
+function ErrataTag({ source }: { source?: string }) {
+  if (!source) return null;
+  return <span className="rulebook-errata" title={source}>Errata</span>;
+}
+
+function Table({ block, ctx, keyPrefix }: { block: Extract<RulebookBlock, { type: 'table' }>; ctx: RulingTextContext; keyPrefix: string }) {
+  return (
+    <div className="overflow-x-auto rounded-md border border-rulebook-accent/15 bg-white/40">
+      <table className="w-full text-left text-[15px]">
+        <thead>
+          <tr className="border-b border-rulebook-accent/15 font-aero text-[11px] uppercase tracking-[0.12em] text-rulebook-accent">
+            {block.header.map((cell, index) => <th key={index} scope="col" className="px-3 py-2">{renderInline(cell, ctx, `${keyPrefix}h${index}`)}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {block.rows.map((row, rowIndex) => (
+            <tr key={rowIndex} className="border-b border-rulebook-accent/10 align-top last:border-0">
+              {row.map((cell, index) => (
+                <td key={index} className="px-3 py-2">
+                  {cell.split('\n').map((line, part) => (
+                    <Fragment key={part}>
+                      {part > 0 && <br />}
+                      {renderInline(line, ctx, `${keyPrefix}r${rowIndex}c${index}p${part}`)}
+                    </Fragment>
+                  ))}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {block.errata && <p className="px-3 py-1.5 text-xs text-rulebook-muted"><ErrataTag source={block.errata} /> {block.errata}</p>}
+    </div>
+  );
+}
+
 // Spelled out so Tailwind keeps these component classes.
 const BULLET_CLASSES = ['rulebook-bullets-1', 'rulebook-bullets-2', 'rulebook-bullets-3'];
 
@@ -67,6 +104,7 @@ function List({ nodes, ctx, keyPrefix }: { nodes: ListNode[]; ctx: RulingTextCon
           {...changedProps(node.block.changed)}
         >
           {renderInline(node.block.text, ctx, `${keyPrefix}-${index}`)}
+          <ErrataTag source={node.block.errata} />
           {node.more.map((block, more) => (
             <p key={more} className="mt-1.5" {...changedProps(block.changed)}>{renderInline(block.text, ctx, `${keyPrefix}-${index}m${more}`)}</p>
           ))}
@@ -120,14 +158,17 @@ export function RulebookBlocks({ blocks, ctx, keyPrefix = 'b' }: { blocks: Ruleb
       out.push(<h4 key={key} className="ruling-label !mt-4">{block.text}</h4>);
     } else if (block.type === 'figure') {
       out.push(<Figure key={key} block={block} ctx={ctx} keyPrefix={key} />);
+    } else if (block.type === 'table') {
+      out.push(<Table key={key} block={block} ctx={ctx} keyPrefix={key} />);
     } else if (block.type === 'question' || block.type === 'answer') {
       out.push(
         <p key={key} className={cn(block.type === 'question' ? 'rulebook-question' : 'rulebook-answer')} {...changedProps(block.changed)}>
           {renderInline(block.text.replace(/^(\*\*)?([QA]):(\*\*)?\s*/, ''), ctx, key)}
+          <ErrataTag source={block.errata} />
         </p>,
       );
     } else {
-      out.push(<p key={key} {...changedProps(block.changed)}>{renderInline(block.text, ctx, key)}</p>);
+      out.push(<p key={key} {...changedProps(block.changed)}>{renderInline(block.text, ctx, key)}<ErrataTag source={block.errata} /></p>);
     }
   }
   return <div className="rulebook-prose rulebook-blocks">{out}</div>;
@@ -144,7 +185,7 @@ export function RulebookEntry({
   topicHref: (title: string) => string | undefined;
 }) {
   return (
-    <article id={entry.id} className="group/card scroll-mt-20">
+    <article id={entry.id} className={cn('group/card scroll-mt-20', entry.sidebar && 'rulebook-sidebar')}>
       <h3 className="ruling-card-title">
         <span>{entry.title}</span>
         <a href={`#${entry.id}`} aria-label={`Link to ${entry.title}`} title="Link to this entry" className="ruling-copy-link">
