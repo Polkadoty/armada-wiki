@@ -82,8 +82,8 @@ export default async function SquadronPage({ params }: { params: Params }) {
         <Stats
           items={[
             { label: 'Points', value: squadron.points },
-            { label: 'Hull', value: squadron.hull },
-            { label: 'Speed', value: squadron.speed },
+            { label: 'Hull', value: squadron.hull, icon: 'hull' },
+            { label: 'Speed', value: squadron.speed, icon: 'speed' },
             { label: 'Anti-squadron', value: <Dice dice={squadron.armament?.['anti-squadron']} /> },
             { label: 'Anti-ship', value: <Dice dice={squadron.armament?.['anti-ship']} /> },
             { label: 'Defense tokens', value: <DefenseTokens tokens={squadron.tokens} /> },

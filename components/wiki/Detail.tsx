@@ -13,6 +13,7 @@ import { Comments } from '@/components/Comments';
 import { FavoriteButton } from '@/components/FavoriteButton';
 import type { Favorite } from '@/hooks/useFavorites';
 import { CardFaceSwitch } from './CardFaceSwitch';
+import { MoreRulings } from './MoreRulings';
 import { CommunityMark } from './Marks';
 import { Dice } from './Dice';
 
@@ -134,27 +135,33 @@ export function TitleBlock({ name, kicker, subtitle, factions = [], source, uniq
         {source === 'Community' && <CommunityMark />}
       </h1>
       {subtitle && <p className="mt-1.5 text-[17px] text-rulebook-muted">{subtitle}</p>}
-      {source && source !== 'Core' && (
-        <p className="mt-3 text-sm text-rulebook-muted">
-          {source === 'Community'
-            ? 'Community Edition card. It replaces a printed card or adds a new one.'
-            : 'Nexus card, from a community expansion.'}
-        </p>
-      )}
     </header>
   );
 }
 
-export function Stats({ items }: { items: Array<{ label: string; value: ReactNode } | false | undefined> }) {
-  const shown = items.filter(Boolean) as Array<{ label: string; value: ReactNode }>;
+interface Stat {
+  label: string;
+  value: ReactNode;
+  /** Icon-font token for the symbol the printed card uses for this stat, such as "hull". */
+  icon?: string;
+}
+
+export function Stats({ items }: { items: Array<Stat | false | undefined> }) {
+  const shown = items.filter(Boolean) as Stat[];
   return (
     <dl className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-      {shown.map((item) => (
-        <div key={item.label} className="wiki-stat">
-          <dt>{item.label}</dt>
-          <dd>{item.value}</dd>
-        </div>
-      ))}
+      {shown.map((item) => {
+        const glyph = item.icon ? iconGlyph(item.icon) : undefined;
+        return (
+          <div key={item.label} className="wiki-stat">
+            <dt>{item.label}</dt>
+            <dd className="flex items-center gap-2">
+              {glyph && <ArmadaIcon glyph={glyph} className="text-[1.35em] text-rulebook-accent" />}
+              {item.value}
+            </dd>
+          </div>
+        );
+      })}
     </dl>
   );
 }
@@ -194,7 +201,12 @@ export function DefenseTokens({ tokens }: { tokens?: Record<string, number | und
 export function CardTextAndRulings({ rulings, italic }: { rulings: CardRulings; italic?: boolean }) {
   const sections = buildCardSections({ cardText: rulings.cardText, rules: rulings.rules });
   const ctx = { linkIndex: rulings.linkIndex, selfKey: rulings.selfKey };
-  const hasRulings = sections.timing.length > 0 || sections.sections.length > 0;
+  const count = sections.timing.length + sections.sections.reduce((sum, section) => sum + section.entries.length, 0);
+  // Rulings past the first few are numbered in reading order and start hidden.
+  const extra = (index: number) => index >= OPEN_RULINGS_LIMIT;
+  const sectionStarts = sections.sections.map((_, index) =>
+    sections.sections.slice(0, index).reduce((sum, section) => sum + section.entries.length, sections.timing.length),
+  );
   return (
     <>
       {sections.cardText && (
@@ -204,15 +216,25 @@ export function CardTextAndRulings({ rulings, italic }: { rulings: CardRulings; 
           </div>
         </Section>
       )}
-      {hasRulings && (
-        <Section title="Rulings">
-          <div className="space-y-4">
+      {count > 0 && (
+        <Section title={`Rulings (${count})`}>
+          <MoreRulings
+            hidden={Math.max(0, count - OPEN_RULINGS_LIMIT)}
+            footer={(sections.footnotes.length > 0 || sections.notes.length > 0) && (
+              <footer className="border-t border-rulebook-accent/10 pt-2 text-xs text-rulebook-muted">
+                {sections.footnotes.map((note, index) => <div key={`f${index}`}>[{index + 1}] {note}</div>)}
+                {sections.notes.map((note, index) => (
+                  <div key={`n${index}`}>[{String.fromCharCode(97 + index)}] {renderInline(note, ctx, `n${index}`)}</div>
+                ))}
+              </footer>
+            )}
+          >
             {sections.timing.length > 0 && (
               <div>
                 <h3 className="ruling-label">Timing</h3>
                 <div className="rulebook-prose">
                   {sections.timing.map((entry, index) => (
-                    <p key={index}>
+                    <p key={index} className={cn(extra(index) && 'ruling-extra')}>
                       {renderInline(entry.text, ctx, `t${index}`)}
                       <Refs footnote={entry.footnote} note={entry.note} />
                     </p>
@@ -220,12 +242,12 @@ export function CardTextAndRulings({ rulings, italic }: { rulings: CardRulings; 
                 </div>
               </div>
             )}
-            {sections.sections.map((section) => (
-              <div key={section.key}>
+            {sections.sections.map((section, sectionIndex) => (
+              <div key={section.key} className={cn(extra(sectionStarts[sectionIndex]) && 'ruling-extra')}>
                 <h3 className="ruling-label">{section.label}</h3>
                 <ul className="rulebook-prose ruling-list">
                   {section.entries.map((entry, index) => (
-                    <li key={index} className={cn(entry.defunct && 'opacity-55')}>
+                    <li key={index} className={cn(entry.defunct && 'opacity-55', extra(sectionStarts[sectionIndex] + index) && 'ruling-extra')}>
                       <span className={cn(entry.defunct && 'line-through')}>{renderInline(entry.text, ctx, `${section.key}${index}`)}</span>
                       <Refs footnote={entry.footnote} note={entry.note} />
                       {entry.defunct && entry.explanation && <div className="mt-0.5 text-[0.82em] italic">{entry.explanation}</div>}
@@ -234,15 +256,7 @@ export function CardTextAndRulings({ rulings, italic }: { rulings: CardRulings; 
                 </ul>
               </div>
             ))}
-            {(sections.footnotes.length > 0 || sections.notes.length > 0) && (
-              <footer className="border-t border-rulebook-accent/10 pt-2 text-xs text-rulebook-muted">
-                {sections.footnotes.map((note, index) => <div key={`f${index}`}>[{index + 1}] {note}</div>)}
-                {sections.notes.map((note, index) => (
-                  <div key={`n${index}`}>[{String.fromCharCode(97 + index)}] {renderInline(note, ctx, `n${index}`)}</div>
-                ))}
-              </footer>
-            )}
-          </div>
+          </MoreRulings>
         </Section>
       )}
       {rulings.rulingsHref && (
@@ -254,6 +268,10 @@ export function CardTextAndRulings({ rulings, italic }: { rulings: CardRulings; 
     </>
   );
 }
+
+// The first few rulings show on the card page and the rest open on request, so the card
+// itself stays the focus. Rules & Rulings is the place to read them all at once.
+const OPEN_RULINGS_LIMIT = 5;
 
 function Refs({ footnote, note }: { footnote?: number; note?: number }) {
   if (!footnote && !note) return null;

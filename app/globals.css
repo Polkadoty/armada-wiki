@@ -468,6 +468,14 @@
     @apply overflow-hidden rounded-[4.5%/3%] bg-black/5 shadow-[0_2px_4px_rgba(24,20,14,0.12),0_10px_26px_rgba(24,20,14,0.18)];
   }
 
+  [data-rulings-collapsed] .ruling-extra {
+    @apply hidden print:[display:revert];
+  }
+
+  .more-rulings {
+    @apply print:hidden;
+  }
+
   .wiki-stat {
     @apply rounded-md border border-rulebook-accent/15 bg-white/55 px-3 py-2;
   }

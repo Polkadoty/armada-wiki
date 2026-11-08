@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getCardCatalog, isHuge } from '@/lib/cards/catalog';
 import { cardFace } from '@/lib/cards/images';
-import { byName, factionLabel, shipChassisName, shipEntries, shipHref, upgradeTypeGlyphs } from '@/lib/cards/entries';
+import { byName, factionLabel, shipChassisName, shipEntries, shipHref, upgradeFactions, upgradeTypeGlyphs } from '@/lib/cards/entries';
 import { upgradeGroupTitle } from '@/lib/rulings/pages';
 import { resolveCardKey } from '@/utils/cardSources';
 import { ArmadaIcon } from '@/components/rulings/ArmadaIcon';
@@ -117,6 +117,21 @@ export default async function ShipPage({ params }: { params: Params }) {
       subtitle: `${sibling.points} points`,
       face: cardFace(sibling.cardimage, catalog.imageStyles, 'ship'),
     }));
+  // Titles name the chassis they fit in bound_shiptype; shared chassis such as the
+  // Gozanti carry titles for more than one faction.
+  const titles = Object.entries(catalog.upgrades)
+    .filter(([, upgrade]) => upgrade.type === 'title' && upgrade.bound_shiptype === chassis.chassis_name)
+    .filter(([, upgrade]) => {
+      const factions = upgradeFactions(upgrade);
+      return factions.length === 0 || factions.includes(model.faction);
+    })
+    .sort(([, a], [, b]) => a.name.localeCompare(b.name))
+    .map(([key, upgrade]) => ({
+      href: `/upgrades/${key}`,
+      name: upgrade.name,
+      subtitle: `${upgrade.points} points`,
+      face: cardFace(upgrade.cardimage, catalog.imageStyles, 'poker'),
+    }));
 
   return (
     <DetailSheet
@@ -127,7 +142,7 @@ export default async function ShipPage({ params }: { params: Params }) {
         <TitleBlock
           kicker={`${SIZE_LABELS[chassis.size] ?? chassis.size} ship · ${factionLabel(model.faction)}`}
           name={model.name}
-          subtitle={[shipChassisName(chassis), traits.length > 0 && traits.map((trait) => trait[0].toUpperCase() + trait.slice(1)).join('. ') + '.'].filter(Boolean).join(' · ')}
+          subtitle={traits.length > 0 ? traits.map((trait) => trait[0].toUpperCase() + trait.slice(1)).join('. ') + '.' : undefined}
           factions={[model.faction]}
           source={model.source}
           unique={model.unique}
@@ -136,11 +151,12 @@ export default async function ShipPage({ params }: { params: Params }) {
         <Stats
           items={[
             { label: 'Points', value: model.points },
-            { label: 'Hull', value: chassis.hull },
-            { label: 'Command', value: model.values?.command },
-            { label: 'Squadron', value: model.values?.squadron },
-            { label: 'Engineering', value: model.values?.engineer },
-            { label: 'Max speed', value: Math.max(0, ...Object.entries(chassis.speed ?? {}).filter(([, clicks]) => clicks.length > 0).map(([value]) => Number(value))) },
+            // Command uses the font's "any_token" glyph, the dial symbol printed on ship cards.
+            { label: 'Hull', value: chassis.hull, icon: 'hull' },
+            { label: 'Command', value: model.values?.command, icon: 'any_token' },
+            { label: 'Squadron', value: model.values?.squadron, icon: 'squadron' },
+            { label: 'Engineering', value: model.values?.engineer, icon: 'engineering' },
+            { label: 'Max speed', icon: 'speed', value: Math.max(0, ...Object.entries(chassis.speed ?? {}).filter(([, clicks]) => clicks.length > 0).map(([value]) => Number(value))) },
           ]}
         />
 
@@ -195,6 +211,7 @@ export default async function ShipPage({ params }: { params: Params }) {
       </DetailHero>
 
       <RelatedCards title={`Other ${shipChassisName(chassis)} cards`} cards={siblings} />
+      <RelatedCards title="Titles" cards={titles} />
 
       <DetailFooter
         favorite={{ id: `${chassisId}/${modelKey}`, type: 'ship', name: model.name, faction: model.faction, points: model.points, href: shipHref(chassisId, modelKey) }}

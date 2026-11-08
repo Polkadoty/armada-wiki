@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getCardCatalog } from '@/lib/cards/catalog';
 import { cardFace } from '@/lib/cards/images';
-import { byName, factionLabel, upgradeEntries, upgradeFactions, upgradeTypeGlyphs } from '@/lib/cards/entries';
+import { byName, upgradeEntries, upgradeFactions, upgradeTypeGlyphs } from '@/lib/cards/entries';
 import { apiKeyOf, cardRulings } from '@/lib/cards/rulings';
 import { upgradeTypeLabel } from '@/lib/rulings/build';
 import { resolveCardKey } from '@/utils/cardSources';
 import { formatChassisName } from '@/utils/diceDisplay';
 import { ArmadaIcon } from '@/components/rulings/ArmadaIcon';
-import { CardTextAndRulings, DetailFooter, DetailHero, DetailSheet, neighbors, Pager, RelatedCards, Section, Stats, TitleBlock } from '@/components/wiki/Detail';
+import { CardTextAndRulings, DetailFooter, DetailHero, DetailSheet, neighbors, Pager, RelatedCards, Section, TitleBlock } from '@/components/wiki/Detail';
 import type { Upgrade } from '@/types/cards';
 
 export const revalidate = false;
@@ -89,21 +89,13 @@ export default async function UpgradePage({ params }: { params: Params }) {
           kicker={
             <span className="inline-flex items-center gap-2">
               {upgradeTypeGlyphs(upgrade.type).map((glyph) => <ArmadaIcon key={glyph} glyph={glyph} className="text-base" />)}
-              {typeLabel} upgrade
+              {typeLabel} upgrade · {upgrade.points} points
             </span>
           }
           name={upgrade.name}
           factions={factions}
           source={upgrade.source}
           unique={upgrade.unique}
-        />
-
-        <Stats
-          items={[
-            { label: 'Points', value: upgrade.points },
-            { label: 'Faction', value: factions.length ? factions.map((faction) => factionLabel(faction, true)).join(', ') : 'Any' },
-            { label: 'Unique', value: upgrade.unique ? 'Yes' : 'No' },
-          ]}
         />
 
         {restrictions.length > 0 && (

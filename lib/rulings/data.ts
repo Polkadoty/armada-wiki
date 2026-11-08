@@ -6,6 +6,7 @@ import iconMap from '@/scripts/karm/icon-map.json';
 import linkAliases from '@/scripts/karm/link-aliases.json';
 import { buildCardLinkIndex, buildRulingCards, normalizeRules, type RuleEntry, type RulingCard } from './build';
 import { rulingsPageHref } from './pages';
+import { SVG_GLYPH_PREFIX } from '@/components/rulings/ArmadaIcon';
 
 // The JSON files stay under scripts/karm/ because the printable rulings book reads the
 // same ones; this keeps the web pages and the book from drifting apart.
@@ -67,7 +68,14 @@ export const getRulingsData = cache(async (): Promise<RulingsData> => {
   return { cards, linkIndex: buildCardLinkIndex(cards, rulingsPageHref, linkAliases), warnings };
 });
 
-export const ICON_MAP: Record<string, string> = iconMap;
+// Keywords newer than the icon font are drawn from SVGs in public/images/icons, copied
+// from the-isb-api's keyword tokens.
+const SVG_ICONS = ['boost', 'hunt'];
+
+export const ICON_MAP: Record<string, string> = {
+  ...iconMap,
+  ...Object.fromEntries(SVG_ICONS.map((name) => [name, `${SVG_GLYPH_PREFIX}${name}`])),
+};
 
 export function iconGlyph(token: string): string | undefined {
   const lower = token.toLowerCase();
