@@ -102,7 +102,8 @@ export default async function RulingsIndexPage() {
           <a href={ARM_CHANGELOG_SOURCE.fullDocumentUrl} target="_blank" rel="noreferrer" className="text-rulebook-accent underline-offset-2 hover:underline">
             Armada Reference Manual {ARM_CHANGELOG_SOURCE.currentVersion}
           </a>{' '}
-          as a PDF. For points and stats, see the{' '}
+          as a PDF, or save these rulings as a{' '}
+          <Link href="/rulebook" className="text-rulebook-accent underline-offset-2 hover:underline">rulebook PDF</Link>. For points and stats, see the{' '}
           <Link href="/ships" className="text-rulebook-accent underline-offset-2 hover:underline">card pages</Link>.
         </p>
         <p className="text-xs">Star Wars: Armada is a trademark of Fantasy Flight Games. This is an unofficial fan project.</p>

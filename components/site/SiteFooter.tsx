@@ -10,6 +10,7 @@ const COLUMNS = [
       { href: '/rulings', label: 'Rules & Rulings' },
       { href: '/changelog', label: 'Community changelog' },
       { href: '/changelog/arm', label: 'Reference Manual changelog' },
+      { href: '/rulebook', label: 'Rulebook PDF' },
     ],
   },
   { title: 'More', links: MORE_LINKS },
@@ -17,7 +18,7 @@ const COLUMNS = [
 
 export function SiteFooter() {
   return (
-    <footer className="mx-auto mt-10 max-w-7xl px-0 pb-10 sm:px-4">
+    <footer data-print-hide className="mx-auto mt-10 max-w-7xl px-0 pb-10 sm:px-4">
       <div className="wiki-sheet !py-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>

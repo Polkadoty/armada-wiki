@@ -7,7 +7,7 @@ import { RulingCard } from './RulingCard';
 import { RulingsToolbar } from './RulingsToolbar';
 import { RulingText, renderInline, type RulingTextContext } from './RulingText';
 
-function GroupIntro({ introKey, ctx }: { introKey?: string; ctx: RulingTextContext }) {
+export function GroupIntro({ introKey, ctx }: { introKey?: string; ctx: RulingTextContext }) {
   const intro = getSectionIntro(introKey);
   if (!intro) return null;
   const sections = buildCardSections(intro);

@@ -68,7 +68,7 @@ export function RulingCard({ card, ctx }: { card: RulingCardData; ctx: RulingTex
       className="group/card scroll-mt-20 md:scroll-mt-48"
     >
       <div className="flex gap-6 max-sm:flex-col max-sm:items-center">
-        <div className="w-[200px] shrink-0 sm:w-[220px]">
+        <div className="ruling-card-figure w-[200px] shrink-0 sm:w-[220px]">
           {card.image ? (
             <img
               src={card.image}

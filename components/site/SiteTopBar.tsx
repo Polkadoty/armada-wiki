@@ -37,7 +37,7 @@ export function SiteTopBar() {
   const close = () => setMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-30 border-b border-rulebook-accent/15 bg-rulebook-sheet/90 backdrop-blur supports-[backdrop-filter]:bg-rulebook-sheet/75">
+    <header data-print-hide className="sticky top-0 z-30 border-b border-rulebook-accent/15 bg-rulebook-sheet/90 backdrop-blur supports-[backdrop-filter]:bg-rulebook-sheet/75">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-2 px-2 sm:gap-4 sm:px-4">
         <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
           <SheetTrigger
