@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      { source: '/', destination: '/rulings', permanent: false },
       // The rulings used to be pre-rendered HTML files under public/rulings/. Keep their
       // URLs working: browsers carry a `#card-anchor` across a redirect, and the new
       // pages keep the same anchor ids.

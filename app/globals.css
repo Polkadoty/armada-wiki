@@ -425,6 +425,45 @@
     @apply mb-1 mt-5 flex items-center gap-3 font-aero text-xs font-bold uppercase tracking-[0.15em] text-rulebook-accent after:h-px after:flex-1 after:bg-rulebook-accent/15;
   }
 
+  /* Reading pages (about, guide, resources). */
+  .wiki-prose {
+    @apply text-[17px] leading-[1.6] text-rulebook-ink;
+  }
+
+  .wiki-prose > * + *,
+  .wiki-prose section > * + * {
+    @apply mt-4;
+  }
+
+  .wiki-prose h2 {
+    @apply !mt-9 flex items-center gap-3 font-aero text-sm font-bold uppercase tracking-[0.15em] text-rulebook-accent after:h-px after:flex-1 after:bg-rulebook-accent/15;
+  }
+
+  .wiki-prose section:first-child h2 {
+    @apply !mt-0;
+  }
+
+  .wiki-prose ul:not(.not-prose) > li {
+    @apply relative pl-[22px];
+  }
+
+  .wiki-prose ul:not(.not-prose) > li + li {
+    @apply mt-2;
+  }
+
+  .wiki-prose ul:not(.not-prose) > li::before {
+    content: "";
+    @apply absolute left-1.5 top-[0.68em] size-[5px] rounded-full bg-current;
+  }
+
+  .wiki-prose a:not(.group) {
+    @apply text-rulebook-accent underline decoration-rulebook-accent/40 underline-offset-2 hover:decoration-rulebook-accent;
+  }
+
+  .wiki-prose kbd {
+    @apply rounded border border-rulebook-accent/25 bg-white/70 px-1.5 font-mono text-[0.85em];
+  }
+
   .wiki-card-face {
     @apply overflow-hidden rounded-[4.5%/3%] bg-black/5 shadow-[0_2px_4px_rgba(24,20,14,0.12),0_10px_26px_rgba(24,20,14,0.18)];
   }
@@ -442,7 +481,3 @@
   }
 }
 
-/* Rulebook pages carry their own disclaimer and navigation. */
-body:has([data-rulebook]) > footer {
-  display: none;
-}

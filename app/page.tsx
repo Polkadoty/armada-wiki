@@ -1,225 +1,128 @@
-'use client';
+/* eslint-disable @next/next/no-img-element -- card faces come from the card API's image hosts */
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowRight, Search } from 'lucide-react';
+import { getCardCatalog } from '@/lib/cards/catalog';
+import { FACTIONS, objectiveEntries, shipEntries, squadronEntries, upgradeEntries, type GridEntry } from '@/lib/cards/entries';
+import { iconGlyph } from '@/lib/rulings/data';
+import { ArmadaIcon, NewRepublicIcon } from '@/components/rulings/ArmadaIcon';
+import { SearchButton } from '@/components/site/SearchProvider';
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Header } from "@/components/Header";
-import { GlobalSearch } from "@/components/GlobalSearch";
-import { useGlobalSearch } from "@/hooks/useGlobalSearch";
-import { Anchor, Plane, Wrench, Target, ChevronRight, Sparkles } from "lucide-react";
-import { fetchCardData } from "@/utils/dataFetcher";
-import { loadShips, loadSquadrons, loadUpgrades, loadObjectives } from "@/utils/cardSources";
+export const revalidate = false;
 
-interface CardCounts {
-  ships: number;
-  squadrons: number;
-  upgrades: number;
-  objectives: number;
+export const metadata: Metadata = {
+  title: { absolute: 'Armada Wiki: Star Wars: Armada cards and rulings' },
+  description:
+    'Every Star Wars: Armada ship, squadron, upgrade and objective with points, stats and rulings. Includes the Armada Community errata, Nexus and the Armada Reference Manual rulings.',
+  alternates: { canonical: '/' },
+};
+
+/** Three cards to fan out on a section tile: the costliest ones with a new card face. */
+function showcase(entries: GridEntry[], filter: (entry: GridEntry) => boolean = () => true): GridEntry[] {
+  const picked: GridEntry[] = [];
+  const names = new Set<string>();
+  for (const entry of [...entries].filter((e) => e.face?.originalSrc && filter(e)).sort((a, b) => (b.points ?? 0) - (a.points ?? 0))) {
+    if (names.has(entry.name)) continue;
+    names.add(entry.name);
+    picked.push(entry);
+    if (picked.length === 3) break;
+  }
+  return picked;
 }
 
-const navCards = [
-  {
-    href: "/ships",
-    title: "Ships",
-    description: "Capital ships from Star Destroyers to Mon Calamari Cruisers",
-    icon: Anchor,
-    gradient: "from-faction-empire to-faction-empire/70",
-    iconText: "text-white",
-    hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-empire)/0.3)]",
-  },
-  {
-    href: "/squadrons",
-    title: "Squadrons",
-    description: "Fighters, bombers, and ace pilots across all factions",
-    icon: Plane,
-    gradient: "from-faction-rebel to-faction-rebel/70",
-    iconText: "text-white",
-    hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-rebel)/0.3)]",
-  },
-  {
-    href: "/upgrades",
-    title: "Upgrades",
-    description: "Commanders, officers, weapons, and modifications",
-    icon: Wrench,
-    gradient: "from-faction-republic to-faction-republic/70",
-    iconText: "text-zinc-900",
-    hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-republic)/0.3)]",
-  },
-  {
-    href: "/objectives",
-    title: "Objectives",
-    description: "Assault, defense, navigation, and special objectives",
-    icon: Target,
-    gradient: "from-faction-separatist to-faction-separatist/70",
-    iconText: "text-white",
-    hoverGlow: "hover:shadow-[0_0_30px_hsl(var(--faction-separatist)/0.3)]",
-  },
-];
+function Fan({ cards, wide }: { cards: GridEntry[]; wide?: boolean }) {
+  const turns = ['-rotate-[9deg] -translate-x-[38%]', 'z-10 -translate-y-1', 'rotate-[9deg] translate-x-[38%]'];
+  return (
+    <div className="relative mx-auto flex h-44 items-end justify-center">
+      {cards.map((card, index) => (
+        <img
+          key={card.key}
+          src={card.face!.src}
+          alt=""
+          width={card.face!.width}
+          height={card.face!.height}
+          loading={index === 1 ? 'eager' : 'lazy'}
+          className={`absolute bottom-0 h-auto ${wide ? 'w-24' : 'w-28'} origin-bottom rounded-[6px] shadow-[0_6px_18px_rgba(24,20,14,0.3)] transition-transform duration-300 group-hover:-translate-y-2 ${turns[index] ?? ''}`}
+        />
+      ))}
+    </div>
+  );
+}
 
-export default function Home() {
-  const [counts, setCounts] = useState<CardCounts | null>(null);
-  const { isOpen, setIsOpen, openSearch } = useGlobalSearch();
+export default async function HomePage() {
+  const catalog = await getCardCatalog();
+  const ships = shipEntries(catalog);
+  const squadrons = squadronEntries(catalog);
+  const upgrades = upgradeEntries(catalog);
+  const objectives = objectiveEntries(catalog);
+  const total = ships.length + squadrons.length + upgrades.length + objectives.length;
 
-  useEffect(() => {
-    async function loadCounts() {
-      await fetchCardData();
+  const sections = [
+    { href: '/ships', title: 'Ships', count: ships.length, text: 'Stats, navigation charts, armament and upgrade slots.', cards: showcase(ships, (e) => !e.facets.size.includes('huge')), wide: true },
+    { href: '/squadrons', title: 'Squadrons', count: squadrons.length, text: 'Aces and generics, with keywords and rulings.', cards: showcase(squadrons, (e) => e.facets.kind.includes('ace')) },
+    { href: '/upgrades', title: 'Upgrades', count: upgrades.length, text: 'Every slot, from commanders to titles.', cards: showcase(upgrades, (e) => e.facets.type.includes('commander')) },
+    { href: '/objectives', title: 'Objectives', count: objectives.length, text: 'Setup, special rules and scoring.', cards: showcase(objectives) },
+  ];
 
-      const shipCount = Object.values(loadShips()).reduce(
-        (total, chassis) => total + Object.keys(chassis.models || {}).length,
-        0
-      );
-
-      setCounts({
-        ships: shipCount,
-        squadrons: Object.keys(loadSquadrons()).length,
-        upgrades: Object.keys(loadUpgrades()).length,
-        objectives: Object.keys(loadObjectives()).length,
-      });
-    }
-
-    loadCounts();
-  }, []);
+  const reference = [
+    { href: '/rulings', title: 'Rules & Rulings', text: 'Clarifications for every card, set out like the Armada Reference Manual.' },
+    { href: '/changelog', title: 'Community changelog', text: 'Points changes and errata in the Armada Community card set.' },
+    { href: '/changelog/arm', title: 'Reference Manual changelog', text: 'Every ARM revision, with the changed text marked.' },
+  ];
 
   return (
-    <div className="min-h-screen">
-      <Header showBackButton={false} onSearchClick={openSearch} />
-      <GlobalSearch open={isOpen} onOpenChange={setIsOpen} />
-
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Background gradient - warm parchment light / purple nebula dark */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-[hsl(36,33%,88%)]/30 dark:from-[hsl(285,70%,65%)]/10 dark:via-background dark:to-[hsl(270,40%,15%)]/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[hsl(224,59%,35%)]/15 via-transparent to-transparent dark:from-[hsl(285,70%,65%)]/20 dark:via-transparent dark:to-transparent" />
-        <div className="absolute -top-24 right-6 h-72 w-72 rounded-full bg-[hsl(224,59%,35%,0.12)] dark:bg-[hsl(285,70%,65%,0.15)] blur-3xl" />
-        <div className="absolute top-16 -left-20 h-64 w-64 rounded-full bg-[hsl(36,33%,80%,0.3)] dark:bg-[hsl(270,50%,40%,0.2)] blur-3xl" />
-
-        {/* Stars effect */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-1/4 w-1 h-1 bg-foreground/70 rounded-full animate-pulse" />
-          <div className="absolute top-32 right-1/3 w-0.5 h-0.5 bg-foreground/60 rounded-full animate-pulse delay-100" />
-          <div className="absolute top-16 right-1/4 w-1 h-1 bg-foreground/70 rounded-full animate-pulse delay-200" />
-          <div className="absolute top-40 left-1/3 w-0.5 h-0.5 bg-foreground/60 rounded-full animate-pulse delay-300" />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 py-20 md:py-28">
-          <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/10 text-primary text-sm font-medium font-body">
-              <Sparkles className="w-4 h-4" />
-              Community-Driven Database
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-heading font-extrabold tracking-tight uppercase">
-              <span className="bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text">
-                Armada Wiki
-              </span>
-            </h1>
-
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Your comprehensive reference for{" "}
-              <span className="text-foreground font-medium">Star Wars: Armada</span>{" "}
-              and <span className="text-foreground font-medium">Armada Legacy</span>
-            </p>
-
-            {/* Quick stats */}
-            {counts && (
-              <div className="flex flex-wrap justify-center gap-6 md:gap-10 pt-6">
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-primary">{counts.ships}</div>
-                  <div className="text-sm text-muted-foreground">Ships</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-faction-rebel">{counts.squadrons}</div>
-                  <div className="text-sm text-muted-foreground">Squadrons</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-faction-republic">{counts.upgrades}</div>
-                  <div className="text-sm text-muted-foreground">Upgrades</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-faction-separatist">{counts.objectives}</div>
-                  <div className="text-sm text-muted-foreground">Objectives</div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Navigation Cards */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {navCards.map((card) => {
-            const Icon = card.icon;
+    <main className="mx-auto max-w-7xl px-0 py-6 sm:px-4 sm:py-10">
+      <section className="wiki-sheet text-center">
+        <h1 className="wiki-page-title !text-[clamp(36px,6vw,64px)]">Armada Wiki</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-[17px] text-rulebook-muted">
+          Cards and rulings for Star Wars: Armada. The core game, the Armada Community errata and Nexus, with the new card designs.
+        </p>
+        <SearchButton className="mx-auto mt-6 flex h-12 w-full max-w-xl items-center gap-3 rounded-md border border-rulebook-accent/25 bg-white/70 px-4 text-left text-rulebook-muted shadow-sm transition-colors hover:border-rulebook-accent/50">
+          <Search className="size-5 text-rulebook-accent" aria-hidden />
+          <span className="flex-1">Search {total} cards</span>
+          <kbd className="rounded border border-rulebook-accent/20 px-1.5 text-xs">/</kbd>
+        </SearchButton>
+        <nav aria-label="Ships by faction" className="mt-5 flex flex-wrap justify-center gap-1.5">
+          {FACTIONS.slice(0, 6).map((faction) => {
+            const glyph = iconGlyph(faction.id);
             return (
               <Link
-                key={card.href}
-                href={card.href}
-                className={`
-                  group relative overflow-hidden rounded-2xl border border-border/70 bg-card/70 p-6 backdrop-blur-sm
-                  transition-all duration-300
-                  hover:scale-[1.02] hover:-translate-y-1
-                  ${card.hoverGlow}
-                `}
+                key={faction.id}
+                href={`/ships?faction=${faction.id}`}
+                className="inline-flex h-8 items-center gap-1.5 rounded-full border border-rulebook-accent/20 bg-white/50 px-3 text-sm hover:border-rulebook-accent/45 hover:text-rulebook-accent"
               >
-                {/* Background gradient on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
-
-                <div className="relative flex items-start gap-4">
-                  <div className={`p-3 rounded-xl bg-gradient-to-br ${card.gradient} ${card.iconText} shadow-lg`}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-xl font-semibold">{card.title}</h2>
-                      <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
-                    </div>
-                    <p className="text-muted-foreground text-sm">
-                      {card.description}
-                    </p>
-                  </div>
-                </div>
+                {faction.id === 'new-republic' ? <NewRepublicIcon /> : glyph && <ArmadaIcon glyph={glyph} className="text-[15px]" />}
+                {faction.short} ships
               </Link>
             );
           })}
-        </div>
+        </nav>
       </section>
 
-      {/* Quick Links Section */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="rounded-2xl border border-border/70 bg-card/65 p-6 md:p-8 backdrop-blur-sm">
-          <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link
-              href="/compare"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-              Compare Cards
-            </Link>
-            <Link
-              href="/favorites"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-              Favorites
-            </Link>
-            <Link
-              href="/guide"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-              Getting Started
-            </Link>
-            <Link
-              href="/about"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-              About
-            </Link>
-          </div>
-        </div>
+      <section aria-label="Card types" className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {sections.map((section) => (
+          <Link key={section.href} href={section.href} className="wiki-sheet group !px-5 !py-6 transition-shadow hover:shadow-[0_1px_2px_rgba(24,20,14,0.08),0_22px_56px_rgba(12,14,22,0.36)]">
+            <Fan cards={section.cards} wide={section.wide} />
+            <h2 className="mt-6 flex items-baseline justify-between gap-2 font-logo text-2xl font-bold uppercase tracking-[0.05em] text-rulebook-accent">
+              {section.title}
+              <span className="font-body text-sm font-normal normal-case tracking-normal text-rulebook-muted">{section.count}</span>
+            </h2>
+            <p className="mt-1 text-[15px] text-rulebook-muted">{section.text}</p>
+          </Link>
+        ))}
       </section>
-    </div>
+
+      <section aria-label="Reference" className="mt-6 grid gap-4 md:grid-cols-3">
+        {reference.map((entry) => (
+          <Link key={entry.href} href={entry.href} className="wiki-sheet group flex items-start gap-3 !px-6 !py-6">
+            <div className="flex-1">
+              <h2 className="font-logo text-xl font-bold uppercase tracking-[0.05em] text-rulebook-accent">{entry.title}</h2>
+              <p className="mt-1 text-[15px] text-rulebook-muted">{entry.text}</p>
+            </div>
+            <ArrowRight className="mt-1 size-5 text-rulebook-accent transition-transform group-hover:translate-x-1" aria-hidden />
+          </Link>
+        ))}
+      </section>
+    </main>
   );
 }

@@ -82,13 +82,13 @@ export function BugReportDialog() {
           renders a button within a button, which is invalid HTML and breaks hydration. */}
       <DialogTrigger
         render={
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="text-rulebook-accent hover:bg-rulebook-accent/10">
             <Bug className="h-4 w-4 mr-2" />
-            Report Bug
+            Report a bug
           </Button>
         }
       />
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="force-light max-h-[90vh] max-w-2xl overflow-y-auto bg-rulebook-sheet font-body text-rulebook-ink">
         <DialogHeader>
           <DialogTitle>Report a Bug</DialogTitle>
           <DialogDescription>

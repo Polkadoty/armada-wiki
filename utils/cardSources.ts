@@ -5,15 +5,6 @@ import type { Ship, ShipModel, Squadron, Upgrade, Objective } from '@/types/card
 export const CONTENT_SOURCES = ['Core', 'Community', 'Nexus'] as const;
 export type ContentSource = (typeof CONTENT_SOURCES)[number];
 
-// Caches written by earlier versions of the wiki for sources it no longer offers. They are
-// never read, but can be large enough to push localStorage over quota, so they get purged.
-const RETIRED_SOURCE_PREFIXES = ['legacy', 'legacyBeta', 'legends', 'arc', 'naboo'];
-const CARD_TYPES = ['Ships', 'Squadrons', 'Upgrades', 'Objectives'];
-
-export const RETIRED_STORAGE_KEYS = RETIRED_SOURCE_PREFIXES.flatMap((prefix) =>
-  CARD_TYPES.flatMap((type) => [`${prefix}${type}`, `${prefix}${type}_timestamp`])
-);
-
 // `admiral-screed-commander-errata-community` -> `admiral-screed-commander`. Mirrors
 // `baselineId` in lib/changelog.ts, restricted to the community suffix.
 export function communityBaselineId(id: string): string {
@@ -136,22 +127,3 @@ export function mergeObjectives({ core, community }: SourcePayloads): Record<str
 
   return allObjectives;
 }
-
-// Browser pages (compare, favorites, search) read the same merge from the localStorage cache.
-const readStored = (storageKey: string): unknown => {
-  try {
-    const raw = localStorage.getItem(storageKey);
-    return raw ? JSON.parse(raw) : undefined;
-  } catch {
-    return undefined;
-  }
-};
-
-export const loadShips = () =>
-  mergeShips({ core: readStored('ships'), community: readStored('communityShips'), nexus: readStored('nexusShips') });
-export const loadSquadrons = () =>
-  mergeSquadrons({ core: readStored('squadrons'), community: readStored('communitySquadrons'), nexus: readStored('nexusSquadrons') });
-export const loadUpgrades = () =>
-  mergeUpgrades({ core: readStored('upgrades'), community: readStored('communityUpgrades'), nexus: readStored('nexusUpgrades') });
-export const loadObjectives = () =>
-  mergeObjectives({ core: readStored('objectives'), community: readStored('communityObjectives') });

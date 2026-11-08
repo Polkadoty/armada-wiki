@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { ChevronRight, ScrollText } from 'lucide-react';
+import { ChevronLeft, ChevronRight, GitCompare, ScrollText } from 'lucide-react';
 import { buildCardSections } from '@/lib/rulings/build';
 import { iconGlyph } from '@/lib/rulings/data';
 import type { CardRulings } from '@/lib/cards/rulings';
@@ -14,6 +14,9 @@ import { FavoriteButton } from '@/components/FavoriteButton';
 import type { Favorite } from '@/hooks/useFavorites';
 import { CardFaceSwitch } from './CardFaceSwitch';
 import { CommunityMark } from './Marks';
+import { Dice } from './Dice';
+
+export { Dice };
 
 // Building blocks of the card detail pages, set like an entry in the rulebook.
 
@@ -22,10 +25,44 @@ export interface Crumb {
   label: string;
 }
 
-export function DetailSheet({ crumbs, children }: { crumbs: Crumb[]; children: ReactNode }) {
+export interface Neighbor {
+  href: string;
+  name: string;
+}
+
+/** The cards before and after this one in its browse group, such as the same faction or slot. */
+export function Pager({ prev, next, group }: { prev?: Neighbor; next?: Neighbor; group: string }) {
+  if (!prev && !next) return null;
+  return (
+    <nav aria-label={`More ${group}`} className="flex items-center gap-1 text-sm">
+      {prev ? (
+        <Link href={prev.href} rel="prev" className="inline-flex max-w-[45vw] items-center gap-1 rounded-md px-2 py-1 text-rulebook-ink hover:bg-rulebook-accent/10 sm:max-w-56" title={prev.name}>
+          <ChevronLeft className="size-4 shrink-0 text-rulebook-accent" aria-hidden />
+          <span className="truncate">{prev.name}</span>
+        </Link>
+      ) : <span />}
+      {next && (
+        <Link href={next.href} rel="next" className="inline-flex max-w-[45vw] items-center gap-1 rounded-md px-2 py-1 text-rulebook-ink hover:bg-rulebook-accent/10 sm:max-w-56" title={next.name}>
+          <span className="truncate">{next.name}</span>
+          <ChevronRight className="size-4 shrink-0 text-rulebook-accent" aria-hidden />
+        </Link>
+      )}
+    </nav>
+  );
+}
+
+export function neighbors<T extends { key: string; href: string; name: string }>(group: T[], key: string): { prev?: Neighbor; next?: Neighbor } {
+  const index = group.findIndex((entry) => entry.key === key);
+  if (index < 0) return {};
+  const pick = (entry?: T) => (entry ? { href: entry.href, name: entry.name } : undefined);
+  return { prev: pick(group[index - 1]), next: pick(group[index + 1]) };
+}
+
+export function DetailSheet({ crumbs, pager, children }: { crumbs: Crumb[]; pager?: ReactNode; children: ReactNode }) {
   return (
     <article className="wiki-sheet mx-auto max-w-6xl">
-      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-rulebook-muted">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+      <nav aria-label="Breadcrumb" className="text-sm text-rulebook-muted">
         <ol className="flex flex-wrap items-center gap-1">
           {crumbs.map((crumb, index) => (
             <li key={crumb.href} className="flex items-center gap-1">
@@ -35,6 +72,8 @@ export function DetailSheet({ crumbs, children }: { crumbs: Crumb[]; children: R
           ))}
         </ol>
       </nav>
+      {pager}
+      </div>
       {children}
     </article>
   );
@@ -126,29 +165,6 @@ export function Section({ title, children, className }: { title: string; childre
       <h2 className="wiki-section-title">{title}</h2>
       {children}
     </section>
-  );
-}
-
-const DIE_STYLES = [
-  { label: 'red', className: 'bg-[#c0392b]' },
-  { label: 'blue', className: 'bg-[#2e5fa8]' },
-  { label: 'black', className: 'bg-[#1d1d1f]' },
-];
-
-/** A `[red, blue, black]` dice count as coloured dice. */
-export function Dice({ dice }: { dice?: number[] }) {
-  const counts = (dice ?? []).slice(0, 3);
-  const total = counts.reduce((sum, count) => sum + (count || 0), 0);
-  if (total === 0) return <span className="text-rulebook-muted">None</span>;
-  const label = counts.map((count, index) => (count ? `${count} ${DIE_STYLES[index].label}` : '')).filter(Boolean).join(', ');
-  return (
-    <span className="inline-flex flex-wrap items-center gap-1" role="img" aria-label={label}>
-      {counts.flatMap((count, index) =>
-        Array.from({ length: count || 0 }, (_, n) => (
-          <span key={`${index}-${n}`} className={cn('inline-block size-3.5 rotate-45 rounded-[2px] shadow-sm ring-1 ring-black/10', DIE_STYLES[index].className)} />
-        )),
-      )}
-    </span>
   );
 }
 
@@ -268,10 +284,16 @@ export function RelatedCards({ title, cards }: { title: string; cards: Array<{ h
   );
 }
 
-export function DetailFooter({ favorite, comments }: { favorite: Omit<Favorite, 'addedAt'>; comments: { cardType: Favorite['type']; cardId: string } }) {
+export function DetailFooter({ favorite, comments, compareHref }: { favorite: Omit<Favorite, 'addedAt'>; comments: { cardType: Favorite['type']; cardId: string }; compareHref?: string }) {
   return (
     <div className="mt-12 border-t border-rulebook-accent/15 pt-8">
-      <div className="mb-6 flex justify-end">
+      <div className="mb-6 flex flex-wrap justify-end gap-2">
+        {compareHref && (
+          <Link href={compareHref} className="inline-flex h-8 items-center gap-2 rounded-md border border-rulebook-accent/25 bg-white/60 px-3 text-sm hover:border-rulebook-accent/50 hover:text-rulebook-accent">
+            <GitCompare className="size-4" aria-hidden />
+            Compare
+          </Link>
+        )}
         <FavoriteButton favorite={favorite} variant="outline" size="sm" showLabel />
       </div>
       <Comments cardType={comments.cardType} cardId={comments.cardId} />

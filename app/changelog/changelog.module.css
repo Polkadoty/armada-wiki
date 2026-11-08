@@ -19,10 +19,6 @@
   color: #221e1d;
 }
 
-:global(body):has(.root) > :global(footer) {
-  display: none;
-}
-
 .root {
   min-height: 100vh;
   color-scheme: light;
