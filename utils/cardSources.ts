@@ -30,17 +30,6 @@ export function resolveCardKey<T extends { supersedes?: string }>(
   return Object.keys(cards).find((candidate) => cards[candidate].supersedes === key);
 }
 
-const readStored = <T>(storageKey: string, field: string): Record<string, T> => {
-  try {
-    const raw = localStorage.getItem(storageKey);
-    if (!raw) return {};
-    const data = JSON.parse(raw);
-    return (data?.[field] as Record<string, T>) || {};
-  } catch {
-    return {};
-  }
-};
-
 // Adds community cards to `cards`, replacing the core card each erratum supersedes. Must run
 // before Nexus cards are added so only core cards can be superseded.
 function overlayCommunity<T extends { source?: string; supersedes?: string }>(
@@ -65,16 +54,27 @@ const withModelSource = (chassis: Ship, source: ContentSource): Ship => ({
   ),
 });
 
-export function loadShips(): Record<string, Ship> {
+type Stored = Record<string, unknown>;
+const pick = <T>(data: unknown, field: string): Record<string, T> =>
+  ((data as Stored | null)?.[field] as Record<string, T>) || {};
+
+/** Raw API payloads, as `{ ships: {...} }` and so on, for one card type. */
+export interface SourcePayloads {
+  core?: unknown;
+  community?: unknown;
+  nexus?: unknown;
+}
+
+export function mergeShips({ core, community, nexus }: SourcePayloads): Record<string, Ship> {
   const allShips: Record<string, Ship> = {};
 
-  Object.entries(readStored<Ship>('ships', 'ships')).forEach(([id, chassis]) => {
+  Object.entries(pick<Ship>(core, 'ships')).forEach(([id, chassis]) => {
     allShips[`core-${id}`] = withModelSource(chassis, 'Core');
   });
 
   // Community models slot into their core chassis (chassis stats are shared); chassis
   // with no core counterpart are added whole.
-  Object.entries(readStored<Ship>('communityShips', 'ships')).forEach(([id, chassis]) => {
+  Object.entries(pick<Ship>(community, 'ships')).forEach(([id, chassis]) => {
     const coreChassis = allShips[`core-${id}`];
     if (!coreChassis) {
       allShips[`community-${id}`] = withModelSource(chassis, 'Community');
@@ -85,49 +85,39 @@ export function loadShips(): Record<string, Ship> {
     allShips[`core-${id}`] = { ...coreChassis, models };
   });
 
-  Object.entries(readStored<Ship>('nexusShips', 'ships')).forEach(([id, chassis]) => {
+  Object.entries(pick<Ship>(nexus, 'ships')).forEach(([id, chassis]) => {
     allShips[`nexus-${id}`] = withModelSource(chassis, 'Nexus');
   });
 
   return allShips;
 }
 
-export function loadSquadrons(): Record<string, Squadron> {
+export function mergeSquadrons({ core, community, nexus }: SourcePayloads): Record<string, Squadron> {
   const allSquadrons: Record<string, Squadron> = {};
 
-  Object.entries(readStored<Squadron>('squadrons', 'squadrons')).forEach(([id, squad]) => {
+  Object.entries(pick<Squadron>(core, 'squadrons')).forEach(([id, squad]) => {
     allSquadrons[`core-${id}`] = { ...squad, source: 'Core' };
   });
 
-  overlayCommunity(
-    allSquadrons,
-    readStored<Squadron>('communitySquadrons', 'squadrons'),
-    (id) => `core-${id}`,
-    (id) => `community-${id}`
-  );
+  overlayCommunity(allSquadrons, pick<Squadron>(community, 'squadrons'), (id) => `core-${id}`, (id) => `community-${id}`);
 
-  Object.entries(readStored<Squadron>('nexusSquadrons', 'squadrons')).forEach(([id, squad]) => {
+  Object.entries(pick<Squadron>(nexus, 'squadrons')).forEach(([id, squad]) => {
     allSquadrons[`nexus-${id}`] = { ...squad, source: 'Nexus' };
   });
 
   return allSquadrons;
 }
 
-export function loadUpgrades(): Record<string, Upgrade> {
+export function mergeUpgrades({ core, community, nexus }: SourcePayloads): Record<string, Upgrade> {
   const allUpgrades: Record<string, Upgrade> = {};
 
-  Object.entries(readStored<Upgrade>('upgrades', 'upgrades')).forEach(([id, upgrade]) => {
+  Object.entries(pick<Upgrade>(core, 'upgrades')).forEach(([id, upgrade]) => {
     allUpgrades[`core-${id}`] = { ...upgrade, source: 'Core' };
   });
 
-  overlayCommunity(
-    allUpgrades,
-    readStored<Upgrade>('communityUpgrades', 'upgrades'),
-    (id) => `core-${id}`,
-    (id) => `community-${id}`
-  );
+  overlayCommunity(allUpgrades, pick<Upgrade>(community, 'upgrades'), (id) => `core-${id}`, (id) => `community-${id}`);
 
-  Object.entries(readStored<Upgrade>('nexusUpgrades', 'upgrades')).forEach(([id, upgrade]) => {
+  Object.entries(pick<Upgrade>(nexus, 'upgrades')).forEach(([id, upgrade]) => {
     allUpgrades[`nexus-${id}`] = { ...upgrade, source: 'Nexus' };
   });
 
@@ -135,19 +125,33 @@ export function loadUpgrades(): Record<string, Upgrade> {
 }
 
 // Objective keys are unprefixed (there is no Nexus objective set to collide with).
-export function loadObjectives(): Record<string, Objective> {
+export function mergeObjectives({ core, community }: SourcePayloads): Record<string, Objective> {
   const allObjectives: Record<string, Objective> = {};
 
-  Object.entries(readStored<Objective>('objectives', 'objectives')).forEach(([id, objective]) => {
+  Object.entries(pick<Objective>(core, 'objectives')).forEach(([id, objective]) => {
     allObjectives[id] = { ...objective, source: 'Core' };
   });
 
-  overlayCommunity(
-    allObjectives,
-    readStored<Objective>('communityObjectives', 'objectives'),
-    (id) => id,
-    (id) => id
-  );
+  overlayCommunity(allObjectives, pick<Objective>(community, 'objectives'), (id) => id, (id) => id);
 
   return allObjectives;
 }
+
+// Browser pages (compare, favorites, search) read the same merge from the localStorage cache.
+const readStored = (storageKey: string): unknown => {
+  try {
+    const raw = localStorage.getItem(storageKey);
+    return raw ? JSON.parse(raw) : undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+export const loadShips = () =>
+  mergeShips({ core: readStored('ships'), community: readStored('communityShips'), nexus: readStored('nexusShips') });
+export const loadSquadrons = () =>
+  mergeSquadrons({ core: readStored('squadrons'), community: readStored('communitySquadrons'), nexus: readStored('nexusSquadrons') });
+export const loadUpgrades = () =>
+  mergeUpgrades({ core: readStored('upgrades'), community: readStored('communityUpgrades'), nexus: readStored('nexusUpgrades') });
+export const loadObjectives = () =>
+  mergeObjectives({ core: readStored('objectives'), community: readStored('communityObjectives') });

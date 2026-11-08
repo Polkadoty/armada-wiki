@@ -53,6 +53,15 @@
   font-display: swap;
 }
 
+/* Points numerals on the new card designs, as Star Forge draws them. */
+@font-face {
+  font-family: 'CardRevenger';
+  src: url('/fonts/CardRevenger.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'ArmadaIcons';
   src: url('/fonts/icons.woff') format('woff');
@@ -393,6 +402,43 @@
 
   .keyword-name {
     @apply font-aero font-bold not-italic;
+  }
+
+  /* ── Card wiki ── */
+  .wiki-sheet {
+    @apply border border-rulebook-accent/10 bg-gradient-to-b from-rulebook-sheet to-rulebook-parchment px-5 py-8 shadow-[0_1px_2px_rgba(24,20,14,0.08),0_18px_48px_rgba(12,14,22,0.28)] sm:px-10 sm:py-10;
+  }
+
+  .wiki-page-title {
+    @apply border-y border-rulebook-accent/35 py-3 text-center font-logo text-[clamp(28px,4.4vw,44px)] font-bold uppercase leading-none tracking-[0.06em] text-rulebook-accent;
+  }
+
+  .wiki-group-title {
+    @apply flex items-center justify-center gap-3 border-y border-rulebook-accent/35 py-2.5 text-center font-logo text-[clamp(20px,3vw,28px)] font-bold uppercase leading-none tracking-[0.05em] text-rulebook-accent;
+  }
+
+  .wiki-section-title {
+    @apply mb-3 flex items-center gap-3 font-aero text-xs font-bold uppercase tracking-[0.15em] text-rulebook-accent after:h-px after:flex-1 after:bg-rulebook-accent/15;
+  }
+
+  .wiki-nav-heading {
+    @apply mb-1 mt-5 flex items-center gap-3 font-aero text-xs font-bold uppercase tracking-[0.15em] text-rulebook-accent after:h-px after:flex-1 after:bg-rulebook-accent/15;
+  }
+
+  .wiki-card-face {
+    @apply overflow-hidden rounded-[4.5%/3%] bg-black/5 shadow-[0_2px_4px_rgba(24,20,14,0.12),0_10px_26px_rgba(24,20,14,0.18)];
+  }
+
+  .wiki-stat {
+    @apply rounded-md border border-rulebook-accent/15 bg-white/55 px-3 py-2;
+  }
+
+  .wiki-stat dt {
+    @apply font-aero text-[11px] font-bold uppercase tracking-[0.12em] text-rulebook-accent;
+  }
+
+  .wiki-stat dd {
+    @apply mt-0.5 text-lg leading-tight text-rulebook-ink;
   }
 }
 

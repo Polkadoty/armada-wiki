@@ -7,6 +7,7 @@ import {
   getLiveCatalogManifest,
 } from '@/lib/cardApi';
 import { RULINGS_DATASETS } from '@/lib/rulings/data';
+import { CARD_DATASETS } from '@/lib/cards/catalog';
 
 // Rebuilds the server-rendered card pages (rulings, changelog) only when the card API's
 // data has actually changed. Called by the-isb-api after it deploys (POST) and by a
@@ -15,14 +16,15 @@ import { RULINGS_DATASETS } from '@/lib/rulings/data';
 
 export const dynamic = 'force-dynamic';
 
-/** Datasets rendered on the server. The browse pages load card data in the browser. */
-const WATCHED_DATASETS = [
+/** Datasets rendered on the server: the rulings, the card pages and the changelog. */
+const WATCHED_DATASETS = [...new Set([
   ...Object.values(RULINGS_DATASETS),
+  ...CARD_DATASETS,
   // The Community changelog compares Community cards with their core/ARC/Legacy forms.
   'ships', 'community-ships',
   'arc-ships', 'arc-squadrons', 'arc-upgrades', 'arc-objectives',
   'legacy-ships', 'legacy-squadrons', 'legacy-upgrades',
-];
+])];
 
 function authorized(request: Request): boolean {
   const secrets = [process.env.REVALIDATE_SECRET, process.env.CRON_SECRET].filter(Boolean);
