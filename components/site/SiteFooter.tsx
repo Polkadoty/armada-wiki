@@ -23,7 +23,7 @@ export function SiteFooter() {
           <div>
             <Link href="/" className="font-logo text-lg font-bold uppercase tracking-[0.06em] text-rulebook-accent">Armada Wiki</Link>
             <p className="mt-2 text-sm text-rulebook-muted">
-              Cards and rulings for Star Wars: Armada, with the Armada Community errata and Nexus. Card data comes from the Swarmada API.
+              Cards and rulings for Star Wars: Armada, with the Community Edition errata and Nexus. Card data comes from the Swarmada API.
             </p>
             <div className="-ml-3 mt-3">
               <BugReportDialog />

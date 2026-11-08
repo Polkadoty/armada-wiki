@@ -22,18 +22,18 @@ export type RulingCategory =
   | 'nexus-ace-squadrons';
 
 export const RULE_SECTION_LABELS = {
-  card_text: 'Card Text',
+  card_text: 'Card text',
   timing: 'Timing',
   clarifications: 'Clarifications',
-  upgrade_interactions: 'Upgrade Interactions',
-  squadron_interactions: 'Squadron Interactions',
-  objective_interactions: 'Objective Interactions',
-  counter_and_salvo_interactions: 'Counter and Salvo Interactions',
-  damage_card_interactions: 'Damage Card Interactions',
-  obstacle_interactions: 'Obstacle Interactions',
-  deployment_interactions: 'Deployment Interactions',
-  play_area_interactions: 'Play Area Interactions',
-  campaign_interactions: 'Campaign Interactions',
+  upgrade_interactions: 'Upgrade interactions',
+  squadron_interactions: 'Squadron interactions',
+  objective_interactions: 'Objective interactions',
+  counter_and_salvo_interactions: 'Counter and salvo interactions',
+  damage_card_interactions: 'Damage card interactions',
+  obstacle_interactions: 'Obstacle interactions',
+  deployment_interactions: 'Deployment interactions',
+  play_area_interactions: 'Play area interactions',
+  campaign_interactions: 'Campaign interactions',
 } as const;
 
 export type RuleSectionKey = keyof typeof RULE_SECTION_LABELS;

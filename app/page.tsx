@@ -13,7 +13,7 @@ export const revalidate = false;
 export const metadata: Metadata = {
   title: { absolute: 'Armada Wiki: Star Wars: Armada cards and rulings' },
   description:
-    'Every Star Wars: Armada ship, squadron, upgrade and objective with points, stats and rulings. Includes the Armada Community errata, Nexus and the Armada Reference Manual rulings.',
+    'Every Star Wars: Armada ship, squadron, upgrade and objective with points, stats and rulings, including the Community Edition errata and Nexus.',
   alternates: { canonical: '/' },
 };
 
@@ -66,7 +66,7 @@ export default async function HomePage() {
 
   const reference = [
     { href: '/rulings', title: 'Rules & Rulings', text: 'Clarifications for every card, set out like the Armada Reference Manual.' },
-    { href: '/changelog', title: 'Community changelog', text: 'Points changes and errata in the Armada Community card set.' },
+    { href: '/changelog', title: 'Community changelog', text: 'Points changes and errata in the Community Edition card set.' },
     { href: '/changelog/arm', title: 'Reference Manual changelog', text: 'Every ARM revision, with the changed text marked.' },
   ];
 
@@ -75,7 +75,7 @@ export default async function HomePage() {
       <section className="wiki-sheet text-center">
         <h1 className="wiki-page-title !text-[clamp(36px,6vw,64px)]">Armada Wiki</h1>
         <p className="mx-auto mt-4 max-w-2xl text-[17px] text-rulebook-muted">
-          Cards and rulings for Star Wars: Armada. The core game, the Armada Community errata and Nexus, with the new card designs.
+          Cards and rulings for Star Wars: Armada, covering the core game, the Community Edition errata and Nexus.
         </p>
         <SearchButton className="mx-auto mt-6 flex h-12 w-full max-w-xl items-center gap-3 rounded-md border border-rulebook-accent/25 bg-white/70 px-4 text-left text-rulebook-muted shadow-sm transition-colors hover:border-rulebook-accent/50">
           <Search className="size-5 text-rulebook-accent" aria-hidden />

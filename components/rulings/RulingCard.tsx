@@ -30,10 +30,10 @@ function FactionIcons({ factions }: { factions: string[] }) {
 export function CommunityMark() {
   return (
     <span
-      title="Armada Community edition"
+      title="Community Edition card"
       className="community-mark"
     >
-      <span className="sr-only">Community edition</span>
+      <span className="sr-only">Community Edition</span>
     </span>
   );
 }
@@ -118,7 +118,7 @@ export function RulingCard({ card, ctx }: { card: RulingCardData; ctx: RulingTex
 
           {sections.cardText && (
             <section>
-              {card.category !== 'damage-cards' && <Label>Card Text</Label>}
+              {card.category !== 'damage-cards' && <Label>Card text</Label>}
               <div className={cn('rulebook-prose', QUOTES_CARD_TEXT.has(card.category) && 'italic')}>
                 <RulingText text={sections.cardText} ctx={textCtx} />
               </div>

@@ -9,8 +9,8 @@ import { ChangelogTabs } from './ChangelogTabs';
 import styles from './changelog.module.css';
 
 export const metadata: Metadata = {
-  title: 'Changelog | Armada Wiki',
-  description: 'A text-based record of additions and errata in the consolidated Armada Community card set.',
+  title: 'Community Edition changelog',
+  description: 'Every points change, errata and new card in the Community Edition card set.',
 };
 
 function formatDate(value?: string): string {

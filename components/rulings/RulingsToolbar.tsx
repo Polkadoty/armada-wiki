@@ -117,7 +117,7 @@ export function RulingsToolbar({ total }: { total: number }) {
             onKeyDown={(event) => {
               if (event.key === 'Escape') setQuery('');
             }}
-            placeholder="Search cards on this page…  ( / )"
+            placeholder="Search cards on this page"
             aria-label="Search cards on this page"
             className="h-9 border-rulebook-accent/25 bg-white/70 pl-8 text-sm"
           />

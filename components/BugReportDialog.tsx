@@ -90,30 +90,30 @@ export function BugReportDialog() {
       />
       <DialogContent className="force-light max-h-[90vh] max-w-2xl overflow-y-auto bg-rulebook-sheet font-body text-rulebook-ink">
         <DialogHeader>
-          <DialogTitle>Report a Bug</DialogTitle>
+          <DialogTitle>Report a bug</DialogTitle>
           <DialogDescription>
-            Help us improve the Armada Wiki by reporting any issues you encounter.
+            Tell us what went wrong and on which page.
           </DialogDescription>
         </DialogHeader>
 
         {submitted ? (
           <div className="py-8 text-center">
             <p className="text-lg font-semibold text-green-600 dark:text-green-400">
-              Thank you for your report!
+              Thanks, we got your report.
             </p>
             <p className="text-sm text-muted-foreground mt-2">
-              We&apos;ll look into this issue as soon as possible.
+              We read every report and fix what we can.
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="title" className="block text-sm font-medium mb-1">
-                Bug Title <span className="text-destructive">*</span>
+                Title <span className="text-destructive">*</span>
               </label>
               <Input
                 id="title"
-                placeholder="Brief description of the issue"
+                placeholder="Upgrade points are wrong on Admiral Ackbar"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 required
@@ -126,7 +126,7 @@ export function BugReportDialog() {
               </label>
               <Textarea
                 id="description"
-                placeholder="Detailed description of the bug"
+                placeholder="What you saw, and what you expected instead"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={4}
@@ -136,11 +136,11 @@ export function BugReportDialog() {
 
             <div>
               <label htmlFor="stepsToReproduce" className="block text-sm font-medium mb-1">
-                Steps to Reproduce
+                Steps to reproduce
               </label>
               <Textarea
                 id="stepsToReproduce"
-                placeholder="1. Go to...&#10;2. Click on...&#10;3. See error"
+                placeholder="1. Open the Upgrades page&#10;2. Filter by Commander&#10;3. Open Admiral Ackbar"
                 value={formData.stepsToReproduce}
                 onChange={(e) => setFormData({ ...formData, stepsToReproduce: e.target.value })}
                 rows={3}
@@ -150,11 +150,11 @@ export function BugReportDialog() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="expectedBehavior" className="block text-sm font-medium mb-1">
-                  Expected Behavior
+                  What should happen
                 </label>
                 <Textarea
                   id="expectedBehavior"
-                  placeholder="What should happen?"
+                  placeholder="The card shows 38 points"
                   value={formData.expectedBehavior}
                   onChange={(e) => setFormData({ ...formData, expectedBehavior: e.target.value })}
                   rows={3}
@@ -163,11 +163,11 @@ export function BugReportDialog() {
 
               <div>
                 <label htmlFor="actualBehavior" className="block text-sm font-medium mb-1">
-                  Actual Behavior
+                  What happens instead
                 </label>
                 <Textarea
                   id="actualBehavior"
-                  placeholder="What actually happens?"
+                  placeholder="The card shows 36 points"
                   value={formData.actualBehavior}
                   onChange={(e) => setFormData({ ...formData, actualBehavior: e.target.value })}
                   rows={3}
@@ -182,7 +182,7 @@ export function BugReportDialog() {
               <Input
                 id="pageUrl"
                 type="url"
-                placeholder="URL where the bug occurred"
+                placeholder="Address of the page with the problem"
                 value={formData.pageUrl}
                 onChange={(e) => setFormData({ ...formData, pageUrl: e.target.value })}
               />
@@ -190,7 +190,7 @@ export function BugReportDialog() {
 
             <div>
               <label htmlFor="contactEmail" className="block text-sm font-medium mb-1">
-                Contact Email (Optional)
+                Email, if you want a reply
               </label>
               <Input
                 id="contactEmail"
@@ -200,7 +200,7 @@ export function BugReportDialog() {
                 onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
               />
               <p className="text-xs text-muted-foreground mt-1">
-                In case we need to follow up about this issue
+                We only use it to ask about this report.
               </p>
             </div>
 
@@ -214,7 +214,7 @@ export function BugReportDialog() {
                 Cancel
               </Button>
               <Button type="submit" disabled={submitting}>
-                {submitting ? 'Submitting...' : 'Submit Report'}
+                {submitting ? 'Sending' : 'Send report'}
               </Button>
             </div>
           </form>

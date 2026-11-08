@@ -24,7 +24,7 @@ export interface SearchRow {
 
 const PAGES: SearchRow[] = [
   { k: 'page', n: 'Rules & Rulings', s: 'Rulings for every card, following the Armada Reference Manual', h: '/rulings' },
-  { k: 'page', n: 'Community changelog', s: 'Points changes and errata in the Community card set', h: '/changelog' },
+  { k: 'page', n: 'Community changelog', s: 'Points changes and errata in the Community Edition card set', h: '/changelog' },
   { k: 'page', n: 'Reference Manual changelog', s: 'Every ARM revision, with changed text marked', h: '/changelog/arm' },
   { k: 'page', n: 'Compare cards', s: 'Side-by-side stats for up to 4 cards', h: '/compare' },
   { k: 'page', n: 'Getting started', s: 'New to Star Wars: Armada', h: '/guide' },

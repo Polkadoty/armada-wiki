@@ -16,7 +16,7 @@ export default async function SquadronsPage() {
   const entries = squadronEntries(await getCardCatalog());
   return (
     <div className="wiki-sheet">
-      <BrowseHeader title="Squadrons" description="Aces and generic squadrons, grouped by faction. Filter by keyword to find every BOMBER or ESCORT." />
+      <BrowseHeader title="Squadrons" description="Aces and generic squadrons, grouped by faction. Filter by keyword to list every BOMBER or ESCORT." />
       <BrowseGrid entries={entries} facets={squadronFacets(entries)} groupBy="faction" noun={{ one: 'squadron', many: 'squadrons' }} layout="poker" />
     </div>
   );

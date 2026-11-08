@@ -53,7 +53,7 @@ export default async function RulingsIndexPage() {
         </h1>
         <p className="mt-4 text-rulebook-muted">{RULINGS_DESCRIPTION}</p>
         <p className="mt-2 text-sm text-rulebook-muted">
-          Covers the core game with the Armada Community errata applied (marked <CommunityMark />; {communityCount} cards), plus Nexus.
+          Covers the core game with the Community Edition errata applied, plus Nexus. The <CommunityMark /> mark sets apart the {communityCount} Community Edition cards.
         </p>
       </header>
 
@@ -81,7 +81,7 @@ export default async function RulingsIndexPage() {
           <ScrollText className="mt-0.5 size-5 shrink-0 text-rulebook-accent" aria-hidden />
           <span>
             <span className="block font-bold">Reference Manual changelog</span>
-            <span className="text-sm text-rulebook-muted">Every published ARM revision, with changed text marked.</span>
+            <span className="text-sm text-rulebook-muted">Every ARM revision, with the changed text marked.</span>
           </span>
         </Link>
         <Link
@@ -91,19 +91,19 @@ export default async function RulingsIndexPage() {
           <span className="mt-0.5 text-xl leading-none"><CommunityMark /></span>
           <span>
             <span className="block font-bold">Community Edition changelog</span>
-            <span className="text-sm text-rulebook-muted">Points changes and errata in the Community card set.</span>
+            <span className="text-sm text-rulebook-muted">Points changes and errata in the Community Edition card set.</span>
           </span>
         </Link>
       </section>
 
       <footer className="mt-10 space-y-2 text-center text-sm text-rulebook-muted">
         <p>
-          The full illustrated{' '}
+          Download the full{' '}
           <a href={ARM_CHANGELOG_SOURCE.fullDocumentUrl} target="_blank" rel="noreferrer" className="text-rulebook-accent underline-offset-2 hover:underline">
-            Armada Reference Manual {ARM_CHANGELOG_SOURCE.currentVersion} (PDF)
+            Armada Reference Manual {ARM_CHANGELOG_SOURCE.currentVersion}
           </a>{' '}
-          remains available. Looking for card stats? Browse the{' '}
-          <Link href="/ships" className="text-rulebook-accent underline-offset-2 hover:underline">card wiki</Link>.
+          as a PDF. For points and stats, see the{' '}
+          <Link href="/ships" className="text-rulebook-accent underline-offset-2 hover:underline">card pages</Link>.
         </p>
         <p className="text-xs">Star Wars: Armada is a trademark of Fantasy Flight Games. This is an unofficial fan project.</p>
       </footer>

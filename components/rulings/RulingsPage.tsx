@@ -15,7 +15,7 @@ function GroupIntro({ introKey, ctx }: { introKey?: string; ctx: RulingTextConte
     <div className="mt-6 space-y-4 px-1">
       {sections.cardText && (
         <section>
-          <h4 className="ruling-label">Card Text</h4>
+          <h4 className="ruling-label">Card text</h4>
           <div className="rulebook-prose">
             <RulingText text={sections.cardText} ctx={ctx} />
           </div>

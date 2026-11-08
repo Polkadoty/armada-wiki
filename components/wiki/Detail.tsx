@@ -137,8 +137,8 @@ export function TitleBlock({ name, kicker, subtitle, factions = [], source, uniq
       {source && source !== 'Core' && (
         <p className="mt-3 text-sm text-rulebook-muted">
           {source === 'Community'
-            ? 'Armada Community edition. This card replaces or adds to the printed card set.'
-            : 'Nexus content, a community expansion with new cards.'}
+            ? 'Community Edition card. It replaces a printed card or adds a new one.'
+            : 'Nexus card, from a community expansion.'}
         </p>
       )}
     </header>

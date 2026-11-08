@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function GuidePage() {
   return (
-    <ProseSheet title="Getting started" intro="New to Star Wars: Armada? Start here.">
+    <ProseSheet title="Getting started" intro="What each kind of card does, and how to find cards on the wiki.">
       <p>
         Star Wars: Armada is a miniatures game of fleet battles. Each player brings a fleet of capital ships and starfighter squadrons, built to a
         points limit, and plays to the victory conditions of an objective card.

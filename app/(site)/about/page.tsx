@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <ProseSheet title="About" intro="A community reference for Star Wars: Armada.">
       <p>
-        The Armada Wiki lists every ship, squadron, upgrade and objective with its points, stats and rulings. It is built by players and is not
+        The Armada Wiki lists every ship, squadron, upgrade and objective with its points, stats and rulings. Players build it, and it is not
         affiliated with Fantasy Flight Games or Atomic Mass Games.
       </p>
 
@@ -20,7 +20,7 @@ export default function AboutPage() {
       <p>Card data comes from the Swarmada API, the same source Star Forge uses. The wiki covers three sets of cards:</p>
       <ul>
         <li><strong>Core.</strong> The official Star Wars: Armada cards.</li>
-        <li><strong>Community.</strong> The Armada Community edition. Its errata replace the core cards they change, and it adds new cards.</li>
+        <li><strong>Community.</strong> The Community Edition. Its errata replace the core cards they change, and it adds new cards.</li>
         <li><strong>Nexus.</strong> A community expansion with new ships, squadrons and upgrades.</li>
       </ul>
       <p>

@@ -8,7 +8,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: "Armada Wiki", template: "%s | Armada Wiki" },
-  description: "Card reference and rulings for Star Wars: Armada. Ships, squadrons, upgrades and objectives from the core game, the Armada Community errata and Nexus.",
+  description: "Cards and rulings for Star Wars: Armada: ships, squadrons, upgrades and objectives from the core game, the Community Edition errata and Nexus.",
   openGraph: { siteName: "Armada Wiki", type: "website" },
   twitter: { card: "summary_large_image" },
 };

@@ -106,7 +106,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
       }
     } catch (error) {
       console.error('Error submitting comment:', error);
-      alert('Failed to submit comment. Please try again.');
+      alert('Your comment did not post. Try again.');
     } finally {
       setSubmitting(false);
     }
@@ -137,7 +137,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
       }
     } catch (error) {
       console.error('Error submitting reply:', error);
-      alert('Failed to submit reply. Please try again.');
+      alert('Your reply did not post. Try again.');
     } finally {
       setSubmitting(false);
     }
@@ -186,7 +186,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
           {isReplying && (
             <div className="mt-4 space-y-2">
               <Textarea
-                placeholder="Write your reply..."
+                placeholder="Write a reply"
                 value={replyContent}
                 onChange={(e) => setReplyContent(e.target.value)}
                 rows={3}
@@ -197,7 +197,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
                   onClick={() => handleSubmitReply(comment.id)}
                   disabled={submitting || !replyContent.trim()}
                 >
-                  {submitting ? 'Posting...' : 'Post Reply'}
+                  {submitting ? 'Posting' : 'Post reply'}
                 </Button>
                 <Button
                   size="sm"
@@ -226,7 +226,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
   if (loading) {
     return (
       <div className="py-8">
-        <p className="text-center text-muted-foreground">Loading comments...</p>
+        <p className="text-center text-muted-foreground">Loading comments</p>
       </div>
     );
   }
@@ -239,7 +239,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
       <form onSubmit={handleSubmitComment} className="mb-8 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input
-            placeholder="Your name *"
+            placeholder="Your name (required)"
             value={newComment.authorName}
             onChange={(e) =>
               setNewComment({ ...newComment, authorName: e.target.value })
@@ -256,7 +256,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
           />
         </div>
         <Textarea
-          placeholder="Share your thoughts, strategies, or questions about this card..."
+          placeholder="Ask a question or share a tip about this card"
           value={newComment.content}
           onChange={(e) =>
             setNewComment({ ...newComment, content: e.target.value })
@@ -265,7 +265,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
           required
         />
         <Button type="submit" disabled={submitting}>
-          {submitting ? 'Posting...' : 'Post Comment'}
+          {submitting ? 'Posting' : 'Post comment'}
         </Button>
       </form>
 
@@ -274,7 +274,7 @@ export function Comments({ cardType, cardId }: CommentsProps) {
         {comments.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-muted-foreground">
-              No comments yet. Be the first to share your thoughts!
+              No comments yet.
             </p>
           </div>
         ) : (

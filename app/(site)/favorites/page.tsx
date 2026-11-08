@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function FavoritesPage() {
   return (
     <div className="wiki-sheet">
-      <BrowseHeader title="Favorites" description="Cards you saved with the heart on a card page. They are kept in this browser." />
+      <BrowseHeader title="Favorites" description="Cards you saved with the heart on a card page. Only this browser keeps the list." />
       <FavoritesList />
     </div>
   );

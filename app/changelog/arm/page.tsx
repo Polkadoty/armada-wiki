@@ -11,8 +11,8 @@ import { ChangelogTabs } from '../ChangelogTabs';
 import styles from './arm-changelog.module.css';
 
 export const metadata: Metadata = {
-  title: 'Reference Manual Changelog | Armada Wiki',
-  description: 'Every published revision of the Armada Reference Manual (ARM), with added and removed text marked.',
+  title: 'Reference Manual changelog',
+  description: 'Every revision of the Armada Reference Manual, with added and removed text marked.',
 };
 
 function formatDate(value: string): string {
