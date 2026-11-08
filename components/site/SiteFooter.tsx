@@ -7,10 +7,11 @@ const COLUMNS = [
   {
     title: 'Reference',
     links: [
-      { href: '/rulings', label: 'Rules & Rulings' },
+      { href: '/rulings', label: 'Rulings' },
+      { href: '/rulebook', label: 'Rulebook' },
       { href: '/changelog', label: 'Community changelog' },
       { href: '/changelog/arm', label: 'Reference Manual changelog' },
-      { href: '/rulebook', label: 'Rulebook PDF' },
+      { href: '/rulings-pdf', label: 'Rulings PDF' },
     ],
   },
   { title: 'More', links: MORE_LINKS },

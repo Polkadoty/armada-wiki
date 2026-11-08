@@ -62,7 +62,7 @@ export const getRulingsData = cache(async (): Promise<RulingsData> => {
   // An empty card set means the API was unreachable. Throwing keeps the previously
   // generated page live rather than publishing an empty one.
   if (cards.length === 0) {
-    throw new Error(`Rules & Rulings: the card API returned no cards (${warnings.join('; ') || 'no detail'})`);
+    throw new Error(`Rulings: the card API returned no cards (${warnings.join('; ') || 'no detail'})`);
   }
 
   return { cards, linkIndex: buildCardLinkIndex(cards, rulingsPageHref, linkAliases), warnings };

@@ -14,8 +14,9 @@ const KIND_LABELS: Record<SearchRow['k'], string> = {
   squadron: 'Squadrons',
   upgrade: 'Upgrades',
   objective: 'Objectives',
+  rule: 'Rulebook',
 };
-const KIND_ORDER: SearchRow['k'][] = ['ship', 'squadron', 'upgrade', 'objective', 'page'];
+const KIND_ORDER: SearchRow['k'][] = ['ship', 'squadron', 'upgrade', 'objective', 'rule', 'page'];
 
 // One download per visit, shared by every search box and the favorites page.
 let indexRequest: Promise<SearchRow[]> | undefined;
@@ -108,7 +109,7 @@ export function SiteSearch({ open, onOpenChange }: { open: boolean; onOpenChange
                 go(flat[active]);
               }
             }}
-            placeholder="Search ships, squadrons, upgrades, objectives and rulings"
+            placeholder="Search cards, rules and rulings"
             aria-label="Search the wiki"
             className="h-14 min-w-0 flex-1 bg-transparent text-[17px] placeholder:text-rulebook-muted focus:outline-none"
           />

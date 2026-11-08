@@ -26,7 +26,7 @@ Reference and discovery site for Star Wars: Armada cards/content (ships, squadro
 
 ## Routing
 
-`/` redirects to `/rulings`, the **Rules & Rulings** reference: server-rendered App Router
+`/` redirects to `/rulings`, the **Rulings** reference: server-rendered App Router
 pages (`app/rulings/`) built from the card API and regenerated hourly. The model lives in
 `lib/rulings/` — `build.ts` (pure: normalizes cards and rulings, applies the Community
 layer, builds cross-links; covered by `npm run test:rulings`), `pages.ts` (every page and
@@ -49,7 +49,7 @@ content are not fetched.
 
 - Browse pages for ships, squadrons, upgrades, objectives
 - Detail pages for individual cards
-- Rules & Rulings reference in the Armada Reference Manual's layout and typefaces
+- Rulings reference in the Armada Reference Manual's layout and typefaces
 - Favorites and compare pages
 - Bug report and comments APIs
 

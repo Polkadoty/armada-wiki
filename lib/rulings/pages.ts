@@ -6,7 +6,7 @@ import {
   type RulingCard,
 } from './build';
 
-export const RULINGS_TITLE = 'Rules & Rulings';
+export const RULINGS_TITLE = 'Rulings';
 export const RULINGS_DESCRIPTION = 'Rulings and clarifications for Star Wars: Armada, following the Armada Reference Manual.';
 
 export interface RulingsGroup {

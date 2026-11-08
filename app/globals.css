@@ -363,6 +363,103 @@
     @apply absolute left-1.5 top-[0.62em] size-[5px] rounded-full bg-current;
   }
 
+  /* Rulebook (the Rules Reference): blocks, lists set with the PDF's own markers,
+     numbered steps, FAQ questions, and a blue margin rule for text new in this version. */
+  .rulebook-blocks > * + * {
+    @apply mt-2;
+  }
+
+  .rulebook-list {
+    @apply my-1.5 space-y-1.5;
+  }
+
+  .rulebook-list > li {
+    @apply relative pl-[22px];
+  }
+
+  .rulebook-bullets-1 > li::before,
+  .rulebook-bullets-2 > li::before,
+  .rulebook-bullets-3 > li::before {
+    @apply absolute left-1 top-0 text-rulebook-accent;
+  }
+
+  .rulebook-bullets-1 > li::before {
+    content: "•";
+  }
+
+  .rulebook-bullets-2 > li::before {
+    content: "◊";
+  }
+
+  .rulebook-bullets-3 > li::before {
+    content: "+";
+  }
+
+  .rulebook-steps {
+    @apply list-none;
+    counter-reset: none;
+  }
+
+  .rulebook-steps > li {
+    @apply pl-7;
+  }
+
+  .rulebook-steps > li::before {
+    content: attr(value) ".";
+    @apply absolute left-0.5 top-0 font-bold text-rulebook-accent;
+  }
+
+  .rulebook-question::before,
+  .rulebook-answer::before {
+    @apply mr-1.5 font-aero font-bold text-rulebook-accent;
+  }
+
+  .rulebook-question {
+    @apply font-bold;
+  }
+
+  .rulebook-question::before {
+    content: "Q:";
+  }
+
+  .rulebook-answer::before {
+    content: "A:";
+  }
+
+  .rulebook-question + .rulebook-answer {
+    @apply mt-1;
+  }
+
+  .rulebook-answer + .rulebook-question {
+    @apply mt-4;
+  }
+
+  .rulebook-blocks [data-changed] {
+    @apply -ml-3 border-l-2 border-[#2a72b8] pl-[10px];
+  }
+
+  .rulebook-list > li[data-changed] {
+    @apply ml-[-12px] pl-[32px];
+  }
+
+  .rulebook-steps > li[data-changed] {
+    @apply pl-[38px];
+  }
+
+  .rulebook-steps > li[data-changed]::before {
+    @apply left-3;
+  }
+
+  .rulebook-bullets-1 > li[data-changed]::before,
+  .rulebook-bullets-2 > li[data-changed]::before,
+  .rulebook-bullets-3 > li[data-changed]::before {
+    @apply left-[14px];
+  }
+
+  .rulebook-changed-key {
+    @apply mx-0.5 inline-block h-[1em] w-0.5 bg-[#2a72b8] align-[-0.15em];
+  }
+
   /* Per-card chrome, repeated on every entry of a rulings page (some pages carry ~300),
      is kept here rather than as utility strings to keep those pages light. */
   .ruling-card-image {
@@ -491,7 +588,7 @@
 
 
 /* ── Printing ──
-   The rulebook page (/rulebook) is saved as a PDF from the reader's browser; any other
+   The rulings PDF page (/rulings-pdf) is saved as a PDF from the reader's browser; any other
    page prints as plain content without the site navigation. */
 @page {
   margin: 0.55in 0.6in 0.7in;

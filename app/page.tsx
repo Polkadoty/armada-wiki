@@ -65,7 +65,7 @@ export default async function HomePage() {
   ];
 
   const reference = [
-    { href: '/rulings', title: 'Rules & Rulings', text: 'Clarifications for every card, set out like the Armada Reference Manual.' },
+    { href: '/rulings', title: 'Rulings', text: 'Clarifications for every card, set out like the Armada Reference Manual.' },
     { href: '/changelog', title: 'Community changelog', text: 'Points changes and errata in the Community Edition card set.' },
     { href: '/changelog/arm', title: 'Reference Manual changelog', text: 'Every ARM revision, with the changed text marked.' },
   ];

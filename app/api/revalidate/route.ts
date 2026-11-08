@@ -16,7 +16,7 @@ import { CARD_DATASETS } from '@/lib/cards/catalog';
 
 export const dynamic = 'force-dynamic';
 
-/** Datasets rendered on the server: the rulings, the card pages and the changelog. */
+/** Datasets rendered on the server: the rulings, the card pages, the changelog and the rulebook. */
 const WATCHED_DATASETS = [...new Set([
   ...Object.values(RULINGS_DATASETS),
   ...CARD_DATASETS,
@@ -24,6 +24,7 @@ const WATCHED_DATASETS = [...new Set([
   'ships', 'community-ships',
   'arc-ships', 'arc-squadrons', 'arc-upgrades', 'arc-objectives',
   'legacy-ships', 'legacy-squadrons', 'legacy-upgrades',
+  'rules-reference',
 ])];
 
 function authorized(request: Request): boolean {

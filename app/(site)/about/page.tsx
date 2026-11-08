@@ -29,7 +29,7 @@ export default function AboutPage() {
 
       <h2>Rulings</h2>
       <p>
-        <Link href="/rulings">Rules &amp; Rulings</Link> collects the clarifications for each card and follows the Armada Reference Manual. The{' '}
+        <Link href="/rulings">Rulings</Link> collects the clarifications for each card and follows the Armada Reference Manual. The{' '}
         <Link href="/changelog/arm">Reference Manual changelog</Link> lists every ARM revision.
       </p>
 

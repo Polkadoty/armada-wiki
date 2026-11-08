@@ -262,7 +262,7 @@ export function CardTextAndRulings({ rulings, italic }: { rulings: CardRulings; 
       {rulings.rulingsHref && (
         <Link href={rulings.rulingsHref} className="inline-flex items-center gap-2 text-sm text-rulebook-accent hover:underline">
           <ScrollText className="size-4" aria-hidden />
-          Open this card in Rules &amp; Rulings
+          Open this card in Rulings
         </Link>
       )}
     </>
@@ -270,7 +270,7 @@ export function CardTextAndRulings({ rulings, italic }: { rulings: CardRulings; 
 }
 
 // The first few rulings show on the card page and the rest open on request, so the card
-// itself stays the focus. Rules & Rulings is the place to read them all at once.
+// itself stays the focus. The rulings pages are the place to read them all at once.
 const OPEN_RULINGS_LIMIT = 5;
 
 function Refs({ footnote, note }: { footnote?: number; note?: number }) {

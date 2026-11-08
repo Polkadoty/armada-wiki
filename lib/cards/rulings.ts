@@ -3,7 +3,7 @@ import { getRulingsData } from '@/lib/rulings/data';
 import { normalizeRules, type RuleEntry, type RulingCard } from '@/lib/rulings/build';
 import { rulingsPageHref } from '@/lib/rulings/pages';
 
-// Ties a wiki card to its Rules & Rulings entry. That entry carries the rulings a
+// Ties a wiki card to its rulings entry. That entry carries the rulings a
 // Community erratum inherits from its core card, so it is preferred over the rules
 // published on the card itself.
 
@@ -15,7 +15,7 @@ const rulingsIndex = cache(async () => {
 export interface CardRulings {
   cardText: string;
   rules: RuleEntry[];
-  /** Link to the card's entry in Rules & Rulings, when it has one. */
+  /** Link to the card's entry in the rulings pages, when it has one. */
   rulingsHref?: string;
   /** Key of the rulings entry, so card text never links to its own card. */
   selfKey?: string;

@@ -1,4 +1,4 @@
-// Turns raw card API payloads into the Rules & Rulings model. Pure and synchronous, so
+// Turns raw card API payloads into the rulings model. Pure and synchronous, so
 // it can be exercised directly by `node --test` — keep imports in this file type-only.
 //
 // Ported from scripts/karm/generate-karm-rulings-book.mjs (which still renders the

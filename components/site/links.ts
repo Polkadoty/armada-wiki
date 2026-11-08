@@ -7,6 +7,7 @@ export const CARD_LINKS = [
 
 export const REFERENCE_LINKS = [
   { href: '/rulings', label: 'Rulings' },
+  { href: '/rulebook', label: 'Rulebook' },
   { href: '/changelog', label: 'Changelog' },
 ];
 
