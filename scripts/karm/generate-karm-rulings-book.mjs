@@ -52,11 +52,11 @@ const RULINGS_HOME = '/rulings';
 // can't drift apart. `section` entries are non-clickable group labels.
 const RULINGS_NAV = [
   { href: '/rulings/objectives.html', label: 'Objectives' },
-  { href: '/rulings/campaign.html', label: 'Campaign Objectives' },
-  { href: '/rulings/damage-cards.html', label: 'Damage Cards' },
-  { href: '/rulings/squadrons.html', label: 'Ace Squadrons' },
+  { href: '/rulings/campaign.html', label: 'Campaign objectives' },
+  { href: '/rulings/damage-cards.html', label: 'Damage cards' },
+  { href: '/rulings/squadrons.html', label: 'Ace squadrons' },
   { section: 'Upgrades' },
-  { href: '/rulings/upgrades.html', label: 'All Upgrades', sub: true },
+  { href: '/rulings/upgrades.html', label: 'All upgrades', sub: true },
   { href: '/rulings/upgrades/commander.html', label: 'Commander', sub: true },
   { href: '/rulings/upgrades/officer.html', label: 'Officer', sub: true },
   { href: '/rulings/upgrades/weapons-team-offensive-retro.html', label: 'Boarding Teams', sub: true },
@@ -75,8 +75,8 @@ const RULINGS_NAV = [
   { href: '/rulings/upgrades/leader.html', label: 'Leader', sub: true },
   { href: '/rulings/upgrades/veteran.html', label: 'Veteran', sub: true },
   { section: 'Nexus' },
-  { href: '/rulings/nexus-upgrades.html', label: 'Nexus Upgrades', sub: true },
-  { href: '/rulings/nexus-squadrons.html', label: 'Nexus Squadrons', sub: true },
+  { href: '/rulings/nexus-upgrades.html', label: 'Nexus upgrades', sub: true },
+  { href: '/rulings/nexus-squadrons.html', label: 'Nexus squadrons', sub: true },
 ];
 
 const FACTION_TAG_RE = /\s*\{([^}]+)\}/g;
@@ -95,18 +95,18 @@ const WEB_ASSET_VERSION =
 
 
 const RULE_SECTION_LABELS = {
-  card_text: 'Card Text',
+  card_text: 'Card text',
   timing: 'Timing',
   clarifications: 'Clarifications',
-  upgrade_interactions: 'Upgrade Interactions',
-  squadron_interactions: 'Squadron Interactions',
-  objective_interactions: 'Objective Interactions',
-  counter_and_salvo_interactions: 'Counter and Salvo Interactions',
-  damage_card_interactions: 'Damage Card Interactions',
-  obstacle_interactions: 'Obstacle Interactions',
-  deployment_interactions: 'Deployment Interactions',
-  play_area_interactions: 'Play Area Interactions',
-  campaign_interactions: 'Campaign Interactions',
+  upgrade_interactions: 'Upgrade interactions',
+  squadron_interactions: 'Squadron interactions',
+  objective_interactions: 'Objective interactions',
+  counter_and_salvo_interactions: 'Counter and salvo interactions',
+  damage_card_interactions: 'Damage card interactions',
+  obstacle_interactions: 'Obstacle interactions',
+  deployment_interactions: 'Deployment interactions',
+  play_area_interactions: 'Play area interactions',
+  campaign_interactions: 'Campaign interactions',
 };
 
 const RULE_SECTION_ALIASES = {
@@ -527,8 +527,8 @@ function upgradeTypeToHeaderTitle(type) {
 }
 
 function categoryHeaderTitleForNexus(category) {
-  if (category === 'nexus-upgrades') return 'Nexus Upgrades';
-  if (category === 'nexus-ace-squadrons') return 'Nexus Ace Squadrons';
+  if (category === 'nexus-upgrades') return 'Nexus upgrades';
+  if (category === 'nexus-ace-squadrons') return 'Nexus ace squadrons';
   return 'Nexus';
 }
 
@@ -655,7 +655,7 @@ function buildPlaceholderCard() {
   return {
     category: 'objectives',
     source: 'core',
-    name: 'No Rulings Data Found',
+    name: 'No rulings data found',
     image: '',
     factions: ['neutral'],
     cardText:
@@ -667,7 +667,7 @@ function buildPlaceholderCard() {
     keywords: ['diagnostic'],
     rules: [
       {
-        heading: 'Next Steps',
+        heading: 'Next steps',
         text: '- Confirm apiBaseUrl and backupApiUrl\\n- Re-run `npm run rulings:pdf -- --verbose`\\n- Add fixed cover/back matter pages under scripts/karm/static/',
       },
     ],
@@ -1944,7 +1944,7 @@ function renderUpgradeTopSummary(sectionEntries) {
   if (cardTextEntries.length > 0) {
     blocks.push(`
 <div class="top-summary-block top-summary-block--card-text">
-  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-label">Card text</div>
   <div class="top-summary-text">${markdownishToHtml(cardTextEntries[0].text)}</div>
 </div>`);
   }
@@ -1970,7 +1970,7 @@ function renderObjectiveTopSummary(sectionEntries) {
 
   return `<div class="top-summary">
 <div class="top-summary-block">
-  <div class="top-summary-label">Card Text</div>
+  <div class="top-summary-label">Card text</div>
   <div class="top-summary-text">${markdownishToHtml(cardTextEntries[0].text)}</div>
 </div>
 </div>`;

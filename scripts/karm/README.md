@@ -97,16 +97,16 @@ want a placeholder page instead.
 - A dedicated Commander header page is inserted before commander entries.
 - Commanders, officers, and ace squadrons are faction-sorted; other groups are not.
 - Rulings render in these section labels (empty sections omitted):
-  - Card Text
+  - Card text
   - Timing
   - Clarifications
-  - Upgrade Interactions
-  - Squadron Interactions
-  - Objective Interactions
-  - Counter and Salvo Interactions
-  - Obstacle Interactions
-  - Deployment Interactions
-  - Campaign Interactions
+  - Upgrade interactions
+  - Squadron interactions
+  - Objective interactions
+  - Counter and salvo interactions
+  - Obstacle interactions
+  - Deployment interactions
+  - Campaign interactions
 - Source/date/version metadata is rendered as footnotes instead of inline body text.
 
 ## Editing Icons and Background
