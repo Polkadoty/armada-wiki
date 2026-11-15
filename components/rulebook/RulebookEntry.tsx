@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Fragment, type ReactNode } from 'react';
 import { Link2 } from 'lucide-react';
 import { renderInline, type RulingTextContext } from '@/components/rulings/RulingText';
-import { RULEBOOK_IMAGE_BASE, type RulebookBlock, type RulebookEntry as Entry } from '@/lib/rulebook';
+import { headingId, RULEBOOK_IMAGE_BASE, type RulebookBlock, type RulebookEntry as Entry } from '@/lib/rulebook';
 import { cn } from '@/lib/utils';
 
 type ListBlock = Extract<RulebookBlock, { type: 'bullet' | 'step' }>;
@@ -144,7 +144,34 @@ function Figure({ block, ctx, keyPrefix }: { block: Extract<RulebookBlock, { typ
   );
 }
 
-export function RulebookBlocks({ blocks, ctx, keyPrefix = 'b' }: { blocks: RulebookBlock[]; ctx: RulingTextContext; keyPrefix?: string }) {
+/** A FAQ topic from the Rules Reference, shown inside the rule it is about. */
+function Faq({ block, ctx }: { block: Extract<RulebookBlock, { type: 'faq' }>; ctx: RulingTextContext }) {
+  return (
+    <aside id={block.id} className="rulebook-faq group/faq scroll-mt-20" aria-label={`FAQ: ${block.title}`}>
+      <h4 className="rulebook-faq-title">
+        <span className="rulebook-faq-label">FAQ</span>
+        <span>{block.title}</span>
+        <a href={`#${block.id}`} aria-label={`Link to the ${block.title} FAQ`} title="Link to this FAQ" className="ruling-copy-link group-hover/faq:opacity-100">
+          <Link2 className="size-3.5" aria-hidden />
+        </a>
+      </h4>
+      <RulebookBlocks blocks={block.blocks} ctx={ctx} keyPrefix={block.id} anchorPrefix={block.id} />
+    </aside>
+  );
+}
+
+export function RulebookBlocks({
+  blocks,
+  ctx,
+  keyPrefix = 'b',
+  anchorPrefix,
+}: {
+  blocks: RulebookBlock[];
+  ctx: RulingTextContext;
+  keyPrefix?: string;
+  /** Entry id that subheadings take their anchor ids from. */
+  anchorPrefix?: string;
+}) {
   const out: ReactNode[] = [];
   for (let index = 0; index < blocks.length; index++) {
     const block = blocks[index];
@@ -155,7 +182,13 @@ export function RulebookBlocks({ blocks, ctx, keyPrefix = 'b' }: { blocks: Ruleb
       index--;
       out.push(<Lists key={key} nodes={buildTree(run)} ctx={ctx} keyPrefix={key} />);
     } else if (block.type === 'heading') {
-      out.push(<h4 key={key} className="ruling-label !mt-4">{block.text}</h4>);
+      out.push(
+        <h4 key={key} id={anchorPrefix ? headingId(anchorPrefix, block.text) : undefined} className="ruling-label !mt-4 scroll-mt-20">
+          {block.text}
+        </h4>,
+      );
+    } else if (block.type === 'faq') {
+      out.push(<Faq key={key} block={block} ctx={ctx} />);
     } else if (block.type === 'figure') {
       out.push(<Figure key={key} block={block} ctx={ctx} keyPrefix={key} />);
     } else if (block.type === 'table') {
@@ -193,7 +226,7 @@ export function RulebookEntry({
         </a>
       </h3>
       <div className="mt-3">
-        <RulebookBlocks blocks={entry.blocks} ctx={ctx} keyPrefix={entry.id} />
+        <RulebookBlocks blocks={entry.blocks} ctx={ctx} keyPrefix={entry.id} anchorPrefix={entry.id} />
       </div>
       {entry.related && entry.related.length > 0 && (
         <p className="mt-3 text-[15px]">

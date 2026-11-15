@@ -601,3 +601,95 @@ export function buildCardLinkIndex(
   }
   return index;
 }
+
+// ── Rules Reference card clarifications ──
+
+/** One card's clarifications from the Rules Reference's "Card Clarifications" section. */
+export interface RulebookClarification {
+  /** The heading the card sits under: "Upgrade Cards", "Squadron Cards", "Damage Cards" and so on. */
+  group: string;
+  /** Card name as printed, sometimes with its type: "Leia Organa (Commander)". */
+  title: string;
+  /** Each clarification, with the section it belongs in. */
+  rules: Array<{ section: RuleSectionKey; text: string }>;
+}
+
+const CLARIFICATION_CATEGORIES: Record<string, RulingCategory[]> = {
+  'upgrade cards': ['upgrades'],
+  'squadron cards': ['ace-squadrons'],
+  'objective cards': ['objectives'],
+  'campaign objective cards': ['objectives'],
+  'damage cards': ['damage-cards'],
+};
+
+// Names shared by two cards of one category, where the clarification is about one of them.
+const CLARIFICATION_TYPES: Record<string, string> = {
+  'admiral ozzel': 'commander',
+};
+
+const STOP_WORDS = new Set('a an the of to and or is it its this that card s upgrade squadron ship be by in on with as if for can may'.split(' '));
+
+function matchKey(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\s*\((cc|ritr)\)\s*$/, '')
+    .replace(/[’']/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function words(text: string, name: string): Set<string> {
+  const plain = ` ${text.toLowerCase().replace(/\*+|:[a-z_-]+:/g, ' ').replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ')} `.split(` ${matchKey(name)} `).join(' ');
+  return new Set(plain.split(' ').filter((word) => word && !STOP_WORDS.has(word)));
+}
+
+/**
+ * True when two rulings say the same thing. The Armada Reference Manual repeats most
+ * Rules Reference clarifications, often with "this upgrade card" for the card's name.
+ */
+export function sameRuling(a: string, b: string, cardName: string): boolean {
+  const left = words(a, cardName);
+  const right = words(b, cardName);
+  let shared = 0;
+  for (const word of left) if (right.has(word)) shared++;
+  const union = left.size + right.size - shared;
+  return union > 0 && shared / union >= 0.75;
+}
+
+/**
+ * Adds the Rules Reference's card clarifications to the cards they are about, skipping
+ * any the card's rulings already state. Each added ruling names the Rules Reference as
+ * its source, so it gets its own footnote.
+ */
+export function addRulebookClarifications(
+  cards: RulingCard[],
+  clarifications: RulebookClarification[],
+  source: Pick<RuleEntry, 'source' | 'date' | 'version'>,
+): { cards: RulingCard[]; unmatched: string[] } {
+  const added = new Map<RulingCard, RuleEntry[]>();
+  const unmatched: string[] = [];
+  for (const item of clarifications) {
+    const categories = CLARIFICATION_CATEGORIES[item.group.toLowerCase()] ?? [];
+    const typed = item.title.match(/^(.*?)\s*\(([^)]+)\)$/);
+    const name = matchKey(typed ? typed[1] : item.title);
+    const type = typed ? matchKey(typed[2]) : CLARIFICATION_TYPES[name];
+    let targets = cards.filter((card) => categories.includes(card.category) && matchKey(card.name) === name);
+    if (type && targets.length > 1) targets = targets.filter((card) => !card.upgradeType || matchKey(upgradeTypeLabel(card.upgradeType)) === type);
+    if (targets.length === 0) {
+      unmatched.push(item.title);
+      continue;
+    }
+    for (const card of targets) {
+      const rules = added.get(card) ?? [];
+      for (const rule of item.rules) {
+        if (card.rules.some((existing) => !existing.defunct && sameRuling(existing.text, rule.text, card.name))) continue;
+        rules.push({ section: rule.section, text: rule.text, ...source, defunct: false, explanation: '' });
+      }
+      added.set(card, rules);
+    }
+  }
+  return {
+    cards: cards.map((card) => (added.get(card)?.length ? { ...card, rules: [...card.rules, ...added.get(card)!] } : card)),
+    unmatched,
+  };
+}

@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  addRulebookClarifications,
   applyCommunityLayer,
   baselineKey,
   buildCardLinkIndex,
   buildCardSections,
   buildRulingCards,
   normalizeRules,
+  sameRuling,
 } from '../lib/rulings/build.ts';
 
 const empty = { upgrades: {}, squadrons: {}, objectives: {} };
@@ -161,4 +163,43 @@ test('only unambiguous multi-word names link bare; every card links by "Name (Ty
   assert.equal(index.get('engine tech').href, '/rulings/upgrades#engine-techs-support-team');
   assert.equal(index.has('resolve'), false);
   assert.ok(index.has('resolve (title)'));
+});
+
+const RRG = { source: 'Rules Reference', date: '2025-01-10', version: '1.6.0' };
+
+test('rulebook clarifications are added to the card they name, with the Rules Reference as their source', () => {
+  const cards = buildRulingCards(input({
+    core: {
+      upgrades: {
+        upgrades: {
+          'admiral-ozzel-commander': { name: 'Admiral Ozzel', type: 'commander', faction: ['empire'], rules: [] },
+          'admiral-ozzel-officer': { name: 'Admiral Ozzel', type: 'officer', faction: ['empire'], rules: [] },
+          'chart-officer': { name: 'Chart Officer', type: 'officer', faction: ['empire'], rules: [rule('If a ship with this upgrade card overlaps more than one obstacle, it can ignore the effects of each obstacle.')] },
+        },
+      },
+      squadrons: { squadrons: { 'whisper-tie-phantom': { 'ace-name': '"Whisper"', ace: true, faction: 'empire', rules: [] } } },
+    },
+  }));
+  const { cards: merged, unmatched } = addRulebookClarifications(cards, [
+    { group: 'Upgrade Cards', title: 'Admiral Ozzel', rules: [{ section: 'clarifications', text: 'Ozzel ruling.' }] },
+    { group: 'Upgrade Cards', title: 'Chart Officer', rules: [
+      { section: 'clarifications', text: 'If a ship with this card equipped overlaps more than one obstacle, it can ignore the effects of each obstacle.' },
+      { section: 'clarifications', text: 'A new Chart Officer ruling.' },
+    ] },
+    { group: 'Squadron Cards', title: 'Whisper', rules: [{ section: 'clarifications', text: 'Whisper ruling.' }] },
+    { group: 'Upgrade Cards', title: 'Strategic Adviser', rules: [{ section: 'clarifications', text: 'Gone.' }] },
+  ], RRG);
+  const byKey = new Map(merged.map((card) => [card.key, card]));
+  assert.deepEqual(byKey.get('admiral-ozzel-commander').rules.map((r) => r.text), ['Ozzel ruling.']);
+  assert.equal(byKey.get('admiral-ozzel-officer').rules.length, 0);
+  // The first Chart Officer clarification is already in its rulings, worded for the ARM.
+  assert.deepEqual(byKey.get('chart-officer').rules.map((r) => r.text).slice(1), ['A new Chart Officer ruling.']);
+  assert.equal(byKey.get('chart-officer').rules[1].source, 'Rules Reference');
+  assert.equal(byKey.get('whisper-tie-phantom').rules[0].version, '1.6.0');
+  assert.deepEqual(unmatched, ['Strategic Adviser']);
+});
+
+test('sameRuling ignores the card name and generic card words but not a changed rule', () => {
+  assert.ok(sameRuling('Defense tokens recovered by Walex Blissex are readied.', 'Defense tokens recovered by this upgrade card are readied.', 'Walex Blissex'));
+  assert.ok(!sameRuling('Grav well tokens remain in play until the end of the game.', 'Grav well tokens may be placed anywhere in the play area.', 'G7-X Grav Well Projector'));
 });

@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { Fragment } from 'react';
 import { getRulingsData } from '@/lib/rulings/data';
 import {
+  BOOKS,
   CAMPAIGN_GUIDES,
-  getCampaignGuide,
+  formatEffectiveDate,
+  getBook,
   getRulebook,
+  MOVED_SECTIONS,
   normalizeTopic,
   rulebookIndex,
   type Rulebook,
@@ -27,7 +30,8 @@ const SHEET =
 const SECTION_NOTES: Record<string, React.ReactNode> = {
   'card-clarifications': (
     <>
-      For the current card errata, see the <Link href="/changelog" className="card-ref">Community changelog</Link>.
+      These clarifications also appear in each card&apos;s <Link href="/rulings" className="card-ref">rulings</Link>. For the current card
+      errata, see the <Link href="/changelog" className="card-ref">Community changelog</Link>.
     </>
   ),
 };
@@ -35,7 +39,7 @@ const SECTION_NOTES: Record<string, React.ReactNode> = {
 export async function generateStaticParams() {
   const book = await getRulebook().catch(() => undefined);
   const sections = (book?.sections ?? []).filter((section) => section.id !== 'introduction').map((section) => ({ section: section.id }));
-  return [...sections, ...CAMPAIGN_GUIDES.map((guide) => ({ section: guide.slug }))];
+  return [...sections, ...BOOKS.map((spec) => ({ section: spec.slug }))];
 }
 
 async function findSection(id: string) {
@@ -46,8 +50,8 @@ async function findSection(id: string) {
 
 export async function generateMetadata({ params }: { params: Promise<{ section: string }> }): Promise<Metadata> {
   const id = (await params).section;
-  const guide = CAMPAIGN_GUIDES.find((spec) => spec.slug === id);
-  if (guide) return { title: guide.title, description: guide.description, alternates: { canonical: `/rulebook/${guide.slug}` } };
+  const spec = BOOKS.find((candidate) => candidate.slug === id);
+  if (spec) return { title: spec.title, description: spec.description, alternates: { canonical: `/rulebook/${spec.slug}` } };
   const found = await findSection(id);
   if (!found) return {};
   return {
@@ -135,10 +139,11 @@ function glossaryLinks(book: Rulebook | undefined, onGlossary: boolean) {
   };
 }
 
-async function GuidePage({ slug }: { slug: string }) {
-  const spec = CAMPAIGN_GUIDES.find((guide) => guide.slug === slug)!;
+/** A campaign guide or the tournament regulations: one page, with a chapter list. */
+async function BookPage({ slug }: { slug: string }) {
+  const spec = BOOKS.find((book) => book.slug === slug)!;
   const [guide, rules, rulings] = await Promise.all([
-    getCampaignGuide(slug),
+    getBook(slug),
     getRulebook().catch(() => undefined),
     getRulingsData().catch(() => undefined),
   ]);
@@ -149,7 +154,21 @@ async function GuidePage({ slug }: { slug: string }) {
 
   return (
     <div className={SHEET}>
-      <PageTitle title={spec.title} subtitle={<>{guide.title}. {guide.errata}</>} />
+      <PageTitle
+        title={spec.title}
+        subtitle={
+          CAMPAIGN_GUIDES.includes(spec) ? (
+            <>
+              {guide.title}. {guide.errata} Its FAQ from the Rules Reference is shown with the rules it answers.
+            </>
+          ) : (
+            <>
+              {guide.version && <>Version {guide.version}</>}
+              {guide.effective && <>, effective {formatEffectiveDate(guide.effective)}</>}. Published by {guide.publisher}.
+            </>
+          )
+        }
+      />
 
       <nav aria-label="Chapters" className="mx-auto mb-10 max-w-md">
         <h2 className="wiki-section-title">Chapters</h2>
@@ -185,9 +204,10 @@ async function GuidePage({ slug }: { slug: string }) {
 
 export default async function RulebookSectionPage({ params }: { params: Promise<{ section: string }> }) {
   const id = (await params).section;
-  if (CAMPAIGN_GUIDES.some((guide) => guide.slug === id)) return <GuidePage slug={id} />;
+  if (BOOKS.some((spec) => spec.slug === id)) return <BookPage slug={id} />;
 
   const found = await findSection(id);
+  if (!found && MOVED_SECTIONS[id]) permanentRedirect(MOVED_SECTIONS[id]);
   if (!found) notFound();
   const { book, section } = found;
   const rulings = await getRulingsData().catch(() => undefined);
@@ -204,6 +224,7 @@ export default async function RulebookSectionPage({ params }: { params: Promise<
           <>
             Rules Reference version {book.version}, page {section.page}.
             {hasChanges && <> A <span className="rulebook-changed-key" aria-hidden /> rule in the margin marks text new in this version.</>}
+            {section.id === 'glossary' && <> Each topic&apos;s FAQ is shown with the topic.</>}
           </>
         }
       />

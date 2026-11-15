@@ -4,7 +4,15 @@ import displayNameOverrides from '@/scripts/karm/display-name-overrides.json';
 import headerContent from '@/scripts/karm/header-content.json';
 import iconMap from '@/scripts/karm/icon-map.json';
 import linkAliases from '@/scripts/karm/link-aliases.json';
-import { buildCardLinkIndex, buildRulingCards, normalizeRules, type RuleEntry, type RulingCard } from './build';
+import {
+  addRulebookClarifications,
+  buildCardLinkIndex,
+  buildRulingCards,
+  normalizeRules,
+  type RuleEntry,
+  type RulebookClarification,
+  type RulingCard,
+} from './build';
 import { rulingsPageHref } from './pages';
 import { SVG_GLYPH_PREFIX } from '@/components/rulings/ArmadaIcon';
 
@@ -21,6 +29,8 @@ export const RULINGS_DATASETS = {
   communityObjectives: 'community-objectives',
   nexusUpgrades: 'nexus-upgrades',
   nexusSquadrons: 'nexus-squadrons',
+  // Its "Card Clarifications" section adds to the cards' rulings.
+  rulesReference: 'rules-reference',
 } as const;
 
 export interface RulingsData {
@@ -42,7 +52,7 @@ export const getRulingsData = cache(async (): Promise<RulingsData> => {
   >;
   const warnings = responses.flatMap((response) => (response.warning ? [response.warning] : []));
 
-  const cards = buildRulingCards({
+  const built = buildRulingCards({
     core: {
       upgrades: payload.coreUpgrades,
       squadrons: payload.coreSquadrons,
@@ -58,6 +68,11 @@ export const getRulingsData = cache(async (): Promise<RulingsData> => {
     nexus: { upgrades: payload.nexusUpgrades, squadrons: payload.nexusSquadrons },
     displayNameOverrides,
   });
+  const { cards } = addRulebookClarifications(built, rulebookClarifications(payload.rulesReference), {
+    source: 'Rules Reference',
+    date: typeof payload.rulesReference.effective === 'string' ? payload.rulesReference.effective : '',
+    version: typeof payload.rulesReference.version === 'string' ? payload.rulesReference.version : '',
+  });
 
   // An empty card set means the API was unreachable. Throwing keeps the previously
   // generated page live rather than publishing an empty one.
@@ -67,6 +82,40 @@ export const getRulingsData = cache(async (): Promise<RulingsData> => {
 
   return { cards, linkIndex: buildCardLinkIndex(cards, rulingsPageHref, linkAliases), warnings };
 });
+
+interface ClarificationEntry {
+  title: string;
+  group?: string;
+  blocks: Array<{ type: string; text?: string }>;
+}
+
+/**
+ * The Rules Reference's card clarifications, one ruling per paragraph. Bullets join the
+ * paragraph that introduces them, and text under "Campaign Clarifications" is filed
+ * with the card's campaign interactions.
+ */
+function rulebookClarifications(book: Record<string, unknown>): RulebookClarification[] {
+  const sections = Array.isArray(book.sections) ? (book.sections as Array<{ id: string; entries: ClarificationEntry[] }>) : [];
+  const section = sections.find((candidate) => candidate.id === 'card-clarifications');
+  return (section?.entries ?? []).map((entry) => {
+    const rules: RulebookClarification['rules'] = [];
+    let campaign = false;
+    for (const block of entry.blocks) {
+      const text = block.text?.trim();
+      if (!text) continue;
+      if (block.type === 'heading') {
+        campaign = /campaign/i.test(text);
+      } else if (block.type === 'bullet' && rules.length > 0) {
+        const last = rules[rules.length - 1];
+        last.text = `${last.text}${last.text.endsWith(':') ? ' ' : '; '}${text.replace(/\.$/, '')}`;
+      } else {
+        rules.push({ section: campaign ? 'campaign_interactions' : 'clarifications', text });
+      }
+    }
+    for (const rule of rules) if (!/[.!?"”)]$/.test(rule.text)) rule.text += '.';
+    return { group: entry.group ?? '', title: entry.title, rules };
+  });
+}
 
 // Keywords newer than the icon font are drawn from SVGs in public/images/icons, copied
 // from the-isb-api's keyword tokens.

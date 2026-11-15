@@ -1,7 +1,17 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { getRulingsData } from '@/lib/rulings/data';
-import { formatEffectiveDate, getCampaignGuides, getRulebook, RULEBOOK_DESCRIPTION, RULEBOOK_TITLE, sectionHref } from '@/lib/rulebook';
+import {
+  bookHref,
+  formatEffectiveDate,
+  getBooks,
+  getRulebook,
+  RULEBOOK_DESCRIPTION,
+  RULEBOOK_TITLE,
+  sectionHref,
+  TOURNAMENT_REGULATIONS,
+} from '@/lib/rulebook';
+import { RulebookSearchButton } from '@/components/rulebook/RulebookSearchButton';
 import { RulebookBlocks, RulebookEntry } from '@/components/rulebook/RulebookEntry';
 
 export const revalidate = false;
@@ -29,14 +39,16 @@ function ContentsList({ items }: { items: Array<{ href: string; title: string; c
 }
 
 export default async function RulebookIndexPage() {
-  const [book, guides, rulings] = await Promise.all([
+  const [book, books, rulings] = await Promise.all([
     getRulebook().catch(() => undefined),
-    getCampaignGuides().catch(() => []),
+    getBooks().catch(() => []),
     getRulingsData().catch(() => undefined),
   ]);
   const ctx = { linkIndex: rulings?.linkIndex ?? new Map() };
   const intro = book?.sections.find((section) => section.id === 'introduction');
   const sections = book?.sections.filter((section) => section.id !== 'introduction') ?? [];
+  const guides = books.filter(({ spec }) => spec !== TOURNAMENT_REGULATIONS);
+  const tournament = books.find(({ spec }) => spec === TOURNAMENT_REGULATIONS);
 
   return (
     <div className={SHEET}>
@@ -45,6 +57,7 @@ export default async function RulebookIndexPage() {
           {RULEBOOK_TITLE}
         </h1>
         <p className="mt-4 text-rulebook-muted">{RULEBOOK_DESCRIPTION}</p>
+        <RulebookSearchButton className="mx-auto mt-5 w-full max-w-md" />
         {book?.version && (
           <p className="mt-2 text-sm text-rulebook-muted">
             Rules Reference version {book.version}{book.effective && <>, effective {formatEffectiveDate(book.effective)}</>}. Published by {book.publisher}.
@@ -60,14 +73,33 @@ export default async function RulebookIndexPage() {
         <>
           <h2 className="wiki-section-title mt-8">Rules reference</h2>
           <ContentsList items={sections.map((section) => ({ href: sectionHref(section), title: section.title, count: section.entries.length }))} />
+          <p className="mt-2 text-sm text-rulebook-muted">
+            The FAQ answers sit in the glossary topic they cover, and the card clarifications also appear in each card&apos;s{' '}
+            <Link href="/rulings" className="text-rulebook-accent underline-offset-2 hover:underline">rulings</Link>.
+          </p>
         </>
       )}
 
       {guides.length > 0 && (
         <>
           <h2 className="wiki-section-title mt-8">Campaign guides</h2>
-          <ContentsList items={guides.map(({ spec, book: guide }) => ({ href: `/rulebook/${spec.slug}`, title: spec.title, count: guide.sections.length, unit: 'chapters' }))} />
-          <p className="mt-2 text-sm text-rulebook-muted">Both guides include the errata from the Rules Reference, applied to their text.</p>
+          <ContentsList items={guides.map(({ spec, book: guide }) => ({ href: bookHref(spec), title: spec.title, count: guide.sections.length, unit: 'chapters' }))} />
+          <p className="mt-2 text-sm text-rulebook-muted">
+            Both guides include the errata from the Rules Reference, applied to their text, and the Rules Reference FAQ for each campaign.
+          </p>
+        </>
+      )}
+
+      {tournament && (
+        <>
+          <h2 className="wiki-section-title mt-8">Organized play</h2>
+          <ContentsList
+            items={[{ href: bookHref(tournament.spec), title: tournament.spec.title, count: tournament.book.sections.length, unit: 'chapters' }]}
+          />
+          <p className="mt-2 text-sm text-rulebook-muted">
+            {tournament.book.version && <>Version {tournament.book.version}</>}
+            {tournament.book.effective && <>, effective {formatEffectiveDate(tournament.book.effective)}</>}. {TOURNAMENT_REGULATIONS.description}
+          </p>
         </>
       )}
 

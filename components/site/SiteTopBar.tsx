@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { RulingsNav } from '@/components/rulings/RulingsNav';
 import { cn } from '@/lib/utils';
-import { useOpenSearch } from './SearchProvider';
+import { useOpenSearch, useShortcutLabel } from './SearchProvider';
 import { CARD_LINKS, MORE_LINKS, REFERENCE_LINKS } from './links';
 
 function NavLink({ href, label, onNavigate, block }: { href: string; label: string; onNavigate?: () => void; block?: boolean }) {
@@ -33,7 +33,10 @@ function NavLink({ href, label, onNavigate, block }: { href: string; label: stri
 export function SiteTopBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const openSearch = useOpenSearch();
+  const shortcut = useShortcutLabel();
   const pathname = usePathname();
+  // On a rulebook page, the search starts with rulebook results.
+  const onRulebook = pathname.startsWith('/rulebook');
   const close = () => setMenuOpen(false);
 
   return (
@@ -70,33 +73,38 @@ export function SiteTopBar() {
           </SheetContent>
         </Sheet>
 
-        <Link href="/" className="whitespace-nowrap font-logo text-base font-bold uppercase tracking-[0.06em] text-rulebook-accent sm:text-lg">
+        <Link href="/" className="shrink-0 whitespace-nowrap font-logo text-base font-bold uppercase tracking-[0.06em] text-rulebook-accent sm:text-lg">
           Armada Wiki
         </Link>
 
-        <nav aria-label="Main" className="ml-4 hidden items-center gap-1 whitespace-nowrap text-sm lg:flex">
+        <nav aria-label="Main" className="ml-4 hidden shrink-0 items-center gap-1 whitespace-nowrap text-sm lg:flex">
           {CARD_LINKS.map((link) => <NavLink key={link.href} {...link} />)}
           <span aria-hidden className="mx-1 h-5 w-px bg-rulebook-accent/20" />
           {REFERENCE_LINKS.map((link) => <NavLink key={link.href} {...link} />)}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-1 lg:ml-4">
           <button
             type="button"
-            onClick={openSearch}
-            className="flex h-9 items-center gap-2 rounded-md border border-rulebook-accent/20 bg-white/60 px-3 text-sm text-rulebook-muted transition-colors hover:border-rulebook-accent/40 hover:text-rulebook-ink"
+            onClick={() => openSearch({ scope: onRulebook ? 'rules' : 'all' })}
+            aria-keyshortcuts="/ Control+K Meta+K"
+            className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-lg border border-rulebook-accent/30 bg-white/80 px-3 text-left text-sm text-rulebook-muted shadow-sm transition-colors hover:border-rulebook-accent/60 hover:bg-white hover:text-rulebook-ink sm:max-w-md"
           >
-            <Search className="size-4" aria-hidden />
-            <span className="hidden sm:inline">Search cards</span>
-            <span className="sr-only sm:hidden">Search cards</span>
-            <kbd className="ml-2 hidden rounded border border-rulebook-accent/20 px-1.5 text-xs xl:inline">/</kbd>
+            <Search className="size-4 shrink-0 text-rulebook-accent" aria-hidden />
+            <span className="min-w-0 flex-1 truncate">
+              <span className="sm:hidden">Search</span>
+              <span className="hidden sm:inline">{onRulebook ? 'Search the rulebook' : 'Search cards, rules and rulings'}</span>
+            </span>
+            {shortcut && (
+              <kbd className="hidden shrink-0 rounded border border-rulebook-accent/20 bg-rulebook-sheet px-1.5 font-sans text-xs text-rulebook-muted md:inline">{shortcut}</kbd>
+            )}
           </button>
           <Link
             href="/favorites"
             aria-label="Favorites"
             title="Favorites"
             className={cn(
-              'flex size-9 items-center justify-center rounded-md text-rulebook-accent transition-colors hover:bg-rulebook-accent/10',
+              'flex size-9 shrink-0 items-center justify-center rounded-md text-rulebook-accent transition-colors hover:bg-rulebook-accent/10',
               pathname === '/favorites' && 'bg-rulebook-accent/10',
             )}
           >

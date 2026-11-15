@@ -1,19 +1,20 @@
 /* eslint-disable @next/next/no-img-element -- card faces come from the card API's image hosts */
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Search } from 'lucide-react';
+import { ArrowRight, BookOpen, Search } from 'lucide-react';
 import { getCardCatalog } from '@/lib/cards/catalog';
 import { FACTIONS, objectiveEntries, shipEntries, squadronEntries, upgradeEntries, type GridEntry } from '@/lib/cards/entries';
 import { iconGlyph } from '@/lib/rulings/data';
 import { ArmadaIcon, NewRepublicIcon } from '@/components/rulings/ArmadaIcon';
 import { SearchButton } from '@/components/site/SearchProvider';
+import { bookHref, getBooks, getRulebook, sectionHref, TOURNAMENT_REGULATIONS } from '@/lib/rulebook';
 
 export const revalidate = false;
 
 export const metadata: Metadata = {
-  title: { absolute: 'Armada Wiki: Star Wars: Armada cards and rulings' },
+  title: { absolute: 'Armada Wiki: Star Wars: Armada cards, rules and rulings' },
   description:
-    'Every Star Wars: Armada ship, squadron, upgrade and objective with points, stats and rulings, including the Community Edition errata and Nexus.',
+    'Every Star Wars: Armada ship, squadron, upgrade and objective with points, stats and rulings, plus the Rules Reference, campaign guides and tournament regulations.',
   alternates: { canonical: '/' },
 };
 
@@ -49,8 +50,22 @@ function Fan({ cards, wide }: { cards: GridEntry[]; wide?: boolean }) {
   );
 }
 
+// Rules people look up most, linked from the home page. Each is skipped if the glossary
+// no longer has a topic with that title.
+const POPULAR_TOPICS = ['Attack', 'Commands', 'Obstructed', 'Squadron', 'Defense Tokens', 'Fleet Building', 'Overlapping', 'Effect Use and Timing'];
+
 export default async function HomePage() {
-  const catalog = await getCardCatalog();
+  const [catalog, rulebook, books] = await Promise.all([getCardCatalog(), getRulebook().catch(() => undefined), getBooks().catch(() => [])]);
+  const glossary = rulebook?.sections.find((section) => section.id === 'glossary');
+  const topics = POPULAR_TOPICS.map((title) => glossary?.entries.find((entry) => entry.title === title)).filter((entry) => entry !== undefined);
+  const rulebookLinks = [
+    ...(glossary ? [{ href: sectionHref(glossary), title: 'Glossary', text: `${glossary.entries.length} rules topics, each with its FAQ` }] : []),
+    ...books.map(({ spec }) => ({
+      href: bookHref(spec),
+      title: spec.title,
+      text: spec === TOURNAMENT_REGULATIONS ? 'Fleet building, scoring, pairings and tiebreakers' : 'Campaign guide and FAQ',
+    })),
+  ];
   const ships = shipEntries(catalog);
   const squadrons = squadronEntries(catalog);
   const upgrades = upgradeEntries(catalog);
@@ -75,11 +90,11 @@ export default async function HomePage() {
       <section className="wiki-sheet text-center">
         <h1 className="wiki-page-title !text-[clamp(36px,6vw,64px)]">Armada Wiki</h1>
         <p className="mx-auto mt-4 max-w-2xl text-[17px] text-rulebook-muted">
-          Cards and rulings for Star Wars: Armada, covering the core game, the Community Edition errata and Nexus.
+          Cards, rules and rulings for Star Wars: Armada, covering the core game, the Community Edition errata and Nexus.
         </p>
         <SearchButton className="mx-auto mt-6 flex h-12 w-full max-w-xl items-center gap-3 rounded-md border border-rulebook-accent/25 bg-white/70 px-4 text-left text-rulebook-muted shadow-sm transition-colors hover:border-rulebook-accent/50">
           <Search className="size-5 text-rulebook-accent" aria-hidden />
-          <span className="flex-1">Search {total} cards</span>
+          <span className="flex-1 truncate">Search {total} cards, the rulebook and rulings</span>
           <kbd className="rounded border border-rulebook-accent/20 px-1.5 text-xs">/</kbd>
         </SearchButton>
         <nav aria-label="Ships by faction" className="mt-5 flex flex-wrap justify-center gap-1.5">
@@ -97,6 +112,70 @@ export default async function HomePage() {
             );
           })}
         </nav>
+      </section>
+
+      <section aria-labelledby="home-rulebook" className="wiki-sheet mt-6 grid gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] md:items-start">
+        <div>
+          <div className="flex items-center gap-3">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-rulebook-accent text-white">
+              <BookOpen className="size-6" aria-hidden />
+            </span>
+            <h2 id="home-rulebook" className="font-logo text-3xl font-bold uppercase tracking-[0.05em] text-rulebook-accent">
+              <Link href="/rulebook" className="hover:underline hover:decoration-rulebook-accent/40 hover:underline-offset-4">Rulebook</Link>
+            </h2>
+          </div>
+          <p className="mt-3 text-[17px] text-rulebook-muted">
+            The Rules Reference, with each FAQ answer in the rule it covers, plus the campaign guides and the tournament regulations.
+            {rulebook?.version && <> Rules Reference version {rulebook.version}.</>}
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <Link
+              href="/rulebook"
+              className="inline-flex h-10 items-center gap-2 rounded-md bg-rulebook-accent px-4 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+            >
+              Open the rulebook
+              <ArrowRight className="size-4" aria-hidden />
+            </Link>
+            <SearchButton
+              scope="rules"
+              className="inline-flex h-10 items-center gap-2 rounded-md border border-rulebook-accent/30 bg-white/70 px-4 text-sm text-rulebook-ink transition-colors hover:border-rulebook-accent/60"
+            >
+              <Search className="size-4 text-rulebook-accent" aria-hidden />
+              Search the rulebook
+            </SearchButton>
+          </div>
+          {topics.length > 0 && glossary && (
+            <nav aria-label="Popular rules" className="mt-5">
+              <div className="wiki-section-title">Popular rules</div>
+              <div className="flex flex-wrap gap-1.5">
+                {topics.map((entry) => (
+                  <Link
+                    key={entry.id}
+                    href={`${sectionHref(glossary)}#${entry.id}`}
+                    className="inline-flex h-8 items-center rounded-full border border-rulebook-accent/20 bg-white/50 px-3 text-sm hover:border-rulebook-accent/45 hover:text-rulebook-accent"
+                  >
+                    {entry.title}
+                  </Link>
+                ))}
+              </div>
+            </nav>
+          )}
+        </div>
+        {rulebookLinks.length > 0 && (
+          <ul className="divide-y divide-rulebook-accent/10 rounded-md border border-rulebook-accent/15 bg-white/40">
+            {rulebookLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="group flex items-center gap-3 px-4 py-3 transition-colors hover:bg-rulebook-accent/[0.06]">
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-bold text-rulebook-ink group-hover:text-rulebook-accent">{link.title}</span>
+                    <span className="block text-sm text-rulebook-muted">{link.text}</span>
+                  </span>
+                  <ArrowRight className="size-4 shrink-0 text-rulebook-accent transition-transform group-hover:translate-x-1" aria-hidden />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       <section aria-label="Card types" className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

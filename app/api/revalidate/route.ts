@@ -24,7 +24,7 @@ const WATCHED_DATASETS = [...new Set([
   'ships', 'community-ships',
   'arc-ships', 'arc-squadrons', 'arc-upgrades', 'arc-objectives',
   'legacy-ships', 'legacy-squadrons', 'legacy-upgrades',
-  'rules-reference', 'corellian-conflict-campaign', 'rebellion-in-the-rim-campaign',
+  'rules-reference', 'corellian-conflict-campaign', 'rebellion-in-the-rim-campaign', 'tournament-regulations',
 ])];
 
 function authorized(request: Request): boolean {
